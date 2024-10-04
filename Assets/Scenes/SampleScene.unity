@@ -229,6 +229,13 @@ MonoBehaviour:
   lowJumpMultiplier: 2
   gravityScale: 5
   extraJump: 1
+  coyoteTime: 0.3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundBoxOffset: -0.8
+  groundBox: {x: 1, y: 0.3}
+  groundCheckDistance: 0.5
 --- !u!114 &58228186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +371,7 @@ GameObject:
   - component: {fileID: 329208083}
   - component: {fileID: 329208082}
   - component: {fileID: 329208081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
