@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Vector2 moveDirection;
     private Rigidbody2D rb;
+    private Animator animator;
 
 
     [Header("이동")]
@@ -27,12 +28,11 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimeCounter;
 
     [Header("바닥체크")]
-    private bool isGrounded;
     [SerializeField] private LayerMask groundLayer; // 바닥 레이어
     [SerializeField] private float groundBoxOffset = 0f; // 바닥 판정 오프셋
     [SerializeField] private Vector2 groundBox = Vector2.zero; // 바닥 판정 박스
     [SerializeField] private float groundCheckDistance = 0.5f; // 바닥 판정 거리
-
+    private bool isGrounded;
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
     }
@@ -62,14 +63,34 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
+
+            if (moveDirection == Vector2.right)
+            {
+                transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+            }
+            else if (moveDirection == Vector2.left)
+            {
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            }
+            animator.SetBool("Move", true);
         }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
+
         if (isJumping && jumpTimeCounter > 0)
         {
-            /*float jumpForce = Mathf.Lerp(0, initialjumpForce, jumpTimeCounter);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpTimeCounter); */ // 2차 함수
+            float jumpForce = Mathf.Lerp(0, initialjumpForce, jumpTimeCounter);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpTimeCounter); 
+            if (rb.velocity.y < 3f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                isJumping = false;
+            } // 2차 함수
 
-            rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
-            jumpTimeCounter -= Time.deltaTime / maxJumpDuration; // 1차 함수
+            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1차 함수
+            jumpTimeCounter -= Time.deltaTime / maxJumpDuration;
         }
 
         if (rb.velocity.y < 0)
@@ -90,9 +111,12 @@ public class PlayerMovement : MonoBehaviour
         {
             isMove = true;
             moveDirection = new Vector2 (input.x, 0);
+
         }
         else
-            isMove = false;
+        {
+            
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -102,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpTimeCounter =1f;
             rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
+            coyoteTimeCurr = coyoteTime;
 
             if (!isGrounded)
                 extraJumpCurr++;
@@ -116,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
     private void GroundCheck()
     {
         Vector2 groundBoxCenter = transform.position;
-        groundBoxCenter.y = groundBoxOffset;
+        groundBoxCenter.y += groundBoxOffset;
 
         if (!Physics2D.BoxCast(groundBoxCenter, groundBox, 0f, Vector2.down, groundCheckDistance, groundLayer))
         {
@@ -132,6 +157,6 @@ public class PlayerMovement : MonoBehaviour
             extraJumpCurr = 0;
         }
 
-    }
+    } 
 
 }
