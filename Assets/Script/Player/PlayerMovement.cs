@@ -7,11 +7,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private Rigidbody2D rb;
     private Animator animator;
-
+    [HideInInspector] public event System.Action OnJumpInitiated;
 
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f;
-    private bool isMove;
+    [HideInInspector] public bool isMove;
+    private bool moveRight;
 
     [Header("점프")]
     private bool isJumping; // 점프 중인지 확인
@@ -64,19 +65,19 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
 
-            if (moveDirection == Vector2.right)
+            if (moveDirection == Vector2.right && moveRight)
             {
-                transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+                Flip();
             }
-            else if (moveDirection == Vector2.left)
+            else if (moveDirection == Vector2.left && !moveRight)
             {
-                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                Flip();
             }
-            animator.SetBool("Move", true);
+            
         }
         else
         {
-            animator.SetBool("Move", false);
+            isMove = false;
         }
 
         if (isJumping && jumpTimeCounter > 0)
@@ -103,6 +104,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Flip()
+    {
+        moveRight = !moveRight;
+        Vector2 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -111,11 +119,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isMove = true;
             moveDirection = new Vector2 (input.x, 0);
-
         }
         else
         {
-            
+
         }
     }
 
@@ -130,13 +137,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isGrounded)
                 extraJumpCurr++;
+
+            OnJumpInitiated?.Invoke();
         }
         else if (context.canceled)
         {
             isJumping = false;
         }
     }
-
 
     private void GroundCheck()
     {
