@@ -14,7 +14,7 @@ public class WeaponManager : ItemManager<Weapon, WeaponsArray>
     protected override void Awake()
     {
         base.Awake(); // 부모 클래스의 Awake 호출
-        LoadData("Weapons.json"); // 칩셋 데이터 로드
+        LoadData("Ver00/Dataset/Weapons.json"); // 칩셋 데이터 로드
         if( allItems.Count == 0)
         {
             Debug.Log("Fail to read JSON");

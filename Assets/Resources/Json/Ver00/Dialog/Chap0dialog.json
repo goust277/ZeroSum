@@ -1,7 +1,12 @@
 {
   "Secnes": [
     {
-      "SecneID": 0,
+      "eventConditions": {
+        "npc": 0, //말 걸어야할 엔피씨 아이디 
+        "needEventConditions": [ "dummyEvent0" ],
+        "currentSecneID": 0 //현재 씬 아이디 
+      },
+      "SecneID": 1,
       "Dialog": [
         {
           "name": "왼쪽 사람",
@@ -26,17 +31,26 @@
         {
           "name": "왼쪽 사람",
           "pos": 0,
-          "log": [ "왼쪽사람 대화 0000000000"]
+          "log": [ "왼쪽사람 대화 0000000000" ]
         },
         {
           "name": "오른쪽 사람",
           "pos": 1,
           "log": [ "마지막 말" ]
         }
-      ]
+      ],
+      "afterConditions": {
+        "changeEventConditions": [ "dummyEvent0" ],
+        "changeSecneID": 1
+      }
     },
     {
-      "SecneID": 1,
+      "eventConditions": {
+        "npc": 1,
+        "eventConditions": [ "dummyEvent0" ],
+        "currentSecneID": 1
+      },
+      "SecneID": 2,
       "Dialog": [
         {
           "name": "엔피씨 혹은 플레이어 이름",
@@ -58,7 +72,11 @@
           "pos": 1,
           "log": [ "@특수키(@, &, $)@로 감싸서", "다르게 출력 할수도" ]
         }
-      ]
+      ],
+      "afterConditions": {
+        "changeEventConditions": [ "dummyEvent2" ],
+        "changeSecneID": 2
+      }
     }
   ]
 }

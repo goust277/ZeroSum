@@ -15,7 +15,7 @@ public class ChipsetManager : ItemManager<Chipset, ChipsetsArray>
     protected override void Awake()
     {
         base.Awake(); // 부모 클래스의 Awake 호출
-        LoadData("ChipSets.json"); // 칩셋 데이터 로드
+        LoadData("Ver00/Dataset/ChipSets.json"); // 칩셋 데이터 로드
     }
 
     // JSON 데이터를 읽어서 모든 칩셋 리스트 갱신

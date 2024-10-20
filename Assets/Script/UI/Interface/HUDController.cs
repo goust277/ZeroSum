@@ -9,6 +9,8 @@ public class HUDController : MonoBehaviour
 {
     [SerializeField] GameObject SlotText;
 
+
+
     void Start()
     {
         SlotText.SetActive(false);

@@ -58,7 +58,8 @@ public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCo
     {
         //if (acquiredItemIds.Contains(slot))
         //{
-            return allItems[slot];
+        //      return acquiredItemIds[slot];
+        return allItems[slot];
         //}
         //return null;
     }
