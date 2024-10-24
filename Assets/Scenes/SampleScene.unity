@@ -496,6 +496,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fedc1e39-52f4-4694-8f0c-34e6cacf0ba0
     m_ActionName: PlayerMovement/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1854805368}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7cb24724-19f0-4f6d-a51d-b3d31c46f2b1
+    m_ActionName: PlayerMovement/New action[/Keyboard/k]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: PlayerMovement
@@ -522,6 +538,11 @@ MonoBehaviour:
   gravityScale: 10
   extraJump: 1
   coyoteTime: 0.3
+  dashPower: 10
+  dashDuration: 0.1
+  dashCoolTime: 1
+  dashcurrentCoolTime: 0
+  isDashing: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

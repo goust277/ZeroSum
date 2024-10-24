@@ -15,17 +15,18 @@ public class PlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
 
-        playerMovement.OnJumpInitiated += HandleJumpAnimation;
+        playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
+        playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
     }
 
     void Update()
     {
-        if (playerMovement.isMove)
+        if (playerMovement.isMove) // 움직임 애니메이션
             animator.SetBool("Move", true);
         else
             animator.SetBool("Move", false);
 
-        if (rb.velocity.y != 0)
+        if (rb.velocity.y != 0) // 떨어지는 모션 애니메이션
             animator.SetBool("Fall", true);
         else
             animator.SetBool("Fall", false);
@@ -34,17 +35,22 @@ public class PlayerAnimation : MonoBehaviour
 
     }
 
-    private void OnDisable()
+    private void OnDisable() // 이벤트 관리
     {
         if (playerMovement != null)
         {
-            playerMovement.OnJumpInitiated -= HandleJumpAnimation;
+            playerMovement.OnJumpInitiated -= JumpAnimation;
+            playerMovement.OnDashInitiated -= DashAnimation;
         }
     }
 
-    private void HandleJumpAnimation()
+    private void JumpAnimation() // 점프 애니메이션
     {
         animator.SetTrigger("Jump");
     }
 
+    private void DashAnimation() // 대쉬 애니메이션
+    {
+        animator.SetTrigger("Dash");
+    }
 }
