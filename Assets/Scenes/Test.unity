@@ -1671,6 +1671,7 @@ GameObject:
   - component: {fileID: 1203023242}
   - component: {fileID: 1203023244}
   - component: {fileID: 1203023243}
+  - component: {fileID: 1203023245}
   m_Layer: 5
   m_Name: InfoPanel
   m_TagString: Untagged
@@ -1737,6 +1738,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203023241}
   m_CullTransparentMesh: 1
+--- !u!114 &1203023245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203023241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d31326613a852469afe5800ed8efc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotText: {fileID: 1203023241}
 --- !u!1 &1228633307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,7 +2321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerConversation: {fileID: 1854805372}
-  interactPrompt: {fileID: 0}
+  interactPrompt: {fileID: 1228633307}
 --- !u!1 &1620721848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,7 +2578,6 @@ MonoBehaviour:
   conversationUI: {fileID: 631070743}
   interactPrompt: {fileID: 1228633307}
   isConversation: 0
-  currentEventID: 0
   portraits:
   - {fileID: 266642067}
   - {fileID: 397302918}
@@ -2577,10 +2590,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1703898386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d31326613a852469afe5800ed8efc8, type: 3}
+  m_Script: {fileID: 11500000, guid: d3259ae8b7327ae4a8413796319d3ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlotText: {fileID: 1203023241}
+  currentSceneID: 0
+  chapterNum: 0
 --- !u!1 &1723494190
 GameObject:
   m_ObjectHideFlags: 0

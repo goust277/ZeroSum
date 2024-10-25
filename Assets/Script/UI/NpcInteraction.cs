@@ -6,6 +6,7 @@ public class NpcInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerConversation playerConversation;
     [SerializeField] private GameObject interactPrompt; // 상호작용 키 표시 UI
+    [SerializeField] private int NPCID = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +15,7 @@ public class NpcInteraction : MonoBehaviour
         {
             interactPrompt.SetActive(true); // 상호작용 프롬프트 UI 활성화
             playerConversation.isInteracting = true;  // GameController에 상호작용 가능 신호를 보냄
+            playerConversation.CollisionNPC = NPCID;
         }
     }
 

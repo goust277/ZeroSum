@@ -1,14 +1,21 @@
 {
   "Npcs": [
     {
-        "id": 0,
-        "name": "왼쪽",
-        "portrait": "/Dummy/UI/Dialog_0"
+      "id": 0,
+      "name": "J",
+      "portrait": "/Dummy/UI/Dialog_0"
     },
     {
-        "id": 1,
-        "name": "오른쪽",
-        "portrait": "/Dummy/UI/Dialog_1"
+      "id": 1,
+      "name": "왼쪽",
+      "portrait": "/Dummy/UI/Dialog_0",
+      "defalutDialog" : "1번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말"
+    },
+    {
+      "id": 2,
+      "name": "오른쪽",
+      "portrait": "/Dummy/UI/Dialog_1",
+      "defalutDialog": "2번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말"
     }
   ]
 }

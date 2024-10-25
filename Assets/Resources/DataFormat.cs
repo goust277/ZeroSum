@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Diagnostics.Tracing;
 
 #region 칩셋 클래스
 [Serializable]
@@ -24,7 +25,7 @@ public class DialogData
     public List<string> log;
 }
 [Serializable]
-public class EventConditions
+public class Prerequisites
 {
     public int npc;
     public List<string> needEventConditions;
@@ -35,7 +36,7 @@ public class SecneData
 {
     public int SecneID;
     public List<DialogData> dialog;
-    public EventConditions eventConditions;
+    public Prerequisites prerequisites;
     public AfterConditions afterConditions;
 }
 [Serializable]
@@ -61,7 +62,7 @@ public class Effects
     public float attackSpeed;
     public float range;
     public int[] damage;
-    public string[] comboAni;
+    public int[] comboAni;
 }
 [Serializable]
 public class Weapon
@@ -74,7 +75,16 @@ public class Weapon
 #endregion
 
 #region 이벤트 상태
-
-
+[Serializable]
+public class Event
+{
+    public int chapterNum; // 챕터 번호
+    public Dictionary<string, bool> EventFlags; // 이벤트 조건
+}
+[Serializable]
+public class EventRoot
+{
+    public List<Event> Events; // 이벤트 리스트
+}
 #endregion
 

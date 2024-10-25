@@ -2,15 +2,16 @@
   "Events": [
     {
       "chapterNum": 0,
-      "EventConditions": {
-        "dummyEvent1": false,
-        "dummyEvent2": false,
-        "dummyEvent3": false
+      "EventFlags": {
+        "TalkNPCA": false,
+        "TalkNPCB": false,
+        "ReTalkNPCA": false,
+        "FinalTalkNPCB": false
       }
     },
     {
       "chapterNum": 1,
-      "EventConditions": {
+      "EventFlags": {
         "dummyEvent4": false,
         "dummyEvent5": false,
         "dummyEvent6": false

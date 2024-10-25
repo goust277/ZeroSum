@@ -27,7 +27,7 @@ public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCo
         }
     }
     //각각 필요한 파일 불러와서 모든 아이템에 저장해놓기
-    public void LoadData(string path)
+    protected void LoadData(string path)
     {
         string basePath = Application.dataPath + "/Resources/Json/";
         string fullPath = basePath + path;
@@ -47,9 +47,18 @@ public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCo
     // 아이템 교체 메소드
     public void SwitchActiveItem(int switchIdx, int id)
     {
+        //switchIdx = 활성화 무기슬롯, id = 바꿀 무기 아이디
         if (acquiredItemIds.Contains(id))
         {
             activeItems[switchIdx] = id;
+        }
+    }
+
+    //받은 아이템 추가
+    public void AddAcquiredItemIds(int AddItemid)
+    {
+        if (!acquiredItemIds.Contains(AddItemid)) {
+            acquiredItemIds.Add(AddItemid);
         }
     }
 
