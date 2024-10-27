@@ -11,7 +11,7 @@ public class PlayerConversation : MonoBehaviour
     {
         if (dialogueManager == null)
         {
-            Debug.LogError("DialogueManager is not assigned in PlayerConversation!");
+            Debug.LogError("PlayerConversation >> DialogueManager is not assigned");
         }
     }
 

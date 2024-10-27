@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
 using System;
+using System.Reflection;
+using Unity.VisualScripting;
 
 
 public class DialogueManager : MonoBehaviour
@@ -20,13 +22,31 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI nameTXT; //prtivate
     [SerializeField] protected TextMeshProUGUI desTXT; //prtivate
     [SerializeField] private GameObject conversationUI; // 대화표시 UI
-    [SerializeField] private GameObject interactPrompt; // 상호작용 키 표시 UI
     #endregion
 
     public bool isConversation = false; // 대화창이 지금 떠있는지 여부 
 
     public List<Image> portraits; //대화창에 띄울 초상화
+    private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
+    private NPCInfo ColNPC;
 
+
+    private void Awake()
+    {
+        LoadNPCs();
+    }
+
+    private void LoadNPCs()
+    {
+        string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/NPC.json";
+        string jsonData = File.ReadAllText(Path);
+
+        NPCData npcData = JsonConvert.DeserializeObject<NPCData>(jsonData);
+        foreach (var npc in npcData.NPCs) //엔피씨의 id로 바로 내용 접근 가능하게 설정
+        {
+            npcDictionary[npc.id] = npc;
+        }
+    }
 
     void Start()
     {
@@ -34,11 +54,9 @@ public class DialogueManager : MonoBehaviour
 
         // SecneID 값이 n(=0) 인 Dialog만 가져오기
 
-        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
+        //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
         conversationUI.SetActive(false);
-        interactPrompt.SetActive(false);
     }
-
 
     #region 제이슨 파싱
     // JSON 파일을 불러와 파싱
@@ -60,6 +78,21 @@ public class DialogueManager : MonoBehaviour
 
         GameStateManager.Instance.currentEventFlags = events?.EventFlags;
     }
+    #endregion
+
+    #region 대화 전처리
+    public NPCInfo GetNPC(int id)
+    {
+        if (npcDictionary.TryGetValue(id, out NPCInfo npc))
+        {
+            return npc;
+        }
+        else
+        {
+            Debug.LogWarning($"NPC with ID {id} not found in cache.");
+            return null;
+        }
+    }
 
     // 조건을 모두 만족하는지 확인하는 함수
     private bool CheckEventConditions(Prerequisites prerequisites, int CollisionNPC)
@@ -78,10 +111,9 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-        if(prerequisites.currentSecneID != GameStateManager.Instance.currentSceneID) return false; 
 
         // 모든 조건이 만족되면 true 반환
-        return true;
+        return prerequisites.currentSecneID == GameStateManager.Instance.currentSceneID;
     }
 
     // 특정 SecneID의 Dialog 반환
@@ -92,7 +124,88 @@ public class DialogueManager : MonoBehaviour
         //secne이 널이아니면 다이어로그 반환 널이면 널 반환
         return secne;
     }
+    private void PortraitArrangement()
+    {
+        HashSet<int> uniqueNpcIds = new HashSet<int>();
+        string[] portraitPaths = new string[4];
 
+        //대화에 필요한 엔피씨들 확인하고 초상화 불러오기
+        foreach (var entry in requiredSecneData.dialog)
+        {
+            if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
+            {
+                portraitPaths[entry.pos] = npc.portrait;
+                Debug.Log($"portraitPaths[{entry.pos}] = {npc.portrait};");
+            }
+            else if (!npcDictionary.ContainsKey(entry.id))
+            {
+                Debug.LogWarning($"NPC with ID {entry.id} not found in cache.");
+            }
+        }
+
+        //불러온 초상화 pos에 맞게 오브젝트에 배치하기
+        for (int i = 0; i < portraits.Count; i++)
+        {
+            if (!string.IsNullOrEmpty(portraitPaths[i]))
+            {
+                Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[i]);
+                if (portraitSprite != null)
+                {
+                    portraits[i].sprite = portraitSprite;
+                }
+                else
+                {
+                    Debug.LogWarning($"Sprite not found at path: {portraitPaths[i]}");
+                }
+            }
+            else
+            {
+                Color color = portraits[i].color;
+                color.a = .0f;
+            }
+        }
+    }
+    #endregion
+
+    #region 대사 출력 및 UI 업데이트
+    private void NormalCommunication()
+    {
+        if (requiredSecneData == null) return; // null 확인
+
+        requiredScenes = requiredSecneData.dialog;
+        //초상화배치
+        PortraitArrangement();
+        isConversation = true;
+        conversationUI.SetActive(true);
+        StartCoroutine(TypeWriter());
+    }
+    private void DefaultSpeech()
+    {
+        isConversation = true;
+
+        if (ColNPC == null)
+        {
+            Debug.LogError("ColNPC is null!");
+            return; // ColNPC가 null일 경우 처리
+        }
+
+        Sprite portraitSprite = Resources.Load<Sprite>(ColNPC.portrait);
+        if (portraitSprite != null)
+        {
+            portraits[1].sprite = portraitSprite;
+        }
+
+        conversationUI.SetActive(true);
+
+        Color color = portraits[0].color;
+        color.a = .0f;
+        color = portraits[3].color;
+        color.a = .0f;
+        color = portraits[2].color;
+        color.a = .0f;
+
+        StartCoroutine(DefaultTypeWriter());
+    }
     private void AfterConversationProcess(AfterConditions after)
     {
         foreach (string condition in after.changeEventConditions)
@@ -105,13 +218,29 @@ public class DialogueManager : MonoBehaviour
 
     #endregion
 
+    #region 대화 타이핑 코루틴
+    //말하는 사람 바뀌면 초상화 색깔바꿔줘야함
+    private void UpdatePortraits(int speakingPortraits)
+    {
+        for (int i = 0; i < portraits.Count; i++)
+        {
+            if (portraits[i].gameObject.activeSelf) // 게임 오브젝트가 활성화된 경우에만 처리
+            {
+                //pos값 보고 순서대로 왼쪽부터 0~n임. 
+                // 해당위치의 캐릭터가 말하고 있으면 원래 값(1,1,1,1)출력하고 아니면 어둡게 처리함
+                portraits[i].color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
+            }
 
-    #region 대사 출력 및 UI 업데이트
+        }
+    }
+
     IEnumerator TypeWriter()
     {
+        if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null 체크
+
         foreach (var dialog in requiredScenes)
         {
-            nameTXT.text = dialog.name;
+            nameTXT.text = GetNPC(dialog.id)?.name;
             UpdatePortraits(dialog.pos);
 
             //대사 타이핑 애니
@@ -127,49 +256,68 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+        AfterConversationProcess(requiredSecneData.afterConditions);
         EndConversation();
     }
 
-    //말하는 사람 바뀌면 초상화 색깔바꿔줘야함
-    private void UpdatePortraits(int speakingPortraits)
+    IEnumerator DefaultTypeWriter()
     {
-        for (int i = 0; i < portraits.Count; i++)
+        nameTXT.text = ColNPC.name;
+        UpdatePortraits(1);
+        //대사 타이핑 애니
+
+        desTXT.text = "";
+        for (int index = 0; index < ColNPC.defalutDialog.Length; index++)
         {
-            //pos값 보고 순서대로 왼쪽부터 0~n임. 
-            // 해당위치의 캐릭터가 말하고 있으면 원래 값(1,1,1,1)출력하고 아니면 어둡게 처리함
-            portraits[i].color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
+            desTXT.text += ColNPC.defalutDialog[index].ToString();
+            yield return new WaitForSeconds(0.05f); //타이핑 속도 = 1자당 0.05초
         }
+        yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
+        EndConversation();
     }
 
+    #endregion
+
+    #region 대화 앞뒤 호출용 public func
     // 대화 시작
     public void StartConversation(int CollisionNPC)
     {
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
+        ColNPC = GetNPC(CollisionNPC);
 
         if (requiredSecneData == null)
         {
-            Debug.LogError($"No dialog found for Scene ID: {GameStateManager.Instance.currentSceneID}");
+            DefaultSpeech();
+            Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.currentSceneID}");
             return; // 대화 데이터가 없으면 메서드를 종료
         }
+        
 
-        if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC))
+        if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //대화가능 상태에서 대화를 하면
         {
-            requiredScenes = requiredSecneData?.dialog;
-            isConversation = true;
-            conversationUI.SetActive(true);
-            StartCoroutine(TypeWriter());
+            NormalCommunication();
         }
-        Debug.Log("StartConversation의 마지막 줄" + CollisionNPC + "와 대화");
+        else
+        {
+            DefaultSpeech();
+        }
     }
 
     // 대화 종료
     private void EndConversation()
     {
-        AfterConversationProcess(requiredSecneData.afterConditions);
         conversationUI.SetActive(false);
-        requiredScenes.Clear();
-        portraits.Clear();
         isConversation = false;
+        if (requiredSecneData == null)
+        {
+            Debug.LogError("requiredSecneData is null");
+            return; // null일 경우 처리
+        }
+
+        if (requiredScenes != null)
+        {
+            requiredScenes.Clear();
+        }
     }
     #endregion
 }

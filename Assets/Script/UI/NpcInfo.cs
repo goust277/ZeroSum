@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcInteraction : MonoBehaviour
+public class NpcInfo : MonoBehaviour
 {
     [SerializeField] private PlayerConversation playerConversation;
     [SerializeField] private GameObject interactPrompt; // 상호작용 키 표시 UI
     [SerializeField] private int NPCID = 1;
+
+    private void Start()
+    {
+        interactPrompt.SetActive(false);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

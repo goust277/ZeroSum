@@ -20,7 +20,7 @@ public class Chipset
 [Serializable]
 public class DialogData
 {
-    public string name;
+    public int id;
     public int pos;
     public List<string> log;
 }
@@ -52,6 +52,22 @@ public class AfterConditions
 }
 #endregion
 
+#region 엔피씨 정보
+[Serializable]
+public class NPCInfo
+{
+    public int id;
+    public string name;
+    public string portrait;
+    public string defalutDialog;
+}
+[Serializable]
+public class NPCData
+{
+    public List<NPCInfo> NPCs;
+}
+#endregion
+
 
 #region 무기 클래스
 /*Weapon 클래스(무기)*/
@@ -70,6 +86,7 @@ public class Weapon
     public int id;
     public string name;
     public string des;
+    public string icons;
     public Effects effects;
 }
 #endregion
