@@ -330,7 +330,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.21, y: 0.49}
+    oldSize: {x: 0.23, y: 0.5}
     newSize: {x: 0.23, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -428,7 +428,9 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 3
   attackCooldown: 3
-  isAttack: 0
+  dashRange: 5
+  canAttack: 1
+  touchPlayer: 0
 --- !u!50 &449761728
 Rigidbody2D:
   serializedVersion: 4

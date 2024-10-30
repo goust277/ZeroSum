@@ -13,15 +13,22 @@ public class M_Attack : BaseState
 
     public override void Enter()
     {
+        Debug.Log("공격 상태");
         m.anim.SetTrigger("isAttack");
     }
 
     public override void Execute()
     {
-
+        if(m.anim.GetCurrentAnimatorStateInfo(0).IsName("Melee_Attack") 
+            && m.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+        {
+            stateMachine.ChangeState(new M_Chase(stateMachine, m));
+            return;
+        }
     }
     public override void Exit()
     {
-        m.isAttack = true;
+        m.canAttack = true;
+        m.attackCooldown = 3f;
     }
 }

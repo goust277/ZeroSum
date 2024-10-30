@@ -25,7 +25,10 @@ public class Melee : MonoBehaviour
     public float attackDamage = 10f;
     public float attackRange = 1.5f;
     public float attackCooldown = 3f;
-    public bool isAttack;
+    public float dashRange = 3f;
+    public bool isDashing;
+    public bool canAttack = true;
+    public bool touchPlayer;
     private bool isCooldownComplete;
 
     private StateMachine stateMachine;
@@ -50,13 +53,13 @@ public class Melee : MonoBehaviour
     {
         stateMachine.currentState.Execute();
 
-        if(!isCooldownComplete && isAttack)
+        if(!isCooldownComplete && canAttack)
         {
             attackCooldown -= Time.deltaTime;
             if(attackCooldown <= 0)
             {
                 isCooldownComplete = true;
-                isAttack = false;
+                canAttack = false;
             }
         }
     }
@@ -79,5 +82,13 @@ public class Melee : MonoBehaviour
     public void SetPlayerInRange(bool inRange)
     {
         isPlayerInRange = inRange;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && isDashing)
+        {
+            touchPlayer = true;
+        }
     }
 }
