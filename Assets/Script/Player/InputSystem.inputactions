@@ -24,9 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+<<<<<<< Updated upstream
                     "name": "Dash",
                     "type": "Button",
                     "id": "7cb24724-19f0-4f6d-a51d-b3d31c46f2b1",
+=======
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "0b0a7d38-32fb-4e95-9122-e4ad9b5a6d09",
+>>>>>>> Stashed changes
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -102,12 +108,21 @@
                 },
                 {
                     "name": "",
+<<<<<<< Updated upstream
                     "id": "4ac38983-bb62-40fb-a0eb-ffb12e3b1f4c",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
+=======
+                    "id": "21858b13-50e8-4480-b7de-a120012fe31f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+>>>>>>> Stashed changes
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -13,8 +13,13 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
 
     [Header("이동")]
+<<<<<<< Updated upstream
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
+=======
+    [SerializeField] private float moveSpeed = 5f; // 이동 속도
+    [HideInInspector] public bool isMove;
+>>>>>>> Stashed changes
     private bool moveRight;
 
     [Header("점프")]
@@ -88,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 Flip();
             }
-            
         }
         else
         {
@@ -242,5 +246,9 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimeCurr = 0f;
             extraJumpCurr = 0;
         }
+<<<<<<< Updated upstream
     } 
+=======
+    }
+>>>>>>> Stashed changes
 }
