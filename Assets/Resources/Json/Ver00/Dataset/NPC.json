@@ -1,22 +1,25 @@
 {
   "NPCs": [
     {
-      "id": 0,
-      "name": "J",
-      "portrait": "/Dummy/UI/Dialog_0",
-      "defalutDialog": ""
+      "NPCid": 0,
+      "NPCname": "J",
+      "NPCportrait": "/Dummy/UI/Dialog_0",
+      "defalutDialog": "",
+      "shop": null
     },
     {
-      "id": 1,
-      "name": "왼쪽(엔피씨아이디 : 1)",
-      "portrait": "/Dummy/UI/Dialog_0",
-      "defalutDialog" : "1번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말"
+      "NPCid": 1,
+      "NPCname": "왼쪽(엔피씨아이디 : 1)",
+      "NPCportrait": "/Dummy/UI/Dialog_0",
+      "defalutDialog": "1번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말",
+      "itemsForSale": [ 101, 102, 103, 104, 105 ]
     },
     {
-      "id": 2,
-      "name": "오른쪽(엔피씨아이디 : 2)",
-      "portrait": "/Dummy/UI/Dialog_1",
-      "defalutDialog": "2번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말"
+      "NPCid": 2,
+      "NPCname": "오른쪽(엔피씨아이디 : 2)",
+      "NPCportrait": "/Dummy/UI/Dialog_1",
+      "defalutDialog": "2번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말",
+      "shop": null
     }
   ]
 }

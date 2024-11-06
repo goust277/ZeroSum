@@ -56,10 +56,11 @@ public class AfterConditions
 [Serializable]
 public class NPCInfo
 {
-    public int id;
-    public string name;
-    public string portrait;
+    public int NPCid;
+    public string NPCname;
+    public string NPCportrait;
     public string defalutDialog;
+    public List<int> itemsForSale;
 }
 [Serializable]
 public class NPCData
@@ -83,10 +84,10 @@ public class Effects
 [Serializable]
 public class Weapon
 {
-    public int id;
-    public string name;
-    public string des;
-    public string icons;
+    public int weaponId;
+    public string weaponName;
+    public string weaponDes;
+    public string weaponIcons;
     public Effects effects;
 }
 #endregion
@@ -105,3 +106,17 @@ public class EventRoot
 }
 #endregion
 
+#region æ∆¿Ã≈€
+public class ItemForSale
+{
+    public int itemId;
+    public string itemName;
+    public string icons;
+    public string des;
+    public int price;
+}
+public class ItemRoot
+{
+    public List<ItemForSale> Items;
+}
+#endregion

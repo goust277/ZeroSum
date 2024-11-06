@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using System;
 
 public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCollection<T>
 {
     // 싱글톤 인스턴스
     public static ItemManager<T, A> Instance { get; private set; }
 
-    protected List<T> allItems = new List<T>(); // 모든 아이템 리스트
-    public List<int> acquiredItemIds = new List<int>(); // 플레이어가 얻은 아이템 리스트
+    protected List<T> allItems = new(); // 모든 아이템 리스트
+    public List<int> acquiredItemIds = new(); // 플레이어가 얻은 아이템 리스트
     public int[] activeItems = new int[2]; // 현재 적용중인 아이템 ID 배열
-
 
     protected virtual void Awake()
     {
-        // 싱글톤 인스턴스 설정
         if (Instance == null)
         {
             Instance = this;
@@ -63,13 +62,6 @@ public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCo
         }
     }
 
-    public void SwapWeapon()
-    {
-        (activeItems[1], activeItems[0]) = (activeItems[0], activeItems[1]);
-
-    }
-
-
     //현재 허드에 담고있는 아이템들 내용 출력을 위해 값들 가져옴
     public T GetActiveItem(int slot)
     {
@@ -80,4 +72,5 @@ public class ItemManager<T, A> : MonoBehaviour where T : class where A : IItemCo
         //}
         //return null;
     }
+
 }

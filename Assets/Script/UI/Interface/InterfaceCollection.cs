@@ -24,13 +24,3 @@ public class ChipsetsArray : IItemCollection<Chipset>
     public IEnumerable<Chipset> Items => ChipSets;
 }
 #endregion
-
-
-#region 유저 스탯관련 인터페이스
-public interface IHealth
-{
-    float MaxHP { get; set; }
-    float CurrentHP { get; set; }
-    void GetDamage(int damage, Vector2 attackerPosition);
-}
-#endregion

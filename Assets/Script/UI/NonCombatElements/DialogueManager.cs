@@ -42,15 +42,15 @@ public class DialogueManager : MonoBehaviour
         string jsonData = File.ReadAllText(Path);
 
         NPCData npcData = JsonConvert.DeserializeObject<NPCData>(jsonData);
-        foreach (var npc in npcData.NPCs) //엔피씨의 id로 바로 내용 접근 가능하게 설정
+        foreach (NPCInfo npc in npcData.NPCs) //엔피씨의 id로 바로 내용 접근 가능하게 설정
         {
-            npcDictionary[npc.id] = npc;
+            npcDictionary[npc.NPCid] = npc;
         }
     }
 
     void Start()
     {
-        LoadChapterData(GameStateManager.Instance.chapterNum);
+        LoadChapterData(GameStateManager.Instance.GetChapterNum());
 
         // SecneID 값이 n(=0) 인 Dialog만 가져오기
 
@@ -67,16 +67,6 @@ public class DialogueManager : MonoBehaviour
         string Path = Application.dataPath + "/Resources/Json/Ver00/Dialog/" + fName;
         string jsonData = File.ReadAllText(Path);
         ChapterRoot = JsonConvert.DeserializeObject<DialogueRoot>(jsonData);
-
-
-        //챕터 이벤트 플래그 파일
-        Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";
-        jsonData = File.ReadAllText(Path);
-
-        EventRoot currentEventFlags = JsonConvert.DeserializeObject<EventRoot>(jsonData);
-        Event events = currentEventFlags.Events.Find(e => e.chapterNum == chapterNum);
-
-        GameStateManager.Instance.currentEventFlags = events?.EventFlags;
     }
     #endregion
 
@@ -94,7 +84,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // 조건을 모두 만족하는지 확인하는 함수
+    // 조건을 모두 만족하는지 확인하는 함수* 스토리 진행이 가능한가?
     private bool CheckEventConditions(Prerequisites prerequisites, int CollisionNPC)
     {
         if(prerequisites.npc != CollisionNPC) return false;
@@ -111,19 +101,19 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-
         // 모든 조건이 만족되면 true 반환
-        return prerequisites.currentSecneID == GameStateManager.Instance.currentSceneID;
+        return prerequisites.currentSecneID == GameStateManager.Instance.GetCurrentSceneID();
     }
 
     // 특정 SecneID의 Dialog 반환
     private SecneData GetDialogBySecneID(int secneID)
     {
         //dialogueRoot의 Secnes에서 SecneID가 파라미터 secneID인 것을 찾아서 scene 를 저장..
-        SecneData secne = ChapterRoot.Secnes.Find(scene => scene.SecneID == secneID);
         //secne이 널이아니면 다이어로그 반환 널이면 널 반환
-        return secne;
+        return ChapterRoot.Secnes.Find(scene => scene.SecneID == secneID);
     }
+
+    //초상화 배치
     private void PortraitArrangement()
     {
         HashSet<int> uniqueNpcIds = new HashSet<int>();
@@ -134,8 +124,8 @@ public class DialogueManager : MonoBehaviour
         {
             if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
             {
-                portraitPaths[entry.pos] = npc.portrait;
-                Debug.Log($"portraitPaths[{entry.pos}] = {npc.portrait};");
+                portraitPaths[entry.pos] = npc.NPCportrait;
+                Debug.Log($"portraitPaths[{entry.pos}] = {npc.NPCportrait};");
             }
             else if (!npcDictionary.ContainsKey(entry.id))
             {
@@ -160,15 +150,14 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                Color color = portraits[i].color;
-                color.a = .0f;
+                portraits[i].gameObject.SetActive(false);
             }
         }
     }
     #endregion
 
     #region 대사 출력 및 UI 업데이트
-    private void NormalCommunication()
+    private void NormalCommunication() //스토리 진행가능한 대화일 경우
     {
         if (requiredSecneData == null) return; // null 확인
 
@@ -179,41 +168,54 @@ public class DialogueManager : MonoBehaviour
         conversationUI.SetActive(true);
         StartCoroutine(TypeWriter());
     }
-    private void DefaultSpeech()
+    private void DefaultSpeech() //스토리 대화가 아닌 일반대화
     {
         isConversation = true;
 
-        if (ColNPC == null)
+        if (ColNPC == null) //예외처리
         {
-            Debug.LogError("ColNPC is null!");
+            Debug.LogError("ColNPC is null");
             return; // ColNPC가 null일 경우 처리
         }
 
-        Sprite portraitSprite = Resources.Load<Sprite>(ColNPC.portrait);
+        DefaultPortraitArrangement();
+
+        UpdatePortraits(1);
+        if (ColNPC.itemsForSale != null) //엔피씨가 상점역할도 할 경우
+        {
+            Debug.Log(ColNPC.NPCname + "엔피씨는 상점 엔피씨입니다.");
+        }
+        else
+        {
+            StartCoroutine(DefaultTypeWriter());
+        }
+    }
+
+    private void DefaultPortraitArrangement() //일반 대화의 초상화 배열
+    {
+        Sprite portraitSprite = Resources.Load<Sprite>(ColNPC.NPCportrait);
         if (portraitSprite != null)
         {
             portraits[1].sprite = portraitSprite;
         }
 
         conversationUI.SetActive(true);
-
-        Color color = portraits[0].color;
-        color.a = .0f;
-        color = portraits[3].color;
-        color.a = .0f;
-        color = portraits[2].color;
-        color.a = .0f;
-
-        StartCoroutine(DefaultTypeWriter());
+        portraits[0].gameObject.SetActive(false);
+        portraits[2].gameObject.SetActive(false);
+        portraits[3].gameObject.SetActive(false);
     }
+
     private void AfterConversationProcess(AfterConditions after)
     {
+        if (after == null) {
+            return;
+        }
         foreach (string condition in after.changeEventConditions)
         {
             //이벤트 후 플래그 true 설정
             GameStateManager.Instance.currentEventFlags[condition] = true;
         }
-        GameStateManager.Instance.currentSceneID = after.changeSecneID;
+        GameStateManager.Instance.SetCurrenSceneID(after.changeSecneID);
     }
 
     #endregion
@@ -240,7 +242,7 @@ public class DialogueManager : MonoBehaviour
 
         foreach (var dialog in requiredScenes)
         {
-            nameTXT.text = GetNPC(dialog.id)?.name;
+            nameTXT.text = GetNPC(dialog.id)?.NPCname;
             UpdatePortraits(dialog.pos);
 
             //대사 타이핑 애니
@@ -252,7 +254,7 @@ public class DialogueManager : MonoBehaviour
                     desTXT.text += line[index].ToString();
                     yield return new WaitForSeconds(0.05f); //타이핑 속도 = 1자당 0.05초
                 }
-                yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
+                yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
             }
         }
 
@@ -262,8 +264,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator DefaultTypeWriter()
     {
-        nameTXT.text = ColNPC.name;
-        UpdatePortraits(1);
+        nameTXT.text = ColNPC.NPCname;
         //대사 타이핑 애니
 
         desTXT.text = "";
@@ -272,7 +273,7 @@ public class DialogueManager : MonoBehaviour
             desTXT.text += ColNPC.defalutDialog[index].ToString();
             yield return new WaitForSeconds(0.05f); //타이핑 속도 = 1자당 0.05초
         }
-        yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
+        yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
         EndConversation();
     }
 
@@ -282,13 +283,13 @@ public class DialogueManager : MonoBehaviour
     // 대화 시작
     public void StartConversation(int CollisionNPC)
     {
-        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
+        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         ColNPC = GetNPC(CollisionNPC);
 
         if (requiredSecneData == null)
         {
             DefaultSpeech();
-            Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.currentSceneID}");
+            Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
             return; // 대화 데이터가 없으면 메서드를 종료
         }
         
@@ -306,6 +307,11 @@ public class DialogueManager : MonoBehaviour
     // 대화 종료
     private void EndConversation()
     {
+        portraits[0].gameObject.SetActive(true);
+        portraits[1].gameObject.SetActive(true);
+        portraits[2].gameObject.SetActive(true);
+        portraits[3].gameObject.SetActive(true);
+
         conversationUI.SetActive(false);
         isConversation = false;
         if (requiredSecneData == null)

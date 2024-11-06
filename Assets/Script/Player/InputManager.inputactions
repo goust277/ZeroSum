@@ -34,7 +34,16 @@
                 {
                     "name": "Interaction",
                     "type": "Button",
-                    "id": "16c1953f-5a55-41ce-9cc5-4a708053f9e4",
+                    "id": "82423941-bd9d-4a5b-a21a-13486ad23a10",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon",
+                    "type": "Button",
+                    "id": "b81b68ed-6aef-41c4-ad5f-5b5f7d47b915",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -125,8 +134,13 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Dash",
-                    "id": "787d5395-ec11-4be8-bf80-6925a35a7152",
-                    "path": "<Keyboard>/e",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06424076-0394-4c9d-a8a3-7dbe6f578442",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -142,6 +156,23 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Attack",
+                    "id": "db0f592d-58e1-4547-bd31-805abf802c2c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2f72c8f-2cbb-4836-b8b3-d674eb0a86ac",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

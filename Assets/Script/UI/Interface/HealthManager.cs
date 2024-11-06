@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthManager : MonoBehaviour, IHealth
+public class HealthManager : MonoBehaviour
 {
     public static HealthManager Instance { get; private set; }
 
     public float MaxHP { get; set; }
     public float CurrentHP { get; set; }
-
+  
     private void Awake()
     {
         if (Instance == null)

@@ -1,10 +1,10 @@
 {
   "Weapons": [
     {
-      "id": 0,
-      "name": "무기 이름 0",
-      "des": "무기 이름 0번의 아이템 설명",
-      "icons": "/Dummy/UI/Weapon/권총1.png", //아이템 그림 경로
+      "weaponId": 0,
+      "weaponName": "무기 이름 0",
+      "weaponDes": "무기 이름 0번의 아이템 설명",
+      "weaponIcons": "/Dummy/UI/Weapon/권총1.png", //아이템 그림 경로
       "Effects": {
         "type": "무기종류(총칼활 등)",
         "attackSpeed": 1.2,
@@ -14,13 +14,12 @@
       }
     },
     {
-      "id": 1,
-      "name": "무기 이름 1",
-      "des": "무기 이름 1번의 아이템 설명 12345678912345678",
-      "icons": "/Dummy/UI/Weapon/리볼버.png", //아이템 그림 경로
+      "weaponId": 1,
+      "weaponName": "무기 이름 1",
+      "weaponDes": "무기 이름 1번의 아이템 설명 12345678912345678",
+      "weaponIcons": "/Dummy/UI/Weapon/리볼버.png", //아이템 그림 경로
       "Effects": {
         //1차적으로 게임화면에 보이는거 먼저 읽고나서 선택하면 나머지 읽는 식으로 하려고 중첩으로 한번더 감쌋는데
-        //무기를 전투하면서 와다다 바꾸거나 빨리빨리 보여줘야하는 경우는 그냥 꺼내는게 나을듯
         "type": "무기종류(총칼활 등)",
         "attackSpeed": 2.0,
         "range": 4.0,
@@ -29,10 +28,10 @@
       }
     },
     {
-      "id": 2,
-      "name": "무기 이름 2",
-      "des": "무기 이름 2번의 아이템 설명 12345678912345678",
-      "icons": "/Dummy/UI/Weapon/무기.png", //아이템 그림 경로
+      "weaponId": 2,
+      "weaponName": "무기 이름 2",
+      "weaponDes": "무기 이름 2번의 아이템 설명 12345678912345678",
+      "weaponIcons": "/Dummy/UI/Weapon/무기.png", //아이템 그림 경로
       "Effects": {
         "type": "무기종류(총칼활 등)",
         "attackSpeed": 0.8,

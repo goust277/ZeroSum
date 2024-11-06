@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerConversation : MonoBehaviour
 {
-    [SerializeField] private DialogueManager dialogueManager; // DialogueManager 참조
+    private DialogueManager dialogueManager; // DialogueManager 참조
 
     public bool isInteracting = false;
     [HideInInspector] public int CollisionNPC = 0;
@@ -11,7 +11,7 @@ public class PlayerConversation : MonoBehaviour
     {
         if (dialogueManager == null)
         {
-            Debug.LogError("PlayerConversation >> DialogueManager is not assigned");
+            dialogueManager = FindObjectOfType<DialogueManager>() as DialogueManager;
         }
     }
 
@@ -21,6 +21,11 @@ public class PlayerConversation : MonoBehaviour
         {
             dialogueManager.StartConversation(CollisionNPC);
         }
+    }
+
+    public void OnChangeWeapon(InputAction.CallbackContext context)
+    {
+        WeaponManager.Instance.SwapWeapon();
     }
 
 }
