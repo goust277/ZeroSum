@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private bool isPortalReady = false;
     private Vector2 moveDirection;
     private Rigidbody2D rb;
     private Animator animator;
@@ -13,13 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
 
     [Header("이동")]
-<<<<<<< Updated upstream
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
-=======
-    [SerializeField] private float moveSpeed = 5f; // 이동 속도
-    [HideInInspector] public bool isMove;
->>>>>>> Stashed changes
     private bool moveRight;
 
     [Header("점프")]
@@ -42,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashPower = 3f; // 대쉬 순간 힘
     [SerializeField] private float dashDuration = 0.3f; // 대쉬 지속시간
     [SerializeField] private float dashCoolTime = 1f; // 대쉬 쿨타임
+    private bool isDashReady;
 
     [SerializeField] private float dashcurrentCoolTime; //현재 대쉬 쿨타임
     private float dashTime; // 대쉬하고 있는 시간
@@ -77,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+
     }
     private void FixedUpdate()
     {
@@ -128,22 +126,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Dash()// 대쉬
-    {
-        if (isDashing) 
-        {
-            Dashing();
-        }
-        if (!canDash)
-        {
-            dashcurrentCoolTime += Time.deltaTime;
 
-            if (dashcurrentCoolTime >= dashCoolTime)
-            {
-                canDash = true;
-            }
-        }
-    }
 
     private void Flip() // 플레이어 좌우 회전
     {
@@ -189,10 +172,27 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context) // 플레이어 대쉬
     {
-        if (context.started && canDash)
+        if (context.started && canDash && isDashReady)
         {
             StartDash();
             OnDashInitiated?.Invoke();
+        }
+    }
+
+    private void Dash()// 대쉬
+    {
+        if (isDashing)
+        {
+            Dashing();
+        }
+        if (!canDash)
+        {
+            dashcurrentCoolTime += Time.deltaTime;
+
+            if (dashcurrentCoolTime >= dashCoolTime)
+            {
+                canDash = true;
+            }
         }
     }
 
@@ -218,7 +218,6 @@ public class PlayerMovement : MonoBehaviour
         {
             EndDash();
         }
-
     }
 
     private void EndDash() // 대쉬 끝
@@ -226,6 +225,11 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         rb.velocity = new Vector2(0, 0);
         rb.gravityScale = gravityScale;
+
+        if (!isGrounded)
+        {
+            isDashReady = false;
+        }
     }
 
     private void GroundCheck()
@@ -245,10 +249,22 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
             coyoteTimeCurr = 0f;
             extraJumpCurr = 0;
+
+            if (!isDashReady)
+                isDashReady = true;
         }
-<<<<<<< Updated upstream
-    } 
-=======
     }
->>>>>>> Stashed changes
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.name == "Portal")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                collision.GetComponent<Portal>().OnPortal();
+                Debug.Log("E");
+            }
+                
+        }
+    }
 }

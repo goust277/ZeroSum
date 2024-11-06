@@ -1,14 +1,14 @@
 {
-    "name": "InputSystem",
+    "name": "InputManager",
     "maps": [
         {
             "name": "PlayerMovement",
-            "id": "d87479d0-e836-4035-89e1-2d5366cb7416",
+            "id": "ff53f43c-08c1-421d-a2ec-ef0d2efc5491",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "7b0e603b-c6bd-4244-8f54-52903e991ba9",
+                    "id": "946e68d4-0f1a-4324-82c1-64c4f1e30560",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,22 +17,16 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "fedc1e39-52f4-4694-8f0c-34e6cacf0ba0",
+                    "id": "fcff9bcd-516c-4bce-aaed-8a9024ee626c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-<<<<<<< Updated upstream
                     "name": "Dash",
                     "type": "Button",
-                    "id": "7cb24724-19f0-4f6d-a51d-b3d31c46f2b1",
-=======
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "0b0a7d38-32fb-4e95-9122-e4ad9b5a6d09",
->>>>>>> Stashed changes
+                    "id": "08949c1b-6176-4567-bb59-7837bce367dc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -42,7 +36,7 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "0b26c8b0-33e7-4083-918a-62e26a325092",
+                    "id": "dc8b411e-011d-4320-ae74-e7529f0d4971",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -53,7 +47,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "ef3c57c8-dcf6-497e-9206-dd95d14b3de9",
+                    "id": "2e88b197-6c01-4254-945a-496b6630f924",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -64,7 +58,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "227df1b2-2aec-4517-8c0d-c32ce9b22a2b",
+                    "id": "d3ef7a5f-863e-411f-9e99-00887879ded1",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -75,7 +69,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "1158d619-27af-4a0c-8029-c2d65a69337b",
+                    "id": "1948aae4-ead2-403a-91d6-91254a87ce26",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -86,7 +80,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "fd4701be-2305-4a77-88db-621bd8cb5905",
+                    "id": "1fb3d39c-ea23-403f-ab79-dcb9cea536e6",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -97,32 +91,23 @@
                 },
                 {
                     "name": "",
-                    "id": "84be9075-df7c-4be6-91d7-544f7dd5a686",
+                    "id": "2225d4ff-2dd5-4798-b99d-794975d68186",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-<<<<<<< Updated upstream
-                    "id": "4ac38983-bb62-40fb-a0eb-ffb12e3b1f4c",
+                    "id": "0ec083c4-09a6-434a-8ad9-91d4cd90567e",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Dash",
-=======
-                    "id": "21858b13-50e8-4480-b7de-a120012fe31f",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
->>>>>>> Stashed changes
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -135,12 +120,12 @@
             "bindingGroup": "PC",
             "devices": [
                 {
-                    "devicePath": "<Keyboard>",
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 },
                 {
-                    "devicePath": "<Mouse>",
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }
