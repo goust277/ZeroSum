@@ -75,7 +75,6 @@ public class NPCData
 [Serializable]
 public class Effects
 {
-    public string type;
     public float attackSpeed;
     public float range;
     public int[] damage;
@@ -88,6 +87,7 @@ public class Weapon
     public string weaponName;
     public string weaponDes;
     public string weaponIcons;
+    public int type;
     public Effects effects;
 }
 #endregion

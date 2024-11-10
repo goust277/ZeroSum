@@ -39,7 +39,7 @@ public class GameStateManager : MonoBehaviour
         LoadEventFlags();
 
         WeaponManager.Instance.activeWeapons[0] = -1;
-        WeaponManager.Instance.activeWeapons[1] = 2;
+        WeaponManager.Instance.activeWeapons[1] = -1;
 
     }
 

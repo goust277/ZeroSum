@@ -7,7 +7,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class NpcInfo : MonoBehaviour
 {
-    [SerializeField] private PlayerConversation playerConversation;
+    [SerializeField] private PlayerUIInteract playerConversation;
     [SerializeField] private GameObject interactPrompt; // 상호작용 키 표시 UI
     [SerializeField] private int NPCID = 1;
     [SerializeField] private TextMeshProUGUI nameText;

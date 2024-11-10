@@ -3,10 +3,10 @@
     {
       "weaponId": 0,
       "weaponName": "무기 이름 0",
-      "weaponDes": "무기 이름 0번의 아이템 설명",
-      "weaponIcons": "/Dummy/UI/Weapon/권총1.png", //아이템 그림 경로
+      "weaponDes": "무기 이름 0번의 아이템 설명 + Shotgun",
+      "weaponIcons": "UI/Weapon/Shotgun", //아이템 그림 경로
+      "type": 0,
       "Effects": {
-        "type": "무기종류(총칼활 등)",
         "attackSpeed": 1.2,
         "range": 1.2,
         "damage": [ 5, 5, 10 ],
@@ -16,11 +16,11 @@
     {
       "weaponId": 1,
       "weaponName": "무기 이름 1",
-      "weaponDes": "무기 이름 1번의 아이템 설명 12345678912345678",
-      "weaponIcons": "/Dummy/UI/Weapon/리볼버.png", //아이템 그림 경로
+      "weaponDes": "타입 1번은 활 64gun",
+      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "type": 1,
       "Effects": {
-        //1차적으로 게임화면에 보이는거 먼저 읽고나서 선택하면 나머지 읽는 식으로 하려고 중첩으로 한번더 감쌋는데
-        "type": "무기종류(총칼활 등)",
+        //1차적으로 게임화면에 보이는거 먼저 읽고나서 선택하면 나머지 읽는 식으로 하려고 중첩으로 한번더 감쌋는데=
         "attackSpeed": 2.0,
         "range": 4.0,
         "damage": [ 10, 20 ],
@@ -30,10 +30,88 @@
     {
       "weaponId": 2,
       "weaponName": "무기 이름 2",
-      "weaponDes": "무기 이름 2번의 아이템 설명 12345678912345678",
-      "weaponIcons": "/Dummy/UI/Weapon/무기.png", //아이템 그림 경로
+      "weaponDes": "타입 2번은 검 edgedSword2",
+      "weaponIcons": "UI/Weapon/Single-edgedSword2", //아이템 그림 경로
+      "type": 2,
       "Effects": {
-        "type": "무기종류(총칼활 등)",
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 3,
+      "weaponName": "무기 이름 3",
+      "weaponDes": "좀 돼라 좀 돼라 ",
+      "weaponIcons": "UI/Weapon/Single-edgedSword", //아이템 그림 경로
+      "type": 2,
+      "Effects": {
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 4,
+      "weaponName": "무기아이디 4번",
+      "weaponDes": "타입 0번은 총",
+      "weaponIcons": "UI/Weapon/Revolver", //아이템 그림 경로
+      "type": 0,
+      "Effects": {
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 5,
+      "weaponName": "무기 이름 5",
+      "weaponDes": "타입 3번은 둔기",
+      "weaponIcons": "UI/Weapon/Pistol", //아이템 그림 경로
+      "type": 3,
+      "Effects": {
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 6,
+      "weaponName": "66666666",
+      "weaponDes": "UI/Weapon/64gun",
+      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "type": 0,
+      "Effects": {
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 7,
+      "weaponName": "활",
+      "weaponDes": "활활활활활활활활 33333333",
+      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "type": 1,
+      "Effects": {
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ],
+        "comboParams": [ 2, 13, 4, 5 ]
+      }
+    },
+    {
+      "weaponId": 8,
+      "weaponName": "초보자용 검",
+      "weaponDes": "개 졸 리 다 ",
+      "weaponIcons": "UI/Weapon/One-HandedSword", //아이템 그림 경로
+      "type": 2,
+      "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ],

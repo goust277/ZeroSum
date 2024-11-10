@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
+using System.Reflection;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -70,10 +72,23 @@ public class WeaponManager : MonoBehaviour
     public void SwitchActiveItem(int switchIdx, int id)
     {
         //switchIdx = 활성화 무기슬롯, id = 바꿀 무기 아이디
-        if (acquiredWeaponIds.Contains(id))
-        {
-            activeWeapons[switchIdx] = id;
-        }
+        //if (acquiredWeaponIds.Contains(id))
+        //if (acquiredWeaponIds.Contains(id))
+        //{
+        //    activeWeapons[switchIdx] = id;
+        //}
+        //else
+        //{
+        //    return;
+        //}
+
+        activeWeapons[switchIdx] = id;
+
+        Weapon wp = WeaponManager.Instance.GetActiveItem(id);
+        Sprite sprite = Resources.Load<Sprite>(wp.weaponIcons);
+        activeWeaponObject[switchIdx].GetComponent<Image>().sprite = sprite;// 이미지 업데이트
+        activeWeaponObject[switchIdx].GetComponent<AdjustSpriteSize>().SetSprite();
+
     }
 
     //받은 아이템 추가
@@ -94,6 +109,14 @@ public class WeaponManager : MonoBehaviour
         return allWeapons[slot];
         //}
         //return null;
+    }
+
+    public List<Weapon> GetAcquiredWeapons()
+    {
+        //가지고 있는 무기 배열 반복문 한바퀴 돌려서
+        //아이디에 맞는 웨폰값들 리스트에 저장해서 반환
+
+        return allWeapons;
     }
 
 }

@@ -27,10 +27,11 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "7cb24724-19f0-4f6d-a51d-b3d31c46f2b1",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },    
+                },
                 {
                     "name": "Interaction",
                     "type": "Button",
@@ -53,6 +54,9 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "f4ed61e1-8e4b-4ae0-b90b-1db44593e274",
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "287e2451-37f4-4f06-a4e6-40cdaf692273",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -173,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7760b533-69ff-49f0-a075-b61310fa9d44",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
