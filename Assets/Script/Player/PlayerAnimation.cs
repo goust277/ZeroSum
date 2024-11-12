@@ -26,7 +26,7 @@ public class PlayerAnimation : MonoBehaviour
         else
             animator.SetBool("Move", false);
 
-        if (rb.velocity.y != 0) // 떨어지는 모션 애니메이션
+        if (rb.velocity.y != 0 && !playerMovement.isGrounded) // 떨어지는 모션 애니메이션
             animator.SetBool("Fall", true);
         else
             animator.SetBool("Fall", false);

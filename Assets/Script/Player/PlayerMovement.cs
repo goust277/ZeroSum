@@ -44,13 +44,13 @@ public class PlayerMovement : MonoBehaviour
     private float dashTime; // 대쉬하고 있는 시간
     private bool canDash; // 대쉬 가능한지 확인
     [SerializeField] private bool isDashing; // 대쉬 중 인지 확인
-    
+
     [Header("바닥체크")]
     [SerializeField] private LayerMask groundLayer; // 바닥 레이어
     [SerializeField] private float groundBoxOffset = 0f; // 바닥 판정 오프셋
     [SerializeField] private Vector2 groundBox = Vector2.zero; // 바닥 판정 박스
     [SerializeField] private float groundCheckDistance = 0.5f; // 바닥 판정 거리
-    private bool isGrounded; // 바닥인지 확인
+    [HideInInspector] public bool isGrounded; // 바닥인지 확인
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() // 플레이어 바닥 판정 확인
@@ -68,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     // Update is called once per frame
@@ -75,9 +76,16 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
+        if (isGrounded && !isMove)
+        { rb.bodyType = RigidbodyType2D.Static; }
+        else
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
     private void FixedUpdate()
     {
+
         if (moveDirection != Vector2.zero) // 움직임
         {
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
@@ -96,13 +104,14 @@ public class PlayerMovement : MonoBehaviour
         {
             isMove = false;
         }
+
         Jump();
         Dash();
     }
 
     private void Jump()// 점프
     {
-        if (isJumping && jumpTimeCounter > 0) 
+        if (isJumping && jumpTimeCounter > 0)
         {
             float jumpForce = Mathf.Lerp(0, initialjumpForce, jumpTimeCounter);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpTimeCounter);
@@ -139,10 +148,10 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
         Vector2 input = context.ReadValue<Vector2>();
-        if (input != null && !isDashing) 
+        if (input != null && !isDashing)
         {
             isMove = true;
-            moveDirection = new Vector2 (input.x, 0);
+            moveDirection = new Vector2(input.x, 0);
         }
         else
         {
@@ -155,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.started && (isGrounded || extraJumpCurr < extraJump))
         {
             isJumping = true;
-            jumpTimeCounter =1f;
+            jumpTimeCounter = 1f;
             rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
             coyoteTimeCurr = coyoteTime;
 
@@ -264,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
                 collision.GetComponent<Portal>().OnPortal();
                 Debug.Log("E");
             }
-                
+
         }
     }
 }
