@@ -76,12 +76,12 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-        if (isGrounded && !isMove)
-        { rb.bodyType = RigidbodyType2D.Static; }
-        else
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
+    //    if (isGrounded && !isMove)
+    //    { rb.bodyType = RigidbodyType2D.Static; }
+    //    else
+    //    {
+    //        rb.bodyType = RigidbodyType2D.Dynamic;
+    //    }
     }
     private void FixedUpdate()
     {
