@@ -11,7 +11,7 @@ public class GameStateManager : MonoBehaviour
 
     // 유저 상태 변수들
     public Dictionary<string, bool> currentEventFlags;  // 이벤트 플래그 (예: 이벤트 완료 여부)
-    private int currentSceneID = 0;                          // 현재 씬 ID
+    [SerializeField] private int currentSceneID = 0;                          // 현재 씬 ID
     private int chapterNum = 0;                           // 현재 챕터
     private int Gold = 0;
     private void Awake()
@@ -38,8 +38,8 @@ public class GameStateManager : MonoBehaviour
     {
         LoadEventFlags();
 
-        WeaponManager.Instance.activeWeapons[0] = -1;
-        WeaponManager.Instance.activeWeapons[1] = -1;
+        //WeaponManager.Instance.activeWeapons[0] = -1;
+        //WeaponManager.Instance.activeWeapons[1] = -1;
 
     }
 

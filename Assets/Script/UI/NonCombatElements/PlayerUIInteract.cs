@@ -28,25 +28,31 @@ public class PlayerUIInteract: MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
 
-        if (context.started && !isOpenInven && !isInteracting && !dialogueManager.isConversation)
+        if (context.started)
         {
-            // 인벤토리가 열려있지 않고 대화가 시작되지 않았을 때만 대화 시작
-            dialogueManager.StartConversation(CollisionNPC);
-            isInputIgnore = true;
-        }
+            //Debug.Log("isOpenInven ="+ isOpenInven);
+            //Debug.Log("isInteracting =" + isInteracting);
+            //Debug.Log("dialogueManager.isConversation =" + dialogueManager.isConversation);
+            if (!isOpenInven && isInteracting && !dialogueManager.isConversation)
+            {
+                // 인벤토리가 열려있지 않고 대화가 시작되지 않았을 때만 대화 시작
+                dialogueManager.StartConversation(CollisionNPC);
+                isInputIgnore = true;
+            }
 
-        if (context.started && !isInteracting && !isOpenInven)
-        {
-            // 아무것도 안 하고 있는 상태일 때만 입력 처리 허용
-            isInputIgnore = false;
-        }
+            if (!isInteracting && !isOpenInven)
+            {
+                // 아무것도 안 하고 있는 상태일 때만 입력 처리 허용
+                isInputIgnore = false;
+            }
 
-        if (context.started && isOpenInven)
-        {
-            // 인벤토리가 열려 있을 때만 무기 변경
-            isInputIgnore = true;
-            inventoryController.SlotChange();
-            WeaponManager.Instance.activeWeapons[inventoryController.currentSelectedSlot] = inventoryController.selectedWeapon;
+            if (isOpenInven)
+            {
+                // 인벤토리가 열려 있을 때만 무기 변경
+                isInputIgnore = true;
+                inventoryController.SlotChange();
+                WeaponManager.Instance.activeWeapons[inventoryController.currentSelectedSlot] = inventoryController.selectedWeapon;
+            }
         }
     }
 

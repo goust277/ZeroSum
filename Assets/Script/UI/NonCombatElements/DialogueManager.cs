@@ -26,7 +26,8 @@ public class DialogueManager : MonoBehaviour
 
     public bool isConversation = false; // 대화창이 지금 떠있는지 여부 
 
-    public List<Image> portraits; //대화창에 띄울 초상화
+    [SerializeField] private GameObject[] portraits = new GameObject[4];
+    //public List<Image> portraits; //대화창에 띄울 초상화
     private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
     private NPCInfo ColNPC;
 
@@ -134,14 +135,15 @@ public class DialogueManager : MonoBehaviour
         }
 
         //불러온 초상화 pos에 맞게 오브젝트에 배치하기
-        for (int i = 0; i < portraits.Count; i++)
+        for (int i = 0; i < portraitPaths.Length; i++)
         {
             if (!string.IsNullOrEmpty(portraitPaths[i]))
             {
                 Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[i]);
                 if (portraitSprite != null)
                 {
-                    portraits[i].sprite = portraitSprite;
+                    portraits[i].GetComponent<Image>().sprite = portraitSprite;
+                    portraits[i].GetComponent<AdjustSpriteSize>().SetSprite();
                 }
                 else
                 {
@@ -196,13 +198,13 @@ public class DialogueManager : MonoBehaviour
         Sprite portraitSprite = Resources.Load<Sprite>(ColNPC.NPCportrait);
         if (portraitSprite != null)
         {
-            portraits[1].sprite = portraitSprite;
+            portraits[1].GetComponent<Image>().sprite = portraitSprite;
         }
 
         conversationUI.SetActive(true);
-        portraits[0].gameObject.SetActive(false);
-        portraits[2].gameObject.SetActive(false);
-        portraits[3].gameObject.SetActive(false);
+        portraits[0].SetActive(false);
+        portraits[2].SetActive(false);
+        portraits[3].SetActive(false);
     }
 
     private void AfterConversationProcess(AfterConditions after)
@@ -224,13 +226,13 @@ public class DialogueManager : MonoBehaviour
     //말하는 사람 바뀌면 초상화 색깔바꿔줘야함
     private void UpdatePortraits(int speakingPortraits)
     {
-        for (int i = 0; i < portraits.Count; i++)
+        for (int i = 0; i < portraits.Length; i++)
         {
-            if (portraits[i].gameObject.activeSelf) // 게임 오브젝트가 활성화된 경우에만 처리
+            if (portraits[i].activeSelf) // 게임 오브젝트가 활성화된 경우에만 처리
             {
                 //pos값 보고 순서대로 왼쪽부터 0~n임. 
                 // 해당위치의 캐릭터가 말하고 있으면 원래 값(1,1,1,1)출력하고 아니면 어둡게 처리함
-                portraits[i].color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
+                portraits[i].GetComponent<Image>().color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
             }
 
         }

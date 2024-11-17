@@ -96,7 +96,7 @@ public class InventoryController : BaseUi
     private void OnOptionSelected(int optionIndex)
     {
         // 기존 리스트 업데이트
-        var newItems = GetItemsForOption(optionIndex);
+        List<int> newItems = weaponsByType[optionIndex];
 
         int itemCount = newItems.Count;
 
@@ -129,13 +129,6 @@ public class InventoryController : BaseUi
             item.GetComponentInChildren<TextMeshProUGUI>().text = WeaponManager.Instance.GetActiveItem(newItems[i]).weaponName;
         }
     }
-
-    private List<int> GetItemsForOption(int optionIndex)
-    {
-        //Debug.Log(string.Join(", ", weaponsByType[optionIndex]));
-        return weaponsByType[optionIndex];
-    }
-
 
     public void SlotChange()
     {
