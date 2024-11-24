@@ -29,10 +29,10 @@ public class InventoryController : BaseUi
 
     [Header("무기스위칭소스")]
     [SerializeField] private GameObject[] activeWeaponObject = new GameObject[2];
-    [SerializeField] private GameObject WarningObj;
-    //private bool isWarningActive = false; // 경고창 활성화 상태
+    [SerializeField] private GameObject warningObj;
+    private bool isWarningActive = false; // 경고창 활성화 상태
 
-    public int currentSelectedSlot = 0;
+    public int currentSelectedSlot;
     public int selectedWeapon;
     [SerializeField] private Image selectedWeaponImage;
     private int currentSelectedCategory = -1; // 현재 선택된 카테고리 (-1: 선택 없음)
@@ -42,8 +42,19 @@ public class InventoryController : BaseUi
     [SerializeField] private Sprite defaultSprite;  // 기본 버튼 색상
     [SerializeField] private Sprite selectedSlotSprite; // 선택된 버튼 색상
     [SerializeField] private Sprite defaultSSlotprite;  // 기본 버튼 색상
-    [SerializeField] public Sprite emptySprite;  // 기본 버튼 색상
+    [SerializeField] public Sprite emptySprite;  // 텅빈 스프라이트
+    [SerializeField] private GameObject isEmplacement;  // 장착&티어표시 스프라이트 
 
+
+    private Image imageComponent;
+
+    private readonly float transitionDuration = 0.2f; // 전환 시간
+    private readonly float consistenceDuration = 0.5f; // 지속 시간
+    //private bool isTransitioning = false; // 전환 중인지 확인
+
+    private readonly Color alpha0 = new Color(1f, 1f, 1f, 0f);
+    private readonly Color alpha1 = new Color(1f, 1f, 1f, 1f);
+    private Coroutine runningCoroutine = null;
 
 
     protected override void Awake()
@@ -56,30 +67,95 @@ public class InventoryController : BaseUi
     {
         WeaponTypeSetting();
         gameObject.SetActive(false);
-
+        currentSelectedSlot = -1;
         activeWeapon[0] = -1;
         activeWeapon[1] = -1;
 
-        WarningObj.SetActive(false);
+        warningObj.SetActive(false);
     }
 
+    //private IEnumerator SpriteTransitionLoop()
+    //{
+    //    //Debug.Log("SpriteTransitionLoop");
+    //    while (true)
+    //    {
+    //        //애니메이션 없이 껏/켯
+    //        imageComponent.color = alpha1;
+    //        yield return new WaitForSeconds(consistenceDuration);
+
+    //        imageComponent.color = alpha0;
+    //        yield return new WaitForSeconds(consistenceDuration);
+    //    }
+    //}
+
+    private IEnumerator TransitionToSprite()
+    {
+        //Debug.Log("TransitionToSprite");
+        float time = 0f;
+        Color originalColor = imageComponent.color;
+        while (true)
+        {
+            yield return new WaitForSeconds(consistenceDuration); // 유지
+            // 투명도 감소
+            while (time < transitionDuration) // 전환
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Lerp(1f, 0f, time / transitionDuration);
+                imageComponent.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+            time = 0f;
+
+            yield return new WaitForSeconds(consistenceDuration); //  유지 시간
+                                                                  
+            while (time < transitionDuration) // 전환
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Lerp(0f, 1f, time / transitionDuration);
+                imageComponent.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+
+            time = 0f;
+        }
+    }
     public void ChangeSelectedSlot(int slot)
     {
+        if( slot == currentSelectedSlot)
+        {
+            return;
+        }
+
+        if (imageComponent != null)
+        {
+            imageComponent.sprite = defaultSSlotprite;
+        }
+
         currentSelectedSlot = slot;
         //Debug.Log("★UN currentSelectedSlot" + Mathf.Abs(slot - 1));
 
-        activeWeaponObject[slot].transform.parent.GetComponent<Image>().sprite = selectedSlotSprite;
-        activeWeaponObject[Mathf.Abs(slot - 1)].transform.parent.GetComponent<Image>().sprite = defaultSSlotprite;
+        imageComponent = activeWeaponObject[slot].transform.parent.GetComponent<Image>();
+        imageComponent.sprite = selectedSlotSprite;
+        
+        if (runningCoroutine != null)
+        {
+            StopCoroutine(runningCoroutine);
+        }
+        runningCoroutine = StartCoroutine(TransitionToSprite());
+        //runningCoroutine = StartCoroutine(SpriteTransitionLoop());
+
+        //activeWeaponObject[slot].transform.parent.GetComponent<Image>().sprite = selectedSlotSprite;
+        //activeWeaponObject[Mathf.Abs(slot - 1)].transform.parent.GetComponent<Image>().sprite = defaultSSlotprite;
     }
 
     public void ChangeSelectedWeapon(int slot)
     {
-        //Debug.Log("☆ChangeSelectedWeapon" + selectedWeapon);
         selectedWeapon = slot;
     }
 
     public void PrefabSelected(Image image)
     {
+
         if (selectedWeaponImage != null)
         {
             selectedWeaponImage.sprite = defaultSprite;
@@ -190,22 +266,12 @@ public class InventoryController : BaseUi
     private IEnumerator WarningEffect()
     {
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
-        WarningObj.SetActive(false);
+        isWarningActive = false; // 경고창 상태 활성화
+        warningObj.SetActive(false);
     }
 
-
-    public void SlotChange()
+    private void UpdateWeaponSlotUI()
     {
-        int oppo = activeWeapon[Mathf.Abs(currentSelectedSlot - 1)];
-
-        if(selectedWeapon == oppo)
-        {
-            WarningObj.SetActive(true);
-            StartCoroutine(WarningEffect());
-            //Debug.Log("이미 장착된 무기");
-            return;
-        }
-
         Weapon wp = WeaponManager.Instance.GetActiveItem(selectedWeapon);
         Sprite sprite = Resources.Load<Sprite>(wp.weaponIcons);
         activeWeaponObject[currentSelectedSlot].GetComponent<Image>().sprite = sprite;// 이미지 업데이트
@@ -214,6 +280,46 @@ public class InventoryController : BaseUi
 
         activeWeapon[currentSelectedSlot] = selectedWeapon;
 
+        string str = "";
+        switch (wp.type)
+        {
+            case 0:
+                str = "총";
+                break;
+            case 1:
+                str = "활";
+                break;
+            case 2:
+                str = "검";
+                break;
+            case 3:
+                str = "둔기";
+                break;
+        }
+        activeWeaponObject[currentSelectedSlot].GetComponentInChildren<TextMeshProUGUI>().text = str;
+    }
+
+    public void SlotChange()
+    {
+        if(currentSelectedSlot == -1)
+        {
+            Debug.Log("슬롯 선택 안함");
+            return;
+        }
+
+        //Debug.Log("SlotChange() 실행");
+        int oppo = activeWeapon[Mathf.Abs(currentSelectedSlot - 1)];
+
+        if(selectedWeapon == oppo) //&& !isWarningActive
+        {
+            //isWarningActive = true; // 경고창 상태 활성화
+            //warningObj.SetActive(true);
+            //StartCoroutine(WarningEffect());
+            Debug.Log("이미 장착된 무기");
+            return;
+        }
+
+        UpdateWeaponSlotUI();
         ResetParams();
 
     }
