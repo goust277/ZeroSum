@@ -14,15 +14,9 @@ public class PlayerUIInteract: MonoBehaviour
 
     void Start()
     {
-        if (dialogueManager == null)
-        {
-            dialogueManager = FindObjectOfType<DialogueManager>() as DialogueManager;
-        }
+        dialogueManager ??= FindObjectOfType<DialogueManager>() as DialogueManager;
+        inventoryController ??= FindObjectsOfType<InventoryController>(true).FirstOrDefault();
 
-        if(inventoryController == null)
-        {
-            inventoryController = FindObjectsOfType<InventoryController>(true).FirstOrDefault();
-        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -51,14 +45,13 @@ public class PlayerUIInteract: MonoBehaviour
                 // 인벤토리가 열려 있을 때만 무기 변경
                 isInputIgnore = true;
                 inventoryController.SlotChange();
-                WeaponManager.Instance.activeWeapons[inventoryController.currentSelectedSlot] = inventoryController.selectedWeapon;
             }
         }
     }
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
-        if (!isInputIgnore)
+        if (context.started && !isInputIgnore)
         {
             WeaponManager.Instance.SwapWeapon();
         }
@@ -68,21 +61,25 @@ public class PlayerUIInteract: MonoBehaviour
     {
         if (context.performed && !isInputIgnore)  // context.started 대신 context.performed
         {
+            isInputIgnore = true;
+
             if (!isOpenInven)
             {
-                Debug.Log("Inven Open");
+                //Debug.Log("Inven Open");
                 inventoryController.gameObject.SetActive(true);
                 inventoryController.InventoryOpen();
                 isOpenInven = true;
+                return;
             }
-            else
+
+
+            if (isOpenInven)
             {
-                Debug.Log("Inven Close");
+                //Debug.Log("Inven Close");
                 inventoryController.gameObject.SetActive(false);
                 inventoryController.InventoryClose();
                 isOpenInven = false;
             }
-            isInputIgnore = true;
         }
 
         if (context.canceled)

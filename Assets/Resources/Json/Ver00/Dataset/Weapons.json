@@ -9,22 +9,37 @@
       "Effects": {
         "attackSpeed": 1.2,
         "range": 1.2,
-        "damage": [ 5, 5, 10 ],
-        "comboParams": [ 0, 13, 4, 5 ] //"콤보에 필요한 애니메이션 레이어 이름이나 플레이어쪽에서 직접적으로 바꿔야할 파라미터 등 단일값이면 아이디로 처리하고 지우기"
+        "damage": [ 5, 5, 10 ]
+      },
+      "Animations": {
+        "idle": "weapon0_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
       "weaponId": 1,
       "weaponName": "무기 이름 1",
-      "weaponDes": "타입 1번은 활 64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "weaponDes": "타입 1번 무기 이름 1타입 1번 무기 이름 1타입 1번 무기 이름 1타입 1번 무기 이름 1",
+      "weaponIcons": "UI/Weapon/Single-edgedSword2", //아이템 그림 경로
       "type": 1,
       "Effects": {
-        //1차적으로 게임화면에 보이는거 먼저 읽고나서 선택하면 나머지 읽는 식으로 하려고 중첩으로 한번더 감쌋는데=
-        "attackSpeed": 2.0,
-        "range": 4.0,
-        "damage": [ 10, 20 ],
-        "comboParams": [ 1, 13, 4, 5 ]
+        "attackSpeed": 0.8,
+        "range": 1.0,
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon1_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
@@ -36,8 +51,16 @@
       "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon1_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
@@ -49,8 +72,16 @@
       "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon0_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
@@ -62,8 +93,16 @@
       "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon0_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
@@ -75,8 +114,16 @@
       "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon0_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     },
     {
@@ -88,34 +135,16 @@
       "Effects": {
         "attackSpeed": 0.8,
         "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
-      }
-    },
-    {
-      "weaponId": 7,
-      "weaponName": "활",
-      "weaponDes": "활활활활활활활활 33333333",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
-      "type": 1,
-      "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
-      }
-    },
-    {
-      "weaponId": 8,
-      "weaponName": "초보자용 검",
-      "weaponDes": "개 졸 리 다 ",
-      "weaponIcons": "UI/Weapon/One-HandedSword", //아이템 그림 경로
-      "type": 2,
-      "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ],
-        "comboParams": [ 2, 13, 4, 5 ]
+        "damage": [ 4, 4, 4, 15 ]
+      },
+      "Animations": {
+        "idle": "weapon0_idle_ani",
+        "combo1": "weapon0_combo1_ani",
+        "combo2": "weapon0_combo2_ani",
+        "combo3": "weapon0_combo3_ani",
+        "upSideAttack": "weapon0_upSideAttack_ani",
+        "downSideAttack": "weapon0_downSideAttack_ani",
+        "comboEnd": "weapon0_comboEnd_ani"
       }
     }
   ]

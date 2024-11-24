@@ -73,6 +73,17 @@ public class NPCData
 #region 무기 클래스
 /*Weapon 클래스(무기)*/
 [Serializable]
+public class Animations
+{
+    public string idle;
+    public string combo1;
+    public string combo2;
+    public string combo3;
+    public string upSideAttack;
+    public string downSideAttack;
+    public string comboEnd;
+}
+[Serializable]
 public class Effects
 {
     public float attackSpeed;
@@ -89,6 +100,7 @@ public class Weapon
     public string weaponIcons;
     public int type;
     public Effects effects;
+    public Animations animations;
 }
 #endregion
 
