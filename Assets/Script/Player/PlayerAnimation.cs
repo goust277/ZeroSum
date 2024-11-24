@@ -8,6 +8,8 @@ public class PlayerAnimation : MonoBehaviour
     private Animator animator;
     private PlayerMovement playerMovement;
     private Rigidbody2D rb;
+    [SerializeField] private RuntimeAnimatorController[] controller;
+    [SerializeField] private bool OnBattleArea;
     
     private void Awake()
     {
@@ -19,6 +21,11 @@ public class PlayerAnimation : MonoBehaviour
         playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
     }
 
+    private void Start()
+    {
+        if (OnBattleArea)
+            animator.runtimeAnimatorController = controller[0];
+    }
     void Update()
     {
         if (playerMovement.isMove) // 움직임 애니메이션
