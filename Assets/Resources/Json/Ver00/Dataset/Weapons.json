@@ -4,9 +4,10 @@
       "weaponId": 0,
       "weaponName": "무기 이름 0",
       "weaponDes": "무기 이름 0번의 아이템 설명 + Shotgun",
-      "weaponIcons": "UI/Weapon/Shotgun", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/gun 1", //아이템 그림 경로
       "type": 0,
       "Effects": {
+        "level": 1,
         "attackSpeed": 1.2,
         "range": 1.2,
         "damage": [ 5, 5, 10 ]
@@ -25,9 +26,10 @@
       "weaponId": 1,
       "weaponName": "무기 이름 1",
       "weaponDes": "타입 1번 무기 이름 1타입 1번 무기 이름 1타입 1번 무기 이름 1타입 1번 무기 이름 1",
-      "weaponIcons": "UI/Weapon/Single-edgedSword2", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/gun 2", //아이템 그림 경로
       "type": 1,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -46,9 +48,10 @@
       "weaponId": 2,
       "weaponName": "무기 이름 2",
       "weaponDes": "타입 2번은 검 edgedSword2",
-      "weaponIcons": "UI/Weapon/Single-edgedSword2", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 1", //아이템 그림 경로
       "type": 2,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -67,9 +70,10 @@
       "weaponId": 3,
       "weaponName": "무기 이름 3",
       "weaponDes": "좀 돼라 좀 돼라 ",
-      "weaponIcons": "UI/Weapon/Single-edgedSword", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 2", //아이템 그림 경로
       "type": 2,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -88,9 +92,10 @@
       "weaponId": 4,
       "weaponName": "무기아이디 4번",
       "weaponDes": "타입 0번은 총",
-      "weaponIcons": "UI/Weapon/Revolver", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/gun 4", //아이템 그림 경로
       "type": 0,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -109,9 +114,10 @@
       "weaponId": 5,
       "weaponName": "무기 이름 5",
       "weaponDes": "타입 3번은 둔기",
-      "weaponIcons": "UI/Weapon/Pistol", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/gun 5", //아이템 그림 경로
       "type": 3,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -130,9 +136,10 @@
       "weaponId": 6,
       "weaponName": "66666666",
       "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 2", //아이템 그림 경로
       "type": 0,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -151,9 +158,10 @@
       "weaponId": 7,
       "weaponName": "66666666",
       "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 3", //아이템 그림 경로
       "type": 0,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -172,9 +180,10 @@
       "weaponId": 8,
       "weaponName": "66666666",
       "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 4", //아이템 그림 경로
       "type": 0,
       "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]
@@ -193,93 +202,10 @@
       "weaponId": 9,
       "weaponName": "66666666",
       "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
+      "weaponIcons": "UI/Weapon/sword 5", //아이템 그림 경로
       "type": 0,
       "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ]
-      },
-      "Animations": {
-        "idle": "weapon0_idle_ani",
-        "combo1": "weapon0_combo1_ani",
-        "combo2": "weapon0_combo2_ani",
-        "combo3": "weapon0_combo3_ani",
-        "upSideAttack": "weapon0_upSideAttack_ani",
-        "downSideAttack": "weapon0_downSideAttack_ani",
-        "comboEnd": "weapon0_comboEnd_ani"
-      }
-    },
-    {
-      "weaponId": 10,
-      "weaponName": "66666666",
-      "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
-      "type": 0,
-      "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ]
-      },
-      "Animations": {
-        "idle": "weapon0_idle_ani",
-        "combo1": "weapon0_combo1_ani",
-        "combo2": "weapon0_combo2_ani",
-        "combo3": "weapon0_combo3_ani",
-        "upSideAttack": "weapon0_upSideAttack_ani",
-        "downSideAttack": "weapon0_downSideAttack_ani",
-        "comboEnd": "weapon0_comboEnd_ani"
-      }
-    },
-    {
-      "weaponId": 11,
-      "weaponName": "66666666",
-      "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
-      "type": 0,
-      "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ]
-      },
-      "Animations": {
-        "idle": "weapon0_idle_ani",
-        "combo1": "weapon0_combo1_ani",
-        "combo2": "weapon0_combo2_ani",
-        "combo3": "weapon0_combo3_ani",
-        "upSideAttack": "weapon0_upSideAttack_ani",
-        "downSideAttack": "weapon0_downSideAttack_ani",
-        "comboEnd": "weapon0_comboEnd_ani"
-      }
-    },
-    {
-      "weaponId": 12,
-      "weaponName": "66666666",
-      "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
-      "type": 0,
-      "Effects": {
-        "attackSpeed": 0.8,
-        "range": 1.0,
-        "damage": [ 4, 4, 4, 15 ]
-      },
-      "Animations": {
-        "idle": "weapon0_idle_ani",
-        "combo1": "weapon0_combo1_ani",
-        "combo2": "weapon0_combo2_ani",
-        "combo3": "weapon0_combo3_ani",
-        "upSideAttack": "weapon0_upSideAttack_ani",
-        "downSideAttack": "weapon0_downSideAttack_ani",
-        "comboEnd": "weapon0_comboEnd_ani"
-      }
-    },
-    {
-      "weaponId": 13,
-      "weaponName": "66666666",
-      "weaponDes": "UI/Weapon/64gun",
-      "weaponIcons": "UI/Weapon/64gun", //아이템 그림 경로
-      "type": 0,
-      "Effects": {
+        "level": 1,
         "attackSpeed": 0.8,
         "range": 1.0,
         "damage": [ 4, 4, 4, 15 ]

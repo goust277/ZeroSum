@@ -86,6 +86,7 @@ public class Animations
 [Serializable]
 public class Effects
 {
+    public int level;
     public float attackSpeed;
     public float range;
     public int[] damage;

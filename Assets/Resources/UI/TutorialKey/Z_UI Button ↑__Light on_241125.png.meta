@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 42e444216c5306445a6caa836f3f2164
+guid: 8065e26f2120df44fad6e77c2cde8ba7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,28 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Z_UIweapon_v0.1_241116_0
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 26
-        width: 594
-        height: 344
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 62, y: 35, z: 56, w: 31}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f67c820f455bef4eb4ae18f95e0b8b6
-      internalID: 1818413373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,8 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Z_UIweapon_v0.1_241116_0: 1818413373
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
