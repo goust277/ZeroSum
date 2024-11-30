@@ -278,6 +278,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 287e2451-37f4-4f06-a4e6-40cdaf692273
     m_ActionName: PlayerMovement/Inventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnEscEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3af3f4bc-8809-4245-9255-e74259719619
+    m_ActionName: PlayerMovement/Option[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: PlayerMovement

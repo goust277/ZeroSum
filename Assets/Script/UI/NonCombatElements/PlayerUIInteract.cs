@@ -87,4 +87,12 @@ public class PlayerUIInteract: MonoBehaviour
             isInputIgnore = false; // 키가 올라갈 때 다시 입력 가능하도록
         }
     }
+
+    public void OnEscEntered(InputAction.CallbackContext context)
+    {
+        if (context.started && !isOpenInven)
+        {
+            
+        }
+    }
 }

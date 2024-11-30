@@ -458,7 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327f3ad29791a6745b8c7ba00d45563f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerConversation: {fileID: 0}
   interactPrompt: {fileID: 5433892001433764112}
   NPCID: 1
   nameText: {fileID: 2294833286327098067}
@@ -474,7 +473,7 @@ Animator:
   m_GameObject: {fileID: 6401774795984240209}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bebeb23ea9178cb4a9ef3bc26d9bc968, type: 2}
+  m_Controller: {fileID: 9100000, guid: 04433e905b702a24bb37536f17249c4a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -550,7 +549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b473ca43add305748bbefbe0191a52ab, type: 2}
   m_sharedMaterial: {fileID: -7204620928134524651, guid: b473ca43add305748bbefbe0191a52ab, type: 2}
