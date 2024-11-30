@@ -265,6 +265,12 @@ public class InventoryController : BaseUi
 
     private IEnumerator WarningEffect()
     {
+        if (!isWarningActive)
+        {
+            yield return new WaitForSeconds(0.3f);
+            isWarningActive = true;
+        }
+
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
         isWarningActive = false; // 경고창 상태 활성화
         warningObj.SetActive(false);
@@ -313,8 +319,8 @@ public class InventoryController : BaseUi
         if(selectedWeapon == oppo) //&& !isWarningActive
         {
             //isWarningActive = true; // 경고창 상태 활성화
-            //warningObj.SetActive(true);
-            //StartCoroutine(WarningEffect());
+            warningObj.SetActive(true);
+            StartCoroutine(WarningEffect());
             Debug.Log("이미 장착된 무기");
             return;
         }

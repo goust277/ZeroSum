@@ -187,10 +187,9 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log(ColNPC.NPCname + "엔피씨는 상점 엔피씨입니다.");
         }
-        else
-        {
-            StartCoroutine(DefaultTypeWriter());
-        }
+
+        StartCoroutine(DefaultTypeWriter());
+
     }
 
     private void DefaultPortraitArrangement() //일반 대화의 초상화 배열

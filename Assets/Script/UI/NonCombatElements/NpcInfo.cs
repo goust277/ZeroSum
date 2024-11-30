@@ -7,7 +7,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class NpcInfo : MonoBehaviour
 {
-    [SerializeField] private PlayerUIInteract playerConversation;
+    private PlayerUIInteract playerConversation;
     [SerializeField] private GameObject interactPrompt; // 상호작용 키 표시 UI
     [SerializeField] private int NPCID = 1;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -23,6 +23,8 @@ public class NpcInfo : MonoBehaviour
 
     private void Start()
     {
+        playerConversation ??= FindAnyObjectByType<PlayerUIInteract>();
+
         interactPrompt.SetActive(false);
         UpdateOutline(false);
     }
@@ -51,9 +53,11 @@ public class NpcInfo : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateOutline(true);
         interactPrompt.SetActive(true); // 상호작용 프롬프트 UI 활성화
-        playerConversation.isInteracting = true;  // GameController에 상호작용 가능 신호를 보냄
-        playerConversation.CollisionNPC = NPCID;
-
+        if(playerConversation != null)
+        {
+            playerConversation.isInteracting = true;  // GameController에 상호작용 가능 신호를 보냄
+            playerConversation.CollisionNPC = NPCID;
+        }
         nameText.text = nNPCInfo?.NPCname;
     }
 
