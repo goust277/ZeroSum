@@ -4,11 +4,11 @@ using UnityEngine.Audio;  // 오디오 관련 제어
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using System.Security.AccessControl;  // 언어 설정 관련 처리를 위해
+using System.Collections.Generic;  // 언어 설정 관련 처리를 위해
 
 public class SettingsManager : MonoBehaviour
 {
-    public static SettingsManager instance;
+    public static SettingsManager Instance { get; private set; }
 
     // UI 요소 연결
     [SerializeField] private Button[] languageButton = new Button[2];  // 언어 선택 버튼
@@ -20,14 +20,14 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Button[] vibrationButtons = new Button[5];   // 화면 진동 버튼들 (5개)
     [SerializeField] private TextMeshProUGUI[] textMeshPros = new TextMeshProUGUI[4];
     // 오디오 믹서 (배경음, 효과음)
-    //public AudioMixer audioMixer;  // 배경음과 효과음을 관리하는 믹서
+    public AudioMixer audioMixer;  // 배경음과 효과음을 관리하는 믹서
 
     // 화면 진동 설정
     private int vibrationLevel = 0;
 
     // 변경 리스트
     private string[] language = new string[2];
-    private int[][] resolutionValues = new int[3][];
+    private List<ResolutionData> resolutionValues = new();
 
     [SerializeField] private int resolutionIndex = 0;
     private int languageIndex = 0;
@@ -37,9 +37,9 @@ public class SettingsManager : MonoBehaviour
     private void Awake()
     {
         // Singleton Pattern
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject); // 씬 전환 시 유지
         }
         else
@@ -47,16 +47,25 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject); // 중복된 인스턴스 제거
         }
     }
+
     void Start()
     {
+        Resolution[] resolutions = Screen.resolutions;
+        foreach (Resolution resolution in resolutions)
+        {
+            if (resolution.width >= 1024 && Mathf.Approximately((float)resolution.width/resolution.height, 16.0f / 9.0f))
+            {
+                resolutionValues.Add(new ResolutionData(resolution.width, resolution.height, resolution.refreshRateRatio));
+                Debug.Log("new ResolutionData(" + resolution.width + " ,"  + resolution.height + ")");
+            }
+
+        }
+
+
         childTransform = gameObject.transform.GetChild(0);
 
         language[0] = "한국어";
         language[1] = "영어";
-
-        resolutionValues[0] = new int[2] { 1920, 1080 };  // 첫 번째 해상도
-        resolutionValues[1] = new int[2] { 1600, 900 };   // en 번째 해상도
-        resolutionValues[2] = new int[2] { 1280, 720 };   // 세 번째 해상도
 
         SettingOnOff();
 
@@ -143,21 +152,19 @@ public class SettingsManager : MonoBehaviour
 
         if (resolutionIndex < 0 )
         {
-            resolutionIndex = resolutionValues.Length-1;
+            resolutionIndex = resolutionValues.Count-1;
         }
-        else if (resolutionIndex == resolutionValues.Length)
+        else if (resolutionIndex == resolutionValues.Count)
         {
             resolutionIndex = 0;
         }
 
-        int width = resolutionValues[resolutionIndex][0]; // 가로
-        int height = resolutionValues[resolutionIndex][1]; // 세로
+        int width = resolutionValues[resolutionIndex].Width; // 가로
+        int height = resolutionValues[resolutionIndex].Height; // 세로
         textMeshPros[1].text = $"{width} X {height}";
-        //Screen.SetResolution(width, height, Screen.fullScreen);
-
-        Debug.Log($"Resolution set to: {width}x{height}");
-
-
+        Screen.SetResolution(width, height, Screen.fullScreen);
+        Debug.Log($"Screen.fullScreen : {Screen.fullScreen}");
+        Debug.Log($"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}");
     }
 
     // 전체화면 토글
@@ -187,15 +194,45 @@ public class SettingsManager : MonoBehaviour
     // 배경음 설정
     private void SetBackgroundSound(float value)
     {
-        //audioMixer.SetFloat("BackgroundVolume", Mathf.Log10(value) * 20);  // 믹서에서 배경음 볼륨 조정
-        PlayerPrefs.SetFloat("BackgroundVolume", value);  // 저장
+        // value가 0일 때 음량을 -80으로 설정
+        if (Mathf.Approximately(value, 0.0f))
+        {
+            Debug.Log("Value is 0, setting background volume to -80");
+            audioMixer.SetFloat("BackgroundVolume", -80);  // 소리가 안 나오는 값
+        }
+        else
+        {
+            // 최소 볼륨을 설정하여 값이 너무 낮게 가지 않도록 설정
+            float volume = Mathf.Log10(value) * 20;
+            volume = Mathf.Max(volume, -80); // 최소값을 -80으로 설정
+
+            audioMixer.SetFloat("BackgroundVolume", volume);
+        }
+
+        // 설정된 값 저장
+        PlayerPrefs.SetFloat("BackgroundVolume", value);
     }
 
     // 효과음 설정
     private void SetEffectsSound(float value)
     {
-        //audioMixer.SetFloat("EffectsVolume", Mathf.Log10(value) * 20);  // 믹서에서 효과음 볼륨 조정
-        PlayerPrefs.SetFloat("EffectsVolume", value);  // 저장
+        // value가 0일 때 음량을 -80으로 설정
+        if (Mathf.Approximately(value, 0.0f))
+        {
+            Debug.Log("Value is 0, setting background volume to -80");
+            audioMixer.SetFloat("EffectsVolume", -80);  // 소리가 안 나오는 값
+        }
+        else
+        {
+            // 최소 볼륨을 설정하여 값이 너무 낮게 가지 않도록 설정
+            float volume = Mathf.Log10(value) * 20;
+            volume = Mathf.Max(volume, -80); // 최소값을 -80으로 설정
+
+            audioMixer.SetFloat("EffectsVolume", volume);
+        }
+
+        // 설정된 값 저장
+        PlayerPrefs.SetFloat("EffectsVolume", value);
     }
 
     // 화면 진동 설정

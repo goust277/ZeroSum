@@ -37,7 +37,7 @@ public class GameStartController : BaseUi
                 Debug.Log("Continue");
                 break;
             case "Setting":
-                SettingsManager.instance.SettingOnOff();
+                SettingsManager.Instance.SettingOnOff();
                 Debug.Log("Setting");
                 break;
             case "Exit":
