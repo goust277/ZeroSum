@@ -41,6 +41,6 @@ public class SceneFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(fadeIn());
+        StartCoroutine(fadeIn());
     }
 }

@@ -10,7 +10,9 @@ public class GameStartController : BaseUi
 {
     [SerializeField] private Image Panel;
     float currentTime = 0.0f;  //현재 시간
-    float fadeoutTime = 2.0f;  //페이드아웃이 진행될 시간
+    private readonly float fadeoutTime = 2.0f;  //페이드아웃이 진행될 시간
+    private bool isSettingOpen = false;
+
 
     protected override void Awake()
     {
@@ -37,6 +39,7 @@ public class GameStartController : BaseUi
                 Debug.Log("Continue");
                 break;
             case "Setting":
+                isSettingOpen = true;
                 SettingsManager.Instance.SettingOnOff();
                 Debug.Log("Setting");
                 break;
@@ -47,8 +50,17 @@ public class GameStartController : BaseUi
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && isSettingOpen)
+        {
+            isSettingOpen = false;
+            SettingsManager.Instance.SettingOnOff();
+        }
+    }
 
-    IEnumerator fadeOut()
+
+    private IEnumerator fadeOut()
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
@@ -59,8 +71,27 @@ public class GameStartController : BaseUi
             Panel.color = alpha;
             yield return null;
         }
-        SceneManager.LoadScene(4);
+        StartCoroutine(LoadSceneCoroutine("SampleSceneUI"));
     }
+
+    private IEnumerator LoadSceneCoroutine(string sceneName)
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!asyncOperation.isDone)
+        {
+            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // 로딩 진행률 계산
+            Debug.Log("Loading progress: " + progress * 100 + "%");
+
+            // 로딩이 끝날 때까지 대기
+            yield return null;
+        }
+
+        // 로딩이 완료된 후 추가 작업
+        SceneManager.LoadScene("SampleSceneUI");
+    }
+
+
     private void NewStart()
     {
         StartCoroutine(fadeOut());

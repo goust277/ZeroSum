@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a04e4639b4bd2e3468483259d1d732b5
+guid: f9e4d608dfb7d594dbc76f82d142199c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -110,22 +110,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPC1_0
+      name: Z_BattleIdle_v0.1_241127_0
       rect:
         serializedVersion: 2
-        x: 58
-        y: 70
-        width: 238
-        height: 365
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 118
+        y: 560
+        width: 90
+        height: 106
+      alignment: 9
+      pivot: {x: 0.6693868, y: 0.01624514}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 805d2d9880fdc4842878dd19bc440d45
-      internalID: -190191567
+      spriteID: ffc3ab5ffdb2e164bb3ad1ae32409aba
+      internalID: -1258012680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_BattleIdle_v0.1_241127_1
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 560
+        width: 90
+        height: 104
+      alignment: 9
+      pivot: {x: 0.67316014, y: 0.009113018}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60c7f6200e02dd747a5a7f18416e5d35
+      internalID: 332834857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_BattleIdle_v0.1_241127_2
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 300
+        width: 90
+        height: 102
+      alignment: 9
+      pivot: {x: 0.68734723, y: 0.012046664}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad15eff24c015d46b8188a1714813cc
+      internalID: -37198008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_BattleIdle_v0.1_241127_3
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 300
+        width: 90
+        height: 102
+      alignment: 9
+      pivot: {x: 0.6715929, y: 0.01322578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 577ac9026438a944e8836ea91c994f73
+      internalID: 126217280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_BattleIdle_v0.1_241127_4
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 40
+        width: 90
+        height: 104
+      alignment: 9
+      pivot: {x: 0.6702196, y: 0.013714497}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf24ef4241785f4a82ce34f4d569bfb
+      internalID: -1563190012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_BattleIdle_v0.1_241127_5
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 40
+        width: 90
+        height: 106
+      alignment: 9
+      pivot: {x: 0.67292887, y: 0.008924629}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b836f9cc79273b944a6fbd64a232bc4c
+      internalID: -1442627642
       vertices: []
       indices: 
       edges: []
@@ -141,7 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      NPC1_0: -190191567
+      Z_BattleIdle_v0.1_241127_0: -1258012680
+      Z_BattleIdle_v0.1_241127_1: 332834857
+      Z_BattleIdle_v0.1_241127_2: -37198008
+      Z_BattleIdle_v0.1_241127_3: 126217280
+      Z_BattleIdle_v0.1_241127_4: -1563190012
+      Z_BattleIdle_v0.1_241127_5: -1442627642
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

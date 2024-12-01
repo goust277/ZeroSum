@@ -43,7 +43,7 @@ public class InventoryController : BaseUi
     [SerializeField] private Sprite selectedSlotSprite; // 선택된 버튼 색상
     [SerializeField] private Sprite defaultSSlotprite;  // 기본 버튼 색상
     [SerializeField] public Sprite emptySprite;  // 텅빈 스프라이트
-    [SerializeField] private GameObject isEmplacement;  // 장착&티어표시 스프라이트 
+    [SerializeField] private Sprite isEmplacement;  // 장착&티어표시 스프라이트 
 
 
     private Image imageComponent;

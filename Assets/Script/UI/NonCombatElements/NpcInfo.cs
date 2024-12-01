@@ -64,7 +64,10 @@ public class NpcInfo : MonoBehaviour
     void OnDisable()
     {
         interactPrompt.SetActive(false); // 상호작용 프롬프트 UI 비활성화
-        playerConversation.isInteracting = false;  // GameController에 상호작용 종료 신호를 보냄
+        if (playerConversation != null)
+        {
+            playerConversation.isInteracting = false;  // GameController에 상호작용 종료 신호를 보냄
+        }
         UpdateOutline(false);
     }
 

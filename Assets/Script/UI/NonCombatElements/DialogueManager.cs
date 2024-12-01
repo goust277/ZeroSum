@@ -6,7 +6,7 @@ using TMPro;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 using System;
 using System.Reflection;
 using Unity.VisualScripting;
@@ -39,8 +39,12 @@ public class DialogueManager : MonoBehaviour
 
     private void LoadNPCs()
     {
-        string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/NPC.json";
-        string jsonData = File.ReadAllText(Path);
+        TextAsset NPCJson = Resources.Load<TextAsset>("Json/Ver00/Dataset/NPC");
+
+        //string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/NPC.json";
+        //string jsonData = File.ReadAllText(Path);
+
+        string jsonData = NPCJson.text;
 
         NPCData npcData = JsonConvert.DeserializeObject<NPCData>(jsonData);
         foreach (NPCInfo npc in npcData.NPCs) //엔피씨의 id로 바로 내용 접근 가능하게 설정
@@ -51,12 +55,13 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        conversationUI.SetActive(false);
         LoadChapterData(GameStateManager.Instance.GetChapterNum());
 
         // SecneID 값이 n(=0) 인 Dialog만 가져오기
 
         //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
-        conversationUI.SetActive(false);
+
     }
 
     #region 제이슨 파싱
@@ -64,9 +69,14 @@ public class DialogueManager : MonoBehaviour
     private void LoadChapterData(int chapterNum)
     {
         //챕터 대사 파일
-        string fName = $"Chap{chapterNum}Dialog.json";
-        string Path = Application.dataPath + "/Resources/Json/Ver00/Dialog/" + fName;
-        string jsonData = File.ReadAllText(Path);
+        string fName = $"Chap{chapterNum}Dialog";
+        string Path = "Json/Ver00/Dialog/" + fName;
+
+        TextAsset NPCJson = Resources.Load<TextAsset>(Path);
+
+        //string jsonData = File.ReadAllText(Path);
+        string jsonData = NPCJson.text;
+
         ChapterRoot = JsonConvert.DeserializeObject<DialogueRoot>(jsonData);
     }
     #endregion

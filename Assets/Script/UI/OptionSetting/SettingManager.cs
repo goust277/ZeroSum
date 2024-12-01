@@ -31,9 +31,12 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private int resolutionIndex = 0;
     private int languageIndex = 0;
-    private bool isFullscreen = true;
+    private bool isFullscreen ;
     private bool isSettingOpen= true;
     private Transform childTransform;
+
+    [SerializeField] private TextMeshProUGUI DebugTemp;
+
     private void Awake()
     {
         // Singleton Pattern
@@ -51,17 +54,30 @@ public class SettingsManager : MonoBehaviour
     void Start()
     {
         Resolution[] resolutions = Screen.resolutions;
+        HashSet<string> resolutionSet = new HashSet<string>(); // 중복 체크를 위한 Set
+
         foreach (Resolution resolution in resolutions)
         {
-            if (resolution.width >= 1024 && Mathf.Approximately((float)resolution.width/resolution.height, 16.0f / 9.0f))
-            {
-                resolutionValues.Add(new ResolutionData(resolution.width, resolution.height, resolution.refreshRateRatio));
-                Debug.Log("new ResolutionData(" + resolution.width + " ,"  + resolution.height + ")");
-            }
+            // refreshRate는 int 타입이므로, 이를 float로 변환하여 사용
+            float refreshRate = (float)resolution.refreshRate;
 
+            // refreshRateRatio를 소수점 둘째 자리로 반올림하여 비교
+            string resolutionKey = $"{resolution.width}x{resolution.height}@{Mathf.Round(refreshRate * 100f) / 100f}"; // 소수점 둘째 자리까지 반올림
+
+            // 16:9 비율과 최소 너비 1024 조건을 만족하고, 중복된 해상도가 아니면 추가
+            if (resolution.width >= 1024 &&
+                Mathf.Approximately((float)resolution.width / resolution.height, 16.0f / 9.0f) &&
+                !resolutionSet.Contains(resolutionKey)) // Set에 없으면 추가
+            {
+                resolutionSet.Add(resolutionKey); // 중복 방지를 위해 키 추가
+                resolutionValues.Add(new ResolutionData(resolution.width, resolution.height, resolution.refreshRateRatio));
+                DebugTemp.text += "new ResolutionData(" + resolution.width + ", " + resolution.height + ", " + resolution.refreshRateRatio + ")"+ "\n";
+            }
         }
 
-
+        isFullscreen = Screen.fullScreen;
+        ToggleFullscreen();
+        //Screen.SetResolution(1920, 1080, true);
         childTransform = gameObject.transform.GetChild(0);
 
         language[0] = "한국어";
@@ -73,8 +89,8 @@ public class SettingsManager : MonoBehaviour
         languageButton[0].onClick.AddListener(ChangeLanguage);
         languageButton[1].onClick.AddListener(ChangeLanguage);
 
-        resolutionButton[1].onClick.AddListener(() => SetResolution(0));
-        resolutionButton[0].onClick.AddListener(() => SetResolution(1));
+        resolutionButton[0].onClick.AddListener(() => SetResolution(0));
+        resolutionButton[1].onClick.AddListener(() => SetResolution(1));
 
         fullscreenButton[0].onClick.AddListener(ToggleFullscreen);
         fullscreenButton[1].onClick.AddListener(ToggleFullscreen);
@@ -95,14 +111,6 @@ public class SettingsManager : MonoBehaviour
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SettingOnOff();
-        }
     }
 
 
@@ -162,25 +170,29 @@ public class SettingsManager : MonoBehaviour
         int width = resolutionValues[resolutionIndex].Width; // 가로
         int height = resolutionValues[resolutionIndex].Height; // 세로
         textMeshPros[1].text = $"{width} X {height}";
-        Screen.SetResolution(width, height, Screen.fullScreen);
-        Debug.Log($"Screen.fullScreen : {Screen.fullScreen}");
-        Debug.Log($"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}");
+        Screen.SetResolution(width, height, isFullscreen);
+        DebugTemp.text += $"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}";
+        DebugTemp.text += "\n";
     }
 
     // 전체화면 토글
     private void ToggleFullscreen()
     {
         //bool isFullscreen = Screen.fullScreen;
-        isFullscreen = !isFullscreen;
+        isFullscreen = !Screen.fullScreen;
         if (isFullscreen) {
             textMeshPros[2].text = "켜짐";
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         else
         {
             textMeshPros[2].text = "꺼짐";
+            Screen.fullScreenMode = FullScreenMode.Windowed;
         }
 
-        Screen.SetResolution(Screen.width, Screen.height, !isFullscreen);  // 현재 해상도를 유지하며 전체화면/창모드 전환
+        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // 현재 해상도를 유지하며 전체화면/창모드 전환
+        DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
+        DebugTemp.text += "\n";
     }
 
     // 화면 밝기 설정

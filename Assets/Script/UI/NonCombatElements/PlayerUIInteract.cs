@@ -14,7 +14,8 @@ public class PlayerUIInteract: MonoBehaviour
 
     void Start()
     {
-        dialogueManager ??= FindObjectOfType<DialogueManager>() as DialogueManager;
+        dialogueManager ??= FindObjectsOfType<DialogueManager>(true).FirstOrDefault();
+
         inventoryController ??= FindObjectsOfType<InventoryController>(true).FirstOrDefault();
 
     }
@@ -90,9 +91,17 @@ public class PlayerUIInteract: MonoBehaviour
 
     public void OnEscEntered(InputAction.CallbackContext context)
     {
+
+        if (context.started && isInputIgnore)
+        {
+            SettingsManager.Instance.SettingOnOff();
+            isInputIgnore = false;
+        }
+
         if (context.started && !isOpenInven)
         {
-            
+            SettingsManager.Instance.SettingOnOff();
+            isInputIgnore = true;
         }
     }
 }

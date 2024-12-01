@@ -48,10 +48,14 @@ public class WeaponManager : MonoBehaviour
 
     private void LoadData(string path)
     {
-        string basePath = Application.dataPath + "/Resources/Json/";
-        string fullPath = basePath + path;
+        TextAsset weaponJson = Resources.Load<TextAsset>("Json/Ver00/Dataset/Weapons");
 
-        string jsonData = File.ReadAllText(fullPath);
+        //string basePath = Application.dataPath + "/Resources/Json/";
+        //string fullPath = basePath + path;
+
+        //string jsonData = File.ReadAllText(fullPath);
+        string jsonData = weaponJson.text;
+
 
         // T는 아이템 배열로 변환
         WeaponsArray items = JsonConvert.DeserializeObject<WeaponsArray>(jsonData);
