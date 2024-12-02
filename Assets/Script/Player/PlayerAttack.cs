@@ -42,6 +42,15 @@ public class PlayerAttack : MonoBehaviour
         //        ExecuteAttack();
         //    }
         //}
+
+        if (Input.GetKeyDown(KeyCode.A)) 
+        {
+            animator.SetTrigger("AttackUp");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetTrigger("AttackDown");
+        }
     }
 
     public void OnAttack(InputAction.CallbackContext context) // 플레이어 대쉬
