@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1792826730919124584}
   - component: {fileID: 2984968292293006075}
   - component: {fileID: 6101311252254397346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   groundBoxOffset: 0.08
   groundBox: {x: 0.3, y: 0.18}
   groundCheckDistance: 0.15
+  isGrounded: 0
 --- !u!114 &8353150855423935642
 MonoBehaviour:
   m_ObjectHideFlags: 0
