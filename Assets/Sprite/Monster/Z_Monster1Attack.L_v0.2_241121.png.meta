@@ -1,0 +1,415 @@
+fileFormatVersion: 2
+guid: e06d66998b3c8da4f8f1f840f7349c66
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_0
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 857
+        width: 104
+        height: 112
+      alignment: 9
+      pivot: {x: 0.58302116, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f85ceed267c34443867cbd342bcc19f
+      internalID: -794799494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_1
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 856
+        width: 80
+        height: 112
+      alignment: 9
+      pivot: {x: 0.44230348, y: 0.50000054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b19a33a11629e4280ca8e432cfc22b
+      internalID: -972994761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 718
+        width: 129
+        height: 108
+      alignment: 9
+      pivot: {x: 0.48012182, y: 0.4905028}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa2c89dc0e8b4e46a918ae2110715bb
+      internalID: 1307137480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_3
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 717
+        width: 108
+        height: 110
+      alignment: 9
+      pivot: {x: 0.54273844, y: 0.50000054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2a5424aab10ae54780e32baa475c933
+      internalID: -899111462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_5
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 549
+        width: 150
+        height: 131
+      alignment: 9
+      pivot: {x: 0.38033274, y: 0.39038178}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15ef582080ee49a40a9a1054a7ad6bed
+      internalID: 294300935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_6
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 549
+        width: 149
+        height: 122
+      alignment: 9
+      pivot: {x: 0.40018213, y: 0.44955495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46c606119ba667640bbece9e0731f2b2
+      internalID: -1348195499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_7
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 400
+        width: 134
+        height: 118
+      alignment: 9
+      pivot: {x: 0.46938166, y: 0.4478452}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ae2fc50d0550ec4986aaafa89220333
+      internalID: -1164910632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 400
+        width: 148
+        height: 135
+      alignment: 9
+      pivot: {x: 0.41683403, y: 0.38983065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974c5a3cc0984b743a4b7aef9573dbe3
+      internalID: 635333991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_8
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 230
+        width: 184
+        height: 134
+      alignment: 9
+      pivot: {x: 0.5000002, y: 0.4196272}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2814061b46b3704ba77e5a58faf49a5
+      internalID: -32563112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_9
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 230
+        width: 233
+        height: 168
+      alignment: 9
+      pivot: {x: 0.3943467, y: 0.32904705}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b332f1cc5f1d2654c9c842f1101300a2
+      internalID: -2104978681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_11
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 30
+        width: 120
+        height: 104
+      alignment: 9
+      pivot: {x: 0.61111945, y: 0.52958804}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f47d70b225ab82458b8c21eaead11ed
+      internalID: 97971839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster1Attack.L_v0.2_241121_10
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 27
+        width: 252
+        height: 192
+      alignment: 9
+      pivot: {x: 0.3656798, y: 0.3050067}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7b7353aebf7a0543aa32c0efbf49fa8
+      internalID: 1160068073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Z_Monster1Attack.L_v0.2_241121_: 635333991
+      Z_Monster1Attack.L_v0.2_241121_0: -794799494
+      Z_Monster1Attack.L_v0.2_241121_1: -972994761
+      Z_Monster1Attack.L_v0.2_241121_10: 1160068073
+      Z_Monster1Attack.L_v0.2_241121_11: 97971839
+      Z_Monster1Attack.L_v0.2_241121_12: -236355569
+      Z_Monster1Attack.L_v0.2_241121_13: -1044926637
+      Z_Monster1Attack.L_v0.2_241121_14: 1681002800
+      Z_Monster1Attack.L_v0.2_241121_15: -1631078937
+      Z_Monster1Attack.L_v0.2_241121_16: -1141136413
+      Z_Monster1Attack.L_v0.2_241121_17: -521207333
+      Z_Monster1Attack.L_v0.2_241121_19: -1922038830
+      Z_Monster1Attack.L_v0.2_241121_2: 1307137480
+      Z_Monster1Attack.L_v0.2_241121_20: -1930485126
+      Z_Monster1Attack.L_v0.2_241121_21: -81322239
+      Z_Monster1Attack.L_v0.2_241121_23: -1391141297
+      Z_Monster1Attack.L_v0.2_241121_24: 1078732153
+      Z_Monster1Attack.L_v0.2_241121_25: 1471749152
+      Z_Monster1Attack.L_v0.2_241121_26: -232931826
+      Z_Monster1Attack.L_v0.2_241121_27: 506193071
+      Z_Monster1Attack.L_v0.2_241121_28: 850647672
+      Z_Monster1Attack.L_v0.2_241121_29: -769258780
+      Z_Monster1Attack.L_v0.2_241121_3: -899111462
+      Z_Monster1Attack.L_v0.2_241121_30: 1333118321
+      Z_Monster1Attack.L_v0.2_241121_31: -1570034786
+      Z_Monster1Attack.L_v0.2_241121_32: 1742944823
+      Z_Monster1Attack.L_v0.2_241121_33: -764623243
+      Z_Monster1Attack.L_v0.2_241121_36: -900332815
+      Z_Monster1Attack.L_v0.2_241121_37: -2134989828
+      Z_Monster1Attack.L_v0.2_241121_38: -694048430
+      Z_Monster1Attack.L_v0.2_241121_39: -1510542530
+      Z_Monster1Attack.L_v0.2_241121_5: 294300935
+      Z_Monster1Attack.L_v0.2_241121_6: -1348195499
+      Z_Monster1Attack.L_v0.2_241121_7: -1164910632
+      Z_Monster1Attack.L_v0.2_241121_8: -32563112
+      Z_Monster1Attack.L_v0.2_241121_9: -2104978681
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
