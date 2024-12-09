@@ -8,7 +8,7 @@ using System.Collections.Generic;  // 언어 설정 관련 처리를 위해
 
 public class SettingsManager : MonoBehaviour
 {
-    public static SettingsManager Instance { get; private set; }
+
 
     // UI 요소 연결
     [SerializeField] private Button[] languageButton = new Button[2];  // 언어 선택 버튼
@@ -37,20 +37,6 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI DebugTemp;
 
-    private void Awake()
-    {
-        // Singleton Pattern
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환 시 유지
-        }
-        else
-        {
-            Destroy(gameObject); // 중복된 인스턴스 제거
-        }
-    }
-
     void Start()
     {
         Resolution[] resolutions = Screen.resolutions;
@@ -59,10 +45,10 @@ public class SettingsManager : MonoBehaviour
         foreach (Resolution resolution in resolutions)
         {
             // refreshRate는 int 타입이므로, 이를 float로 변환하여 사용
-            float refreshRate = (float)resolution.refreshRate;
+            float refreshRate = resolution.refreshRate;
 
             // refreshRateRatio를 소수점 둘째 자리로 반올림하여 비교
-            string resolutionKey = $"{resolution.width}x{resolution.height}@{Mathf.Round(refreshRate * 100f) / 100f}"; // 소수점 둘째 자리까지 반올림
+            string resolutionKey = $"{resolution.width}x{resolution.height}@{Mathf.Round(refreshRate * 1f) / 1f}"; // 소수점 둘째 자리까지 반올림
 
             // 16:9 비율과 최소 너비 1024 조건을 만족하고, 중복된 해상도가 아니면 추가
             if (resolution.width >= 1024 &&
@@ -81,7 +67,7 @@ public class SettingsManager : MonoBehaviour
         childTransform = gameObject.transform.GetChild(0);
 
         language[0] = "한국어";
-        language[1] = "영어";
+        language[1] = "준비중";
 
         SettingOnOff();
 
@@ -128,7 +114,6 @@ public class SettingsManager : MonoBehaviour
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = false;
         }
-
     }
 
 
@@ -206,44 +191,16 @@ public class SettingsManager : MonoBehaviour
     // 배경음 설정
     private void SetBackgroundSound(float value)
     {
-        // value가 0일 때 음량을 -80으로 설정
-        if (Mathf.Approximately(value, 0.0f))
-        {
-            Debug.Log("Value is 0, setting background volume to -80");
-            audioMixer.SetFloat("BackgroundVolume", -80);  // 소리가 안 나오는 값
-        }
-        else
-        {
-            // 최소 볼륨을 설정하여 값이 너무 낮게 가지 않도록 설정
-            float volume = Mathf.Log10(value) * 20;
-            volume = Mathf.Max(volume, -80); // 최소값을 -80으로 설정
-
-            audioMixer.SetFloat("BackgroundVolume", volume);
-        }
-
-        // 설정된 값 저장
+        float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
+        audioMixer.SetFloat("BackgroundVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("BackgroundVolume", value);
     }
 
     // 효과음 설정
     private void SetEffectsSound(float value)
     {
-        // value가 0일 때 음량을 -80으로 설정
-        if (Mathf.Approximately(value, 0.0f))
-        {
-            Debug.Log("Value is 0, setting background volume to -80");
-            audioMixer.SetFloat("EffectsVolume", -80);  // 소리가 안 나오는 값
-        }
-        else
-        {
-            // 최소 볼륨을 설정하여 값이 너무 낮게 가지 않도록 설정
-            float volume = Mathf.Log10(value) * 20;
-            volume = Mathf.Max(volume, -80); // 최소값을 -80으로 설정
-
-            audioMixer.SetFloat("EffectsVolume", volume);
-        }
-
-        // 설정된 값 저장
+        float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
+        audioMixer.SetFloat("EffectsVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
 
@@ -253,33 +210,7 @@ public class SettingsManager : MonoBehaviour
         vibrationLevel = level;
         PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // 저장
 
-        // 진동 강도에 따른 처리
-        switch (vibrationLevel)
-        {
-            case 0:
-                textMeshPros[3].text = "x0.3";
-                // 진동 없음
-                break;
-            case 1:
-                textMeshPros[3].text = "x0.7";
-                // 약한 진동
-                //Handheld.Vibrate();
-                break;
-            case 2:
-                textMeshPros[3].text = "x1.0";
-                // 중간 진동
-                //Handheld.Vibrate();
-                break;
-            case 3:
-                textMeshPros[3].text = "x1.3";
-                // 강한 진동
-                //Handheld.Vibrate();
-                break;
-            case 4:
-                textMeshPros[3].text = "x1.6";
-                // 가장 강한 진동
-                //Handheld.Vibrate();
-                break;
-        }
+        string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
+        displayTexts[3].text = vibrationLevels[level];
     }
 }
