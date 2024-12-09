@@ -40,7 +40,7 @@ public class GameStartController : BaseUi
                 break;
             case "Setting":
                 isSettingOpen = true;
-                SettingsManager.Instance.SettingOnOff();
+                //SettingsManager.Instance.SettingOnOff();
                 Debug.Log("Setting");
                 break;
             case "Exit":
@@ -55,7 +55,7 @@ public class GameStartController : BaseUi
         if (Input.GetKeyDown(KeyCode.Escape) && isSettingOpen)
         {
             isSettingOpen = false;
-            SettingsManager.Instance.SettingOnOff();
+            //SettingsManager.Instance.SettingOnOff();
         }
     }
 

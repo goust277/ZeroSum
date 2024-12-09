@@ -211,6 +211,6 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ¿˙¿Â
 
         string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
-        displayTexts[3].text = vibrationLevels[level];
+        textMeshPros[3].text = vibrationLevels[level];
     }
 }

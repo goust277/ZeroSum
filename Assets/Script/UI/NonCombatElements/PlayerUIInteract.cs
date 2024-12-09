@@ -94,13 +94,13 @@ public class PlayerUIInteract: MonoBehaviour
 
         if (context.started && isInputIgnore)
         {
-            SettingsManager.Instance.SettingOnOff();
+            //SettingsManager.Instance.SettingOnOff();
             isInputIgnore = false;
         }
 
         if (context.started && !isOpenInven)
         {
-            SettingsManager.Instance.SettingOnOff();
+            //SettingsManager.Instance.SettingOnOff();
             isInputIgnore = true;
         }
     }
