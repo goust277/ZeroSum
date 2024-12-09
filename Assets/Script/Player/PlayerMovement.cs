@@ -284,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isAttack()
     {
-        if (playerSword)
+        if (playerSword.isAttack)
         {
             return true;
         }

@@ -1930,6 +1930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   attackDelay: 1
+  isAttack: 0
   delay: 0
   atkCoolTime: 0.5
   col:
@@ -1950,6 +1951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 3
   attackDelay: 0
+  isAttack: 0
 --- !u!1 &1860254420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,7 +2667,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!1 &6304103314324446368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2687,7 @@ GameObject:
   - component: {fileID: 6101311250397843386}
   - component: {fileID: 1857641506}
   - component: {fileID: 1857641507}
+  - component: {fileID: 8353150856055625859}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2707,6 +2710,20 @@ MonoBehaviour:
   controller:
   - {fileID: 9100000, guid: 0c44fc36a51771d4285eafc2a091aaed, type: 2}
   OnBattleArea: 1
+--- !u!114 &8353150856055625859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304103314324446368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bcd5fd069ccc5419b6b1216bf54895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  InvincibilityTime: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
