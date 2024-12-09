@@ -1,3 +1,4 @@
+using Com.LuisPedroFonseca.ProCamera2D;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ public class PlayerSwordAttack : PlayerAttackState
     [SerializeField] private GameObject[] col;
 
     private bool isAtkReady;
-    private int combo = 1;
+    [SerializeField] private int combo = 1;
     private Animator animator;
     private void Start()
     {
@@ -43,7 +44,7 @@ public class PlayerSwordAttack : PlayerAttackState
 
     public void ComboAttack()
     {
-        
+
         if (isAtkReady)
         {
             switch (combo)
@@ -53,7 +54,7 @@ public class PlayerSwordAttack : PlayerAttackState
                         Attack1();
                         break;
                     }
-                case 2: 
+                case 2:
                     {
                         Attack2();
                         break;
@@ -96,43 +97,65 @@ public class PlayerSwordAttack : PlayerAttackState
         isAtkReady = false;
     }
 
-    private void AtkColSetTrue()
+    public void AtkColSetTrue()
     {
-        switch (combo)
+        switch (combo - 1)
         {
             case 1:
                 {
                     col[0].SetActive(true);
+                    Debug.Log("True");
                     break;
                 }
             case 2:
                 {
+                    col[1].SetActive(true);
                     break;
                 }
             case 3:
                 {
+                    col[2].SetActive(true);
                     break;
                 }
 
         }
     }
-    private void AtkColSetFalse()
+    public void AtkColSetFalse()
     {
-        switch (combo)
+        switch (combo - 1)
         {
             case 1:
                 {
                     col[0].SetActive(false);
+                    Debug.Log("False");
                     break;
                 }
             case 2:
                 {
+                    col[1].SetActive(false);
                     break;
                 }
             case 3:
                 {
+                    col[2].SetActive(false);
                     break;
                 }
+
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            IDamageAble damageable = collision.GetComponent<IDamageAble>();
+            if (damageable != null)
+            {
+                damageable.Damage(damage);
+                var shakePreset = ProCamera2DShake.Instance.ShakePresets[0];
+
+                ProCamera2DShake.Instance.Shake(shakePreset);
+            }
 
         }
     }

@@ -10,7 +10,7 @@ namespace Com.LuisPedroFonseca.ProCamera2D
         {
             if (GUI.Button(new Rect(5, 5, 150, 30), "Shake"))
             {
-                var shakePreset = ProCamera2DShake.Instance.ShakePresets[Random.Range(0, ProCamera2DShake.Instance.ShakePresets.Count)];
+                var shakePreset = ProCamera2DShake.Instance.ShakePresets[0];
                 Debug.Log("Shake: " + shakePreset.name);
 
                 ProCamera2DShake.Instance.Shake(shakePreset);

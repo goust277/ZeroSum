@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private Rigidbody2D rb;
     private Animator animator;
+    private PlayerSwordAttack playerSword;
 
     [HideInInspector] public event System.Action OnJumpInitiated; // 점프 이벤트
     [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        playerSword = GetComponent<PlayerSwordAttack>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
@@ -85,28 +87,31 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
-        if (moveDirection != Vector2.zero) // 움직임
+        if (!isAttack())
         {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-            rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
-
-            if (moveDirection == Vector2.right && moveRight)
+            if (moveDirection != Vector2.zero) // 움직임
             {
-                Flip();
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
+
+                if (moveDirection == Vector2.right && moveRight)
+                {
+                    Flip();
+                }
+                else if (moveDirection == Vector2.left && !moveRight)
+                {
+                    Flip();
+                }
             }
-            else if (moveDirection == Vector2.left && !moveRight)
+            else
             {
-                Flip();
+                isMove = false;
             }
-        }
-        else
-        {
-            isMove = false;
+
+            Jump();
+            Dash();
         }
 
-        Jump();
-        Dash();
     }
 
     private void Jump()// 점프
@@ -275,5 +280,14 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+    }
+
+    private bool isAttack()
+    {
+        if (playerSword)
+        {
+            return true;
+        }
+        return false;
     }
 }
