@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using UnityEngine.UI;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int currentSceneID = 0;                          // 현재 씬 ID
     private int chapterNum = 0;                           // 현재 챕터
     private int Gold = 0;
+    private int hp = 100;
+
+    [SerializeField] private Image HPbar;
+
     private void Awake()
     {
         // 싱글톤 패턴 구현: 이미 인스턴스가 존재하면 파괴, 그렇지 않으면 유지
@@ -25,9 +30,6 @@ public class GameStateManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject); // 씬이 바뀌어도 유지
-
-            // WeaponManager와 ChipsetManager 인스턴스 생성 + 데이터 로드
-
             
             // 상태 초기화
             currentEventFlags = new Dictionary<string, bool>();
@@ -37,10 +39,7 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         LoadEventFlags();
-
-        //WeaponManager.Instance.activeWeapons[0] = -1;
-        //WeaponManager.Instance.activeWeapons[1] = -1;
-
+        getChangedHP(0);
     }
 
     private void LoadEventFlags()
@@ -102,6 +101,16 @@ public class GameStateManager : MonoBehaviour
     {
         return Gold;
     }
+
+    public void getChangedHP(int fixHP)
+    {
+        hp -= fixHP;
+        if (HPbar != null)
+        {
+            HPbar.fillAmount = Mathf.Clamp(hp, 0, 100) / 100f; //0~1 사이로 클램프
+        }
+    }
+
 
     public void spendGold(int spendAmount)
     {

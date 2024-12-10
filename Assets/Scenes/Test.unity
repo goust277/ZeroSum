@@ -763,8 +763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPosition: {x: 0, y: 1.25, z: -10}
   smoothSpeed: 2
-  center: {x: 0, y: 0}
-  mapSize: {x: 50, y: 10}
+  center: {x: 10.84, y: 1.15}
+  mapSize: {x: 21.7, y: 6.33}
 --- !u!1 &618083385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,7 +2136,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5433892001433764112, guid: 923d09b48cadb0940aad4fd2a19eb08f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6401774795984240209, guid: 923d09b48cadb0940aad4fd2a19eb08f, type: 3}
       propertyPath: m_Name

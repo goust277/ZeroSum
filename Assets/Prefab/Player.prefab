@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9fd0e8654445b419130df5a05a4564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: []
+  OnBattleArea: 0
 --- !u!114 &1792826730919124584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +233,10 @@ MonoBehaviour:
     m_ActionId: 7cb24724-19f0-4f6d-a51d-b3d31c46f2b1
     m_ActionName: PlayerMovement/Dash[/Keyboard/k]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f4ed61e1-8e4b-4ae0-b90b-1db44593e274
+    m_ActionName: PlayerMovement/Attack[/Keyboard/z]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2397784208669292967}
         m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
@@ -261,23 +267,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b81b68ed-6aef-41c4-ad5f-5b5f7d47b915
-    m_ActionName: PlayerMovement/ChangeWeapon[/Keyboard/q,/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2397784208669292967}
-        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
-        m_MethodName: OnTabInventory
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 287e2451-37f4-4f06-a4e6-40cdaf692273
-    m_ActionName: PlayerMovement/Inventory[/Keyboard/tab]
+    m_ActionName: PlayerMovement/ChangeWeapon[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2397784208669292967}

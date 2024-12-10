@@ -8,8 +8,6 @@ using System.Collections.Generic;  // 언어 설정 관련 처리를 위해
 
 public class SettingsManager : MonoBehaviour
 {
-
-
     // UI 요소 연결
     [SerializeField] private Button[] languageButton = new Button[2];  // 언어 선택 버튼
     [SerializeField] private Button[] resolutionButton = new Button[2];  // 해상도 변경 버튼

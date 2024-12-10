@@ -775,7 +775,7 @@ MonoBehaviour:
   cameraPosition: {x: 0, y: 2, z: -10}
   smoothSpeed: 2
   center: {x: 10, y: 1}
-  mapSize: {x: 25, y: 10}
+  mapSize: {x: 21, y: 6}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,70 +1825,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: f4ed61e1-8e4b-4ae0-b90b-1db44593e274
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
-      value: 3af3f4bc-8809-4245-9255-e74259719619
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
-      value: f4ed61e1-8e4b-4ae0-b90b-1db44593e274
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: PlayerMovement/Attack[/Keyboard/z]
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
-      value: PlayerMovement/Option[/Keyboard/escape]
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
-      value: PlayerMovement/Attack[/Keyboard/z]
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnEscEntered
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792826730919124584, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5673486362211878852, guid: 164bff8cacec27d47bdc0d690447e232, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.81

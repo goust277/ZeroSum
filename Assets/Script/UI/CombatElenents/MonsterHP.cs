@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class MonsterHP : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +15,5 @@ public class Portal : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void OnPortal()
-    {
-        SceneManager.LoadScene("Field");
     }
 }

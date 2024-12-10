@@ -89,10 +89,7 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         if (other.CompareTag("Player"))
         {
             IDamageAble damageable = other.GetComponent<IDamageAble>();
-            if (damageable != null)
-            {
-                damageable.Damage(attackDamage);
-            }
+            damageable?.Damage(attackDamage);
         }
     }
 
