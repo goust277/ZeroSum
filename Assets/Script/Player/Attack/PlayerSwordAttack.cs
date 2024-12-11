@@ -152,6 +152,8 @@ public class PlayerSwordAttack : PlayerAttackState
             if (damageable != null)
             {
                 damageable.Damage(damage);
+
+
                 var shakePreset = ProCamera2DShake.Instance.ShakePresets[0];
 
                 ProCamera2DShake.Instance.Shake(shakePreset);
