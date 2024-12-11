@@ -4,7 +4,8 @@ using UnityEngine.Audio;  // 오디오 관련 제어
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using System.Collections.Generic;  // 언어 설정 관련 처리를 위해
+using System.Collections.Generic;
+using UnityEngine.Rendering.PostProcessing;  // 언어 설정 관련 처리를 위해
 
 public class SettingsManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] textMeshPros = new TextMeshProUGUI[4];
     // 오디오 믹서 (배경음, 효과음)
     public AudioMixer audioMixer;  // 배경음과 효과음을 관리하는 믹서
+
 
     // 화면 진동 설정
     private int vibrationLevel = 0;
@@ -79,7 +81,7 @@ public class SettingsManager : MonoBehaviour
         fullscreenButton[0].onClick.AddListener(ToggleFullscreen);
         fullscreenButton[1].onClick.AddListener(ToggleFullscreen);
 
-        brightnessSlider.onValueChanged.AddListener(SetBrightness);
+        //brightnessSlider.onValueChanged.AddListener(SetBrightness);
         backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
         effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
 
@@ -90,8 +92,10 @@ public class SettingsManager : MonoBehaviour
             vibrationButtons[i].onClick.AddListener(() => SetVibration(index));
         }
 
+        
+
         // 초기 값 설정 (슬라이더 및 버튼 초기화)
-        brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // 기본값 1.0
+        //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // 기본값 1.0
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
@@ -179,12 +183,22 @@ public class SettingsManager : MonoBehaviour
     }
 
     // 화면 밝기 설정
-    private void SetBrightness(float value)
-    {
-        // 밝기 조정 (간단한 방법은 색상 매트릭스를 사용하거나 카메라의 밝기 조정)
-        RenderSettings.ambientLight = new Color(value, value, value);  // 밝기 조정 (컬러 값)
-        PlayerPrefs.SetFloat("Brightness", value);  // 저장
-    }
+    //public void SetBrightness(float value)
+    //{
+
+    //    if( value != 0)
+    //    {
+    //        exposure.keyValue.value = value;
+    //    }
+    //    else
+    //    {
+    //        exposure.keyValue.value = 0.05f;
+    //    }
+
+    //    // 밝기 조정 (간단한 방법은 색상 매트릭스를 사용하거나 카메라의 밝기 조정)
+    //    RenderSettings.ambientLight = new Color(value, value, value);  // 밝기 조정 (컬러 값)
+    //    PlayerPrefs.SetFloat("Brightness", value);  // 저장
+    //}
 
     // 배경음 설정
     private void SetBackgroundSound(float value)
