@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerHP : MonoBehaviour, IDamageAble
 {
     [SerializeField] private GameObject DamageValuePrefab;
+    [SerializeField] private Transform canvasTransform;
 
     public void Damage(int value)
     {
@@ -17,12 +18,21 @@ public class PlayerHP : MonoBehaviour, IDamageAble
     private void VisualDamage(int value)
     {
         Debug.Log("VisualDamage");
-        Vector3 offset = new Vector3(0, 1, 0); // 위로 1만큼 오프셋
-        GameObject newText = Instantiate(DamageValuePrefab, gameObject.transform.position + offset, Quaternion.identity);
+        Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
+        GameObject newText = Instantiate(DamageValuePrefab, offset, Quaternion.identity);
+        Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
 
-        newText.transform.SetParent(GameObject.Find("UI").transform, false);
 
-        TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        if (canvasTransform == null)
+        {
+            Debug.LogError("Canvas Transform is not assigned!");
+            return;
+        }
+
+        newText.transform.SetParent(canvasTransform, false);
+        //Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
+        //TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
         if (textComponent == null)
         {
             Debug.LogError("TextMeshProUGUI component not found in prefab!");
@@ -31,10 +41,8 @@ public class PlayerHP : MonoBehaviour, IDamageAble
 
         textComponent.text = value.ToString();
     }
-
-    public void Health(int value)
-    {
-        GameStateManager.Instance.getChangedHP(value);
-    }
-
+    //public void Health(int value)
+    //{
+    //    GameStateManager.Instance.getChangedHP(value);
+    //}
 }

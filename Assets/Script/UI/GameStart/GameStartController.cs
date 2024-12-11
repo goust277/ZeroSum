@@ -32,7 +32,7 @@ public class GameStartController : BaseUi
         switch (btnName)
         {
             case "NewStart":
-                Debug.Log("NewGameStart");
+                Debug.Log("NewStart");
                 NewStart();
                 break;
             case "Continue":
@@ -88,7 +88,7 @@ public class GameStartController : BaseUi
         }
 
         // 로딩이 완료된 후 추가 작업
-        SceneManager.LoadScene("SampleSceneUI");
+        SceneManager.LoadScene(sceneName);
     }
 
 

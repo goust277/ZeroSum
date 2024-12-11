@@ -17,7 +17,9 @@ public class GameStateManager : MonoBehaviour
     private int Gold = 0;
     private int hp = 100;
 
+    [Header("HP¹Ù UI")]
     [SerializeField] private Image HPbar;
+    [SerializeField] private GameObject DamageValuePrefab;
 
     private void Awake()
     {

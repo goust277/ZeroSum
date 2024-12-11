@@ -216,6 +216,8 @@ public class WeaponManager : MonoBehaviour
         //if (acquiredItemIds.Contains(slot))
         //{
         //      return acquiredItemIds[slot];
+        if( slot == -1 ) return null;
+
         return allWeapons[slot];
         //}
         //return null;

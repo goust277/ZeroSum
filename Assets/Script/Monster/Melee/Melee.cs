@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngineInternal;
+using TMPro;
 
 public class Melee : MonoBehaviour, IDetectable, IDamageAble
 {
@@ -35,6 +37,11 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
     public GameObject L_attack;
     public GameObject R_attack;
     private StateMachine stateMachine;
+
+    [Header("HP바 UI")]
+    [SerializeField] private Image hpBar;
+    [SerializeField] private GameObject DamageValuePrefab;
+    [SerializeField] private Transform canvasTransform;
 
     void Start()
     {
@@ -93,6 +100,34 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
+    private void VisualDamage(int value)
+    {
+        Debug.Log("VisualDamage");
+        Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
+        Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
+        GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
+        //Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
+
+
+        if (canvasTransform == null)
+        {
+            Debug.LogError("Canvas Transform is not assigned!");
+            return;
+        }
+
+        newText.transform.SetParent(canvasTransform, false);
+        //Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
+        //TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
+        if (textComponent == null)
+        {
+            Debug.LogError("TextMeshProUGUI component not found in prefab!");
+            return;
+        }
+
+        textComponent.text = value.ToString();
+    }
+
     public void Damage(int atk)
     {
         if(isHit)
@@ -101,6 +136,15 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         }
 
         health -= atk;
+
+        //HP 바 표기
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
+        }
+        VisualDamage(atk);
+
+        //
 
         if (health <= 0)
         {

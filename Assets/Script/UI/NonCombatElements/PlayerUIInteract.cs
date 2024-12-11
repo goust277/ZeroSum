@@ -60,6 +60,8 @@ public class PlayerUIInteract: MonoBehaviour
 
     public void OnTabInventory(InputAction.CallbackContext context)
     {
+        Debug.Log("isOpenInven =" + isOpenInven);
+
         if (context.performed && !isInputIgnore)  // context.started ´ë½Å context.performed
         {
             isInputIgnore = true;
