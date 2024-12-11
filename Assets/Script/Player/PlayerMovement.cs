@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
+    private Vector2 input;
     private bool moveRight;
 
     [Header("점프")]
@@ -105,13 +106,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                isMove = false;
+                //isMove = false;
             }
 
             Jump();
             Dash();
         }
-
     }
 
     private void Jump()// 점프
@@ -152,21 +152,27 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        if (input != null && !isDashing)
-        {
-            isMove = true;
-            moveDirection = new Vector2(input.x, 0);
-        }
-        else
-        {
 
-        }
+            input = context.ReadValue<Vector2>();
+            if (input != null && !isDashing)
+            {
+                isMove = true;
+                moveDirection = new Vector2(input.x, 0);
+            }
+            if (context.canceled)
+            {
+                if (input == Vector2.zero)
+                {
+                    isMove = false;
+                }
+
+            }
+
     }
 
     public void OnJump(InputAction.CallbackContext context) // 플레이어 점프
     {
-        if (context.started && (isGrounded || extraJumpCurr < extraJump))
+        if (context.started && (isGrounded || extraJumpCurr < extraJump) && !isAttack())
         {
             isJumping = true;
             jumpTimeCounter = 1f;
@@ -186,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context) // 플레이어 대쉬
     {
-        if (context.started && canDash && isDashReady)
+        if (context.started && canDash && isDashReady && !isAttack())
         {
             StartDash();
             OnDashInitiated?.Invoke();
@@ -284,7 +290,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isAttack()
     {
-        if (playerSword)
+        if (playerSword.isAttack)
         {
             return true;
         }

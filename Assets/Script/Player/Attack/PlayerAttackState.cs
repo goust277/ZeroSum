@@ -7,5 +7,5 @@ public class PlayerAttackState : MonoBehaviour
 {
     [SerializeField] protected int damage;
     [SerializeField] protected float attackDelay;
-    protected bool isAttack;
+    [HideInInspector] public bool isAttack;
 }
