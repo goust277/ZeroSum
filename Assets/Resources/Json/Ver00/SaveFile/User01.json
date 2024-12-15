@@ -1,0 +1,32 @@
+{
+  "playerState": {
+    "Version": {
+      "version": 0,
+      "chapter": 0,
+      "currentSecneID": 0,
+      "scenes": 0
+    },
+    "savePoint": "세이브포인트 이름or코드",
+    "position": { //저장위치 필요하면쓰고아님 지워도될듯
+      "x": 45.3,
+      "y": 12.7
+    },
+    "hp": 85,
+    "Gold" : 1035,
+    "inventory": [
+        { "itemId": 101, "count": 10 },
+        { "itemId": 102, "count": 5 }
+    ],
+    "weapons": [
+      "갖고있는 무기 이름 혹은 코드(string or int) 1",
+      "갖고있는 무기 이름 혹은 코드(string or int) 2",
+      "갖고있는 무기 이름 혹은 코드(string or int) 3",
+      "갖고있는 무기 이름 혹은 코드(string or int) 4"
+    ],
+    "settings": {
+      "soundVolume": 80,
+      "controlScheme": "조작키를 바꾼다면 커스텀한 내용"
+    },
+    "playTime": "초?분?단위 float"
+   }
+}

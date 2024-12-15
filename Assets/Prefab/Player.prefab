@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3139258289175789749}
   - component: {fileID: 8353150855423935642}
   - component: {fileID: 1792826730919124584}
+  - component: {fileID: 2397784208669292967}
   - component: {fileID: 2984968292293006075}
   - component: {fileID: 6101311252254397346}
   m_Layer: 7
@@ -156,6 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9fd0e8654445b419130df5a05a4564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: []
+  OnBattleArea: 0
 --- !u!114 &1792826730919124584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,13 +230,144 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 08949c1b-6176-4567-bb59-7837bce367dc
+    m_ActionId: 7cb24724-19f0-4f6d-a51d-b3d31c46f2b1
     m_ActionName: PlayerMovement/Dash[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f4ed61e1-8e4b-4ae0-b90b-1db44593e274
+    m_ActionName: PlayerMovement/Attack[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9b282847-d141-4889-b19e-12298568223b
+    m_ActionName: PlayerUI/Interaction[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnTabInventory
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: effb4256-748f-4fb2-8ad1-e4e7eb35977d
+    m_ActionName: PlayerUI/Inventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnEscEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1f949b3c-11d6-46ab-9236-ad156e3d23f6
+    m_ActionName: PlayerUI/ESC[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnChangeWeapon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18ada6fa-5569-45bb-b09a-305117933457
+    m_ActionName: PlayerUI/ChangeWeapon[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnTabInventory
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28da305c-9c2c-4eae-94a1-e34bc5aad750
+    m_ActionName: PlayerMovement/Tab[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0efc0376-f6ca-4a89-b195-53f1529f57aa
+    m_ActionName: PlayerMovement/F[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2397784208669292967}
+        m_TargetAssemblyTypeName: PlayerUIInteract, Assembly-CSharp
+        m_MethodName: OnChangeWeapon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 70f6c4d9-dc62-4133-9fbf-553c6465c728
+    m_ActionName: PlayerMovement/E[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2397784208669292967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304103313878188216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48f733c647ba41439255c8bf39e8105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteracting: 0
+  isOpenInven: 0
+  CollisionNPC: 0
 --- !u!61 &2984968292293006075
 BoxCollider2D:
   m_ObjectHideFlags: 0
