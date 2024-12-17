@@ -9,6 +9,7 @@ public class PlayerSwordAttack : PlayerAttackState
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
     [SerializeField] private GameObject[] col;
+    [HideInInspector] public bool isParryingReady;
 
     private bool isAtkReady;
     [SerializeField] private int combo = 1;
@@ -22,8 +23,6 @@ public class PlayerSwordAttack : PlayerAttackState
     // Update is called once per frame
     private void Update()
     {
-
-
         if (delay >= 0)
         {
             delay -= Time.deltaTime;
@@ -92,7 +91,7 @@ public class PlayerSwordAttack : PlayerAttackState
     {
         delay = attackDelay;
         animator.SetTrigger("Attack3");
-        combo = 1;
+        combo++;
         isAttack = false;
         isAtkReady = false;
     }
@@ -104,7 +103,6 @@ public class PlayerSwordAttack : PlayerAttackState
             case 1:
                 {
                     col[0].SetActive(true);
-                    Debug.Log("True");
                     break;
                 }
             case 2:
@@ -127,7 +125,6 @@ public class PlayerSwordAttack : PlayerAttackState
             case 1:
                 {
                     col[0].SetActive(false);
-                    Debug.Log("False");
                     break;
                 }
             case 2:
@@ -138,10 +135,28 @@ public class PlayerSwordAttack : PlayerAttackState
             case 3:
                 {
                     col[2].SetActive(false);
+                    combo = 1;
                     break;
                 }
 
         }
+    }
+    public void Parrying()
+    {
+        delay = attackDelay;
+        isAttack = false;
+        isAtkReady = false;
+        animator.SetTrigger("AttackUp");
+    }
+
+    public void ParryingColSetTrue()
+    {
+        col[3].SetActive(true);
+    }
+
+    public void ParryingColSetFalse() 
+    {
+        col[3].SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

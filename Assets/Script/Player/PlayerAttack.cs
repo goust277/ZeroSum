@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerSwordAttack sword;
-    
+
 
     private void Start()
     {
@@ -17,7 +17,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (context.started)
         {
-            sword.ComboAttack();
+            if (!sword.isParryingReady)
+            {
+                sword.ComboAttack();
+            }
+            else
+            {
+                sword.Parrying();
+            }
         }
     }
 }

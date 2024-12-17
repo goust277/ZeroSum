@@ -1,4 +1,5 @@
 
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerSwordAttack playerSword;
+    private SpriteRenderer sprite;
 
     [HideInInspector] public event System.Action OnJumpInitiated; // 점프 이벤트
     [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
@@ -18,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
     private Vector2 input;
-    private bool moveRight;
+    [SerializeField] private bool moveLeft;
 
     [Header("점프")]
     [SerializeField] private float initialjumpForce = 7f; // 초기 점프 힘
@@ -67,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
         playerSword = GetComponent<PlayerSwordAttack>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -79,12 +82,6 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-    //    if (isGrounded && !isMove)
-    //    { rb.bodyType = RigidbodyType2D.Static; }
-    //    else
-    //    {
-    //        rb.bodyType = RigidbodyType2D.Dynamic;
-    //    }
     }
     private void FixedUpdate()
     {
@@ -95,11 +92,11 @@ public class PlayerMovement : MonoBehaviour
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                 rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
 
-                if (moveDirection == Vector2.right && moveRight)
+                if (moveDirection == Vector2.right && moveLeft)
                 {
                     Flip();
                 }
-                else if (moveDirection == Vector2.left && !moveRight)
+                else if (moveDirection == Vector2.left && !moveLeft)
                 {
                     Flip();
                 }
@@ -144,30 +141,38 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip() // 플레이어 좌우 회전
     {
-        moveRight = !moveRight;
-        Vector2 currentScale = transform.localScale;
-        currentScale.x *= -1;
-        transform.localScale = currentScale;
+        moveLeft = !moveLeft;
+        sprite.flipX = true;
+        if (!moveLeft)
+        {
+            sprite.flipX = false;
+        }
+        //Vector2 currentScale = transform.localScale;
+        //currentScale.x *= -1;
+        //transform.localScale = currentScale;
     }
 
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
 
-            input = context.ReadValue<Vector2>();
-            if (input != null && !isDashing)
+        input = context.ReadValue<Vector2>();
+        if (input != null && !isDashing && input.y == 0)
+        {
+            isMove = true;
+            moveDirection = new Vector2(input.x, 0);
+        }
+        if (input.y > 0) 
+        {
+            playerSword.isParryingReady = true;
+        }
+        if (context.canceled)
+        {
+            if (input == Vector2.zero)
             {
-                isMove = true;
-                moveDirection = new Vector2(input.x, 0);
+                isMove = false;
             }
-            if (context.canceled)
-            {
-                if (input == Vector2.zero)
-                {
-                    isMove = false;
-                }
-
-            }
-
+            playerSword.isParryingReady = false;
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context) // 플레이어 점프
@@ -231,7 +236,10 @@ public class PlayerMovement : MonoBehaviour
     private void Dashing() // 대쉬 중
     {
         dashTime += Time.deltaTime;
-        rb.velocity = new Vector2(transform.localScale.x * dashPower, 0);
+        if(moveLeft)
+            rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, 0);
+        else
+            rb.velocity = new Vector2(transform.localScale.x * dashPower, 0);
         rb.gravityScale = 0f;
 
         if (dashTime >= dashDuration)
