@@ -6,6 +6,8 @@ public class PlayerUIInteract: MonoBehaviour
 {
     private DialogueManager dialogueManager; // DialogueManager 참조
     private InventoryController inventoryController; //인벤참조
+    private SettingsManager settingsManager;
+
 
     public bool isInteracting = false;
     public bool isOpenInven = false;
@@ -15,7 +17,7 @@ public class PlayerUIInteract: MonoBehaviour
     void Start()
     {
         dialogueManager ??= FindObjectsOfType<DialogueManager>(true).FirstOrDefault();
-
+        settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
         inventoryController ??= FindObjectsOfType<InventoryController>(true).FirstOrDefault();
 
     }
@@ -62,16 +64,15 @@ public class PlayerUIInteract: MonoBehaviour
     {
         Debug.Log("isOpenInven =" + isOpenInven);
 
-        if (context.performed && !isInputIgnore)  // context.started 대신 context.performed
+        if (context.started && !isInputIgnore)  // context.started 대신 context.performed
         {
-            isInputIgnore = true;
-
             if (!isOpenInven)
             {
                 //Debug.Log("Inven Open");
                 inventoryController.gameObject.SetActive(true);
                 inventoryController.InventoryOpen();
                 isOpenInven = true;
+                isInputIgnore = true;
                 return;
             }
 
@@ -82,27 +83,17 @@ public class PlayerUIInteract: MonoBehaviour
                 inventoryController.gameObject.SetActive(false);
                 inventoryController.InventoryClose();
                 isOpenInven = false;
+                isInputIgnore = false;
             }
-        }
-
-        if (context.canceled)
-        {
-            isInputIgnore = false; // 키가 올라갈 때 다시 입력 가능하도록
         }
     }
 
     public void OnEscEntered(InputAction.CallbackContext context)
     {
 
-        if (context.started && isInputIgnore)
+        if (context.started && !isInputIgnore)
         {
-            //SettingsManager.Instance.SettingOnOff();
-            isInputIgnore = false;
-        }
-
-        if (context.started && !isOpenInven)
-        {
-            //SettingsManager.Instance.SettingOnOff();
+            settingsManager.SettingOnOff();
             isInputIgnore = true;
         }
     }

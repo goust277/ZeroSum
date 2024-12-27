@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
+using System.Linq;
 
 
 public class GameStartController : BaseUi
@@ -12,7 +13,7 @@ public class GameStartController : BaseUi
     float currentTime = 0.0f;  //현재 시간
     private readonly float fadeoutTime = 2.0f;  //페이드아웃이 진행될 시간
     private bool isSettingOpen = false;
-
+    private SettingsManager settingsManager;
 
     protected override void Awake()
     {
@@ -39,13 +40,16 @@ public class GameStartController : BaseUi
                 Debug.Log("Continue");
                 break;
             case "Setting":
-                isSettingOpen = true;
-                //SettingsManager.Instance.SettingOnOff();
+                SettingListener();
                 Debug.Log("Setting");
                 break;
             case "Exit":
                 Debug.Log("Exit");
                 GameQuit();
+                break;
+            case "SaveNClose":
+                SettingListener();
+                Debug.Log("SaveNClose");
                 break;
         }
     }
@@ -57,6 +61,13 @@ public class GameStartController : BaseUi
             isSettingOpen = false;
             //SettingsManager.Instance.SettingOnOff();
         }
+    }
+
+    private void SettingListener()
+    {
+        settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
+
+        settingsManager.SettingOnOff();
     }
 
 

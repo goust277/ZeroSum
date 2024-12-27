@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 using System.Collections.Generic;
-using UnityEngine.Rendering.PostProcessing;  // 언어 설정 관련 처리를 위해
+//using UnityEngine.Rendering.PostProcessing;  // 언어 설정 관련 처리를 위해
 
 public class SettingsManager : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class SettingsManager : MonoBehaviour
     private Transform childTransform;
 
     [SerializeField] private TextMeshProUGUI DebugTemp;
+    [SerializeField] private Image brightnessPanel;
 
     void Start()
     {
@@ -48,7 +49,7 @@ public class SettingsManager : MonoBehaviour
             float refreshRate = resolution.refreshRate;
 
             // refreshRateRatio를 소수점 둘째 자리로 반올림하여 비교
-            string resolutionKey = $"{resolution.width}x{resolution.height}@{Mathf.Round(refreshRate * 1f) / 1f}"; // 소수점 둘째 자리까지 반올림
+            string resolutionKey = $"{resolution.width}x{resolution.height}"; // 소수점 둘째 자리까지 반올림
 
             // 16:9 비율과 최소 너비 1024 조건을 만족하고, 중복된 해상도가 아니면 추가
             if (resolution.width >= 1024 &&
@@ -92,13 +93,23 @@ public class SettingsManager : MonoBehaviour
             vibrationButtons[i].onClick.AddListener(() => SetVibration(index));
         }
 
-        
 
         // 초기 값 설정 (슬라이더 및 버튼 초기화)
         //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // 기본값 1.0
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
+
+        // 슬라이더 초기화
+        brightnessSlider.minValue = 0f;
+        brightnessSlider.maxValue = 0.6f;
+
+        // 슬라이더 값 변경 이벤트 등록
+        brightnessSlider.onValueChanged.AddListener(SetBrightness);
+
+        // 슬라이더의 초기값과 패널의 투명도 동기화
+        brightnessSlider.value = brightnessPanel.color.a;
+
     }
 
 
@@ -166,8 +177,8 @@ public class SettingsManager : MonoBehaviour
     private void ToggleFullscreen()
     {
         //bool isFullscreen = Screen.fullScreen;
-        isFullscreen = !Screen.fullScreen;
-        if (isFullscreen) {
+
+        if (!isFullscreen) {
             textMeshPros[2].text = "켜짐";
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
@@ -176,6 +187,7 @@ public class SettingsManager : MonoBehaviour
             textMeshPros[2].text = "꺼짐";
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
+        isFullscreen = !Screen.fullScreen;
 
         Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // 현재 해상도를 유지하며 전체화면/창모드 전환
         DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
@@ -183,22 +195,20 @@ public class SettingsManager : MonoBehaviour
     }
 
     // 화면 밝기 설정
-    //public void SetBrightness(float value)
-    //{
+    public void SetBrightness(float value)
+    {
+        // Clamp를 사용하여 값이 0과 0.6 사이를 벗어나지 않도록 보장
+        float clampedValue = Mathf.Clamp(value, 0f, 0.6f);
 
-    //    if( value != 0)
-    //    {
-    //        exposure.keyValue.value = value;
-    //    }
-    //    else
-    //    {
-    //        exposure.keyValue.value = 0.05f;
-    //    }
+        // 패널 이미지의 컬러 값 업데이트
+        Color panelColor = brightnessPanel.color;
+        panelColor.a = 0.6f - clampedValue;
+        brightnessPanel.color = panelColor;
 
-    //    // 밝기 조정 (간단한 방법은 색상 매트릭스를 사용하거나 카메라의 밝기 조정)
-    //    RenderSettings.ambientLight = new Color(value, value, value);  // 밝기 조정 (컬러 값)
-    //    PlayerPrefs.SetFloat("Brightness", value);  // 저장
-    //}
+        // 밝기 조정 (간단한 방법은 색상 매트릭스를 사용하거나 카메라의 밝기 조정)
+        //RenderSettings.ambientLight = new Color(value, value, value);  // 밝기 조정 (컬러 값)
+        PlayerPrefs.SetFloat("Brightness", clampedValue);  // 저장
+    }
 
     // 배경음 설정
     private void SetBackgroundSound(float value)
