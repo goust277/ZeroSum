@@ -113,6 +113,11 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public int getCurrentHP()
+    {
+        return hp;
+    }
+
 
     public void spendGold(int spendAmount)
     {

@@ -231,4 +231,9 @@ public class WeaponManager : MonoBehaviour
         return allWeapons;
     }
 
+    public List<int> GetAcquiredWeapons01()
+    {
+        return acquiredWeaponIds;
+    }
+
 }
