@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 클래스 정의
 [Serializable]
@@ -22,7 +23,8 @@ public class VersionInfo
 {
     public int version;
     public int chapter;
-    public int currentSceneID;
+    public int scene;
+    public int currentStorySceneID;
 }
 
 [Serializable]
@@ -88,7 +90,8 @@ public class SavePoint : MonoBehaviour
             {
                 version = 0,
                 chapter = currentChapNum,
-                currentSceneID = GameStateManager.Instance.GetCurrentSceneID()
+                scene = SceneManager.GetActiveScene().buildIndex,
+                currentStorySceneID = GameStateManager.Instance.GetCurrentSceneID()
             },
             savePointID = spID,
             position = new Position

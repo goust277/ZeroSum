@@ -16,6 +16,7 @@ public class GameStateManager : MonoBehaviour
     private int chapterNum = 0;                           // ÇöÀç Ã©ÅÍ
     private int Gold = 0;
     private int hp = 100;
+    private EventRoot eventRoot;
 
     [Header("HP¹Ù UI")]
     [SerializeField] private Image HPbar;
@@ -46,10 +47,14 @@ public class GameStateManager : MonoBehaviour
 
     private void LoadEventFlags()
     {
+        if(currentEventFlags != null)
+        {
+            return;
+        }
         string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";
         string jsonData = File.ReadAllText(Path);
 
-        EventRoot eventRoot = JsonConvert.DeserializeObject<EventRoot>(jsonData);
+        eventRoot = JsonConvert.DeserializeObject<EventRoot>(jsonData);
         Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
 
         currentEventFlags = events?.EventFlags;
@@ -91,6 +96,13 @@ public class GameStateManager : MonoBehaviour
 
     public void SetchapterNum(int chapNum)
     {
+
+        Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
+        if (events != null)
+        {
+            events.EventFlags = currentEventFlags;
+        }
+
         chapterNum = chapNum;
     }
 
