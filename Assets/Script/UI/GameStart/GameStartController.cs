@@ -14,6 +14,7 @@ public class GameStartController : BaseUi
     private readonly float fadeoutTime = 2.0f;  //페이드아웃이 진행될 시간
     private bool isSettingOpen = false;
     private SettingsManager settingsManager;
+    private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
 
     protected override void Awake()
     {
@@ -38,6 +39,7 @@ public class GameStartController : BaseUi
                 break;
             case "Continue":
                 Debug.Log("Continue");
+                LoadBtnOnClick();
                 break;
             case "Setting":
                 SettingListener();
@@ -70,6 +72,17 @@ public class GameStartController : BaseUi
         settingsManager.SettingOnOff();
     }
 
+    private void LoadBtnOnClick()
+    {
+        if (!File.Exists(savePath1))
+        {
+            Debug.LogWarning("User01.json 세이브 파일이 존재하지 않습니다!");
+        }
+        else
+        {
+            StartCoroutine(fadeOut());
+        }
+    }
 
     private IEnumerator fadeOut()
     {
@@ -82,7 +95,7 @@ public class GameStartController : BaseUi
             Panel.color = alpha;
             yield return null;
         }
-        StartCoroutine(LoadSceneCoroutine("SampleSceneUI"));
+        StartCoroutine(LoadSceneCoroutine("BootScene"));
     }
 
     private IEnumerator LoadSceneCoroutine(string sceneName)

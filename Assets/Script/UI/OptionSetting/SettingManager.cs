@@ -119,11 +119,13 @@ public class SettingsManager : MonoBehaviour
 
         if (!isSettingOpen)
         {
+            Debug.Log("옵션 열려용");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = true;
         }
         else
         {
+            Debug.Log("옵션 닫겨용");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = false;
         }

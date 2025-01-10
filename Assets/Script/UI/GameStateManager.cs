@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
+using TMPro.Examples;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class GameStateManager : MonoBehaviour
     {
         if(currentEventFlags != null)
         {
+            Debug.Log("이미 이벤트 트리거가 관리중 ");
             return;
         }
         string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";

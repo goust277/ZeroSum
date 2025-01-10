@@ -115,7 +115,18 @@ public class SavePoint : MonoBehaviour
         Event existingEvent = eventDict.Events.Find(e => e.chapterNum == currentChapNum);
         if (existingEvent != null)
         {
-            existingEvent.EventFlags = GameStateManager.Instance.currentEventFlags;
+            // 기존 플래그 업데이트 또는 추가
+            foreach (var kvp in GameStateManager.Instance.currentEventFlags)
+            {
+                if (existingEvent.EventFlags.ContainsKey(kvp.Key))
+                {
+                    existingEvent.EventFlags[kvp.Key] = kvp.Value;
+                }
+                else
+                {
+                    existingEvent.EventFlags.Add(kvp.Key, kvp.Value);
+                }
+            }
         }
         else
         {
@@ -135,7 +146,7 @@ public class SavePoint : MonoBehaviour
         File.WriteAllText(savePath + saveFile1, JsonConvert.SerializeObject(saveData, Formatting.Indented));
         File.WriteAllText(savePath + saveFile2, JsonConvert.SerializeObject(eventDict, Formatting.Indented));
 
-        //Debug.Log($"파일 저장 완료: {savePath}");
+        Debug.Log($"파일 저장 완료: {savePath}");
     }
 
     private void CheckExistFile()

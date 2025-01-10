@@ -12,6 +12,8 @@ public class PlayerUIInteract: MonoBehaviour
     public bool isInteracting = false;
     public bool isOpenInven = false;
     private bool isInputIgnore = false;
+    private bool isOpenOption = false;
+
     [HideInInspector] public int CollisionNPC = 0;
 
     void Start()
@@ -25,7 +27,7 @@ public class PlayerUIInteract: MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
 
-        if (context.started)
+        if (context.started && !isInputIgnore) // 입력 무시 상태가 아닌 경우에만 실행
         {
             //Debug.Log("isOpenInven ="+ isOpenInven);
             //Debug.Log("isInteracting =" + isInteracting);
@@ -46,7 +48,7 @@ public class PlayerUIInteract: MonoBehaviour
             if (isOpenInven)
             {
                 // 인벤토리가 열려 있을 때만 무기 변경
-                isInputIgnore = true;
+                //isInputIgnore = true;
                 inventoryController.SlotChange();
             }
         }
@@ -62,17 +64,18 @@ public class PlayerUIInteract: MonoBehaviour
 
     public void OnTabInventory(InputAction.CallbackContext context)
     {
-        Debug.Log("isOpenInven =" + isOpenInven);
 
-        if (context.started && !isInputIgnore)  // context.started 대신 context.performed
+        if (context.started && !isInputIgnore)  // 상호작용가능할 때 인벤토리 여닫기
         {
-            if (!isOpenInven)
+            Debug.Log("isOpenInven =" + isOpenInven);
+
+            if (!isOpenInven) //닫겨있으면 열어야지
             {
                 //Debug.Log("Inven Open");
                 inventoryController.gameObject.SetActive(true);
                 inventoryController.InventoryOpen();
                 isOpenInven = true;
-                isInputIgnore = true;
+                //isInputIgnore = true;
                 return;
             }
 
@@ -90,11 +93,20 @@ public class PlayerUIInteract: MonoBehaviour
 
     public void OnEscEntered(InputAction.CallbackContext context)
     {
-
-        if (context.started && !isInputIgnore)
+        if (context.started)
         {
             settingsManager.SettingOnOff();
-            isInputIgnore = true;
+
+            if (!isOpenOption)
+            {
+                isOpenOption = true;
+                isInputIgnore = true;
+            }
+            else
+            {
+                isOpenOption = false;         
+                isInputIgnore = false;
+            }
         }
     }
 }
