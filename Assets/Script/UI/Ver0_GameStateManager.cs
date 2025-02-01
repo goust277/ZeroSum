@@ -4,14 +4,13 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
-using System.Linq;
-using TMPro;
 using TMPro.Examples;
+using System.Linq;
 
-public class GameStateManager : MonoBehaviour
+public class Ver0_GameStateManager : MonoBehaviour
 {
-
-    public static GameStateManager Instance { get; private set; }
+    // �̱��� �ν��Ͻ�
+    public static Ver0_GameStateManager Instance { get; private set; }
 
     // ���� ���� ������
     public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
@@ -21,19 +20,13 @@ public class GameStateManager : MonoBehaviour
     private int hp = 100;
     private EventRoot eventRoot;
 
-
     [Header("무기강화, 탄알 조정 리소스")]
-    [SerializeField] private TextMeshProUGUI currentMagazineText;
-    [SerializeField] private TextMeshProUGUI totalMagazineText;
-    [SerializeField] private TextMeshProUGUI reinforcementText;
-
-    private int currentMagazine;
-    private int totalMagazine;
-    private int reinforcement;
-
+    [SerializeField] private Image HPbar;
+    [SerializeField] private GameObject DamageValuePrefab;
 
     private void Awake()
     {
+        // �̱��� ���� ����: �̹� �ν��Ͻ��� �����ϸ� �ı�, �׷��� ������ ����
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -58,7 +51,7 @@ public class GameStateManager : MonoBehaviour
     {
         if(currentEventFlags != null)
         {
-            Debug.Log("GameStateManager - LoadEventFlags// There is already currentEventFlags............");
+            Debug.Log("�̹� �̺�Ʈ Ʈ���Ű� ������ ");
             return;
         }
         string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";
@@ -68,10 +61,11 @@ public class GameStateManager : MonoBehaviour
         Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
         
         currentEventFlags = events?.EventFlags;
-        Debug.Log($"GameStateManager - LoadEventFlags// EventFlags: {string.Join(", ", currentEventFlags.Select(kv => $"{kv.Key}: {kv.Value}"))}");
+        Debug.Log($"���� é�� EventFlags: {string.Join(", ", currentEventFlags.Select(kv => $"{kv.Key}: {kv.Value}"))}");
     }
 
 
+    // ���� ������Ʈ �޼����
     public void SetEventFlag(string eventName, bool value)
     {
         if (currentEventFlags.ContainsKey(eventName))
@@ -120,54 +114,23 @@ public class GameStateManager : MonoBehaviour
         chapterNum = chapNum;
     }
 
-    //강화수
-    public void GetReinforcementItem()
+    public void getGold(int getAmount)
     {
-        if(reinforcement == 4)
-        {
-            Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
-            return;
-        }
-
-        reinforcement++;
-        reinforcementText.text = reinforcement.ToString();
-
-        AdjustMagazine();
+        Gold += getAmount;
     }
 
-    public void GetHit()
+    public int getCurrentGold()
     {
-        reinforcement--;
-        if (reinforcement < 0)
-        {
-            Debug.Log("GameStateManager - GetHit // Game Over");
-        }
-        reinforcementText.text = reinforcement.ToString();
-        AdjustMagazine();
+        return Gold;
     }
 
-
-    //탄창수
-    private void AdjustMagazine()
-    {
-        if (reinforcement == 2)
-        {
-            totalMagazine = 10;
-            totalMagazineText.text = totalMagazine.ToString();
-        }
-        else if ( reinforcement == 4)
-        {
-            totalMagazine = 15;
-            totalMagazineText.text = totalMagazine.ToString();
-        }
-    }
-
-
-
-    //hp는 추후에 또 조정해야함
     public void getChangedHP(int fixHP)
     {
-
+        hp -= fixHP;
+        if (HPbar != null)
+        {
+            HPbar.fillAmount = Mathf.Clamp(hp, 0, 100) / 100f; //0~1 ���̷� Ŭ����
+        }
     }
 
     public int getCurrentHP()
@@ -176,6 +139,17 @@ public class GameStateManager : MonoBehaviour
     }
 
 
+    public void spendGold(int spendAmount)
+    {
+        if (Gold - spendAmount < 0)
+        {
+            return;
+        }
+        else
+        {
+            Gold -= spendAmount;
+        }
+    }
 
 
 }

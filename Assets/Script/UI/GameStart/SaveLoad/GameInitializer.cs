@@ -9,27 +9,29 @@ public class GameInitializer : MonoBehaviour
     {
         saveFileLoader = new LoadSaveFile();
 
-        // ¼¼ÀÌºê µ¥ÀÌÅÍ ·Îµå
+        // ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
         PlayerState playerState = saveFileLoader.LoadPlayerState();
         if (playerState != null)
         {
-            //ÀÌ¾îÇÏ±â
+            //ï¿½Ì¾ï¿½ï¿½Ï±ï¿½
+            Debug.Log("GameInitializer - Awake // saveFileLoader.LoadPlayerState() is not null ");
             InitializeGame(playerState);
         }
         else
         {
-            //»õ·ÎÇÏ±â
-            SceneManager.LoadScene("SampleSceneUI"); // Ã¹ ¾À ·Îµå
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+            Debug.Log("GameInitializer - Awake // saveFileLoader.LoadPlayerState() is null ");
+            SceneManager.LoadScene("SampleSceneUI"); // Ã¹ ï¿½ï¿½ ï¿½Îµï¿½
         }
     }
 
     private void InitializeGame(PlayerState playerState)
     {
-        // 1. ¾À ·Îµå
+        // 1. ï¿½ï¿½ ï¿½Îµï¿½
         int sceneNum = playerState.Version.scene;
         SceneManager.LoadScene(sceneNum);
 
-        // 2. ÇÃ·¹ÀÌ¾î ¹èÄ¡
+        // 2. ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡
         Vector3 startPosition = new Vector3(playerState.position.x, playerState.position.y, 0);
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -37,16 +39,16 @@ public class GameInitializer : MonoBehaviour
             player.transform.position = startPosition;
         }
 
-        // 3. ¹«±â Ãß°¡
+        // 3. ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         foreach (int weaponID in playerState.weapons)
         {
             WeaponManager.Instance.AddAcquiredItemIds(weaponID);
         }
 
-        // 4. ¿É¼Ç Àû¿ë
+        // 4. ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         ApplySettings(playerState.settings);
 
-        // 5. ÀÌº¥Æ® ÇÃ·¡±× Àû¿ë
+        // 5. ï¿½Ìºï¿½Æ® ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         EventRoot eventRoot = saveFileLoader.LoadEventRoot();
         if (eventRoot != null)
         {
@@ -58,7 +60,7 @@ public class GameInitializer : MonoBehaviour
 
         GameStateManager.Instance.SetCurrenSceneID(playerState.Version.currentStorySceneID);
 
-        Debug.Log("°ÔÀÓ ÀÌ¾îÇÏ±â ÁØºñ ¿Ï·á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½Ï±ï¿½ ï¿½Øºï¿½ ï¿½Ï·ï¿½");
     }
 
     private void ApplySettings(Settings settings)
@@ -67,6 +69,6 @@ public class GameInitializer : MonoBehaviour
         PlayerPrefs.SetFloat("brightness", settings.brightness);
         PlayerPrefs.SetFloat("BackgroundVolume", settings.BackgroundVolume);
         PlayerPrefs.SetFloat("EffectsVolume", settings.EffectVolume);
-        Debug.Log("¿É¼Ç °ª Àû¿ë ¿Ï·á");
+        Debug.Log("ï¿½É¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
     }
 }

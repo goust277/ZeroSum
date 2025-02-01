@@ -14,12 +14,12 @@ public class LoadSaveFile : MonoBehaviour
     private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
     private readonly string savePath2 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User02.json";
 
-    // ¼¼ÀÌºê µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     public PlayerState LoadPlayerState()
     {
         if (!File.Exists(savePath1))
         {
-            Debug.LogWarning("User01.json ¼¼ÀÌºê ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!");
+            Debug.LogWarning("User01.json ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½!");
             return null;
         }
 
@@ -31,7 +31,7 @@ public class LoadSaveFile : MonoBehaviour
     {
         if (!File.Exists(savePath2))
         {
-            Debug.LogWarning("User02.json ¼¼ÀÌºê ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!");
+            Debug.LogWarning("User02.json ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½!");
             return null;
         }
 

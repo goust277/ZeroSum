@@ -15,42 +15,42 @@ public class InventoryController : BaseUi
     [SerializeField] private int[] activeWeapon = new int[2];
     private List<GameObject> currentItems = new List<GameObject>();
     private Dictionary<int, List<int>> weaponsByType = new Dictionary<int, List<int>>(); 
-    // type¿¡ µû¸¥ ¹«±â ºÐ·ù
-    // [0]type 0 List<int> : type 0¹øÀÎ ¹«±â ¾ÆÀÌµð °ª (ÃÑ)
-    // [1]type 1 List<int> : type 1¹øÀÎ ¹«±â ¾ÆÀÌµð °ª (È°)
-    // [2]type 2 List<int> : type 2¹øÀÎ ¹«±â ¾ÆÀÌµð °ª (°Ë)
-    // [3]type 3 List<int> : type 3¹øÀÎ ¹«±â ¾ÆÀÌµð °ª (µÐ±â)
+    // typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½
+    // [0]type 0 List<int> : type 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ (ï¿½ï¿½)
+    // [1]type 1 List<int> : type 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ (È°)
+    // [2]type 2 List<int> : type 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ (ï¿½ï¿½)
+    // [3]type 3 List<int> : type 3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ (ï¿½Ð±ï¿½)
 
-    [Header("ÇÁ¸®ÆÕ»ý¼º¼Ò½º")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ò½ï¿½")]
     [SerializeField] private TextMeshProUGUI nameTXT;
     [SerializeField] private TextMeshProUGUI desText;
     [SerializeField] private TextMeshProUGUI effectTXT;
     [SerializeField] private GameObject iconImage;
 
-    [Header("¹«±â½ºÀ§Äª¼Ò½º")]
+    [Header("ï¿½ï¿½ï¿½â½ºï¿½ï¿½Äªï¿½Ò½ï¿½")]
     [SerializeField] private GameObject[] activeWeaponObject = new GameObject[2];
     [SerializeField] private GameObject warningObj;
-    private bool isWarningActive = false; // °æ°íÃ¢ È°¼ºÈ­ »óÅÂ
+    private bool isWarningActive = false; // ï¿½ï¿½ï¿½Ã¢ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
 
     public int currentSelectedSlot;
     public int selectedWeapon;
     [SerializeField] private Image selectedWeaponImage;
-    private int currentSelectedCategory = -1; // ÇöÀç ¼±ÅÃµÈ Ä«Å×°í¸® (-1: ¼±ÅÃ ¾øÀ½)
+    private int currentSelectedCategory = -1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ Ä«ï¿½×°ï¿½ï¿½ (-1: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-    [Header("ÀÎº¥Åä¸® ½ºÇÁ¶óÀÌÆ®¼Ò½º")]
-    [SerializeField] private Sprite selectedSprite; // ¼±ÅÃµÈ ¹öÆ° »ö»ó
-    [SerializeField] private Sprite defaultSprite;  // ±âº» ¹öÆ° »ö»ó
-    [SerializeField] private Sprite selectedSlotSprite; // ¼±ÅÃµÈ ¹öÆ° »ö»ó
-    [SerializeField] private Sprite defaultSSlotprite;  // ±âº» ¹öÆ° »ö»ó
-    [SerializeField] public Sprite emptySprite;  // ÅÖºó ½ºÇÁ¶óÀÌÆ®
-    [SerializeField] private Sprite isEmplacement;  // ÀåÂø&Æ¼¾îÇ¥½Ã ½ºÇÁ¶óÀÌÆ® 
+    [Header("ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ò½ï¿½")]
+    [SerializeField] private Sprite selectedSprite; // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Sprite defaultSprite;  // ï¿½âº» ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Sprite selectedSlotSprite; // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Sprite defaultSSlotprite;  // ï¿½âº» ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] public Sprite emptySprite;  // ï¿½Öºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    [SerializeField] private Sprite isEmplacement;  // ï¿½ï¿½ï¿½ï¿½&Æ¼ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® 
 
 
     private Image imageComponent;
 
-    private readonly float transitionDuration = 0.2f; // ÀüÈ¯ ½Ã°£
-    private readonly float consistenceDuration = 0.5f; // Áö¼Ó ½Ã°£
-    //private bool isTransitioning = false; // ÀüÈ¯ ÁßÀÎÁö È®ÀÎ
+    private readonly float transitionDuration = 0.2f; // ï¿½ï¿½È¯ ï¿½Ã°ï¿½
+    private readonly float consistenceDuration = 0.5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    //private bool isTransitioning = false; // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
     private readonly Color alpha0 = new Color(1f, 1f, 1f, 0f);
     private readonly Color alpha1 = new Color(1f, 1f, 1f, 1f);
@@ -79,7 +79,7 @@ public class InventoryController : BaseUi
     //    //Debug.Log("SpriteTransitionLoop");
     //    while (true)
     //    {
-    //        //¾Ö´Ï¸ÞÀÌ¼Ç ¾øÀÌ ²¯/ÄÖ
+    //        //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½/ï¿½ï¿½
     //        imageComponent.color = alpha1;
     //        yield return new WaitForSeconds(consistenceDuration);
 
@@ -95,9 +95,9 @@ public class InventoryController : BaseUi
         Color originalColor = imageComponent.color;
         while (true)
         {
-            yield return new WaitForSeconds(consistenceDuration); // À¯Áö
-            // Åõ¸íµµ °¨¼Ò
-            while (time < transitionDuration) // ÀüÈ¯
+            yield return new WaitForSeconds(consistenceDuration); // ï¿½ï¿½ï¿½ï¿½
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            while (time < transitionDuration) // ï¿½ï¿½È¯
             {
                 time += Time.deltaTime;
                 float alpha = Mathf.Lerp(1f, 0f, time / transitionDuration);
@@ -106,9 +106,9 @@ public class InventoryController : BaseUi
             }
             time = 0f;
 
-            yield return new WaitForSeconds(consistenceDuration); //  À¯Áö ½Ã°£
+            yield return new WaitForSeconds(consistenceDuration); //  ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
                                                                   
-            while (time < transitionDuration) // ÀüÈ¯
+            while (time < transitionDuration) // ï¿½ï¿½È¯
             {
                 time += Time.deltaTime;
                 float alpha = Mathf.Lerp(0f, 1f, time / transitionDuration);
@@ -132,7 +132,7 @@ public class InventoryController : BaseUi
         }
 
         currentSelectedSlot = slot;
-        //Debug.Log("¡ÚUN currentSelectedSlot" + Mathf.Abs(slot - 1));
+        //Debug.Log("ï¿½ï¿½UN currentSelectedSlot" + Mathf.Abs(slot - 1));
 
         imageComponent = activeWeaponObject[slot].transform.parent.GetComponent<Image>();
         imageComponent.sprite = selectedSlotSprite;
@@ -192,7 +192,7 @@ public class InventoryController : BaseUi
 
     private void WeaponTypeSetting()
     {
-        foreach (var weapon in WeaponManager.Instance.GetAcquiredWeapons()) //³ªÁß¿¡ °¡Áö°í ÀÖ´Â ¹«±â¸¸...,,, ÇÊÅÍ¸µ ÇØ¾ß ÇÒµí
+        foreach (var weapon in WeaponManager.Instance.GetAcquiredWeapons()) //ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½â¸¸...,,, ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ø¾ï¿½ ï¿½Òµï¿½
         {
             if (!weaponsByType.ContainsKey(weapon.type))
             {
@@ -203,21 +203,21 @@ public class InventoryController : BaseUi
     }
     private void OnOptionSelected(int optionIndex)
     {
-        //°°Àº ¹öÆ° °è½ï ´©¸£´Â°Å¸é ¹ÝÀÀ¾ÈÇÏ´Â°Ô ³ªÀ»°Í °°´Ù.
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         if (optionIndex == currentSelectedCategory) 
         {
             return;
         }
 
-        // ±âÁ¸ ¼±ÅÃµÈ ¹öÆ°ÀÇ »ö»ó º¹¿ø
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (currentSelectedCategory != -1)
         {
             btns[currentSelectedCategory].image.sprite = defaultSprite;
         }
 
-        // »õ·Î¿î ¹öÆ° »ö»ó º¯°æ
+        // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         btns[optionIndex].image.sprite = selectedSprite;
-        currentSelectedCategory = optionIndex; // ÇöÀç ¼±ÅÃµÈ Ä«Å×°í¸® ¾÷µ¥ÀÌÆ®
+        currentSelectedCategory = optionIndex; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ Ä«ï¿½×°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
         if (selectedWeapon != -1)
         {
@@ -230,13 +230,13 @@ public class InventoryController : BaseUi
     {
         if (!weaponsByType.ContainsKey(optionIndex))
         {
-            return; // ¼±ÅÃµÈ Ä«Å×°í¸®¿¡ ¹«±â°¡ ¾øÀ¸¸é ¸®ÅÏ
+            return; // ï¿½ï¿½ï¿½Ãµï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         List<int> newItems = weaponsByType[optionIndex];
         int itemCount = newItems.Count;
 
-        // ÇöÀç ¾ÆÀÌÅÛÀÌ ÀûÀ¸¸é »õ·Î »ý¼º, ¸¹À¸¸é »èÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (currentItems.Count < itemCount)
         {
             for (int i = currentItems.Count; i < itemCount; i++)
@@ -254,7 +254,7 @@ public class InventoryController : BaseUi
             currentItems.RemoveRange(itemCount, currentItems.Count - itemCount);
         }
 
-        // ¾ÆÀÌÅÛÀÇ ³»¿ë ¾÷µ¥ÀÌÆ®
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         for (int i = 0; i < itemCount; i++)
         {
             var item = currentItems[i];
@@ -272,7 +272,7 @@ public class InventoryController : BaseUi
         }
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
-        isWarningActive = false; // °æ°íÃ¢ »óÅÂ È°¼ºÈ­
+        isWarningActive = false; // ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         warningObj.SetActive(false);
     }
 
@@ -280,7 +280,7 @@ public class InventoryController : BaseUi
     {
         Weapon wp = WeaponManager.Instance.GetActiveItem(selectedWeapon);
         Sprite sprite = Resources.Load<Sprite>(wp.weaponIcons);
-        activeWeaponObject[currentSelectedSlot].GetComponent<Image>().sprite = sprite;// ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
+        activeWeaponObject[currentSelectedSlot].GetComponent<Image>().sprite = sprite;// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         activeWeaponObject[currentSelectedSlot].GetComponent<AdjustSpriteSize>().SetSprite();
         activeWeaponObject[currentSelectedSlot].GetComponent<InvenWeaponSlot>().OnChangedSlotnum(selectedWeapon, nameTXT, desText, effectTXT, iconImage);
 
@@ -290,16 +290,16 @@ public class InventoryController : BaseUi
         switch (wp.type)
         {
             case 0:
-                str = "ÃÑ";
+                str = "ï¿½ï¿½";
                 break;
             case 1:
                 str = "È°";
                 break;
             case 2:
-                str = "°Ë";
+                str = "ï¿½ï¿½";
                 break;
             case 3:
-                str = "µÐ±â";
+                str = "ï¿½Ð±ï¿½";
                 break;
         }
         activeWeaponObject[currentSelectedSlot].GetComponentInChildren<TextMeshProUGUI>().text = str;
@@ -309,19 +309,19 @@ public class InventoryController : BaseUi
     {
         if(currentSelectedSlot == -1)
         {
-            Debug.Log("½½·Ô ¼±ÅÃ ¾ÈÇÔ");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
-        //Debug.Log("SlotChange() ½ÇÇà");
+        //Debug.Log("SlotChange() ï¿½ï¿½ï¿½ï¿½");
         int oppo = activeWeapon[Mathf.Abs(currentSelectedSlot - 1)];
 
         if(selectedWeapon == oppo) //&& !isWarningActive
         {
-            //isWarningActive = true; // °æ°íÃ¢ »óÅÂ È°¼ºÈ­
+            //isWarningActive = true; // ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
             warningObj.SetActive(true);
             StartCoroutine(WarningEffect());
-            Debug.Log("ÀÌ¹Ì ÀåÂøµÈ ¹«±â");
+            Debug.Log("ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
@@ -330,7 +330,7 @@ public class InventoryController : BaseUi
 
     }
 
-    public void InventoryOpen() //ÀÎº¥Åä¸® Ä×À» ‹š ¾×Æ¼ºê À§Ä¡ ¸ÂÃç¼­ ¸ÞÀÎ/¼­ºê ½½·Ô ¹èÄ¡ÇØÁà¾ß ÇÔ.
+    public void InventoryOpen() //ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ç¼­ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
     {
 
         int weaponIndx = WeaponManager.Instance.activeWeapons[0];
@@ -339,7 +339,7 @@ public class InventoryController : BaseUi
         {
             Weapon wp = WeaponManager.Instance.GetActiveItem(weaponIndx);
             Sprite sprite = Resources.Load<Sprite>(wp.weaponIcons);
-            activeWeaponObject[0].GetComponent<Image>().sprite = sprite;// ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
+            activeWeaponObject[0].GetComponent<Image>().sprite = sprite;// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             activeWeaponObject[0].GetComponent<AdjustSpriteSize>().SetSprite();
         }
         activeWeaponObject[0].GetComponent<InvenWeaponSlot>().OnChangedSlotnum(weaponIndx, nameTXT, desText, effectTXT, iconImage);
@@ -350,7 +350,7 @@ public class InventoryController : BaseUi
             
             Weapon wp = WeaponManager.Instance.GetActiveItem(weaponIndx);
             Sprite sprite = Resources.Load<Sprite>(wp.weaponIcons);
-            activeWeaponObject[1].GetComponent<Image>().sprite = sprite;// ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
+            activeWeaponObject[1].GetComponent<Image>().sprite = sprite;// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             activeWeaponObject[1].GetComponent<AdjustSpriteSize>().SetSprite();
         }
         activeWeaponObject[1].GetComponent<InvenWeaponSlot>().OnChangedSlotnum(weaponIndx, nameTXT, desText, effectTXT, iconImage);
@@ -376,7 +376,7 @@ public class InventoryController : BaseUi
 
         nameTXT.text = "";
         desText.text = "";
-        iconImage.GetComponent<Image>().sprite = emptySprite; // ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
+        iconImage.GetComponent<Image>().sprite = emptySprite; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         effectTXT.text = "";
     }
 

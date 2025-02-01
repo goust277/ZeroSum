@@ -10,8 +10,8 @@ using System.Linq;
 public class GameStartController : BaseUi
 {
     [SerializeField] private Image Panel;
-    float currentTime = 0.0f;  //ÇöÀç ½Ã°£
-    private readonly float fadeoutTime = 2.0f;  //ÆäÀÌµå¾Æ¿ôÀÌ ÁøÇàµÉ ½Ã°£
+    float currentTime = 0.0f;  //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    private readonly float fadeoutTime = 2.0f;  //ï¿½ï¿½ï¿½Ìµï¿½Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     private bool isSettingOpen = false;
     private SettingsManager settingsManager;
     private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
@@ -76,7 +76,7 @@ public class GameStartController : BaseUi
     {
         if (!File.Exists(savePath1))
         {
-            Debug.LogWarning("User01.json ¼¼ÀÌºê ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!");
+            Debug.LogWarning("User01.json ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½!");
         }
         else
         {
@@ -104,14 +104,14 @@ public class GameStartController : BaseUi
 
         while (!asyncOperation.isDone)
         {
-            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // ·Îµù ÁøÇà·ü °è»ê
+            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             Debug.Log("Loading progress: " + progress * 100 + "%");
 
-            // ·ÎµùÀÌ ³¡³¯ ¶§±îÁö ´ë±â
+            // ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             yield return null;
         }
 
-        // ·ÎµùÀÌ ¿Ï·áµÈ ÈÄ Ãß°¡ ÀÛ¾÷
+        // ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½
         SceneManager.LoadScene(sceneName);
     }
 

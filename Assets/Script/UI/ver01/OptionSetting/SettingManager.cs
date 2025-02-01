@@ -1,31 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;  // ¿Àµğ¿À °ü·Ã Á¦¾î
+using UnityEngine.Audio;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 using System.Collections.Generic;
-//using UnityEngine.Rendering.PostProcessing;  // ¾ğ¾î ¼³Á¤ °ü·Ã Ã³¸®¸¦ À§ÇØ
+//using UnityEngine.Rendering.PostProcessing;  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public class SettingsManager : MonoBehaviour
 {
-    // UI ¿ä¼Ò ¿¬°á
-    [SerializeField] private Button[] languageButton = new Button[2];  // ¾ğ¾î ¼±ÅÃ ¹öÆ°
-    [SerializeField] private Button[] resolutionButton = new Button[2];  // ÇØ»óµµ º¯°æ ¹öÆ°
-    [SerializeField] private Button[] fullscreenButton = new Button[2];  // ÀüÃ¼È­¸é ¹öÆ°
-    [SerializeField] private Slider brightnessSlider;  // È­¸é ¹à±â ½½¶óÀÌ´õ
-    [SerializeField] private Slider backgroundSoundSlider;  // ¹è°æÀ½ ½½¶óÀÌ´õ
-    [SerializeField] private Slider effectsSoundSlider;  // È¿°úÀ½ ½½¶óÀÌ´õ
-    [SerializeField] private Button[] vibrationButtons = new Button[5];   // È­¸é Áøµ¿ ¹öÆ°µé (5°³)
+    // UI ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Button[] languageButton = new Button[2];  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    [SerializeField] private Button[] resolutionButton = new Button[2];  // ï¿½Ø»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    [SerializeField] private Button[] fullscreenButton = new Button[2];  // ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½Æ°
+    [SerializeField] private Slider brightnessSlider;  // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+    [SerializeField] private Slider backgroundSoundSlider;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+    [SerializeField] private Slider effectsSoundSlider;  // È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+    [SerializeField] private Button[] vibrationButtons = new Button[5];   // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ (5ï¿½ï¿½)
     [SerializeField] private TextMeshProUGUI[] textMeshPros = new TextMeshProUGUI[4];
-    // ¿Àµğ¿À ¹Í¼­ (¹è°æÀ½, È¿°úÀ½)
-    public AudioMixer audioMixer;  // ¹è°æÀ½°ú È¿°úÀ½À» °ü¸®ÇÏ´Â ¹Í¼­
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½, È¿ï¿½ï¿½ï¿½ï¿½)
+    public AudioMixer audioMixer;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Í¼ï¿½
 
 
-    // È­¸é Áøµ¿ ¼³Á¤
+    // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private int vibrationLevel = 0;
 
-    // º¯°æ ¸®½ºÆ®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     private string[] language = new string[2];
     private List<ResolutionData> resolutionValues = new();
 
@@ -41,22 +41,22 @@ public class SettingsManager : MonoBehaviour
     void Start()
     {
         Resolution[] resolutions = Screen.resolutions;
-        HashSet<string> resolutionSet = new HashSet<string>(); // Áßº¹ Ã¼Å©¸¦ À§ÇÑ Set
+        HashSet<string> resolutionSet = new HashSet<string>(); // ï¿½ßºï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Set
 
         foreach (Resolution resolution in resolutions)
         {
-            // refreshRate´Â int Å¸ÀÔÀÌ¹Ç·Î, ÀÌ¸¦ float·Î º¯È¯ÇÏ¿© »ç¿ë
+            // refreshRateï¿½ï¿½ int Å¸ï¿½ï¿½ï¿½Ì¹Ç·ï¿½, ï¿½Ì¸ï¿½ floatï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½
             float refreshRate = resolution.refreshRate;
 
-            // refreshRateRatio¸¦ ¼Ò¼öÁ¡ µÑÂ° ÀÚ¸®·Î ¹İ¿Ã¸²ÇÏ¿© ºñ±³
-            string resolutionKey = $"{resolution.width}x{resolution.height}"; // ¼Ò¼öÁ¡ µÑÂ° ÀÚ¸®±îÁö ¹İ¿Ã¸²
+            // refreshRateRatioï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½Â° ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½İ¿Ã¸ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½
+            string resolutionKey = $"{resolution.width}x{resolution.height}"; // ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½Â° ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İ¿Ã¸ï¿½
 
-            // 16:9 ºñÀ²°ú ÃÖ¼Ò ³Êºñ 1024 Á¶°ÇÀ» ¸¸Á·ÇÏ°í, Áßº¹µÈ ÇØ»óµµ°¡ ¾Æ´Ï¸é Ãß°¡
+            // 16:9 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½Êºï¿½ 1024 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ßºï¿½ï¿½ï¿½ ï¿½Ø»óµµ°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ß°ï¿½
             if (resolution.width >= 1024 &&
                 Mathf.Approximately((float)resolution.width / resolution.height, 16.0f / 9.0f) &&
-                !resolutionSet.Contains(resolutionKey)) // Set¿¡ ¾øÀ¸¸é Ãß°¡
+                !resolutionSet.Contains(resolutionKey)) // Setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             {
-                resolutionSet.Add(resolutionKey); // Áßº¹ ¹æÁö¸¦ À§ÇØ Å° Ãß°¡
+                resolutionSet.Add(resolutionKey); // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å° ï¿½ß°ï¿½
                 resolutionValues.Add(new ResolutionData(resolution.width, resolution.height, resolution.refreshRateRatio));
                 DebugTemp.text += "new ResolutionData(" + resolution.width + ", " + resolution.height + ", " + resolution.refreshRateRatio + ")"+ "\n";
             }
@@ -67,12 +67,12 @@ public class SettingsManager : MonoBehaviour
         //Screen.SetResolution(1920, 1080, true);
         childTransform = gameObject.transform.GetChild(0);
 
-        language[0] = "ÇÑ±¹¾î";
-        language[1] = "ÁØºñÁß";
+        language[0] = "í•œêµ­ì–´";
+        language[1] = "ë‹¤ë¥¸ë‚˜ë¼ì–´";
 
         SettingOnOff();
 
-        // °¢ UI ¿ä¼Ò¿¡ ÀÌº¥Æ® ¸®½º³Ê Ãß°¡
+        // ï¿½ï¿½ UI ï¿½ï¿½Ò¿ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         languageButton[0].onClick.AddListener(ChangeLanguage);
         languageButton[1].onClick.AddListener(ChangeLanguage);
 
@@ -86,7 +86,7 @@ public class SettingsManager : MonoBehaviour
         backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
         effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
 
-        // Áøµ¿ ¹öÆ°µé¿¡ ÀÌº¥Æ® ¸®½º³Ê Ãß°¡
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½é¿¡ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         for (int i = 0; i < vibrationButtons.Length; i++)
         {
             int index = i;
@@ -94,20 +94,20 @@ public class SettingsManager : MonoBehaviour
         }
 
 
-        // ÃÊ±â °ª ¼³Á¤ (½½¶óÀÌ´õ ¹× ¹öÆ° ÃÊ±âÈ­)
-        //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // ±âº»°ª 1.0
+        // ï¿½Ê±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ê±ï¿½È­)
+        //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // ï¿½âº»ï¿½ï¿½ 1.0
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
 
-        // ½½¶óÀÌ´õ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ê±ï¿½È­
         brightnessSlider.minValue = 0f;
         brightnessSlider.maxValue = 0.6f;
 
-        // ½½¶óÀÌ´õ °ª º¯°æ ÀÌº¥Æ® µî·Ï
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
 
-        // ½½¶óÀÌ´õÀÇ ÃÊ±â°ª°ú ÆĞ³ÎÀÇ Åõ¸íµµ µ¿±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½Ê±â°ªï¿½ï¿½ ï¿½Ğ³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
         brightnessSlider.value = brightnessPanel.color.a;
 
     }
@@ -119,34 +119,34 @@ public class SettingsManager : MonoBehaviour
 
         if (!isSettingOpen)
         {
-            Debug.Log("¿É¼Ç ¿­·Á¿ë");
+            Debug.Log("ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = true;
         }
         else
         {
-            Debug.Log("¿É¼Ç ´İ°Ü¿ë");
+            Debug.Log("ï¿½É¼ï¿½ ï¿½İ°Ü¿ï¿½");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = false;
         }
     }
 
 
-    // ¾ğ¾î º¯°æ
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void ChangeLanguage()
     {
-        // ¾ğ¾î º¯°æ ·ÎÁ÷ (¿¹: ÇÑ±¹¾î, ¿µ¾î·Î º¯°æ)
-        // ¿¹½Ã·Î ´Ü¼øÈ÷ ¾ÀÀ» ¸®·Îµå ÇÏ´Â ¹æ½ÄÀ¸·Î ±¸ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½Ñ±ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        // ï¿½ï¿½ï¿½Ã·ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 
         languageIndex = Math.Abs(languageIndex - 1);
         textMeshPros[0].text = language[languageIndex];
 
         //string currentScene = SceneManager.GetActiveScene().name;
-        //SceneManager.LoadScene(currentScene);  // ¾À ¸®·Îµå·Î ¾ğ¾î º¯°æ Àû¿ë
+        //SceneManager.LoadScene(currentScene);  // ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ÇØ»óµµ º¯°æ
-    // ÇØ»óµµ¸¦ ¼³Á¤ÇÏ´Â ¸Ş¼­µå
+    // ï¿½Ø»ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½Ø»óµµ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
     private void SetResolution(int b)
     {
         if (b == 0)
@@ -167,52 +167,52 @@ public class SettingsManager : MonoBehaviour
             resolutionIndex = 0;
         }
 
-        int width = resolutionValues[resolutionIndex].Width; // °¡·Î
-        int height = resolutionValues[resolutionIndex].Height; // ¼¼·Î
+        int width = resolutionValues[resolutionIndex].Width; // ï¿½ï¿½ï¿½ï¿½
+        int height = resolutionValues[resolutionIndex].Height; // ï¿½ï¿½ï¿½ï¿½
         textMeshPros[1].text = $"{width} X {height}";
         Screen.SetResolution(width, height, isFullscreen);
         DebugTemp.text += $"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}";
         DebugTemp.text += "\n";
     }
 
-    // ÀüÃ¼È­¸é Åä±Û
+    // ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½ï¿½
     private void ToggleFullscreen()
     {
         //bool isFullscreen = Screen.fullScreen;
 
         if (!isFullscreen) {
-            textMeshPros[2].text = "ÄÑÁü";
+            textMeshPros[2].text = "ï¿½ï¿½ï¿½ï¿½";
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         else
         {
-            textMeshPros[2].text = "²¨Áü";
+            textMeshPros[2].text = "ï¿½ï¿½ï¿½ï¿½";
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
         isFullscreen = !Screen.fullScreen;
 
-        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // ÇöÀç ÇØ»óµµ¸¦ À¯ÁöÇÏ¸ç ÀüÃ¼È­¸é/Ã¢¸ğµå ÀüÈ¯
+        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ø»óµµ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Ã¼È­ï¿½ï¿½/Ã¢ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
         DebugTemp.text += "\n";
     }
 
-    // È­¸é ¹à±â ¼³Á¤
+    // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetBrightness(float value)
     {
-        // Clamp¸¦ »ç¿ëÇÏ¿© °ªÀÌ 0°ú 0.6 »çÀÌ¸¦ ¹ş¾î³ªÁö ¾Êµµ·Ï º¸Àå
+        // Clampï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ 0.6 ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float clampedValue = Mathf.Clamp(value, 0f, 0.6f);
 
-        // ÆĞ³Î ÀÌ¹ÌÁöÀÇ ÄÃ·¯ °ª ¾÷µ¥ÀÌÆ®
+        // ï¿½Ğ³ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         Color panelColor = brightnessPanel.color;
         panelColor.a = 0.6f - clampedValue;
         brightnessPanel.color = panelColor;
 
-        // ¹à±â Á¶Á¤ (°£´ÜÇÑ ¹æ¹ıÀº »ö»ó ¸ÅÆ®¸¯½º¸¦ »ç¿ëÇÏ°Å³ª Ä«¸Ş¶óÀÇ ¹à±â Á¶Á¤)
-        //RenderSettings.ambientLight = new Color(value, value, value);  // ¹à±â Á¶Á¤ (ÄÃ·¯ °ª)
-        PlayerPrefs.SetFloat("Brightness", clampedValue);  // ÀúÀå
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ Ä«ï¿½Ş¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        //RenderSettings.ambientLight = new Color(value, value, value);  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ã·ï¿½ ï¿½ï¿½)
+        PlayerPrefs.SetFloat("Brightness", clampedValue);  // ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ¹è°æÀ½ ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SetBackgroundSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
@@ -220,7 +220,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("BackgroundVolume", value);
     }
 
-    // È¿°úÀ½ ¼³Á¤
+    // È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SetEffectsSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
@@ -228,11 +228,11 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
 
-    // È­¸é Áøµ¿ ¼³Á¤
+    // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SetVibration(int level)
     {
         vibrationLevel = level;
-        PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ÀúÀå
+        PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ï¿½ï¿½ï¿½ï¿½
 
         string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
         textMeshPros[3].text = vibrationLevels[level];

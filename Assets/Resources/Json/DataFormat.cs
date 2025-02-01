@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Diagnostics.Tracing;
 
-#region Ä¨¼Â Å¬·¡½º
+#region Ä¨ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 [Serializable]
 public class Chipset
 {
@@ -12,11 +12,11 @@ public class Chipset
     public string name;
     public bool type;
     public string des;
-    public Dictionary<string, object> effect; // Ä¨¼Â È¿°ú
+    public Dictionary<string, object> effect; // Ä¨ï¿½ï¿½ È¿ï¿½ï¿½
 }
 #endregion
 
-#region ´ë»ç Å¬·¡½º
+#region ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 [Serializable]
 public class DialogData
 {
@@ -52,7 +52,7 @@ public class AfterConditions
 }
 #endregion
 
-#region ¿£ÇÇ¾¾ Á¤º¸
+#region ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 [Serializable]
 public class NPCInfo
 {
@@ -70,8 +70,8 @@ public class NPCData
 #endregion
 
 
-#region ¹«±â Å¬·¡½º
-/*Weapon Å¬·¡½º(¹«±â)*/
+#region ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+/*Weapon Å¬ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)*/
 [Serializable]
 public class Animations
 {
@@ -105,21 +105,21 @@ public class Weapon
 }
 #endregion
 
-#region ÀÌº¥Æ® »óÅÂ
+#region ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 [Serializable]
 public class Event
 {
-    public int chapterNum; // Ã©ÅÍ ¹øÈ£
-    public Dictionary<string, bool> EventFlags; // ÀÌº¥Æ® Á¶°Ç
+    public int chapterNum; // Ã©ï¿½ï¿½ ï¿½ï¿½È£
+    public Dictionary<string, bool> EventFlags; // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 }
 [Serializable]
 public class EventRoot
 {
-    public List<Event> Events; // ÀÌº¥Æ® ¸®½ºÆ®
+    public List<Event> Events; // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®
 }
 #endregion
 
-#region ¾ÆÀÌÅÛ
+#region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public class ItemForSale
 {
     public int itemId;

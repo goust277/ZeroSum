@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//using System.Linq;
 
-// Å¬·¡½º Á¤ÀÇ
+// Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 [Serializable]
 public class PlayerState
 {
@@ -83,7 +84,7 @@ public class SavePoint : MonoBehaviour
 
         int currentChapNum = GameStateManager.Instance.GetChapterNum();
 
-        // User01.json ÀúÀå µ¥ÀÌÅÍ ±¸¼º
+        // User01.json ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var saveData = new PlayerState
         {
             Version = new VersionInfo
@@ -100,7 +101,6 @@ public class SavePoint : MonoBehaviour
                 y = transform.position.y
             },
             hp = GameStateManager.Instance.getCurrentHP(),
-            Gold = GameStateManager.Instance.getCurrentGold(),
             weapons = WeaponManager.Instance.GetAcquiredWeapons01(),
             settings = new Settings
             {
@@ -111,34 +111,37 @@ public class SavePoint : MonoBehaviour
             }
         };
 
-        // User02.json ÀÌº¥Æ® µ¥ÀÌÅÍ ¼öÁ¤
-        Event existingEvent = eventDict.Events.Find(e => e.chapterNum == currentChapNum);
-        if (existingEvent != null)
-        {
-            // ±âÁ¸ ÇÃ·¡±× ¾÷µ¥ÀÌÆ® ¶Ç´Â Ãß°¡
-            foreach (var kvp in GameStateManager.Instance.currentEventFlags)
-            {
-                if (existingEvent.EventFlags.ContainsKey(kvp.Key))
-                {
-                    existingEvent.EventFlags[kvp.Key] = kvp.Value;
-                }
-                else
-                {
-                    existingEvent.EventFlags.Add(kvp.Key, kvp.Value);
-                }
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"Ã©ÅÍ {currentChapNum} µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê¾Æ »õ·Î Ãß°¡ÇÕ´Ï´Ù.");
-            eventDict.Events.Add(new Event
-            {
-                chapterNum = currentChapNum,
-                EventFlags = GameStateManager.Instance.currentEventFlags
-            });
-        }
+        // User02.json ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        eventDict = GameStateManager.Instance.GetEventRoot();
+        //Event existingEvent = eventDict.Events.Find(e => e.chapterNum == currentChapNum);
+        //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ Ã©ï¿½ï¿½ EventFlags: {string.Join(", ", GameStateManager.Instance.currentEventFlags.Select(kv => $"{kv.Key}: {kv.Value}"))}");
 
-        // ÆÄÀÏ ÀúÀå
+        //if (existingEvent != null)
+        //{
+        //    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ç´ï¿½ ï¿½ß°ï¿½
+        //    foreach (var kvp in GameStateManager.Instance.currentEventFlags)
+        //    {
+        //        if (existingEvent.EventFlags.ContainsKey(kvp.Key))
+        //        {
+        //            existingEvent.EventFlags[kvp.Key] = kvp.Value;
+        //        }
+        //        else
+        //        {
+        //            existingEvent.EventFlags.Add(kvp.Key, kvp.Value);
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning($"Ã©ï¿½ï¿½ {currentChapNum} ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.");
+        //    eventDict.Events.Add(new Event
+        //    {
+        //        chapterNum = currentChapNum,
+        //        EventFlags = GameStateManager.Instance.currentEventFlags
+        //    });
+        //}
+
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (!Directory.Exists(savePath))
         {
             Directory.CreateDirectory(savePath);
@@ -146,7 +149,7 @@ public class SavePoint : MonoBehaviour
         File.WriteAllText(savePath + saveFile1, JsonConvert.SerializeObject(saveData, Formatting.Indented));
         File.WriteAllText(savePath + saveFile2, JsonConvert.SerializeObject(eventDict, Formatting.Indented));
 
-        Debug.Log($"ÆÄÀÏ ÀúÀå ¿Ï·á: {savePath}");
+        Debug.Log($"SavePoint - OnSaveFile //: {savePath}");
     }
 
     private void CheckExistFile()
@@ -168,7 +171,7 @@ public class SavePoint : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Æ÷¸Ë ÆÄÀÏÀÌ {formatFilePath} °æ·Î¿¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!");
+                Debug.LogError($"SavePoint - CheckExistFile // {formatFilePath} << already existtttttt");
             }
         }
     }
