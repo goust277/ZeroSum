@@ -294,6 +294,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        if (collision.CompareTag("InteractDoor"))
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                collision.GetComponent<InteractDoor>().OnInteract();
+            }
+        }
     }
 
     private bool isAttack()
