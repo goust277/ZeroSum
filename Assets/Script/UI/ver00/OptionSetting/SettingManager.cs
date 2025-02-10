@@ -10,13 +10,11 @@ using System.Collections.Generic;
 public class SettingsManager : MonoBehaviour
 {
     // UI ��� ����
-    [SerializeField] private Button[] languageButton = new Button[2];  // ��� ���� ��ư
-    [SerializeField] private Button[] resolutionButton = new Button[2];  // �ػ� ���� ��ư
-    [SerializeField] private Button[] fullscreenButton = new Button[2];  // ��üȭ�� ��ư
-    [SerializeField] private Slider brightnessSlider;  // ȭ�� ��� �����̴�
+    [SerializeField] private Button resolutionButton;  // �ػ� ���� ��ư
+    [SerializeField] private Button fullscreenButton;  // ��üȭ�� ��ư
     [SerializeField] private Slider backgroundSoundSlider;  // ����� �����̴�
     [SerializeField] private Slider effectsSoundSlider;  // ȿ���� �����̴�
-    [SerializeField] private Button[] vibrationButtons = new Button[5];   // ȭ�� ���� ��ư�� (5��)
+    [SerializeField] private Button vibrationButtons;   // ȭ�� ���� ��ư�� (5��)
     [SerializeField] private TextMeshProUGUI[] textMeshPros = new TextMeshProUGUI[4];
     // ����� �ͼ� (�����, ȿ����)
     public AudioMixer audioMixer;  // ������� ȿ������ �����ϴ� �ͼ�
@@ -26,7 +24,6 @@ public class SettingsManager : MonoBehaviour
     private int vibrationLevel = 0;
 
     // ���� ����Ʈ
-    private string[] language = new string[2];
     private List<ResolutionData> resolutionValues = new();
 
     [SerializeField] private int resolutionIndex = 0;
@@ -67,31 +64,18 @@ public class SettingsManager : MonoBehaviour
         //Screen.SetResolution(1920, 1080, true);
         childTransform = gameObject.transform.GetChild(0);
 
-        language[0] = "한국어";
-        language[1] = "다른나라어";
 
         SettingOnOff();
 
         // �� UI ��ҿ� �̺�Ʈ ������ �߰�
-        languageButton[0].onClick.AddListener(ChangeLanguage);
-        languageButton[1].onClick.AddListener(ChangeLanguage);
-
-        resolutionButton[0].onClick.AddListener(() => SetResolution(0));
-        resolutionButton[1].onClick.AddListener(() => SetResolution(1));
-
-        fullscreenButton[0].onClick.AddListener(ToggleFullscreen);
-        fullscreenButton[1].onClick.AddListener(ToggleFullscreen);
+        resolutionButton.onClick.AddListener(() => SetResolution(0));
+        fullscreenButton.onClick.AddListener(ToggleFullscreen);
 
         //brightnessSlider.onValueChanged.AddListener(SetBrightness);
         backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
         effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
 
-        // ���� ��ư�鿡 �̺�Ʈ ������ �߰�
-        for (int i = 0; i < vibrationButtons.Length; i++)
-        {
-            int index = i;
-            vibrationButtons[i].onClick.AddListener(() => SetVibration(index));
-        }
+        vibrationButtons.onClick.AddListener(() => SetVibration(0));
 
 
         // �ʱ� �� ���� (�����̴� �� ��ư �ʱ�ȭ)
@@ -99,16 +83,6 @@ public class SettingsManager : MonoBehaviour
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
-
-        // �����̴� �ʱ�ȭ
-        brightnessSlider.minValue = 0f;
-        brightnessSlider.maxValue = 0.6f;
-
-        // �����̴� �� ���� �̺�Ʈ ���
-        brightnessSlider.onValueChanged.AddListener(SetBrightness);
-
-        // �����̴��� �ʱⰪ�� �г��� ����� ����ȭ
-        brightnessSlider.value = brightnessPanel.color.a;
 
     }
 
@@ -130,22 +104,6 @@ public class SettingsManager : MonoBehaviour
             isSettingOpen = false;
         }
     }
-
-
-    // ��� ����
-    private void ChangeLanguage()
-    {
-        // ��� ���� ���� (��: �ѱ���, ����� ����)
-        // ���÷� �ܼ��� ���� ���ε� �ϴ� ������� ������ �� �ֽ��ϴ�.
-
-        languageIndex = Math.Abs(languageIndex - 1);
-        textMeshPros[0].text = language[languageIndex];
-
-        //string currentScene = SceneManager.GetActiveScene().name;
-        //SceneManager.LoadScene(currentScene);  // �� ���ε�� ��� ���� ����
-    }
-
-    // �ػ� ����
     // �ػ󵵸� �����ϴ� �޼���
     private void SetResolution(int b)
     {
@@ -196,22 +154,6 @@ public class SettingsManager : MonoBehaviour
         DebugTemp.text += "\n";
     }
 
-    // ȭ�� ��� ����
-    public void SetBrightness(float value)
-    {
-        // Clamp�� ����Ͽ� ���� 0�� 0.6 ���̸� ����� �ʵ��� ����
-        float clampedValue = Mathf.Clamp(value, 0f, 0.6f);
-
-        // �г� �̹����� �÷� �� ������Ʈ
-        Color panelColor = brightnessPanel.color;
-        panelColor.a = 0.6f - clampedValue;
-        brightnessPanel.color = panelColor;
-
-        // ��� ���� (������ ����� ���� ��Ʈ������ ����ϰų� ī�޶��� ��� ����)
-        //RenderSettings.ambientLight = new Color(value, value, value);  // ��� ���� (�÷� ��)
-        PlayerPrefs.SetFloat("Brightness", clampedValue);  // ����
-    }
-
     // ����� ����
     private void SetBackgroundSound(float value)
     {
@@ -228,7 +170,6 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
 
-    // ȭ�� ���� ����
     private void SetVibration(int level)
     {
         vibrationLevel = level;
