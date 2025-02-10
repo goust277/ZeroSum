@@ -1,0 +1,413 @@
+fileFormatVersion: 2
+guid: 63c7b06ab4c72114ba206217af798880
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 773.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.3776636, y: 0.40178895}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb08018b2948d8241b948b33f9f70a30
+      internalID: -290620473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_1
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 773.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.27660298, y: 0.3701083}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b863813faeed449835ede6e1578a40
+      internalID: -204632273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 645.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.43351284, y: 0.36693996}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c709d5f11d5882c4a8f1d1cdab6493ff
+      internalID: 1476006253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_3
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 645.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.297879, y: 0.34793177}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfbb63da42417de46bccea7f5c8dcafe
+      internalID: 1939639056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 517.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.42553437, y: 0.33842722}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b48bc4485b3c894a9f94c2be5f5ca9e
+      internalID: -464676178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_5
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 517.1428
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.2872411, y: 0.31941855}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf484387e65d61749a23478899eb0a90
+      internalID: -1572724370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 389.14285
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.43883184, y: 0.32575476}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78cb24a56a8c17541acbc57033f7528d
+      internalID: -1478451541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_7
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 389.14285
+        width: 153.5
+        height: 128.85715
+      alignment: 9
+      pivot: {x: 0.2845814, y: 0.3447632}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac7aac738f602c4fb2621e6a1026768
+      internalID: 205602843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 261
+        width: 138
+        height: 129
+      alignment: 9
+      pivot: {x: 0.3552507, y: 0.3415913}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dadc8edcd79e6684981d9ebdd021b875
+      internalID: 1017666756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_9
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 261
+        width: 167
+        height: 129
+      alignment: 9
+      pivot: {x: 0.26282012, y: 0.33203125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01ad6c97db2ff824d977f8d6782ed480
+      internalID: -26730237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 133
+        width: 148
+        height: 129
+      alignment: 9
+      pivot: {x: 0.3345008, y: 0.30379564}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 810a124a9b92775449a05dc9e7e1a556
+      internalID: 168754491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_11
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 133
+        width: 158
+        height: 129
+      alignment: 9
+      pivot: {x: 0.218372, y: 0.35442916}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7e9537489dc8d24297f82f980a6b8c2
+      internalID: -276881428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Monster2Attack.rough.R_v0.1_241127_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5
+        width: 154
+        height: 128
+      alignment: 9
+      pivot: {x: 0.31444022, y: 0.35329145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e54c25ede15f0947a04d786d10c9e1c
+      internalID: -254594888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Z_Monster2Attack.rough.R_v0.1_241127_0: -290620473
+      Z_Monster2Attack.rough.R_v0.1_241127_1: -204632273
+      Z_Monster2Attack.rough.R_v0.1_241127_10: 168754491
+      Z_Monster2Attack.rough.R_v0.1_241127_11: -276881428
+      Z_Monster2Attack.rough.R_v0.1_241127_12: -254594888
+      Z_Monster2Attack.rough.R_v0.1_241127_2: 1476006253
+      Z_Monster2Attack.rough.R_v0.1_241127_3: 1939639056
+      Z_Monster2Attack.rough.R_v0.1_241127_4: -464676178
+      Z_Monster2Attack.rough.R_v0.1_241127_5: -1572724370
+      Z_Monster2Attack.rough.R_v0.1_241127_6: -1478451541
+      Z_Monster2Attack.rough.R_v0.1_241127_7: 205602843
+      Z_Monster2Attack.rough.R_v0.1_241127_8: 1017666756
+      Z_Monster2Attack.rough.R_v0.1_241127_9: -26730237
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
