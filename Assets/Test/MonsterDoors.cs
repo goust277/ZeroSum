@@ -45,6 +45,6 @@ public class MonsterDoors : MonoBehaviour
 
         isSpawnReady = false;
 
-        GameObject _monster = Instantiate(monster, transform.position, Quaternion.identity, target.transform);
+        //GameObject _monster = Instantiate(monster, transform.position, Quaternion.identity, target.transform);
     }
 }

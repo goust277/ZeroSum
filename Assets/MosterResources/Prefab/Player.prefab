@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 7225158707329753108}
   - component: {fileID: 4065571278802214579}
   - component: {fileID: 7625218732848857191}
-  - component: {fileID: 8389575166848526034}
   - component: {fileID: 7825996273591581865}
   - component: {fileID: 437413830147846377}
   m_Layer: 0
@@ -372,20 +371,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8389575166848526034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2454275001469822622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a161f74676c8a6342b67536e8f3c3e2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageValuePrefab: {fileID: 2561231468067052207, guid: 9a5ab5ff00481154caeba3e71eacdd38, type: 3}
-  canvasTransform: {fileID: 69491702935835610}
 --- !u!114 &7825996273591581865
 MonoBehaviour:
   m_ObjectHideFlags: 0
