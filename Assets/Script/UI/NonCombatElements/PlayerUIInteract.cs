@@ -4,18 +4,22 @@ using System.Linq;
 
 public class PlayerUIInteract: MonoBehaviour
 {
-    private DialogueManager dialogueManager; // DialogueManager 참조
-    private InventoryController inventoryController; //인벤참조
+    private DialogueManager dialogueManager; // DialogueManager ????
+    private InventoryController inventoryController; //?占쏙옙?????
+    private SettingsManager settingsManager;
+
 
     public bool isInteracting = false;
     public bool isOpenInven = false;
-    private bool isInputIgnore = false;
+    [SerializeField] private bool isInputIgnore = false;
+    [SerializeField] private bool isOpenOption = false;
+
     [HideInInspector] public int CollisionNPC = 0;
 
     void Start()
     {
         dialogueManager ??= FindObjectsOfType<DialogueManager>(true).FirstOrDefault();
-
+        settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
         inventoryController ??= FindObjectsOfType<InventoryController>(true).FirstOrDefault();
 
     }
@@ -23,28 +27,28 @@ public class PlayerUIInteract: MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
 
-        if (context.started)
+        if (context.started) // ??? ???? ???占쏙옙? ??? ??占쏙옙?? ????
         {
             //Debug.Log("isOpenInven ="+ isOpenInven);
             //Debug.Log("isInteracting =" + isInteracting);
             //Debug.Log("dialogueManager.isConversation =" + dialogueManager.isConversation);
             if (!isOpenInven && isInteracting && !dialogueManager.isConversation)
             {
-                // 인벤토리가 열려있지 않고 대화가 시작되지 않았을 때만 대화 시작
+                // ?占쏙옙????? ???????? ??? ????? ??????? ????? ???? ??? ????
                 dialogueManager.StartConversation(CollisionNPC);
                 isInputIgnore = true;
             }
 
             if (!isInteracting && !isOpenInven)
             {
-                // 아무것도 안 하고 있는 상태일 때만 입력 처리 허용
+                // ?????? ?? ??? ??? ?????? ???? ??? ??? ???
                 isInputIgnore = false;
             }
 
             if (isOpenInven)
             {
-                // 인벤토리가 열려 있을 때만 무기 변경
-                isInputIgnore = true;
+                // ?占쏙옙????? ???? ???? ???? ???? ????
+                //isInputIgnore = true;
                 inventoryController.SlotChange();
             }
         }
@@ -60,18 +64,18 @@ public class PlayerUIInteract: MonoBehaviour
 
     public void OnTabInventory(InputAction.CallbackContext context)
     {
-        Debug.Log("isOpenInven =" + isOpenInven);
 
-        if (context.performed && !isInputIgnore)  // context.started 대신 context.performed
+        if (context.started && !isInputIgnore)  // ?????????? ?? ?占쏙옙??? ?????
         {
-            isInputIgnore = true;
+            Debug.Log("isOpenInven =" + isOpenInven);
 
-            if (!isOpenInven)
+            if (!isOpenInven) //????????? ???????
             {
                 //Debug.Log("Inven Open");
                 inventoryController.gameObject.SetActive(true);
                 inventoryController.InventoryOpen();
                 isOpenInven = true;
+                //isInputIgnore = true;
                 return;
             }
 
@@ -82,28 +86,36 @@ public class PlayerUIInteract: MonoBehaviour
                 inventoryController.gameObject.SetActive(false);
                 inventoryController.InventoryClose();
                 isOpenInven = false;
+                isInputIgnore = false;
             }
-        }
-
-        if (context.canceled)
-        {
-            isInputIgnore = false; // 키가 올라갈 때 다시 입력 가능하도록
         }
     }
 
     public void OnEscEntered(InputAction.CallbackContext context)
     {
-
-        if (context.started && isInputIgnore)
+        if (context.started)
         {
-            //SettingsManager.Instance.SettingOnOff();
-            isInputIgnore = false;
-        }
+            settingsManager.SettingOnOff();
 
-        if (context.started && !isOpenInven)
-        {
-            //SettingsManager.Instance.SettingOnOff();
-            isInputIgnore = true;
+            if (!isOpenOption)
+            {
+                isOpenOption = true;
+                isInputIgnore = true;
+            }
+            else
+            {
+                isOpenOption = false;         
+                isInputIgnore = false;
+            }
         }
     }
+
+/*    void FixedUpdate()
+    {
+        // `isInputIgnore` ???占쏙옙? ?????? ???? ??? (??? ??)
+        if (!dialogueManager.isConversation && !isOpenInven)
+        {
+            isInputIgnore = false;
+        }
+    }*/
 }

@@ -18,16 +18,16 @@ public class DialogueManager : MonoBehaviour
     private SecneData requiredSecneData;
     private List<DialogData> requiredScenes;
 
-    #region Á¦ÀÌ½¼ Ãâ·Â¹× ÀüÃ³¸® UI
+    #region conversation UI Resources
     [SerializeField] protected TextMeshProUGUI nameTXT; //prtivate
     [SerializeField] protected TextMeshProUGUI desTXT; //prtivate
-    [SerializeField] private GameObject conversationUI; // ´ëÈ­Ç¥½Ã UI
+    [SerializeField] private GameObject conversationUI; // ï¿½ï¿½È­Ç¥ï¿½ï¿½ UI
     #endregion
 
-    public bool isConversation = false; // ´ëÈ­Ã¢ÀÌ Áö±Ý ¶°ÀÖ´ÂÁö ¿©ºÎ 
+    public bool isConversation = false; // ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
     [SerializeField] private GameObject[] portraits = new GameObject[4];
-    //public List<Image> portraits; //´ëÈ­Ã¢¿¡ ¶ç¿ï ÃÊ»óÈ­
+    //public List<Image> portraits; //ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê»ï¿½È­
     private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
     private NPCInfo ColNPC;
 
@@ -47,7 +47,7 @@ public class DialogueManager : MonoBehaviour
         string jsonData = NPCJson.text;
 
         NPCData npcData = JsonConvert.DeserializeObject<NPCData>(jsonData);
-        foreach (NPCInfo npc in npcData.NPCs) //¿£ÇÇ¾¾ÀÇ id·Î ¹Ù·Î ³»¿ë Á¢±Ù °¡´ÉÇÏ°Ô ¼³Á¤
+        foreach (NPCInfo npc in npcData.NPCs) //ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             npcDictionary[npc.NPCid] = npc;
         }
@@ -58,17 +58,17 @@ public class DialogueManager : MonoBehaviour
         conversationUI.SetActive(false);
         LoadChapterData(GameStateManager.Instance.GetChapterNum());
 
-        // SecneID °ªÀÌ n(=0) ÀÎ Dialog¸¸ °¡Á®¿À±â
+        // SecneID ï¿½ï¿½ï¿½ï¿½ n(=0) ï¿½ï¿½ Dialogï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.currentSceneID);
 
     }
 
-    #region Á¦ÀÌ½¼ ÆÄ½Ì
-    // JSON ÆÄÀÏÀ» ºÒ·¯¿Í ÆÄ½Ì
+    #region ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ä½ï¿½
+    // JSON ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½
     private void LoadChapterData(int chapterNum)
     {
-        //Ã©ÅÍ ´ë»ç ÆÄÀÏ
+        //Ã©ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         string fName = $"Chap{chapterNum}Dialog";
         string Path = "Json/Ver00/Dialog/" + fName;
 
@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
-    #region ´ëÈ­ ÀüÃ³¸®
+    #region ï¿½ï¿½È­ ï¿½ï¿½Ã³ï¿½ï¿½
     public NPCInfo GetNPC(int id)
     {
         if (npcDictionary.TryGetValue(id, out NPCInfo npc))
@@ -95,42 +95,42 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Á¶°ÇÀ» ¸ðµÎ ¸¸Á·ÇÏ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö* ½ºÅä¸® ÁøÇàÀÌ °¡´ÉÇÑ°¡?
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½* ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½?
     private bool CheckEventConditions(Prerequisites prerequisites, int CollisionNPC)
     {
         if(prerequisites.npc != CollisionNPC) return false;
-        // ÇÊ¿ä Á¶°ÇµéÀ» ¸ðµÎ È®ÀÎ
+        // ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
         if(prerequisites.needEventConditions != null)
         {
             foreach (string condition in prerequisites.needEventConditions)
             {
-                // currentEventConditions¿¡ ¾ø´Â Á¶°ÇÀÌ°Å³ª °ªÀÌ false¸é Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¾ÊÀ½
+                // currentEventConditionsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (GameStateManager.Instance.currentEventFlags[condition])
                 {
                     return false;
                 }
             }
         }
-        // ¸ðµç Á¶°ÇÀÌ ¸¸Á·µÇ¸é true ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ true ï¿½ï¿½È¯
         return prerequisites.currentSecneID == GameStateManager.Instance.GetCurrentSceneID();
     }
 
-    // Æ¯Á¤ SecneIDÀÇ Dialog ¹ÝÈ¯
+    // Æ¯ï¿½ï¿½ SecneIDï¿½ï¿½ Dialog ï¿½ï¿½È¯
     private SecneData GetDialogBySecneID(int secneID)
     {
-        //dialogueRootÀÇ Secnes¿¡¼­ SecneID°¡ ÆÄ¶ó¹ÌÅÍ secneIDÀÎ °ÍÀ» Ã£¾Æ¼­ scene ¸¦ ÀúÀå..
-        //secneÀÌ ³ÎÀÌ¾Æ´Ï¸é ´ÙÀÌ¾î·Î±× ¹ÝÈ¯ ³ÎÀÌ¸é ³Î ¹ÝÈ¯
+        //dialogueRootï¿½ï¿½ Secnesï¿½ï¿½ï¿½ï¿½ SecneIDï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ secneIDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ scene ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
+        //secneï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
         return ChapterRoot.Secnes.Find(scene => scene.SecneID == secneID);
     }
 
-    //ÃÊ»óÈ­ ¹èÄ¡
+    //ï¿½Ê»ï¿½È­ ï¿½ï¿½Ä¡
     private void PortraitArrangement()
     {
         HashSet<int> uniqueNpcIds = new HashSet<int>();
         string[] portraitPaths = new string[4];
 
-        //´ëÈ­¿¡ ÇÊ¿äÇÑ ¿£ÇÇ¾¾µé È®ÀÎÇÏ°í ÃÊ»óÈ­ ºÒ·¯¿À±â
+        //ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê»ï¿½È­ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
         foreach (var entry in requiredSecneData.dialog)
         {
             if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
@@ -144,7 +144,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        //ºÒ·¯¿Â ÃÊ»óÈ­ pos¿¡ ¸Â°Ô ¿ÀºêÁ§Æ®¿¡ ¹èÄ¡ÇÏ±â
+        //ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½Ê»ï¿½È­ posï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï±ï¿½
         for (int i = 0; i < portraitPaths.Length; i++)
         {
             if (!string.IsNullOrEmpty(portraitPaths[i]))
@@ -168,41 +168,41 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
-    #region ´ë»ç Ãâ·Â ¹× UI ¾÷µ¥ÀÌÆ®
-    private void NormalCommunication() //½ºÅä¸® ÁøÇà°¡´ÉÇÑ ´ëÈ­ÀÏ °æ¿ì
+    #region ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private void NormalCommunication() //ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½à°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½
     {
-        if (requiredSecneData == null) return; // null È®ÀÎ
+        if (requiredSecneData == null) return; // null È®ï¿½ï¿½
 
         requiredScenes = requiredSecneData.dialog;
-        //ÃÊ»óÈ­¹èÄ¡
+        //ï¿½Ê»ï¿½È­ï¿½ï¿½Ä¡
         PortraitArrangement();
         isConversation = true;
         conversationUI.SetActive(true);
         StartCoroutine(TypeWriter());
     }
-    private void DefaultSpeech() //½ºÅä¸® ´ëÈ­°¡ ¾Æ´Ñ ÀÏ¹Ý´ëÈ­
+    private void DefaultSpeech() //ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½È­ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½Ï¹Ý´ï¿½È­
     {
         isConversation = true;
 
-        if (ColNPC == null) //¿¹¿ÜÃ³¸®
+        if (ColNPC == null) //ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
         {
             Debug.LogError("ColNPC is null");
-            return; // ColNPC°¡ nullÀÏ °æ¿ì Ã³¸®
+            return; // ColNPCï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         }
 
         DefaultPortraitArrangement();
 
         UpdatePortraits(1);
-        if (ColNPC.itemsForSale != null) //¿£ÇÇ¾¾°¡ »óÁ¡¿ªÇÒµµ ÇÒ °æ¿ì
+        if (ColNPC.itemsForSale != null) //ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
-            Debug.Log(ColNPC.NPCname + "¿£ÇÇ¾¾´Â »óÁ¡ ¿£ÇÇ¾¾ÀÔ´Ï´Ù.");
+            Debug.Log(ColNPC.NPCname + "ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ô´Ï´ï¿½.");
         }
 
         StartCoroutine(DefaultTypeWriter());
 
     }
 
-    private void DefaultPortraitArrangement() //ÀÏ¹Ý ´ëÈ­ÀÇ ÃÊ»óÈ­ ¹è¿­
+    private void DefaultPortraitArrangement() //ï¿½Ï¹ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ê»ï¿½È­ ï¿½è¿­
     {
         Sprite portraitSprite = Resources.Load<Sprite>(ColNPC.NPCportrait);
         if (portraitSprite != null)
@@ -223,7 +223,7 @@ public class DialogueManager : MonoBehaviour
         }
         foreach (string condition in after.changeEventConditions)
         {
-            //ÀÌº¥Æ® ÈÄ ÇÃ·¡±× true ¼³Á¤
+            //ï¿½Ìºï¿½Æ® ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ true ï¿½ï¿½ï¿½ï¿½
             GameStateManager.Instance.currentEventFlags[condition] = true;
         }
         GameStateManager.Instance.SetCurrenSceneID(after.changeSecneID);
@@ -231,16 +231,16 @@ public class DialogueManager : MonoBehaviour
 
     #endregion
 
-    #region ´ëÈ­ Å¸ÀÌÇÎ ÄÚ·çÆ¾
-    //¸»ÇÏ´Â »ç¶÷ ¹Ù²î¸é ÃÊ»óÈ­ »ö±ò¹Ù²ãÁà¾ßÇÔ
+    #region ï¿½ï¿½È­ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾
+    //ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½Ê»ï¿½È­ ï¿½ï¿½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void UpdatePortraits(int speakingPortraits)
     {
         for (int i = 0; i < portraits.Length; i++)
         {
-            if (portraits[i].activeSelf) // °ÔÀÓ ¿ÀºêÁ§Æ®°¡ È°¼ºÈ­µÈ °æ¿ì¿¡¸¸ Ã³¸®
+            if (portraits[i].activeSelf) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ Ã³ï¿½ï¿½
             {
-                //pos°ª º¸°í ¼ø¼­´ë·Î ¿ÞÂÊºÎÅÍ 0~nÀÓ. 
-                // ÇØ´çÀ§Ä¡ÀÇ Ä³¸¯ÅÍ°¡ ¸»ÇÏ°í ÀÖÀ¸¸é ¿ø·¡ °ª(1,1,1,1)Ãâ·ÂÇÏ°í ¾Æ´Ï¸é ¾îµÓ°Ô Ã³¸®ÇÔ
+                //posï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ 0~nï¿½ï¿½. 
+                // ï¿½Ø´ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(1,1,1,1)ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½Ó°ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
                 portraits[i].GetComponent<Image>().color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
             }
 
@@ -256,14 +256,14 @@ public class DialogueManager : MonoBehaviour
             nameTXT.text = GetNPC(dialog.id)?.NPCname;
             UpdatePortraits(dialog.pos);
 
-            //´ë»ç Å¸ÀÌÇÎ ¾Ö´Ï
+            //ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½
             foreach (var line in dialog.log)
             {   //desTXT.text = line;
                 desTXT.text = "";
                 for (int index = 0; index < line.Length; index++)
                 {
                     desTXT.text += line[index].ToString();
-                    yield return new WaitForSeconds(0.05f); //Å¸ÀÌÇÎ ¼Óµµ = 1ÀÚ´ç 0.05ÃÊ
+                    yield return new WaitForSeconds(0.05f); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ = 1ï¿½Ú´ï¿½ 0.05ï¿½ï¿½
                 }
                 yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
             }
@@ -276,13 +276,13 @@ public class DialogueManager : MonoBehaviour
     IEnumerator DefaultTypeWriter()
     {
         nameTXT.text = ColNPC.NPCname;
-        //´ë»ç Å¸ÀÌÇÎ ¾Ö´Ï
+        //ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½
 
         desTXT.text = "";
         for (int index = 0; index < ColNPC.defalutDialog.Length; index++)
         {
             desTXT.text += ColNPC.defalutDialog[index].ToString();
-            yield return new WaitForSeconds(0.05f); //Å¸ÀÌÇÎ ¼Óµµ = 1ÀÚ´ç 0.05ÃÊ
+            yield return new WaitForSeconds(0.05f); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ = 1ï¿½Ú´ï¿½ 0.05ï¿½ï¿½
         }
         yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
         EndConversation();
@@ -290,8 +290,8 @@ public class DialogueManager : MonoBehaviour
 
     #endregion
 
-    #region ´ëÈ­ ¾ÕµÚ È£Ãâ¿ë public func
-    // ´ëÈ­ ½ÃÀÛ
+    #region ï¿½ï¿½È­ ï¿½Õµï¿½ È£ï¿½ï¿½ï¿½ public func
+    // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     public void StartConversation(int CollisionNPC)
     {
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
@@ -301,11 +301,11 @@ public class DialogueManager : MonoBehaviour
         {
             DefaultSpeech();
             Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
-            return; // ´ëÈ­ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é ¸Þ¼­µå¸¦ Á¾·á
+            return; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½
         }
         
 
-        if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //´ëÈ­°¡´É »óÅÂ¿¡¼­ ´ëÈ­¸¦ ÇÏ¸é
+        if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ï¸ï¿½
         {
             NormalCommunication();
         }
@@ -315,7 +315,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // ´ëÈ­ Á¾·á
+    // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     private void EndConversation()
     {
         portraits[0].gameObject.SetActive(true);
@@ -328,7 +328,7 @@ public class DialogueManager : MonoBehaviour
         if (requiredSecneData == null)
         {
             Debug.LogError("requiredSecneData is null");
-            return; // nullÀÏ °æ¿ì Ã³¸®
+            return; // nullï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         }
 
         if (requiredScenes != null)

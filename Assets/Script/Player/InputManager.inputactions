@@ -69,9 +69,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "ESC",
                     "type": "Button",
-                    "id": "70f54746-c94c-4351-85ff-0eac5bf1e725",
+                    "id": "2aecd2ee-363c-4808-8b48-82f7bdf2567e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -89,6 +89,17 @@
                     "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "2e88b197-6c01-4254-945a-496b6630f924",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "down",
@@ -202,12 +213,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1218e55c-d93b-4ad4-a092-ba7a9ab338f2",
-                    "path": "<Keyboard>/upArrow",
+                    "id": "4c229b52-1692-440e-87b2-50bcba45b149",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "ESC",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

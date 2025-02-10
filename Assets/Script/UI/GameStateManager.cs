@@ -4,26 +4,36 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
+using System.Linq;
+using TMPro;
+using TMPro.Examples;
 
 public class GameStateManager : MonoBehaviour
 {
-    // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
+
     public static GameStateManager Instance { get; private set; }
 
-    // À¯Àú »óÅÂ º¯¼öµé
-    public Dictionary<string, bool> currentEventFlags;  // ÀÌº¥Æ® ÇÃ·¡±× (¿¹: ÀÌº¥Æ® ¿Ï·á ¿©ºÎ)
-    [SerializeField] private int currentSceneID = 0;                          // ÇöÀç ¾À ID
-    private int chapterNum = 0;                           // ÇöÀç Ã©ÅÍ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<string, bool> currentEventFlags;  // ï¿½Ìºï¿½Æ® ï¿½Ã·ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½Ìºï¿½Æ® ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    [SerializeField] private int currentSceneID = 0;                          // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ID
+    private int chapterNum = 0;                           // ï¿½ï¿½ï¿½ï¿½ Ã©ï¿½ï¿½
     private int Gold = 0;
-    private int hp = 100;
+    private int hp = 5;
+    private EventRoot eventRoot;
 
-    [Header("HP¹Ù UI")]
-    [SerializeField] private Image HPbar;
-    [SerializeField] private GameObject DamageValuePrefab;
+
+    [Header("HUD Resource")]
+    [SerializeField] private TextMeshProUGUI currentMagazineText;
+    [SerializeField] private TextMeshProUGUI totalMagazineText;
+    [SerializeField] private TextMeshProUGUI reinforcementText;
+
+    private int currentMagazine;
+    private int totalMagazine;
+    private int reinforcement;
+
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ ÆÐÅÏ ±¸Çö: ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ Á¸ÀçÇÏ¸é ÆÄ±«, ±×·¸Áö ¾ÊÀ¸¸é À¯Áö
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -31,10 +41,10 @@ public class GameStateManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
+            DontDestroyOnLoad(this.gameObject); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½îµµ ï¿½ï¿½ï¿½ï¿½
             
-            // »óÅÂ ÃÊ±âÈ­
-            currentEventFlags = new Dictionary<string, bool>();
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+            //currentEventFlags = new Dictionary<string, bool>();
         }
     }
 
@@ -46,17 +56,22 @@ public class GameStateManager : MonoBehaviour
 
     private void LoadEventFlags()
     {
+        if(currentEventFlags != null)
+        {
+            Debug.Log("GameStateManager - LoadEventFlags// There is already currentEventFlags............");
+            return;
+        }
         string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";
         string jsonData = File.ReadAllText(Path);
 
-        EventRoot eventRoot = JsonConvert.DeserializeObject<EventRoot>(jsonData);
+        eventRoot = JsonConvert.DeserializeObject<EventRoot>(jsonData);
         Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
-
+        
         currentEventFlags = events?.EventFlags;
+        Debug.Log($"GameStateManager - LoadEventFlags// EventFlags: {string.Join(", ", currentEventFlags.Select(kv => $"{kv.Key}: {kv.Value}"))}");
     }
 
 
-    // »óÅÂ ¾÷µ¥ÀÌÆ® ¸Þ¼­µåµé
     public void SetEventFlag(string eventName, bool value)
     {
         if (currentEventFlags.ContainsKey(eventName))
@@ -67,6 +82,11 @@ public class GameStateManager : MonoBehaviour
         {
             currentEventFlags.Add(eventName, value);
         }
+    }
+
+    public EventRoot GetEventRoot()
+    {
+        return eventRoot;
     }
 
     public bool GetEventFlag(string eventName)
@@ -91,40 +111,100 @@ public class GameStateManager : MonoBehaviour
 
     public void SetchapterNum(int chapNum)
     {
+        Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
+        if (events != null)
+        {
+            events.EventFlags = currentEventFlags;
+        }
+
         chapterNum = chapNum;
     }
 
-    public void getGold(int getAmount)
+    //ê°•í™”ìˆ˜
+    public void GetReinforcementItem()
     {
-        Gold += getAmount;
-    }
 
-    public int getCurrentGold()
-    {
-        return Gold;
-    }
-
-    public void getChangedHP(int fixHP)
-    {
-        hp -= fixHP;
-        if (HPbar != null)
+        if (reinforcement == 0)
         {
-            HPbar.fillAmount = Mathf.Clamp(hp, 0, 100) / 100f; //0~1 »çÀÌ·Î Å¬·¥ÇÁ
-        }
-    }
-
-
-    public void spendGold(int spendAmount)
-    {
-        if (Gold - spendAmount < 0)
-        {
+            //ì´íŽ™íŠ¸ ê°•í™”, ì—°ì‚¬ë ¥ ê°•í™”
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
             return;
         }
-        else
+        if (reinforcement == 1)
         {
-            Gold -= spendAmount;
+            //ì´íŽ™íŠ¸, ì™¸í˜•ê°•í™”
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            AdjustMagazine();
+            return;
+        }
+        if (reinforcement == 2)
+        {
+            //ì´íŽ™íŠ¸ ê°•í™”, ê³µê²©ë ¥ 5
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            return;
+        }
+        if (reinforcement == 3)
+        {
+
+            //ì´íŽ™íŠ¸ ê°•í™”, ì™¸í˜• ê°•í™”
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            AdjustMagazine();
+            
+            return;
+        }
+        Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
+    }
+
+    public void GetHit()
+    {
+        reinforcement--;
+        if (reinforcement < 0)
+        {
+            Debug.Log("GameStateManager - GetHit // Game Over");
+        }
+        reinforcementText.text = reinforcement.ToString();
+        AdjustMagazine();
+    }
+
+
+    //íƒ„ì°½ìˆ˜
+    private void AdjustMagazine()
+    {
+        if (reinforcement == 2)
+        {
+            totalMagazine = 8;
+            totalMagazineText.text = totalMagazine.ToString();
+            //ì´íŽ™íŠ¸, ì™¸í˜•ê°•í™”
+            return;
+
+        }
+
+        if ( reinforcement == 4)
+        {
+            totalMagazine = 12;
+            totalMagazineText.text = totalMagazine.ToString();
+            return;
         }
     }
+
+
+
+    //hpëŠ” ì¶”í›„ì— ë˜ ì¡°ì •í•´ì•¼í•¨
+    public void getChangedHP(int fixHP)
+    {
+
+    }
+
+    public int getCurrentHP()
+    {
+        return hp;
+    }
+
+
 
 
 }
