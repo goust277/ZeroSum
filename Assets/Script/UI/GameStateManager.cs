@@ -18,11 +18,11 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int currentSceneID = 0;                          // ���� �� ID
     private int chapterNum = 0;                           // ���� é��
     private int Gold = 0;
-    private int hp = 100;
+    private int hp = 5;
     private EventRoot eventRoot;
 
 
-    [Header("무기강화, 탄알 조정 리소스")]
+    [Header("HUD Resource")]
     [SerializeField] private TextMeshProUGUI currentMagazineText;
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
@@ -123,16 +123,40 @@ public class GameStateManager : MonoBehaviour
     //강화수
     public void GetReinforcementItem()
     {
-        if(reinforcement == 4)
+
+        if (reinforcement == 0)
         {
-            Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
+            //이펙트 강화, 연사력 강화
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
             return;
         }
+        if (reinforcement == 1)
+        {
+            //이펙트, 외형강화
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            AdjustMagazine();
+            return;
+        }
+        if (reinforcement == 2)
+        {
+            //이펙트 강화, 공격력 5
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            return;
+        }
+        if (reinforcement == 3)
+        {
 
-        reinforcement++;
-        reinforcementText.text = reinforcement.ToString();
-
-        AdjustMagazine();
+            //이펙트 강화, 외형 강화
+            reinforcement++;
+            reinforcementText.text = reinforcement.ToString();
+            AdjustMagazine();
+            
+            return;
+        }
+        Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
     }
 
     public void GetHit()
@@ -152,13 +176,18 @@ public class GameStateManager : MonoBehaviour
     {
         if (reinforcement == 2)
         {
-            totalMagazine = 10;
+            totalMagazine = 8;
             totalMagazineText.text = totalMagazine.ToString();
+            //이펙트, 외형강화
+            return;
+
         }
-        else if ( reinforcement == 4)
+
+        if ( reinforcement == 4)
         {
-            totalMagazine = 15;
+            totalMagazine = 12;
             totalMagazineText.text = totalMagazine.ToString();
+            return;
         }
     }
 

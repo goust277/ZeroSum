@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class AdjustSpriteSize : MonoBehaviour
 {
-    public float fixedMaxSize = 120f; // ÃÖ´ë Å©±â ÁöÁ¤ (120ÀÌµç, 90ÀÌµç ¼³Á¤ °¡´É)
+    public float fixedMaxSize = 120f; // ï¿½Ö´ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (120ï¿½Ìµï¿½, 90ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     private RectTransform rectTransform;
 
     private void Awake()
@@ -20,15 +20,15 @@ public class AdjustSpriteSize : MonoBehaviour
 
     public void SetSprite()
     {
-        Image image = GetComponent<Image>(); // ¶Ç´Â ÇÊ¿äÇÑ Image ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿À°í
-        Sprite sprite = image.sprite; // Image¿¡¼­ ½ºÇÁ¶óÀÌÆ®¸¦ °¡Á®¿È
+        Image image = GetComponent<Image>(); // ï¿½Ç´ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ Image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Sprite sprite = image.sprite; // Imageï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (sprite == null) return;
 
-        // ½ºÇÁ¶óÀÌÆ®ÀÇ ¿ø·¡ ºñÀ² À¯ÁöÇÏ¸é¼­ ÃÖ´ë Å©±â¸¦ ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸é¼­ ï¿½Ö´ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½
         float widthRatio = sprite.rect.width / sprite.rect.height;
 
-        // Å« ÂÊÀ» fixedMaxSize·Î ¸ÂÃß°í, ºñÀ²¿¡ ¸ÂÃç ÀÛÀº ÂÊÀ» Á¶Á¤
+        // Å« ï¿½ï¿½ï¿½ï¿½ fixedMaxSizeï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (widthRatio > 1)
         {
             rectTransform.sizeDelta = new Vector2(fixedMaxSize, fixedMaxSize / widthRatio);

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0267d2dbb111df946a8f1b4ac3371357
+guid: b853c3a13fbe6044eacfd3907e4dc0f3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,22 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Z_UI Weapon slot_241123_0
+      name: bouton_pressed 1_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 38
-        width: 195
-        height: 195
+        x: 0
+        y: 0
+        width: 241
+        height: 52
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 26, y: 25, z: 31, w: 31}
+      pivot: {x: 0, y: 0}
+      border: {x: 1, y: 0, z: 49, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6875639ab44a384a8880ae94a1bc319
-      internalID: 597555054
+      spriteID: 4c9f53ce3468ccc46b41b7e38392eb7d
+      internalID: 823916513
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Z_UI Weapon slot_241123_0: 597555054
+      bouton_pressed 1_0: 823916513
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
