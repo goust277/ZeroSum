@@ -60,7 +60,7 @@ public class Ver01_ConvManager : MonoBehaviour
         // SecneID ���� n(=0) �� Dialog�� ��������
 
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
-
+        NormalCommunication();
     }
 
     #region DialogResourLoad
@@ -69,7 +69,7 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         //é�� ��� ����
         string fName = $"Chap{chapterNum}Dialog";
-        string Path = "Json/Ver00/Dialog/" + fName;
+        string Path = "Json/Ver01/Dialog/" + fName;
 
         TextAsset NPCJson = Resources.Load<TextAsset>(Path);
 
@@ -142,8 +142,6 @@ public class Ver01_ConvManager : MonoBehaviour
 
         //�ҷ��� �ʻ�ȭ pos�� �°� ������Ʈ�� ��ġ�ϱ�
 
-        if (!string.IsNullOrEmpty(portraitPaths))
-        {
             Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
             if (portraitSprite != null)
             {
@@ -154,7 +152,7 @@ public class Ver01_ConvManager : MonoBehaviour
             {
                 Debug.LogWarning($"Sprite not found at path: {portraitPaths}");
             }
-        }
+
         
     }
     #endregion
@@ -162,11 +160,13 @@ public class Ver01_ConvManager : MonoBehaviour
     #region ��� ��� �� UI ������Ʈ
     private void NormalCommunication() //���丮 ���డ���� ��ȭ�� ���
     {
-        if (requiredSecneData == null) return; // null Ȯ��
+        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
 
+        if (requiredSecneData == null) return; // null Ȯ��
         requiredScenes = requiredSecneData.dialog;
         //�ʻ�ȭ��ġ
-        PortraitArrangement();
+
+        //PortraitArrangement();
         isConversation = true;
         StartCoroutine(TypeWriter());
     }
@@ -194,6 +194,19 @@ public class Ver01_ConvManager : MonoBehaviour
 
         foreach (var dialog in requiredScenes)
         {
+            
+            string portraitPaths = GetNPC(dialog.id)?.NPCportrait;
+            Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
+            if (portraitSprite != null)
+            {
+                portraits.GetComponent<Image>().sprite = portraitSprite;
+                portraits.GetComponent<AdjustSpriteSize>().SetSprite();
+            }
+            else
+            {
+                Debug.LogWarning($"Sprite not found at path: {portraitPaths}");
+            }
+
             nameTXT.text = GetNPC(dialog.id)?.NPCname;
 
             foreach (var line in dialog.log)
@@ -206,8 +219,9 @@ public class Ver01_ConvManager : MonoBehaviour
                 }
                 yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-                totalLogTXT.text += GetNPC(dialog.id)?.NPCname + " : " + line;
+                totalLogTXT.text += GetNPC(dialog.id)?.NPCname + " : " + line + "\n";
             }
+
         }
 
         AfterConversationProcess(requiredSecneData.afterConditions);
@@ -219,12 +233,11 @@ public class Ver01_ConvManager : MonoBehaviour
     // ��ȭ ����
     public void StartConversation(int CollisionNPC)
     {
-        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
+        
         ColNPC = GetNPC(CollisionNPC);
 
         if (requiredSecneData == null)
         {
-
             Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
             return; // ��ȭ �����Ͱ� ������ �޼��带 ����
         }

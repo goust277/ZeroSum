@@ -8,11 +8,11 @@ using UnityEngine;
 public class NpcInfo : MonoBehaviour
 {
     private PlayerUIInteract playerConversation;
-    [SerializeField] private GameObject interactPrompt; // »óÈ£ÀÛ¿ë Å° Ç¥½Ã UI
+    [SerializeField] private GameObject interactPrompt; // ï¿½ï¿½È£ï¿½Û¿ï¿½ Å° Ç¥ï¿½ï¿½ UI
     [SerializeField] private int NPCID = 1;
     [SerializeField] private TextMeshProUGUI nameText;
 
-    //»óÈ£ÀÛ¿ë½Ã, Å×µÎ¸® Ç¥½Ã
+    //ï¿½ï¿½È£ï¿½Û¿ï¿½ï¿½, ï¿½×µÎ¸ï¿½ Ç¥ï¿½ï¿½
     public Color color = Color.white;
     [Range(0, 16)]
     public int outlineSize = 3;
@@ -32,7 +32,7 @@ public class NpcInfo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))  // ÇÃ·¹ÀÌ¾î°¡ ¹üÀ§ ¾È¿¡ µé¾î¿ÔÀ» ¶§
+        if (collision.CompareTag("Player"))  // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             nNPCInfo ??= FindObjectOfType<DialogueManager>().GetNPC(NPCID);
             OnEnable();
@@ -41,7 +41,7 @@ public class NpcInfo : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))  // ÇÃ·¹ÀÌ¾î°¡ ¹üÀ§ ¹ÛÀ¸·Î ³ª°¬À» ¶§
+        if (collision.CompareTag("Player"))  // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
 
             OnDisable();
@@ -52,10 +52,10 @@ public class NpcInfo : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateOutline(true);
-        interactPrompt.SetActive(true); // »óÈ£ÀÛ¿ë ÇÁ·ÒÇÁÆ® UI È°¼ºÈ­
+        interactPrompt.SetActive(true); // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® UI È°ï¿½ï¿½È­
         if(playerConversation != null)
         {
-            playerConversation.isInteracting = true;  // GameController¿¡ »óÈ£ÀÛ¿ë °¡´É ½ÅÈ£¸¦ º¸³¿
+            playerConversation.isInteracting = true;  // GameControllerï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             playerConversation.CollisionNPC = NPCID;
         }
         nameText.text = nNPCInfo?.NPCname;
@@ -63,10 +63,10 @@ public class NpcInfo : MonoBehaviour
 
     void OnDisable()
     {
-        interactPrompt.SetActive(false); // »óÈ£ÀÛ¿ë ÇÁ·ÒÇÁÆ® UI ºñÈ°¼ºÈ­
+        interactPrompt.SetActive(false); // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® UI ï¿½ï¿½È°ï¿½ï¿½È­
         if (playerConversation != null)
         {
-            playerConversation.isInteracting = false;  // GameController¿¡ »óÈ£ÀÛ¿ë Á¾·á ½ÅÈ£¸¦ º¸³¿
+            playerConversation.isInteracting = false;  // GameControllerï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         UpdateOutline(false);
     }

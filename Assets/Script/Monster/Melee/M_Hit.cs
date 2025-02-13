@@ -5,10 +5,10 @@ using UnityEngine;
 public class M_Hit : BaseState
 {
     private Melee m;
-    private float blinkDuration = 0.5f; // ±ôºý°Å¸®´Â ÃÑ ½Ã°£
-    private float blinkInterval = 0.1f; // ±ôºý°Å¸®´Â °£°Ý
-    public float elapsedBlinkTime = 0f; // ±ôºý°Å¸² Áö¼Ó ½Ã°£
-    private float intervalTimer = 0f; // °£°Ý Å¸ÀÌ¸Ó
+    private float blinkDuration = 0.5f; // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½
+    private float blinkInterval = 0.1f; // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float elapsedBlinkTime = 0f; // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    private float intervalTimer = 0f; // ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½
     private bool isBlinking = false;
 
     public M_Hit(StateMachine stateMachine, Melee monster) : base(stateMachine)
@@ -37,12 +37,12 @@ public class M_Hit : BaseState
             if (intervalTimer >= blinkInterval)
             {
                 ToggleSpriteAlpha();
-                intervalTimer = 0f; // °£°Ý Å¸ÀÌ¸Ó ÃÊ±âÈ­
+                intervalTimer = 0f; // ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½Ê±ï¿½È­
             }
 
             if (elapsedBlinkTime >= blinkDuration)
             {
-                // ±ôºý°Å¸² Á¾·á
+                // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
                 isBlinking = false;
                 SetSpriteAlpha(1f);
                 stateMachine.ChangeState(new M_Chase(stateMachine, m));
@@ -52,13 +52,13 @@ public class M_Hit : BaseState
     public override void Exit()
     {
         isBlinking = false;
-        SetSpriteAlpha(1f); // »óÅÂ Á¾·á ½Ã ¾ËÆÄ°ª º¹¿ø
+        SetSpriteAlpha(1f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½
         m.isHit = false;
         m.attackCooldown = 3f;
         m.canAttack = true;
     }
 
-    // ½ºÇÁ¶óÀÌÆ®ÀÇ ¾ËÆÄ°ªÀ» ¼³Á¤ÇÏ´Â ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void SetSpriteAlpha(float alpha)
     {
         if (m.sprite != null)
@@ -69,13 +69,13 @@ public class M_Hit : BaseState
         }
     }
 
-    // ½ºÇÁ¶óÀÌÆ® ¾ËÆÄ°ªÀ» Åä±ÛÇÏ´Â ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void ToggleSpriteAlpha()
     {
         if (m.sprite != null)
         {
             Color color = m.sprite.color;
-            color.a = (color.a == 1f) ? 0.5f : 1f; // 1f¿Í 0.5f »çÀÌ¸¦ Åä±Û
+            color.a = (color.a == 1f) ? 0.5f : 1f; // 1fï¿½ï¿½ 0.5f ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½
             m.sprite.color = color;
         }
     }

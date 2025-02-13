@@ -55,7 +55,7 @@ public class SettingsManager : MonoBehaviour
             {
                 resolutionSet.Add(resolutionKey); // �ߺ� ������ ���� Ű �߰�
                 resolutionValues.Add(new ResolutionData(resolution.width, resolution.height, resolution.refreshRateRatio));
-                DebugTemp.text += "new ResolutionData(" + resolution.width + ", " + resolution.height + ", " + resolution.refreshRateRatio + ")"+ "\n";
+                //DebugTemp.text += "new ResolutionData(" + resolution.width + ", " + resolution.height + ", " + resolution.refreshRateRatio + ")"+ "\n";
             }
         }
 
