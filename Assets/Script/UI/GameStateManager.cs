@@ -17,18 +17,16 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
     [SerializeField] private int currentSceneID = 0;                          // ���� �� ID
     private int chapterNum = 0;                           // ���� é��
-    private int Gold = 0;
+    //private int Gold = 0;
     private int hp = 5;
     private EventRoot eventRoot;
 
 
     [Header("HUD Resource")]
-    [SerializeField] private TextMeshProUGUI currentMagazineText;
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
-    private int currentMagazine;
-    private int totalMagazine;
+    private int totalMagazine = 5;
     private int reinforcement;
 
 
@@ -42,9 +40,6 @@ public class GameStateManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject); // ���� �ٲ� ����
-            
-            // ���� �ʱ�ȭ
-            //currentEventFlags = new Dictionary<string, bool>();
         }
     }
 
@@ -70,7 +65,6 @@ public class GameStateManager : MonoBehaviour
         currentEventFlags = events?.EventFlags;
         Debug.Log($"GameStateManager - LoadEventFlags// EventFlags: {string.Join(", ", currentEventFlags.Select(kv => $"{kv.Key}: {kv.Value}"))}");
     }
-
 
     public void SetEventFlag(string eventName, bool value)
     {
@@ -121,77 +115,74 @@ public class GameStateManager : MonoBehaviour
     }
 
     //강화수
+    public int GetReinforcement()
+    {
+        return reinforcement;
+    }
+
+    public int GetTotalMagazine()
+    {
+        return totalMagazine;
+    }
+
+
     public void GetReinforcementItem()
     {
+        reinforcement++;
+        UpdateReinforcementHUD();
+    }
 
+    public void UseReinforcement()
+    {
         if (reinforcement == 0)
         {
-            //이펙트 강화, 연사력 강화
-            reinforcement++;
-            reinforcementText.text = reinforcement.ToString();
+            Debug.Log("GameStateManager - GetHit // Game Over");
             return;
+        }
+
+        reinforcement--;
+        UpdateReinforcementHUD();
+    }
+
+    //탄창수
+    private void UpdateReinforcementHUD()
+    {
+        if (reinforcement == 0)
+        {
+            //이펙트 x, 연사력 x
         }
         if (reinforcement == 1)
         {
-            //이펙트, 외형강화
-            reinforcement++;
-            reinforcementText.text = reinforcement.ToString();
-            AdjustMagazine();
-            return;
+            //이펙트 강화, 연사력 강화
+            
+            totalMagazine = 5;
         }
         if (reinforcement == 2)
         {
-            //이펙트 강화, 공격력 5
-            reinforcement++;
-            reinforcementText.text = reinforcement.ToString();
-            return;
+            //이펙트, 외형강화
+            
+            totalMagazine = 8;
         }
         if (reinforcement == 3)
         {
-
-            //이펙트 강화, 외형 강화
-            reinforcement++;
-            reinforcementText.text = reinforcement.ToString();
-            AdjustMagazine();
+            //이펙트 강화, 공격력 5
             
-            return;
-        }
-        Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
-    }
+            totalMagazine = 8;
 
-    public void GetHit()
-    {
-        reinforcement--;
-        if (reinforcement < 0)
+        }
+        if (reinforcement == 4)
         {
-            Debug.Log("GameStateManager - GetHit // Game Over");
+            //이펙트 강화, 외형 강화
+            totalMagazine = 12;
+        }
+        if(reinforcement == 5)
+        {
+            reinforcement--;
+            Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
         }
         reinforcementText.text = reinforcement.ToString();
-        AdjustMagazine();
+        totalMagazineText.text = totalMagazine.ToString();
     }
-
-
-    //탄창수
-    private void AdjustMagazine()
-    {
-        if (reinforcement == 2)
-        {
-            totalMagazine = 8;
-            totalMagazineText.text = totalMagazine.ToString();
-            //이펙트, 외형강화
-            return;
-
-        }
-
-        if ( reinforcement == 4)
-        {
-            totalMagazine = 12;
-            totalMagazineText.text = totalMagazine.ToString();
-            return;
-        }
-    }
-
-
 
     //hp는 추후에 또 조정해야함
     public void getChangedHP(int fixHP)
@@ -203,9 +194,6 @@ public class GameStateManager : MonoBehaviour
     {
         return hp;
     }
-
-
-
 
 }
 

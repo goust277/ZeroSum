@@ -32,8 +32,8 @@ public class SettingsManager : MonoBehaviour
     private bool isSettingOpen= true;
     private Transform childTransform;
 
-    [SerializeField] private TextMeshProUGUI DebugTemp;
-    [SerializeField] private Image brightnessPanel;
+    //[SerializeField] private TextMeshProUGUI DebugTemp;
+    //[SerializeField] private Image brightnessPanel;
 
     void Start()
     {
@@ -129,8 +129,8 @@ public class SettingsManager : MonoBehaviour
         int height = resolutionValues[resolutionIndex].Height; // ����
         textMeshPros[1].text = $"{width} X {height}";
         Screen.SetResolution(width, height, isFullscreen);
-        DebugTemp.text += $"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}";
-        DebugTemp.text += "\n";
+        //DebugTemp.text += $"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}";
+        //DebugTemp.text += "\n";
     }
 
     // ��üȭ�� ���
@@ -150,8 +150,8 @@ public class SettingsManager : MonoBehaviour
         isFullscreen = !Screen.fullScreen;
 
         Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // ���� �ػ󵵸� �����ϸ� ��üȭ��/â��� ��ȯ
-        DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
-        DebugTemp.text += "\n";
+        //DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
+        //DebugTemp.text += "\n";
     }
 
     // ����� ����
