@@ -19,7 +19,7 @@ public class Long : MonoBehaviour, IDetectable, IDamageAble
     [Header("Detection Settings")]
     public Transform player;
     public bool isPlayerInRange;
-    public float smoothTime = 0.3f; // ºÎµå·¯¿î ¿òÁ÷ÀÓ Á¤µµ
+    public float smoothTime = 0.3f; // ï¿½Îµå·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public float minDistance = 1.5f;
     public float maxDistance = 3.0f;
     public float height = 2.5f;
@@ -37,14 +37,14 @@ public class Long : MonoBehaviour, IDetectable, IDamageAble
     public bool isHit;
     public Rigidbody2D rb;
     private StateMachine stateMachine;
-    // ·¹ÀÌÀú ¹× ¹ß»çÃ¼ °ü·Ã º¯¼ö
-    public LineRenderer laser;              // ·¹ÀÌÀú ¶óÀÎ
-    public Transform leftFirePoint;         // ¿ÞÂÊ ¹ß»ç À§Ä¡
-    public Transform rightFirePoint;        // ¿À¸¥ÂÊ ¹ß»ç À§Ä¡
-    public GameObject BulletPrefab;     // ¹ß»çÃ¼ ÇÁ¸®ÆÕ
-    public float BulletSpeed = 10f;     // ¹ß»çÃ¼ ¼Óµµ
-    public Vector3 laserStart;              // ·¹ÀÌÀú ½ÃÀÛ À§Ä¡
-    public Vector3 laserEnd;                // ·¹ÀÌÀú ³¡ À§Ä¡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public LineRenderer laser;              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Transform leftFirePoint;         // ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½Ä¡
+    public Transform rightFirePoint;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½Ä¡
+    public GameObject BulletPrefab;     // ï¿½ß»ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float BulletSpeed = 10f;     // ï¿½ß»ï¿½Ã¼ ï¿½Óµï¿½
+    public Vector3 laserStart;              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    public Vector3 laserEnd;                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡
 
     void Start()
     {
@@ -56,7 +56,7 @@ public class Long : MonoBehaviour, IDetectable, IDamageAble
         spawnPosition = transform.position;
         stateMachine = new StateMachine();
 
-        // ÇÊ¿äÇÑ »óÅÂ »ý¼º ½Ã ÄÄÆ÷³ÍÆ®¸¦ Àü´Þ
+        // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var idleState = new L_Idle(stateMachine, this);
         var readyStade = new L_Ready(stateMachine, this);
         var attackState = new L_Attack(stateMachine, this);
@@ -65,7 +65,7 @@ public class Long : MonoBehaviour, IDetectable, IDamageAble
         var hitState = new L_Hit(stateMachine, this);
         var dieState = new L_Die(stateMachine, this);
 
-        // »óÅÂ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         stateMachine.Initialize(idleState);
     }
 
@@ -108,10 +108,10 @@ public class Long : MonoBehaviour, IDetectable, IDamageAble
 
         if (distanceToPlayer < minDistance)
         {
-            // ÇÃ·¹ÀÌ¾î°¡ ³Ê¹« °¡±îÀÌ ´Ù°¡¿À¸é ¹Ý´ë ¹æÇâÀ¸·Î °Å¸® ¹ú¸²
+            // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             Vector3 Dir = (transform.position - player.position).normalized * maxDistance;
 
-            // ¸ñÇ¥ À§Ä¡¸¦ Á¡ÁøÀûÀ¸·Î º¯°æ
+            // ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             currentTargetPosition = Vector3.Lerp(currentTargetPosition, transform.position + Dir, Time.deltaTime * 5f);
         }
 

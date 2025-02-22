@@ -127,7 +127,7 @@ public class SettingsManager : MonoBehaviour
 
         int width = resolutionValues[resolutionIndex].Width; // ����
         int height = resolutionValues[resolutionIndex].Height; // ����
-        textMeshPros[1].text = $"{width} X {height}";
+        textMeshPros[0].text = $"{width} X {height}";
         Screen.SetResolution(width, height, isFullscreen);
         //DebugTemp.text += $"Resolution set to: {Screen.width}x{Screen.height}, Fullscreen: {Screen.fullScreen}";
         //DebugTemp.text += "\n";
@@ -139,17 +139,17 @@ public class SettingsManager : MonoBehaviour
         //bool isFullscreen = Screen.fullScreen;
 
         if (!isFullscreen) {
-            textMeshPros[2].text = "����";
+            textMeshPros[1].text = "켜짐";
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         else
         {
-            textMeshPros[2].text = "����";
+            textMeshPros[1].text = "꺼짐";
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
         isFullscreen = !Screen.fullScreen;
 
-        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  // ���� �ػ󵵸� �����ϸ� ��üȭ��/â��� ��ȯ
+        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);  
         //DebugTemp.text += $"Is Fullscreen: {isFullscreen}, FullScreenMode: {Screen.fullScreenMode}, Resolution: {Screen.currentResolution.width}x{Screen.currentResolution.height}";
         //DebugTemp.text += "\n";
     }
@@ -158,6 +158,8 @@ public class SettingsManager : MonoBehaviour
     private void SetBackgroundSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
+        int mappedValue = Mathf.RoundToInt((volume + 80) * (100f / 80f));
+        textMeshPros[3].text = mappedValue.ToString();
         audioMixer.SetFloat("BackgroundVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("BackgroundVolume", value);
     }
@@ -166,6 +168,7 @@ public class SettingsManager : MonoBehaviour
     private void SetEffectsSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
+        textMeshPros[4].text = volume.ToString();
         audioMixer.SetFloat("EffectsVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
@@ -176,6 +179,6 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ����
 
         string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
-        textMeshPros[3].text = vibrationLevels[level];
+        textMeshPros[2].text = vibrationLevels[level];
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int hp;
     private int reinforcement;
 
+    [SerializeField] private int damage = 0;
+
     private void Start()
     {
         ResetDungeonState();
@@ -24,7 +27,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public void ResetDungeonState()
     {
         hp = 5;
-        currentMagazine = 0;
+        currentMagazine = 5;
         UpdateHUD();
     }
 
@@ -34,9 +37,25 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         UpdateHUD();
     }
 
+    public int GetDamageValue()
+    {
+        return damage;
+    }
+
     public void GetReloadItem()
     {
         currentMagazine += Random.Range(1, 4);
+        UpdateHUD();
+    }
+
+    public void ShotGun()
+    {
+        currentMagazine --;
+        if (currentMagazine < 0) {
+            Debug.Log("currentMagazine out");
+            currentMagazine = 0;
+        }
+
         UpdateHUD();
     }
 

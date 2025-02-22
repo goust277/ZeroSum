@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2889805434369992574}
   - component: {fileID: 5741014683053220911}
   m_Layer: 5
-  m_Name: DamageAmount
+  m_Name: AmountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2889805434369992574}
-  fadeDuration: 4
-  moveSpeed: 0.5
+  fadeDuration: 1
+  moveSpeed: 1

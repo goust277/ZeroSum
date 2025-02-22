@@ -11,10 +11,17 @@ public class PlayerGunAttack : MonoBehaviour
     private float delayTime;
     private Animator animator;
     private PlayerMovement playerMovement;
+
+    //UI
+    private Ver01_DungeonStatManager dungeonStatManager;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+
+        //UI
+        dungeonStatManager = GetComponent<Ver01_DungeonStatManager>();
     }
 
     // Update is called once per frame
@@ -63,5 +70,8 @@ public class PlayerGunAttack : MonoBehaviour
     private void Attack()
     {
         delayTime = delay;
+
+        //UI & 불렛생성
+        dungeonStatManager.ShotGun();
     }
 }
