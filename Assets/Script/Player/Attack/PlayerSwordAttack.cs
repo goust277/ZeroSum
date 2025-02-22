@@ -27,7 +27,6 @@ public class PlayerSwordAttack : PlayerAttackState
         {
             delay -= Time.deltaTime;
             isAttack = true;
-
         }
         else
         {
@@ -72,7 +71,6 @@ public class PlayerSwordAttack : PlayerAttackState
     private void Attack1()
     {
         delay = attackDelay;
-        animator.SetTrigger("Attack1");
         combo++;
         isAttack = false;
         isAtkReady = false;
@@ -81,7 +79,6 @@ public class PlayerSwordAttack : PlayerAttackState
     private void Attack2()
     {
         delay = attackDelay;
-        animator.SetTrigger("Attack2");
         combo++;
         isAttack = false;
         isAtkReady = false;
@@ -90,7 +87,6 @@ public class PlayerSwordAttack : PlayerAttackState
     private void Attack3()
     {
         delay = attackDelay;
-        animator.SetTrigger("Attack3");
         combo++;
         isAttack = false;
         isAtkReady = false;
@@ -146,7 +142,6 @@ public class PlayerSwordAttack : PlayerAttackState
         delay = attackDelay;
         isAttack = false;
         isAtkReady = false;
-        animator.SetTrigger("AttackUp");
     }
 
     public void ParryingColSetTrue()
