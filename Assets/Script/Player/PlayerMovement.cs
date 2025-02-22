@@ -1,6 +1,7 @@
 
 using System;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,8 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
+    private float moveDelay = 0.02f;
+    private float moveTime = 0f;
     private Vector2 input;
+    private float lastDirectionX = 0f;
     [SerializeField] private bool moveLeft;
+
+    [Header("달리기")]
+    [SerializeField] private float runMoveSpeed = 8f;
 
     [Header("점프")]
     [SerializeField] private float initialjumpForce = 7f; // 초기 점프 힘
@@ -56,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.5f; // 바닥 판정 거리
     [HideInInspector] public bool isGrounded; // 바닥인지 확인
 
+    [Header("앉기")]
+    public bool isDown;
+
 #if UNITY_EDITOR
     private void OnDrawGizmos() // 플레이어 바닥 판정 확인
     {
@@ -75,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isDown = false;
     }
 
     // Update is called once per frame
@@ -87,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAttack())
         {
-            if (moveDirection != Vector2.zero) // 움직임
+            if (isMove)//moveDirection != Vector2.zero) // 움직임
             {
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                 rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
@@ -109,6 +120,12 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             Dash();
         }
+        //if (input == Vector2.zero)
+        //{
+        //    moveTime += Time.deltaTime;
+        //    if (moveTime >= moveDelay)
+        //        isMove = false;
+        //}
     }
 
     private void Jump()// 점프
@@ -137,8 +154,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     private void Flip() // 플레이어 좌우 회전
     {
         moveLeft = !moveLeft;
@@ -155,23 +170,47 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
 
+        //input = context.ReadValue<Vector2>();
+        //if (input != null && !isDashing && input.y == 0)
+        //{
+        //    isMove = true;
+        //    moveDirection = new Vector2(input.x, 0);
+
+        //    if (moveTime != 0f)
+        //        moveTime = 0f;
+        //    if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
+        //    {
+        //        Debug.Log("방향 전환!");
+        //        // 필요하다면 추가 동작 처리 가능
+        //    }
+        //}
+        //if (context.canceled)
+        //{
+
+        //}
         input = context.ReadValue<Vector2>();
-        if (input != null && !isDashing && input.y == 0)
+
+        // 입력이 유효하고 대쉬 중이 아니며 y값이 0일 경우 이동 활성화
+        if (!isDashing && input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
-        }
-        if (input.y > 0) 
-        {
-            playerSword.isParryingReady = true;
-        }
-        if (context.canceled)
-        {
-            if (input == Vector2.zero)
+
+            // 방향 전환 감지 (x 값의 부호가 바뀌었는지 확인)
+            if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
-                isMove = false;
+                Debug.Log("방향 전환!");
+                // 방향 전환 시 추가 동작을 처리할 수 있습니다.
             }
-            playerSword.isParryingReady = false;
+
+            // 현재 x 방향 값을 저장
+            lastDirectionX = input.x;
+        }
+
+        // 입력이 완전히 멈췄을 때만 이동 중지
+        if (input == Vector2.zero)
+        {
+            isMove = false;
         }
     }
 
@@ -201,6 +240,20 @@ public class PlayerMovement : MonoBehaviour
         {
             StartDash();
             OnDashInitiated?.Invoke();
+        }
+    }
+
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            Debug.Log("Press");
+            isDown = true;
+        }
+        if (context.canceled)
+        {
+            Debug.Log("Release");
+            isDown = false;
         }
     }
 
@@ -290,7 +343,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 collision.GetComponent<Portal>().OnPortal();
-                Debug.Log("E");
             }
 
         }
