@@ -9,7 +9,12 @@ public class ReloadItem : MonoBehaviour
     private bool isCollision = false;
     // Start is called before the first frame update
 
-    [SerializeField] GameObject AmountText;
+    [SerializeField] TextMeshProUGUI amountText;
+
+    private void Start()
+    {
+        amountText.gameObject.SetActive(false);
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -18,9 +23,9 @@ public class ReloadItem : MonoBehaviour
             dungeonStatManager = other.gameObject.GetComponent<Ver01_DungeonStatManager>();
 
             isCollision = true;
-            dungeonStatManager.GetReloadItem();
-            AmountText.gameObject.GetComponent<TextMeshPro>().text = "" + dungeonStatManager.GetDamageValue();
-            Instantiate(AmountText, transform.position, Quaternion.identity);
+            amountText.gameObject.SetActive(true);
+            amountText.text = "+" + dungeonStatManager.GetReloadItem();
+            //Instantiate(AmountText, transform.position, Quaternion.identity);
             Destroy(gameObject, 0.5f); // 1초 후 삭제
         }
     }

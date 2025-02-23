@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 605375472556621772}
   - component: {fileID: 1094051547839984619}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FullScreenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 4796449489009691506}
   - component: {fileID: 8290410817309477441}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ResolutionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 8527078999864671640}
   - component: {fileID: 7726821635047041732}
   m_Layer: 5
-  m_Name: value
+  m_Name: BGMvalue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -972,7 +972,7 @@ GameObject:
   - component: {fileID: 3784909650658933408}
   - component: {fileID: 6047433026384751696}
   m_Layer: 5
-  m_Name: value
+  m_Name: Sound effectvalue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2860,7 +2860,7 @@ GameObject:
   - component: {fileID: 5531089515849688988}
   - component: {fileID: 7642450779614911373}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ScreenShakeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3627,14 +3627,13 @@ MonoBehaviour:
   effectsSoundSlider: {fileID: 8948123714327939283}
   vibrationButtons: {fileID: 3878958003141583942}
   textMeshPros:
-  - {fileID: 0}
   - {fileID: 8290410817309477441}
   - {fileID: 1094051547839984619}
-  - {fileID: 0}
+  - {fileID: 7642450779614911373}
+  - {fileID: 7726821635047041732}
+  - {fileID: 6047433026384751696}
   audioMixer: {fileID: 24100000, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
   resolutionIndex: 0
-  DebugTemp: {fileID: 0}
-  brightnessPanel: {fileID: 0}
 --- !u!1 &7694094891586691221
 GameObject:
   m_ObjectHideFlags: 0

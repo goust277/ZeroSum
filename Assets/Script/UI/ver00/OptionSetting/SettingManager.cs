@@ -21,13 +21,14 @@ public class SettingsManager : MonoBehaviour
 
 
     // ȭ�� ���� ����
-    private int vibrationLevel = 0;
+    private int vibrationLevel = 2;
 
     // ���� ����Ʈ
     private List<ResolutionData> resolutionValues = new();
 
     [SerializeField] private int resolutionIndex = 0;
     private int languageIndex = 0;
+
     private bool isFullscreen ;
     private bool isSettingOpen= true;
     private Transform childTransform;
@@ -68,14 +69,14 @@ public class SettingsManager : MonoBehaviour
         SettingOnOff();
 
         // �� UI ��ҿ� �̺�Ʈ ������ �߰�
-        resolutionButton.onClick.AddListener(() => SetResolution(0));
+        resolutionButton.onClick.AddListener(SetResolution);
         fullscreenButton.onClick.AddListener(ToggleFullscreen);
 
         //brightnessSlider.onValueChanged.AddListener(SetBrightness);
         backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
         effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
 
-        vibrationButtons.onClick.AddListener(() => SetVibration(0));
+        vibrationButtons.onClick.AddListener(SetVibration);
 
 
         // �ʱ� �� ���� (�����̴� �� ��ư �ʱ�ȭ)
@@ -93,37 +94,30 @@ public class SettingsManager : MonoBehaviour
 
         if (!isSettingOpen)
         {
-            Debug.Log("�ɼ� ������");
+            Debug.Log("창열림");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = true;
         }
         else
         {
-            Debug.Log("�ɼ� �ݰܿ�");
+            Debug.Log("창닫김");
             childTransform.gameObject.SetActive(newState);
             isSettingOpen = false;
         }
     }
     // �ػ󵵸� �����ϴ� �޼���
-    private void SetResolution(int b)
+    private void SetResolution()
     {
-        if (b == 0)
-        {
-            resolutionIndex -= 1;
-        }
-        else
-        {
-            resolutionIndex += 1;
-        }
+        resolutionIndex--;
 
         if (resolutionIndex < 0 )
         {
             resolutionIndex = resolutionValues.Count-1;
         }
-        else if (resolutionIndex == resolutionValues.Count)
-        {
-            resolutionIndex = 0;
-        }
+        //else if (resolutionIndex == resolutionValues.Count)
+        //{
+        //    resolutionIndex = 0;
+        //}
 
         int width = resolutionValues[resolutionIndex].Width; // ����
         int height = resolutionValues[resolutionIndex].Height; // ����
@@ -138,6 +132,7 @@ public class SettingsManager : MonoBehaviour
     {
         //bool isFullscreen = Screen.fullScreen;
 
+        isFullscreen = Screen.fullScreen;
         if (!isFullscreen) {
             textMeshPros[1].text = "켜짐";
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
@@ -158,7 +153,7 @@ public class SettingsManager : MonoBehaviour
     private void SetBackgroundSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
-        int mappedValue = Mathf.RoundToInt((volume + 80) * (100f / 80f));
+        int mappedValue = Mathf.RoundToInt((value) * (100f));
         textMeshPros[3].text = mappedValue.ToString();
         audioMixer.SetFloat("BackgroundVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("BackgroundVolume", value);
@@ -168,17 +163,25 @@ public class SettingsManager : MonoBehaviour
     private void SetEffectsSound(float value)
     {
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
-        textMeshPros[4].text = volume.ToString();
+        int mappedValue = Mathf.RoundToInt((value) * (100f));
+        textMeshPros[4].text = mappedValue.ToString();
         audioMixer.SetFloat("EffectsVolume", Mathf.Max(volume, -80));
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
 
-    private void SetVibration(int level)
+    private void SetVibration()
     {
-        vibrationLevel = level;
-        PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ����
+        vibrationLevel--;
 
         string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
-        textMeshPros[2].text = vibrationLevels[level];
+
+        if (vibrationLevel < 0)
+        {
+            vibrationLevel = vibrationLevels.Length - 1;
+        }
+
+        PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ����
+
+        textMeshPros[2].text = vibrationLevels[vibrationLevel];
     }
 }

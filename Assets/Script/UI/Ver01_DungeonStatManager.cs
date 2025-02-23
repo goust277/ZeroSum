@@ -34,6 +34,10 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public void GetHPItem()
     {
         hp++;
+        if(hp > 5)
+        {
+            hp = 5;
+        }
         UpdateHUD();
     }
 
@@ -42,10 +46,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         return damage;
     }
 
-    public void GetReloadItem()
+    public int GetReloadItem()
     {
-        currentMagazine += Random.Range(1, 4);
+        int bullet = Random.Range(1, 4);
+        currentMagazine += bullet;
         UpdateHUD();
+        return bullet;
     }
 
     public void ShotGun()
