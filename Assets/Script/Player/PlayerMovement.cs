@@ -1,5 +1,7 @@
 
+using System;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private Rigidbody2D rb;
     private Animator animator;
+    private PlayerSwordAttack playerSword;
+    private SpriteRenderer sprite;
 
     [HideInInspector] public event System.Action OnJumpInitiated; // 점프 이벤트
     [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
@@ -16,7 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f; //이동속도
     [HideInInspector] public bool isMove; // 이동 중 인지 확인
-    private bool moveRight;
+    private float moveDelay = 0.02f;
+    private float moveTime = 0f;
+    private Vector2 input;
+    private float lastDirectionX = 0f;
+    [SerializeField] private bool moveLeft;
+
+    [Header("달리기")]
+    [SerializeField] private float runMoveSpeed = 8f;
 
     [Header("점프")]
     [SerializeField] private float initialjumpForce = 7f; // 초기 점프 힘
@@ -52,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.5f; // 바닥 판정 거리
     [HideInInspector] public bool isGrounded; // 바닥인지 확인
 
+    [Header("앉기")]
+    public bool isDown;
+
 #if UNITY_EDITOR
     private void OnDrawGizmos() // 플레이어 바닥 판정 확인
     {
@@ -65,10 +79,13 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
+        playerSword = GetComponent<PlayerSwordAttack>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isDown = false;
     }
 
     // Update is called once per frame
@@ -76,37 +93,39 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-        if (isGrounded && !isMove)
-        { rb.bodyType = RigidbodyType2D.Static; }
-        else
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
     }
     private void FixedUpdate()
     {
-
-        if (moveDirection != Vector2.zero) // 움직임
+        if (!isAttack())
         {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-            rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
-
-            if (moveDirection == Vector2.right && moveRight)
+            if (isMove)//moveDirection != Vector2.zero) // 움직임
             {
-                Flip();
-            }
-            else if (moveDirection == Vector2.left && !moveRight)
-            {
-                Flip();
-            }
-        }
-        else
-        {
-            isMove = false;
-        }
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
 
-        Jump();
-        Dash();
+                if (moveDirection == Vector2.right && moveLeft)
+                {
+                    Flip();
+                }
+                else if (moveDirection == Vector2.left && !moveLeft)
+                {
+                    Flip();
+                }
+            }
+            else
+            {
+                //isMove = false;
+            }
+
+            Jump();
+            Dash();
+        }
+        //if (input == Vector2.zero)
+        //{
+        //    moveTime += Time.deltaTime;
+        //    if (moveTime >= moveDelay)
+        //        isMove = false;
+        //}
     }
 
     private void Jump()// 점프
@@ -135,33 +154,69 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     private void Flip() // 플레이어 좌우 회전
     {
-        moveRight = !moveRight;
-        Vector2 currentScale = transform.localScale;
-        currentScale.x *= -1;
-        transform.localScale = currentScale;
+        moveLeft = !moveLeft;
+        sprite.flipX = true;
+        if (!moveLeft)
+        {
+            sprite.flipX = false;
+        }
+        //Vector2 currentScale = transform.localScale;
+        //currentScale.x *= -1;
+        //transform.localScale = currentScale;
     }
 
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        if (input != null && !isDashing)
+
+        //input = context.ReadValue<Vector2>();
+        //if (input != null && !isDashing && input.y == 0)
+        //{
+        //    isMove = true;
+        //    moveDirection = new Vector2(input.x, 0);
+
+        //    if (moveTime != 0f)
+        //        moveTime = 0f;
+        //    if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
+        //    {
+        //        Debug.Log("방향 전환!");
+        //        // 필요하다면 추가 동작 처리 가능
+        //    }
+        //}
+        //if (context.canceled)
+        //{
+
+        //}
+        input = context.ReadValue<Vector2>();
+
+        // 입력이 유효하고 대쉬 중이 아니며 y값이 0일 경우 이동 활성화
+        if (!isDashing && input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
-        }
-        else
-        {
 
+            // 방향 전환 감지 (x 값의 부호가 바뀌었는지 확인)
+            if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
+            {
+                Debug.Log("방향 전환!");
+                // 방향 전환 시 추가 동작을 처리할 수 있습니다.
+            }
+
+            // 현재 x 방향 값을 저장
+            lastDirectionX = input.x;
+        }
+
+        // 입력이 완전히 멈췄을 때만 이동 중지
+        if (input == Vector2.zero)
+        {
+            isMove = false;
         }
     }
 
     public void OnJump(InputAction.CallbackContext context) // 플레이어 점프
     {
-        if (context.started && (isGrounded || extraJumpCurr < extraJump))
+        if (context.started && (isGrounded || extraJumpCurr < extraJump) && !isAttack())
         {
             isJumping = true;
             jumpTimeCounter = 1f;
@@ -181,10 +236,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context) // 플레이어 대쉬
     {
-        if (context.started && canDash && isDashReady)
+        if (context.started && canDash && isDashReady && !isAttack())
         {
             StartDash();
             OnDashInitiated?.Invoke();
+        }
+    }
+
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            Debug.Log("Press");
+            isDown = true;
+        }
+        if (context.canceled)
+        {
+            Debug.Log("Release");
+            isDown = false;
         }
     }
 
@@ -220,7 +289,10 @@ public class PlayerMovement : MonoBehaviour
     private void Dashing() // 대쉬 중
     {
         dashTime += Time.deltaTime;
-        rb.velocity = new Vector2(transform.localScale.x * dashPower, 0);
+        if(moveLeft)
+            rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, 0);
+        else
+            rb.velocity = new Vector2(transform.localScale.x * dashPower, 0);
         rb.gravityScale = 0f;
 
         if (dashTime >= dashDuration)
@@ -271,9 +343,24 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 collision.GetComponent<Portal>().OnPortal();
-                Debug.Log("E");
             }
 
         }
+        if (collision.CompareTag("InteractDoor"))
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                collision.GetComponent<InteractDoor>().OnInteract();
+            }
+        }
+    }
+
+    private bool isAttack()
+    {
+        if (playerSword.isAttack)
+        {
+            return true;
+        }
+        return false;
     }
 }

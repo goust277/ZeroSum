@@ -1,0 +1,110 @@
+{
+  "Secnes": [
+    {
+      "Prerequisites": {
+        "npc": 1, //말 걸어야할 엔피씨 아이디 
+        "needEventConditions": [],
+        "currentSecneID": 0 //현재 씬 아이디 
+      },
+      "SecneID": 0,
+      "Dialog": [
+        {
+          "id": 0,
+          "pos": 0,
+          "log": [ "123", "234", "345", "456" ]
+        },
+        {
+          "id": 1,
+          "pos": 1,
+          "log": [ "오른쪽사람 대화 0", "오른쪽사람 대화 1" ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [ "TalkNPCA" ],
+        "changeSecneID": 1
+      }
+    },
+    {
+      "Prerequisites": {
+        "npc": 2,
+        "eventConditions": [ "TalkNPCA" ],
+        "currentSecneID": 1
+      },
+      "SecneID": 1,
+      "Dialog": [
+        {
+          "id": 1,
+          "pos": 0,
+          "log": [ "왼쪽사람 대화 00", "왼쪽사람 대화 11", "왼쪽사람 대화 22" ]
+        },
+        {
+          "id": 2,
+          "pos": 1,
+          "log": [ "오른쪽사람 대화 0", "오른쪽사람 대화 1111", "오른쪽사람 대화 2222" ]
+        },
+        {
+          "id": 1,
+          "pos": 0,
+          "log": [ "왼쪽사람 대화 0000000000" ]
+        },
+        {
+          "id": 2,
+          "pos": 1,
+          "log": [ "마지막 말" ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [ "TalkNPCB" ],
+        "changeSecneID": 2
+      }
+    },
+    {
+      "Prerequisites": {
+        "npc": 1,
+        "eventConditions": [ "TalkNPCA" ],
+        "currentSecneID": 2
+      },
+      "SecneID": 2,
+      "Dialog": [
+        {
+          "id": 1,
+          "pos": 0,
+          "log": [ "이 것은 다음 스테이지나 챕터에서", "쓰일 대사" ]
+        },
+        {
+          "id": 2,
+          "pos": 1,
+          "log": [ "만약 여기가 플레이어라면", "조건문 달아서", "한꺼번에 대사 출력지로", "사용할수도" ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [ "ReTalkNPCA" ],
+        "changeSecneID": 3
+      }
+    },
+    {
+      "Prerequisites": {
+        "npc": 2, //말 걸어야할 엔피씨 아이디
+        "needEventConditions": [ "ReTalkNPCA" ],
+        "currentSecneID": 3 //현재 씬 아이디 
+      },
+      "SecneID": 3,
+      "Dialog": [
+        {
+          "id": 1,
+          "pos": 0,
+          "log": [ "대사 출력할 때", "따로 이펙트 혹은", "볼드체로 써야하는 구간이 있으면" ]
+        },
+        {
+          "id": 2,
+          "pos": 1,
+          "log": [ "@특수키(@, &, $)@로 감싸서", "다르게 출력 할수도" ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [ ],
+        "changeSecneID": 4
+      }
+    }
+  ]
+}

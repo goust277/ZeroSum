@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerSwordAttack sword;
+    private PlayerGunAttack gun;
+
+
+    private void Start()
     {
-        
+        sword = GetComponent<PlayerSwordAttack>();
+        gun = GetComponent<PlayerGunAttack>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnAttack(InputAction.CallbackContext context) 
     {
-        
+        if (context.started)
+        {
+            gun.GunAttack();
+        }
     }
 }
