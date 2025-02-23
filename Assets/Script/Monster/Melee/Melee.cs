@@ -13,6 +13,7 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
     public float patrolRange = 10f;
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
+    public Vector3 currentTarget;
 
     public Vector3 spawnPoint => spawnPosition;
 
@@ -113,5 +114,18 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         {
             stateMachine.ChangeState(new M_Hit(stateMachine, this));
         }
+    }
+
+    // 목표 반대로 변경
+    public void FlipTarget()
+    {
+        // 현재 이동 방향 확인
+        float moveDirection = Mathf.Sign(currentTarget.x - transform.position.x);
+
+        // 반대 방향으로 목표 지점 설정
+        currentTarget = new Vector3(transform.position.x - (moveDirection * patrolRange), transform.position.y, transform.position.z);
+
+        // 현재 위치를 강제로 재설정하여 즉시 반영
+        transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
     }
 }
