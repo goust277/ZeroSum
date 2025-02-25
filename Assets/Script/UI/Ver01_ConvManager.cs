@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using System;
 using System.Reflection;
 using Unity.VisualScripting;
+using System.Xml;
 
 
 public class Ver01_ConvManager : MonoBehaviour
@@ -29,6 +30,8 @@ public class Ver01_ConvManager : MonoBehaviour
     //public List<Image> portraits; //��ȭâ�� ��� �ʻ�ȭ
     private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
     private NPCInfo ColNPC;
+
+    private Material tmpMaterial;
 
 
     private void Awake()
@@ -61,6 +64,10 @@ public class Ver01_ConvManager : MonoBehaviour
 
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         NormalCommunication();
+
+        // Outline 효과 적용
+        totalLogTXT.outlineWidth = 0.5f; // 외곽선 두께
+        totalLogTXT.outlineColor = Color.cyan; // 네온 색상
     }
 
     #region DialogResourLoad
@@ -97,8 +104,6 @@ public class Ver01_ConvManager : MonoBehaviour
     // Is posiible Conversation?
     private bool CheckEventConditions(Prerequisites prerequisites, int CollisionNPC)
     {
-        if(prerequisites.npc != CollisionNPC) return false;
-
         if(prerequisites.needEventConditions != null)
         {
             foreach (string condition in prerequisites.needEventConditions)

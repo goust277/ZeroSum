@@ -2671,7 +2671,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.332
+  m_Value: 0.498
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3808,6 +3808,7 @@ MonoBehaviour:
   - {fileID: 6047433026384751696}
   audioMixer: {fileID: 24100000, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
   optionSettingbtn: {fileID: 2333855470691681665}
+  optionResetbtn: {fileID: 6339698613156429884}
   optionSettingUI: {fileID: 419405069521652247}
 --- !u!1 &7694094891586691221
 GameObject:

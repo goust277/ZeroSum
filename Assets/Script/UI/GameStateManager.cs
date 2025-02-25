@@ -10,12 +10,12 @@ using TMPro.Examples;
 
 public class GameStateManager : MonoBehaviour
 {
-
     public static GameStateManager Instance { get; private set; }
 
     // ���� ���� ������
     public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
-    [SerializeField] private int currentSceneID = 0;                          // ���� �� ID
+    [SerializeField] private int currentSceneID = 0;
+    [SerializeField] private int currentStagePoint = 0;     // 
     private int chapterNum = 0;                           // ���� é��
     //private int Gold = 0;
     private int hp = 5;
@@ -101,6 +101,16 @@ public class GameStateManager : MonoBehaviour
     public int GetChapterNum()
     {
         return chapterNum;
+    }
+
+    public int GetStagePoint()
+    {
+        return currentStagePoint;
+    }
+
+    public void SetStagePoint(int stagePointID)
+    {
+        currentStagePoint = stagePointID;
     }
 
     public void SetchapterNum(int chapNum)
