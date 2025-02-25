@@ -38,7 +38,30 @@ public class PlayerAnimation : MonoBehaviour
                 isMoveStart = true;
                 animator.SetTrigger("WalkStart");
             }
-            animator.SetBool("Move", true);
+            if (playerMovement.isRun)
+            {
+                if(animator.GetBool("Move"))
+                {
+                    animator.SetBool("Move", false);
+                }
+                if(!animator.GetBool("Run"))
+                { 
+                    animator.SetBool("Run", true);
+
+                }
+            }
+            else
+            {
+                if (!animator.GetBool("Move"))
+                {
+                    animator.SetBool("Move", true);
+                }
+                if (animator.GetBool("Run"))
+                {
+                    animator.SetBool("Run", false);
+                }
+            }
+
             if (playerMovement.isDown)
             {
 
@@ -54,6 +77,7 @@ public class PlayerAnimation : MonoBehaviour
             {
                 isMoveStart = false;
                 animator.SetBool("Move", false);
+                
             }
         }
         if (rb.velocity.y != 0 && !playerMovement.isGrounded) // 떨어지는 모션 애니메이션
@@ -75,6 +99,15 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("Down", false);
             isDownStart = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            animator.SetTrigger("Attack");
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetTrigger("Dying");
         }
     }
 
