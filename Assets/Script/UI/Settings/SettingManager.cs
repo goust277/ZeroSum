@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class SettingsManager : MonoBehaviour
 {
-    // UI ��� ����
+    // UI menuList
     [SerializeField] private Button resolutionButton;  // �ػ� ���� ��ư
     [SerializeField] private Button fullscreenButton;  // ��üȭ�� ��ư
     [SerializeField] private Slider backgroundSoundSlider;  // ����� �����̴�
@@ -19,19 +19,23 @@ public class SettingsManager : MonoBehaviour
     // ����� �ͼ� (�����, ȿ����)
     public AudioMixer audioMixer;  // ������� ȿ������ �����ϴ� �ͼ�
 
+    //default values
+    private const int defaultVibrationLevel = 2;
+    private const int defaultResolutionIndex = 0;
+    private const bool defaultisFullscreen = true;
+    private const float defaultEffectsVolume = 0.5f;
+    private const float defaultBackgroundVolume = 0.5f;
 
-    // ȭ�� ���� ����
-    private int vibrationLevel = 2;
 
-    // ���� ����Ʈ
     private List<ResolutionData> resolutionValues = new();
-
-    [SerializeField] private int resolutionIndex = 0;
-    private int languageIndex = 0;
-
+    // variable values
+    private int vibrationLevel = 2;
+    private int resolutionIndex = 0;
     private bool isFullscreen ;
     private bool isSettingOpen= true;
-    private Transform childTransform;
+    [SerializeField] private Button optionSettingbtn;
+    [SerializeField] private Button optionResetbtn;
+    [SerializeField] private GameObject optionSettingUI;
 
     //[SerializeField] private TextMeshProUGUI DebugTemp;
     //[SerializeField] private Image brightnessPanel;
@@ -63,7 +67,7 @@ public class SettingsManager : MonoBehaviour
         isFullscreen = Screen.fullScreen;
         ToggleFullscreen();
         //Screen.SetResolution(1920, 1080, true);
-        childTransform = gameObject.transform.GetChild(0);
+        //childTransform = gameObject.transform.GetChild(0);
 
 
         SettingOnOff();
@@ -71,37 +75,56 @@ public class SettingsManager : MonoBehaviour
         // �� UI ��ҿ� �̺�Ʈ ������ �߰�
         resolutionButton.onClick.AddListener(SetResolution);
         fullscreenButton.onClick.AddListener(ToggleFullscreen);
+        optionSettingbtn.onClick.AddListener(SettingOnOff);
+        optionResetbtn.onClick.AddListener(OnClickResetBtn);
 
         //brightnessSlider.onValueChanged.AddListener(SetBrightness);
         backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
         effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
-
         vibrationButtons.onClick.AddListener(SetVibration);
 
 
         // �ʱ� �� ���� (�����̴� �� ��ư �ʱ�ȭ)
         //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // �⺻�� 1.0
-        backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f);
-        effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", 1.0f);
-        vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", 0);
+        backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", defaultBackgroundVolume);
+        effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", defaultEffectsVolume);
+        vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", defaultVibrationLevel);
 
+    }
+
+    private void OnClickResetBtn()
+    {
+        backgroundSoundSlider.value = defaultBackgroundVolume;
+        SetBackgroundSound(defaultBackgroundVolume);
+
+        effectsSoundSlider.value = defaultEffectsVolume;
+        SetEffectsSound(defaultEffectsVolume);
+
+        vibrationLevel = defaultVibrationLevel;
+        string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };
+        PlayerPrefs.SetInt("VibrationLevel", defaultVibrationLevel);  // ����
+        textMeshPros[2].text = vibrationLevels[defaultVibrationLevel];
+
+        textMeshPros[1].text = "켜짐";
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        isFullscreen = Screen.fullScreen;
     }
 
 
     public void SettingOnOff()
     {
-        bool newState = !childTransform.gameObject.activeSelf;
+        bool newState = !optionSettingUI.gameObject.activeSelf;
 
         if (!isSettingOpen)
         {
             Debug.Log("창열림");
-            childTransform.gameObject.SetActive(newState);
+            optionSettingUI.gameObject.SetActive(newState);
             isSettingOpen = true;
         }
         else
         {
             Debug.Log("창닫김");
-            childTransform.gameObject.SetActive(newState);
+            optionSettingUI.gameObject.SetActive(newState);
             isSettingOpen = false;
         }
     }
@@ -181,7 +204,8 @@ public class SettingsManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("VibrationLevel", vibrationLevel);  // ����
-
         textMeshPros[2].text = vibrationLevels[vibrationLevel];
+
+        //화면떨림 조정?
     }
 }
