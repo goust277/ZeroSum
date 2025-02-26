@@ -21,7 +21,7 @@ public class ATK : MonoBehaviour
         {
             isTriggerEnter = true;
 
-            dungeonStatManager.TakeDamage();
+            //dungeonStatManager.Damage(1);
             //GameStateManager.Instance.GetHit();
             StartCoroutine(ResetAfterDelay());
         }

@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Ver01_DungeonStatManager : MonoBehaviour
+public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
 {
     [Header("HUD Resource")]
     [SerializeField] private TextMeshProUGUI currentMagazineText;
@@ -65,7 +65,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         UpdateHUD();
     }
 
-    public void TakeDamage()
+    public void Damage(int damage)
     {
         if (hp-1 < 0)
         {
