@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("�޸���")]
     [SerializeField] private float runMoveSpeed = 8f;
+    [HideInInspector] public bool isRun = false;
 
     [Header("����")]
     [SerializeField] private float initialjumpForce = 7f; // �ʱ� ���� ��
@@ -100,8 +101,16 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isMove)//moveDirection != Vector2.zero) // ������
             {
-                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
+                if(isRun)
+                {
+                    transform.Translate(moveDirection * runMoveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
+                }
+
 
                 if (moveDirection == Vector2.right && moveLeft)
                 {
@@ -120,12 +129,6 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             Dash();
         }
-        //if (input == Vector2.zero)
-        //{
-        //    moveTime += Time.deltaTime;
-        //    if (moveTime >= moveDelay)
-        //        isMove = false;
-        //}
     }
 
     private void Jump()// ����
@@ -169,25 +172,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context) // �÷��̾� �̵� �Է�
     {
-
-        //input = context.ReadValue<Vector2>();
-        //if (input != null && !isDashing && input.y == 0)
-        //{
-        //    isMove = true;
-        //    moveDirection = new Vector2(input.x, 0);
-
-        //    if (moveTime != 0f)
-        //        moveTime = 0f;
-        //    if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
-        //    {
-        //        Debug.Log("���� ��ȯ!");
-        //        // �ʿ��ϴٸ� �߰� ���� ó�� ����
-        //    }
-        //}
-        //if (context.canceled)
-        //{
-
-        //}
         input = context.ReadValue<Vector2>();
 
         // �Է��� ��ȿ�ϰ� �뽬 ���� �ƴϸ� y���� 0�� ��� �̵� Ȱ��ȭ
@@ -254,6 +238,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Release");
             isDown = false;
+        }
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            isRun = true;
+        }
+        if(context.canceled)
+        {
+            isRun = false;
         }
     }
 

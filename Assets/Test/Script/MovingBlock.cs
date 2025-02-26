@@ -12,7 +12,10 @@ public class MovingBlock : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 movePosition;
     [SerializeField] private float waitingTime;
+    [SerializeField] private float moveCount;
+    private float curMoveCount;
     private float curWaitTime;
+    private bool isMoveUp;
 
     private Vector3 targetPostion;
     private Vector3 startPosition;
@@ -25,6 +28,8 @@ public class MovingBlock : MonoBehaviour
         targetPostion = transform.position;
         startPosition = transform.position;
         curWaitTime = 0.0f;
+        curMoveCount = 0f;
+        isMoveUp = true;
     }
 
     // Update is called once per frame
@@ -38,15 +43,39 @@ public class MovingBlock : MonoBehaviour
 
     private void MoveToTarget()
     {
-        if (transform.position != startPosition)
+        //if (transform.position != startPosition && curMoveCount == moveCount)
+        //{
+        //    //targetPostion = startPosition;
+        //    targetPostion = transform.position - movePosition;
+        //    curMoveCount = 0f;
+        //}
+        if (curMoveCount == moveCount)
         {
-            targetPostion = startPosition;
+            if (isMoveUp)
+            {
+                isMoveUp = false;
+                curMoveCount = 0f;
+            }
+            else
+            {
+                isMoveUp = true;
+                curMoveCount = 0f;
+            }
         }
-        else
+
+
+        if(isMoveUp)
+        {
             targetPostion = transform.position + movePosition;
+        }
+        else 
+        {
+            targetPostion = transform.position - movePosition;
+        }
 
         curWaitTime = 0f;
         isMoving = true;
+        curMoveCount++;
     }
 
     private void MovingToTarget()
