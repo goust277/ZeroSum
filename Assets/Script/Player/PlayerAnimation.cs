@@ -5,28 +5,28 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
     private Rigidbody2D rb;
-    [SerializeField] private RuntimeAnimatorController[] controller;
-    [SerializeField] private bool OnBattleArea;
+    private bool OnBattleArea;
 
     private bool isMoveStart;
     private bool isDownStart;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
 
         playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
         playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
+        playerMovement.OnTrueChanged += LandingAnimation;
+        //playerMovement.OnBoolChanged += LandingAnimation;
     }
 
     private void Start()
     {
-        if (OnBattleArea)
-            animator.runtimeAnimatorController = controller[0];
         isDownStart = false;
     }
     void Update()
@@ -36,7 +36,9 @@ public class PlayerAnimation : MonoBehaviour
             if (!isMoveStart)
             {
                 isMoveStart = true;
-                animator.SetTrigger("WalkStart");
+                if (!playerMovement.isGrounded)
+                    animator.SetTrigger("WalkStart");
+
             }
             if (playerMovement.isRun)
             {
@@ -117,16 +119,24 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerMovement.OnJumpInitiated -= JumpAnimation;
             playerMovement.OnDashInitiated -= DashAnimation;
+            playerMovement.OnTrueChanged -= LandingAnimation;
         }
     }
 
     private void JumpAnimation() // 점프 애니메이션
     {
+        Debug.Log("Jump");
         animator.SetTrigger("Jump");
     }
 
     private void DashAnimation() // 대쉬 애니메이션
     {
         animator.SetTrigger("Parrying");
+    }
+
+    private void LandingAnimation()
+    {
+        Debug.Log("Landing");
+        animator.SetTrigger("Landing");
     }
 }

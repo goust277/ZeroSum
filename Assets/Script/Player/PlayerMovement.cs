@@ -10,12 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isPortalReady = false;
     [SerializeField] private Vector2 moveDirection;
     private Rigidbody2D rb;
-    private Animator animator;
     private PlayerSwordAttack playerSword;
-    private SpriteRenderer sprite;
+    [Header("스프라이트")]
+    //[SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject sprite;
 
-    [HideInInspector] public event System.Action OnJumpInitiated; // 점프 이벤트
-    [HideInInspector] public event System.Action OnDashInitiated; // 대쉬 이벤트
+    public event System.Action OnJumpInitiated; // 점프 이벤트
+    public event System.Action OnDashInitiated; // 대쉬 이벤트
+    public event Action OnTrueChanged;
 
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f; //이동속도
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
-   private bool moveLeft;
+    private bool moveLeft;
 
     [Header("달리기")]
     [SerializeField] private float runMoveSpeed = 8f;
@@ -63,9 +65,31 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 groundBox = Vector2.zero; // 바닥 판정 박스
     [SerializeField] private float groundCheckDistance = 0.5f; // 바닥 판정 거리
     [HideInInspector] public bool isGrounded; // 바닥인지 확인
+    private bool wasGrounded;
 
     [Header("앉기")]
     public bool isDown;
+
+    // true로 변경될 때 발생하는 이벤트
+    public static Action<bool> OnBoolChanged;
+    public bool _isGrounded
+    {
+        get { return isGrounded; }
+        set
+        {
+            if (isGrounded != value)
+            {
+                isGrounded = value;
+                OnBoolChanged?.Invoke(isGrounded);
+
+                if (isGrounded)
+                {
+                    // 이벤트 호출
+                }
+            }
+        }
+    }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() // 플레이어 바닥 판정 확인
@@ -80,9 +104,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
         playerSword = GetComponent<PlayerSwordAttack>();
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -93,7 +115,19 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+        if (rb.velocity == Vector2.zero)
+        {
+            isRun = false;
+        }
 
+        bool isCurGround = isGrounded;
+
+        if (!wasGrounded && isGrounded)
+        {
+            OnTrueChanged?.Invoke();
+        }
+
+        wasGrounded = isCurGround;
     }
     private void FixedUpdate()
     {
@@ -103,12 +137,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(isRun)
                 {
-                    transform.Translate(moveDirection * runMoveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, moveDirection.y);
                 }
                 else
                 {
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                    rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+                    if (moveDirection.x != 0)
+                    {
+                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+                    }
+                    Debug.Log($"moveDirection.x: {moveDirection.x}");
+                    Debug.Log($"Velocity: {rb.velocity}");
                 }
 
 
@@ -128,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
             Dash();
+
+
         }
     }
 
@@ -160,16 +201,38 @@ public class PlayerMovement : MonoBehaviour
     private void Flip() // 플레이어 좌우 회전
     {
         moveLeft = !moveLeft;
-        sprite.flipX = true;
+        sprite.GetComponent<SpriteRenderer>().flipX = true;
+        
         if (!moveLeft)
         {
-            sprite.flipX = false;
+            sprite.GetComponent<SpriteRenderer>().flipX = false;
         }
+        else
+        {
+            
+        }
+
+        float currentPosition = sprite.transform.localPosition.x; // 현재 위치 가져오기
+        Debug.Log(currentPosition);
+        currentPosition *= -1; // x축 값 반전
+        sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
         //Vector2 currentScale = transform.localScale;
         //currentScale.x *= -1;
         //transform.localScale = currentScale;
     }
 
+    public void Mo(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isMove = true;
+        }
+        if (context.canceled)
+        {
+            isMove = false;
+            isRun = false;
+        }
+    }
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
     {
         input = context.ReadValue<Vector2>();
@@ -184,19 +247,14 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
                 Debug.Log("방향 전환!");
-                // 방향 전환 시 추가 동작을 처리할 수 있습니다.
+
             }
 
             // 현재 x 방향 값을 저장
             lastDirectionX = input.x;
         }
-
         // 입력이 완전히 멈췄을 때만 이동 중지
-        if (input == Vector2.zero)
-        {
-            isMove = false;
-            isRun = false;
-        }
+
     }
 
     public void OnJump(InputAction.CallbackContext context) // 플레이어 점프
