@@ -5,11 +5,11 @@ using TMPro;
 
 public class DamageText : MonoBehaviour
 {
-    private Vector3 startPos; // ÃÊ±â À§Ä¡ ÀúÀå
-    [SerializeField] private TextMeshProUGUI text; // ÅØ½ºÆ® ÄÄÆ÷³ÍÆ®
-    [SerializeField] private float fadeDuration = 4.0f; // ÅØ½ºÆ®°¡ ¿ÏÀüÈ÷ »ç¶óÁö±â±îÁöÀÇ ½Ã°£
-    private float alpha = 1.0f; // ¾ËÆÄ°ª ÃÊ±âÈ­
-    [SerializeField] private float moveSpeed = 0.5f; // YÃà ÀÌµ¿ ¼Óµµ
+    private Vector3 startPos; // ï¿½Ê±ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private TextMeshProUGUI text; // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    [SerializeField] private float fadeDuration = 4.0f; // ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    private float alpha = 1.0f; // ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½Ê±ï¿½È­
+    [SerializeField] private float moveSpeed = 0.5f; // Yï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
     private float time = 0.0f;
     
     private void Start()
@@ -20,22 +20,22 @@ public class DamageText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // YÃà ÀÌµ¿
+        // Yï¿½ï¿½ ï¿½Ìµï¿½
         float yOffset = moveSpeed * Time.deltaTime;
         transform.position += new Vector3(0, yOffset, 0);
 
-        // ¾ËÆÄ°ª °¨¼Ò
+        // ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½
         alpha -= Time.deltaTime / fadeDuration;
-        alpha = Mathf.Clamp01(alpha); // ¾ËÆÄ°ªÀÌ 0~1 »çÀÌ·Î À¯ÁöµÇµµ·Ï º¸Àå
+        alpha = Mathf.Clamp01(alpha); // ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ 0~1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ÅØ½ºÆ® »ö»ó º¯°æ (¾ËÆÄ°ª Àû¿ë)
+        // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½)
         if (text != null)
         {
             Color currentColor = text.color;
             text.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
         }
 
-        // ÀÌµ¿ °Å¸®¿Í ¾ËÆÄ°ª Ã¼Å© ÈÄ ÆÄ±«
+        // ï¿½Ìµï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ Ã¼Å© ï¿½ï¿½ ï¿½Ä±ï¿½
         if (time >= fadeDuration)
         {
             Destroy(gameObject);

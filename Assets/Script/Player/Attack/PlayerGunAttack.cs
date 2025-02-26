@@ -2,29 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunAttack : PlayerAttackState
+public class PlayerGunAttack : MonoBehaviour
 {
     [SerializeField] private float delay;
+    [SerializeField] private float atkCoolTime;
 
     [SerializeField] private bool isAtkReady;
-
-    [Header("√—æÀ «¡∏Æ∆’")]
-    [SerializeField] private GameObject bullet;
-
     private float delayTime;
     private Animator animator;
     private PlayerMovement playerMovement;
+
+    //UI
+    private Ver01_DungeonStatManager dungeonStatManager;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
-        isAtkReady = true;
+
+        //UI
+        dungeonStatManager = GetComponent<Ver01_DungeonStatManager>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (!isAtkReady)
+        if (isAtkReady)
         {
             if (delayTime >= 0)
             {
@@ -40,12 +43,20 @@ public class PlayerGunAttack : PlayerAttackState
 
     public void GunAttack()
     {
-        if(isAtkReady)
+        if(!isAtkReady)
         {
-            if (!playerMovement.isDown)
+            if (playerMovement.isDown)
+            {
+                Debug.Log("AttackDown");
+                animator.SetTrigger("GunAttack");
+                Attack();
+            }
+                
+            else
             {
                 animator.SetTrigger("GunAttackStart");
                 Attack();
+                isAtkReady = true;
             }
         }
         else
@@ -54,22 +65,13 @@ public class PlayerGunAttack : PlayerAttackState
             Attack();
             Debug.Log("Attack");
         }
-        if (playerMovement.isDown)
-        {
-            Debug.Log("AttackDown");
-            animator.SetTrigger("GunAttack");
-            Attack();
-        }
     }
 
     private void Attack()
     {
         delayTime = delay;
-        isAtkReady = false;
 
-
-        //GameObject fireBullet = Instantiate(bullet, transform.position, transform.rotation);
-
-        
+        //UI & Î∂àÎ†õÏÉùÏÑ±
+        dungeonStatManager.ShotGun();
     }
 }

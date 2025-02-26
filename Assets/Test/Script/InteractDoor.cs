@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class InteractDoor : MonoBehaviour
 {
-    [Header("µå¶÷ ¾ÆÀÌÅÛ")]
+    [Header("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private GameObject item;
 
     [HideInInspector] public bool isDropReady;
