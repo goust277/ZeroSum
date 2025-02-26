@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private bool isPortalReady = false;
-    private Vector2 moveDirection;
+    [SerializeField] private Vector2 moveDirection;
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerSwordAttack playerSword;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
-    [SerializeField] private bool moveLeft;
+   private bool moveLeft;
 
     [Header("�޸���")]
     [SerializeField] private float runMoveSpeed = 8f;
@@ -107,8 +107,8 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                    rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, rb.velocity.y);
+                    //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
                 }
 
 
@@ -195,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
         if (input == Vector2.zero)
         {
             isMove = false;
+            isRun = false;
         }
     }
 
