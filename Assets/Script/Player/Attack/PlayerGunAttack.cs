@@ -7,9 +7,10 @@ public class PlayerGunAttack : MonoBehaviour
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
 
-    [SerializeField] private bool isAtkReady;
+    private bool isAtkReady;
     private float delayTime;
-    private Animator animator;
+    [Header("애니메이터")]
+    [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
 
     //UI
@@ -17,8 +18,8 @@ public class PlayerGunAttack : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        isAtkReady = true;
 
         //UI
         dungeonStatManager = GetComponent<Ver01_DungeonStatManager>();
@@ -43,20 +44,12 @@ public class PlayerGunAttack : MonoBehaviour
 
     public void GunAttack()
     {
-        if(!isAtkReady)
+        if (isAtkReady)
         {
-            if (playerMovement.isDown)
-            {
-                Debug.Log("AttackDown");
-                animator.SetTrigger("GunAttack");
-                Attack();
-            }
-                
-            else
+            if (!playerMovement.isDown)
             {
                 animator.SetTrigger("GunAttackStart");
                 Attack();
-                isAtkReady = true;
             }
         }
         else
@@ -65,11 +58,18 @@ public class PlayerGunAttack : MonoBehaviour
             Attack();
             Debug.Log("Attack");
         }
+        if (playerMovement.isDown)
+        {
+            Debug.Log("AttackDown");
+            animator.SetTrigger("GunAttack");
+            Attack();
+        }
     }
 
     private void Attack()
     {
         delayTime = delay;
+        isAtkReady = false;
 
         //UI & 불렛생성
         dungeonStatManager.ShotGun();

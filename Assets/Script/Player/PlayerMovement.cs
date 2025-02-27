@@ -10,12 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isPortalReady = false;
     [SerializeField] private Vector2 moveDirection;
     private Rigidbody2D rb;
-    private Animator animator;
     private PlayerSwordAttack playerSword;
-    private SpriteRenderer sprite;
+    [Header("��������Ʈ")]
+    //[SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject sprite;
 
-    [HideInInspector] public event System.Action OnJumpInitiated; // ���� �̺�Ʈ
-    [HideInInspector] public event System.Action OnDashInitiated; // �뽬 �̺�Ʈ
+    public event System.Action OnJumpInitiated; // ���� �̺�Ʈ
+    public event System.Action OnDashInitiated; // �뽬 �̺�Ʈ
+    public event Action OnTrueChanged;
 
     [Header("�̵�")]
     [SerializeField] private float moveSpeed = 5f; //�̵��ӵ�
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
-   private bool moveLeft;
+    private bool moveLeft;
 
     [Header("�޸���")]
     [SerializeField] private float runMoveSpeed = 8f;
@@ -63,9 +65,31 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 groundBox = Vector2.zero; // �ٴ� ���� �ڽ�
     [SerializeField] private float groundCheckDistance = 0.5f; // �ٴ� ���� �Ÿ�
     [HideInInspector] public bool isGrounded; // �ٴ����� Ȯ��
+    private bool wasGrounded;
 
     [Header("�ɱ�")]
     public bool isDown;
+
+    // true�� ����� �� �߻��ϴ� �̺�Ʈ
+    public static Action<bool> OnBoolChanged;
+    public bool _isGrounded
+    {
+        get { return isGrounded; }
+        set
+        {
+            if (isGrounded != value)
+            {
+                isGrounded = value;
+                OnBoolChanged?.Invoke(isGrounded);
+
+                if (isGrounded)
+                {
+                    // �̺�Ʈ ȣ��
+                }
+            }
+        }
+    }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() // �÷��̾� �ٴ� ���� Ȯ��
@@ -80,9 +104,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
         playerSword = GetComponent<PlayerSwordAttack>();
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -93,7 +115,19 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+        if (rb.velocity == Vector2.zero)
+        {
+            isRun = false;
+        }
 
+        bool isCurGround = isGrounded;
+
+        if (!wasGrounded && isGrounded)
+        {
+            OnTrueChanged?.Invoke();
+        }
+
+        wasGrounded = isCurGround;
     }
     private void FixedUpdate()
     {
@@ -103,12 +137,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(isRun)
                 {
-                    transform.Translate(moveDirection * runMoveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, moveDirection.y);
                 }
                 else
                 {
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                    rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+                    if (moveDirection.x != 0)
+                    {
+                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+                    }
+                    Debug.Log($"moveDirection.x: {moveDirection.x}");
+                    Debug.Log($"Velocity: {rb.velocity}");
                 }
 
 
@@ -128,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
             Dash();
+
+
         }
     }
 
@@ -160,16 +201,38 @@ public class PlayerMovement : MonoBehaviour
     private void Flip() // �÷��̾� �¿� ȸ��
     {
         moveLeft = !moveLeft;
-        sprite.flipX = true;
+        sprite.GetComponent<SpriteRenderer>().flipX = true;
+        
         if (!moveLeft)
         {
-            sprite.flipX = false;
+            sprite.GetComponent<SpriteRenderer>().flipX = false;
         }
+        else
+        {
+            
+        }
+
+        float currentPosition = sprite.transform.localPosition.x; // ���� ��ġ ��������
+        Debug.Log(currentPosition);
+        currentPosition *= -1; // x�� �� ����
+        sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
         //Vector2 currentScale = transform.localScale;
         //currentScale.x *= -1;
         //transform.localScale = currentScale;
     }
 
+    public void Mo(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isMove = true;
+        }
+        if (context.canceled)
+        {
+            isMove = false;
+            isRun = false;
+        }
+    }
     public void OnMove(InputAction.CallbackContext context) // �÷��̾� �̵� �Է�
     {
         input = context.ReadValue<Vector2>();
@@ -184,19 +247,14 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
                 Debug.Log("���� ��ȯ!");
-                // ���� ��ȯ �� �߰� ������ ó���� �� �ֽ��ϴ�.
+
             }
 
             // ���� x ���� ���� ����
             lastDirectionX = input.x;
         }
-
         // �Է��� ������ ������ ���� �̵� ����
-        if (input == Vector2.zero)
-        {
-            isMove = false;
-            isRun = false;
-        }
+
     }
 
     public void OnJump(InputAction.CallbackContext context) // �÷��̾� ����
