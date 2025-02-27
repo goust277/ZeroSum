@@ -16,7 +16,7 @@ public class Chipset
 }
 #endregion
 
-#region ��� Ŭ����
+#region DialogData
 [Serializable]
 public class DialogData
 {
@@ -49,10 +49,12 @@ public class AfterConditions
 {
     public List<string> changeEventConditions;
     public int changeSecneID;
+    public List<string> missionString;
+
 }
 #endregion
 
-#region ���Ǿ� ����
+#region �NPCInfo
 [Serializable]
 public class NPCInfo
 {
@@ -70,7 +72,7 @@ public class NPCData
 #endregion
 
 
-#region ���� Ŭ����
+#region AniController
 /*Weapon Ŭ����(����)*/
 [Serializable]
 public class Animations
@@ -105,7 +107,7 @@ public class Weapon
 }
 #endregion
 
-#region �̺�Ʈ ����
+#region EventFlag
 [Serializable]
 public class Event
 {
@@ -119,7 +121,7 @@ public class EventRoot
 }
 #endregion
 
-#region ������
+#region 상점
 public class ItemForSale
 {
     public int itemId;
