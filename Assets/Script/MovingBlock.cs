@@ -35,12 +35,16 @@ public class MovingBlock : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         if (!isMoving)
             MoveToTarget();
         else
             MovingToTarget();
     }
-
     private void MoveToTarget()
     {
         //if (transform.position != startPosition && curMoveCount == moveCount)
@@ -91,4 +95,6 @@ public class MovingBlock : MonoBehaviour
                 isMoving = false; // 이동 완료
         }
     }
+
+
 }

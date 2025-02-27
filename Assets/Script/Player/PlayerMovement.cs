@@ -1,5 +1,6 @@
 
 using System;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -8,16 +9,19 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private bool isPortalReady = false;
-    [SerializeField] private Vector2 moveDirection;
+    private Vector2 moveDirection;
     private Rigidbody2D rb;
     private PlayerSwordAttack playerSword;
-    [Header("스프라이트")]
-    //[SerializeField] private SpriteRenderer sprite;
-    [SerializeField] private GameObject sprite;
 
     public event System.Action OnJumpInitiated; // 점프 이벤트
     public event System.Action OnDashInitiated; // 대쉬 이벤트
     public event Action OnTrueChanged;
+    public event Action OnStand;
+
+
+    [Header("스프라이트")]
+    //[SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject sprite;
 
     [Header("이동")]
     [SerializeField] private float moveSpeed = 5f; //이동속도
@@ -68,27 +72,12 @@ public class PlayerMovement : MonoBehaviour
     private bool wasGrounded;
 
     [Header("앉기")]
-    public bool isDown;
+    [HideInInspector] public bool isDown;
 
     // true로 변경될 때 발생하는 이벤트
-    public static Action<bool> OnBoolChanged;
-    public bool _isGrounded
-    {
-        get { return isGrounded; }
-        set
-        {
-            if (isGrounded != value)
-            {
-                isGrounded = value;
-                OnBoolChanged?.Invoke(isGrounded);
 
-                if (isGrounded)
-                {
-                    // 이벤트 호출
-                }
-            }
-        }
-    }
+    private Transform originalParent;
+    private Vector3 lastPlatformPosition;
 
 
 #if UNITY_EDITOR
@@ -109,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         isDown = false;
+
+        OnTrueChanged += OnLanding;
     }
 
     // Update is called once per frame
@@ -117,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         if (rb.velocity == Vector2.zero)
         {
-            isRun = false;
+            //isRun = false;
         }
 
         bool isCurGround = isGrounded;
@@ -128,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         wasGrounded = isCurGround;
+        Debug.Log($"Velocity: {rb.velocity}");
     }
     private void FixedUpdate()
     {
@@ -137,14 +129,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(isRun)
                 {
-                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, moveDirection.y);
+                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, 0f);
                 }
                 else
                 {
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                     if (moveDirection.x != 0)
                     {
-                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, 0f);
                     }
                     Debug.Log($"moveDirection.x: {moveDirection.x}");
                     Debug.Log($"Velocity: {rb.velocity}");
@@ -172,6 +164,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        OnTrueChanged -= OnLanding;
+    }
     private void Jump()// 점프
     {
         if (isJumping && jumpTimeCounter > 0)
@@ -230,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             isMove = false;
-            isRun = false;
+            //isRun = false;
         }
     }
     public void OnMove(InputAction.CallbackContext context) // 플레이어 이동 입력
@@ -296,6 +292,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             Debug.Log("Release");
+            OnStand?.Invoke();
             isDown = false;
         }
     }
@@ -417,5 +414,27 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void OnLanding()
+    {
+        isGrounded = true;
+        rb.velocity = new Vector2(rb.velocity.x, 0f);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingBlock"))
+        {
+            transform.parent = collision.transform;
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingBlock"))
+        {
+            if (transform.parent != null)
+                 transform.parent = null;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
+    private PlayerGunAttack playerGunAttack;
     private Rigidbody2D rb;
     private bool OnBattleArea;
 
@@ -18,11 +19,14 @@ public class PlayerAnimation : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerGunAttack = GetComponent<PlayerGunAttack>();
 
         playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
         playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
         playerMovement.OnTrueChanged += LandingAnimation;
-        //playerMovement.OnBoolChanged += LandingAnimation;
+        playerMovement.OnStand += StandAnimation;
+        playerGunAttack.OnGunAttack += GunAttackAnimation;
+        playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
     }
 
     private void Start()
@@ -33,55 +37,26 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (playerMovement.isMove)
         {
-            if (!isMoveStart)
-            {
-                isMoveStart = true;
-                if (!playerMovement.isGrounded)
-                    animator.SetTrigger("WalkStart");
-
-            }
-            if (playerMovement.isRun)
-            {
-                if(animator.GetBool("Move"))
-                {
-                    animator.SetBool("Move", false);
-                }
-                if(!animator.GetBool("Run"))
-                { 
-                    animator.SetBool("Run", true);
-
-                }
-            }
-            else
-            {
-                if (!animator.GetBool("Move"))
-                {
-                    animator.SetBool("Move", true);
-                }
-                if (animator.GetBool("Run"))
-                {
-                    animator.SetBool("Run", false);
-                }
-            }
-
-            if (playerMovement.isDown)
-            {
-
-            }
-            else
-            {
-
-            }
+            if (!animator.GetBool("Move"))
+                animator.SetBool("Move", true);
         }
         else
         {
-            if (isMoveStart)
-            {
-                isMoveStart = false;
+            if (animator.GetBool("Move"))
                 animator.SetBool("Move", false);
-                
-            }
         }
+
+        if (playerMovement.isRun)
+        {
+            if (!animator.GetBool("Run"))
+                animator.SetBool("Run", true);
+        }
+        else
+        {
+            if (animator.GetBool("Run"))
+                animator.SetBool("Run", false);
+        }
+
         if (rb.velocity.y != 0 && !playerMovement.isGrounded) // 떨어지는 모션 애니메이션
             animator.SetBool("Fall", true);
         else
@@ -103,11 +78,11 @@ public class PlayerAnimation : MonoBehaviour
             isDownStart = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             animator.SetTrigger("Attack");
         }
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             animator.SetTrigger("Dying");
         }
@@ -120,6 +95,9 @@ public class PlayerAnimation : MonoBehaviour
             playerMovement.OnJumpInitiated -= JumpAnimation;
             playerMovement.OnDashInitiated -= DashAnimation;
             playerMovement.OnTrueChanged -= LandingAnimation;
+            playerMovement.OnStand -= StandAnimation;
+            playerGunAttack.OnGunAttack -= GunAttackAnimation;
+            playerGunAttack.OnFirstGunAttack -= FirstGunAttackAnimation;
         }
     }
 
@@ -136,7 +114,21 @@ public class PlayerAnimation : MonoBehaviour
 
     private void LandingAnimation()
     {
-        Debug.Log("Landing");
         animator.SetTrigger("Landing");
+    }
+
+    private void StandAnimation()
+    {
+        animator.SetTrigger("Stand");
+    }
+
+    private void GunAttackAnimation()
+    {
+        animator.SetTrigger("GunAttack");
+    }
+
+    private void FirstGunAttackAnimation()
+    {
+        animator.SetTrigger("GunAttackStart");
     }
 }

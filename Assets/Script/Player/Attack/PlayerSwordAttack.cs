@@ -52,17 +52,6 @@ public class PlayerSwordAttack : PlayerAttackState
                         Attack1();
                         break;
                     }
-                case 2:
-                    {
-                        Attack2();
-                        break;
-                    }
-                case 3:
-                    {
-                        Attack3();
-                        break;
-                    }
-
             }
         }
 
@@ -76,82 +65,11 @@ public class PlayerSwordAttack : PlayerAttackState
         isAtkReady = false;
     }
 
-    private void Attack2()
-    {
-        delay = attackDelay;
-        combo++;
-        isAttack = false;
-        isAtkReady = false;
-    }
-
-    private void Attack3()
-    {
-        delay = attackDelay;
-        combo++;
-        isAttack = false;
-        isAtkReady = false;
-    }
-
-    public void AtkColSetTrue()
-    {
-        switch (combo - 1)
-        {
-            case 1:
-                {
-                    col[0].SetActive(true);
-                    break;
-                }
-            case 2:
-                {
-                    col[1].SetActive(true);
-                    break;
-                }
-            case 3:
-                {
-                    col[2].SetActive(true);
-                    break;
-                }
-
-        }
-    }
-    public void AtkColSetFalse()
-    {
-        switch (combo - 1)
-        {
-            case 1:
-                {
-                    col[0].SetActive(false);
-                    break;
-                }
-            case 2:
-                {
-                    col[1].SetActive(false);
-                    break;
-                }
-            case 3:
-                {
-                    col[2].SetActive(false);
-                    combo = 1;
-                    break;
-                }
-
-        }
-    }
     public void Parrying()
     {
         delay = attackDelay;
         isAttack = false;
         isAtkReady = false;
-    }
-
-    public void ParryingColSetTrue()
-    {
-        col[3].SetActive(true);
-    }
-
-    public void ParryingColSetFalse() 
-    {
-        col[3].SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
