@@ -26,7 +26,7 @@ public class Ver01_ConvManager : MonoBehaviour
     #endregion
     public bool isConversation = false; // ��ȭâ�� ���� ���ִ��� ���� 
 
-    [SerializeField] private GameObject portraits;
+    [SerializeField] private GameObject[] portraits = new GameObject[2];
     //public List<Image> portraits; //��ȭâ�� ��� �ʻ�ȭ
     private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
     private NPCInfo ColNPC;
@@ -130,14 +130,15 @@ public class Ver01_ConvManager : MonoBehaviour
     private void PortraitArrangement()
     {
         HashSet<int> uniqueNpcIds = new HashSet<int>();
-        string portraitPaths = null;
+        string[] portraitPaths = new string[3];
 
+        //��ȭ�� �ʿ��� ���Ǿ��� Ȯ���ϰ� �ʻ�ȭ �ҷ�����
         foreach (var entry in requiredSecneData.dialog)
         {
             if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
             {
-                portraitPaths = npc.NPCportrait;
-                Debug.Log($"portraitPaths = {npc.NPCportrait};");
+                portraitPaths[entry.pos] = npc.NPCportrait;
+                Debug.Log($"portraitPaths[{entry.pos}] = {npc.NPCportrait};");
             }
             else if (!npcDictionary.ContainsKey(entry.id))
             {
@@ -146,19 +147,26 @@ public class Ver01_ConvManager : MonoBehaviour
         }
 
         //�ҷ��� �ʻ�ȭ pos�� �°� ������Ʈ�� ��ġ�ϱ�
-
-            Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
-            if (portraitSprite != null)
+        for (int i = 0; i < portraitPaths.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(portraitPaths[i]))
             {
-                portraits.GetComponent<Image>().sprite = portraitSprite;
-                portraits.GetComponent<AdjustSpriteSize>().SetSprite();
+                Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[i]);
+                if (portraitSprite != null)
+                {
+                    portraits[i].GetComponent<Image>().sprite = portraitSprite;
+                    portraits[i].GetComponent<AdjustSpriteSize>().SetSprite();
+                }
+                else
+                {
+                    Debug.LogWarning($"Sprite not found at path: {portraitPaths[i]}");
+                }
             }
             else
             {
-                Debug.LogWarning($"Sprite not found at path: {portraitPaths}");
+                portraits[i].gameObject.SetActive(false);
             }
-
-        
+        }
     }
     #endregion
 
@@ -204,8 +212,8 @@ public class Ver01_ConvManager : MonoBehaviour
             Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
             if (portraitSprite != null)
             {
-                portraits.GetComponent<Image>().sprite = portraitSprite;
-                portraits.GetComponent<AdjustSpriteSize>().SetSprite();
+                portraits[dialog.pos].GetComponent<Image>().sprite = portraitSprite;
+                portraits[dialog.pos].GetComponent<AdjustSpriteSize>().SetSprite();
             }
             else
             {
