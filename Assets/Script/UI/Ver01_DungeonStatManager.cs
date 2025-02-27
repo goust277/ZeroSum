@@ -6,18 +6,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
+public class Ver01_DungeonStatManager : MonoBehaviour
 {
+    public static Ver01_DungeonStatManager Instance { get; private set; }
+
     [Header("HUD Resource")]
     [SerializeField] private TextMeshProUGUI currentMagazineText;
-    [SerializeField] private GameObject[] hpUI;
 
     private int currentMagazine;
     private int totalMagazine;
-    private int hp;
     private int reinforcement;
 
-    [SerializeField] private int damage = 0;
+    [SerializeField] private int damage = 5;
 
     private void Start()
     {
@@ -26,18 +26,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
 
     public void ResetDungeonState()
     {
-        hp = 5;
         currentMagazine = 5;
-        UpdateHUD();
-    }
-
-    public void GetHPItem()
-    {
-        hp++;
-        if(hp > 5)
-        {
-            hp = 5;
-        }
         UpdateHUD();
     }
 
@@ -46,7 +35,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
         return damage;
     }
 
-    public int GetReloadItem()
+    public int TakeReloadItem()
     {
         int bullet = Random.Range(1, 4);
         currentMagazine += bullet;
@@ -61,23 +50,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
             Debug.Log("currentMagazine out");
             currentMagazine = 0;
         }
-
         UpdateHUD();
-    }
-
-    public void Damage(int damage)
-    {
-        if (hp-1 < 0)
-        {
-            GameStateManager.Instance.UseReinforcement();
-            UpdateHUD();
-            //HandleDeath();
-        }
-        else
-        {
-            hp--;
-            UpdateHUD();
-        }
     }
 
     public void UpdateHUD()
@@ -87,31 +60,30 @@ public class Ver01_DungeonStatManager : MonoBehaviour, IDamageAble
 
         if (currentMagazineText != null) currentMagazineText.text = currentMagazine.ToString();
         //if (hpText != null) hpText.text = hp.ToString();
-        for (int i = 0; i < 5; i++)
-        {
-            if (i < hp)
-            {
-                hpUI[i].SetActive(true);
-            }
-            else
-            {
-                hpUI[i].SetActive(false);
-            }
-        }
-
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    if (i < hp)
+        //    {
+        //        hpUI[i].GetComponent<Image>().color.a = 1.0f;
+        //        //hpUI[i].SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        hpUI[i].GetComponent<Image>().color.a = 0.0f;
+        //        //hpUI[i].SetActive(false);
+        //    }
+        //}
     }
-    private void HandleDeath()
-    {
 
-        if (reinforcement > 0)
-        {
-            //hp = 5;  // 강화 단계 사용 후 HP 복구
-            UpdateHUD();
-        }
-        else
-        {
-            Debug.Log("Game Over");
-        }
+    public void GameOver()
+    {
+        //Gameover Function 
+
+        //최종 세이브 위치 저장
+        //저장했을때 있었던 스탯들 저장
+        //. 씬 전환 (전환하더라도 계속 따라감)
+        //게임오버 화면에서 컨티뉴 누르면 다시 불러오기 << 이건게임오버화면 컨트롤러같은거 필요한가?
+        
     }
 
 }

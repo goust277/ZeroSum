@@ -14,15 +14,12 @@ public class PlayerGunAttack : MonoBehaviour
     private PlayerMovement playerMovement;
 
     //UI
-    private Ver01_DungeonStatManager dungeonStatManager;
+    //private Ver01_DungeonStatManager dungeonStatManager;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         isAtkReady = true;
-
-        //UI
-        dungeonStatManager = GetComponent<Ver01_DungeonStatManager>();
     }
 
     // Update is called once per frame
@@ -39,7 +36,6 @@ public class PlayerGunAttack : MonoBehaviour
                 isAtkReady = true;
             }
         }
-
     }
 
     public void GunAttack()
@@ -71,7 +67,5 @@ public class PlayerGunAttack : MonoBehaviour
         delayTime = delay;
         isAtkReady = false;
 
-        //UI & 불렛생성
-        dungeonStatManager.ShotGun();
     }
 }
