@@ -12,6 +12,7 @@ using System.Reflection;
 using Unity.VisualScripting;
 using System.Xml;
 using TMPro.Examples;
+using UnityEngine.SceneManagement;
 
 
 public class Ver01_ConvManager : MonoBehaviour
@@ -46,6 +47,7 @@ public class Ver01_ConvManager : MonoBehaviour
     private readonly Color alpha0 = new Color(1f, 1f, 1f, 0f);
     private readonly Color alpha1 = new Color(1f, 1f, 1f, 1f);
     private Coroutine runningCoroutine = null;
+    private bool isTransitionRunning = false;
 
     private void Awake()
     {
@@ -77,6 +79,14 @@ public class Ver01_ConvManager : MonoBehaviour
         NormalCommunication();
 
         pressE.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (isTransitionRunning && Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeScene();
+        }
     }
 
     #region DialogResourLoad
@@ -203,8 +213,7 @@ public class Ver01_ConvManager : MonoBehaviour
 
         GameStateManager.Instance.SetCurrenSceneID(after.changeSecneID);
 
-        // active PressE
-        StartCoroutine(MoveImageCoroutine());
+        // active PressE 
         StartCoroutine(MissionWriter());
     }
 
@@ -225,12 +234,14 @@ public class Ver01_ConvManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             //}
         }
-        pressE.gameObject.SetActive(true);
-        runningCoroutine = StartCoroutine(TransitionToSprite());
+
+        StartCoroutine(MoveImageCoroutine());
     }
 
     private IEnumerator TransitionToSprite()
     {
+        isTransitionRunning = true;
+
         //Debug.Log("TransitionToSprite");
         float time = 0f;
         Color originalColor = pressE.color;
@@ -275,6 +286,17 @@ public class Ver01_ConvManager : MonoBehaviour
         }
 
         mapImage.gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
+
+        pressE.gameObject.SetActive(true);
+        runningCoroutine = StartCoroutine(TransitionToSprite());
+    }
+
+    //씬넘김
+    void ChangeScene()
+    {
+        isTransitionRunning = false;
+        StopAllCoroutines();  // 모든 코루틴 정지
+        SceneManager.LoadScene("Test");
     }
 
     #endregion

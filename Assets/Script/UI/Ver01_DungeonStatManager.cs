@@ -83,7 +83,6 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         //저장했을때 있었던 스탯들 저장
         //. 씬 전환 (전환하더라도 계속 따라감)
         //게임오버 화면에서 컨티뉴 누르면 다시 불러오기 << 이건게임오버화면 컨트롤러같은거 필요한가?
-        
     }
 
 }
