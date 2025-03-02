@@ -10,7 +10,7 @@ public class PlayerHP : MonoBehaviour, IDamageAble
     [Header("HUD Resource")]
     [SerializeField] private GameObject[] hpUI;
 
-    private int hp;
+    private int hp = 5;
     //take Damage
     public void Damage(int value)
     {
