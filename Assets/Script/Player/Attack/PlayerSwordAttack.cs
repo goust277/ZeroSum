@@ -39,20 +39,7 @@ public class PlayerSwordAttack : PlayerAttackState
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Interactive"))
-        {
-            IDamageAble damageable = collision.GetComponent<IDamageAble>();
-            if (damageable != null)
-            {
-                damageable.Damage(damage);
-            }
-            Bomb bomb = collision.GetComponent<Bomb>();
-            if (bomb != null)
-            {
-                bomb.TakeDamage(transform.position);
-            }
-        }
-        if (collision.CompareTag("Monster"))
+        if (collision.CompareTag("Interactive") || collision.CompareTag("Monster"))
         {
             IDamageAble damageable = collision.GetComponent<IDamageAble>();
             if (damageable != null)
@@ -60,6 +47,11 @@ public class PlayerSwordAttack : PlayerAttackState
                 damageable.Damage(damage);
             }
 
+            Bomb bomb = collision.GetComponent<Bomb>();
+            if (bomb != null)
+            {
+                bomb.TakeDamage(transform.position);
+            }
         }
     }
 }

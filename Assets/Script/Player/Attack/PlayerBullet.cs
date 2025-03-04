@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerBullet : MonoBehaviour
 {
     [HideInInspector] public int damage;
     [HideInInspector] public float speed;
 
-    private Vector2 direction;
+    [SerializeField] private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +19,30 @@ public class PlayerBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += direction * speed * Time.deltaTime;
     }
 
-    public void SetDriection(Vector2 dir)
+    public void SetDriection(Vector3 dir)
     {
         direction = dir.normalized;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactive") || collision.CompareTag("Monster") || collision.CompareTag("Wall"))
+        {
+            IDamageAble damageable = collision.GetComponent<IDamageAble>();
+            if (damageable != null)
+            {
+                damageable.Damage(damage);
+            }
+
+            Bomb bomb = collision.GetComponent<Bomb>();
+            if (bomb != null)
+            {
+                bomb.TakeDamage(transform.position);
+            }
+            gameObject.SetActive(false);
+        }
     }
 }

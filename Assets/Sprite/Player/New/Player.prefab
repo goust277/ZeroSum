@@ -255,6 +255,39 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &6068610548005154296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7092485397836057546}
+  m_Layer: 7
+  m_Name: GunAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7092485397836057546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068610548005154296}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7058667665522695352}
+  - {fileID: 3644382290680043860}
+  m_Father: {fileID: 789079694324219129}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6410556968435426686
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +320,37 @@ Transform:
   - {fileID: 9165346512506514312}
   - {fileID: 8085706065268135818}
   m_Father: {fileID: 789079694324219129}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6650869890382639729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7058667665522695352}
+  m_Layer: 7
+  m_Name: StandAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7058667665522695352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650869890382639729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.662, y: 1.256, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7092485397836057546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6748893214020954111
 GameObject:
@@ -329,6 +393,7 @@ Transform:
   - {fileID: 9174209398944977595}
   - {fileID: 3662441476520534230}
   - {fileID: 3836667314826261835}
+  - {fileID: 7092485397836057546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2718518794555207137
@@ -420,11 +485,11 @@ MonoBehaviour:
   isMove: 0
   runMoveSpeed: 11
   isRun: 0
-  initialjumpForce: 45
+  initialjumpForce: 35
   maxJumpDuration: 0.15
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  gravityScale: 50
+  gravityScale: 40
   extraJump: 0
   coyoteTime: 0.3
   dashPower: 5
@@ -669,11 +734,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2dfecc5c95bf554fac1eeedfc380cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 2
   attackDelay: 0
   isAttack: 0
   delay: 0.5
   atkCoolTime: 0
+  bulletSpeed: 2
   isAtkEnd: 0
   bullet: {fileID: 796731521868513732, guid: 95243165ac068bc409a28c0a9c2fdf74, type: 3}
 --- !u!114 &2259039916255098375
@@ -689,6 +755,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpUI: []
+--- !u!1 &6838313063021161064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3644382290680043860}
+  m_Layer: 7
+  m_Name: DownAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3644382290680043860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838313063021161064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.629, y: 0.809, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7092485397836057546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7561414614577109943
 GameObject:
   m_ObjectHideFlags: 0

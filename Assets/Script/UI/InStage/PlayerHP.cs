@@ -65,7 +65,7 @@ public class PlayerHP : MonoBehaviour, IDamageAble
         else // die
         {
             Debug.Log("Game Over");
-            Ver01_DungeonStatManager.Instance.GameOver();
+            //Ver01_DungeonStatManager.Instance.GameOver();
         }
     }
 }

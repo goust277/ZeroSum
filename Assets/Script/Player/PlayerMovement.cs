@@ -194,24 +194,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    [Obsolete]
     private void Flip() // 플레이어 좌우 회전
     {
         moveLeft = !moveLeft;
-        sprite.GetComponent<SpriteRenderer>().flipX = true;
+        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         
         if (!moveLeft)
         {
-            sprite.GetComponent<SpriteRenderer>().flipX = false;
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             
         }
 
-        float currentPosition = sprite.transform.localPosition.x; // 현재 위치 가져오기
-        Debug.Log(currentPosition);
-        currentPosition *= -1; // x축 값 반전
-        sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
+        //float currentPosition = sprite.transform.localPosition.x; // 현재 위치 가져오기
+        //currentPosition *= -1; // x축 값 반전
+        //sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
+        ////////////////////////////////////////////////////////////////////////////
         //Vector2 currentScale = transform.localScale;
         //currentScale.x *= -1;
         //transform.localScale = currentScale;

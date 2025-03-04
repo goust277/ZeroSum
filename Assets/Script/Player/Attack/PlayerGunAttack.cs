@@ -6,8 +6,13 @@ using UnityEngine;
 
 public class PlayerGunAttack : PlayerAttackState
 {
+    [SerializeField] private int poolSize = 20;
+
+    private List<GameObject> bulletPool;
+
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
+    [SerializeField] private float bulletSpeed;
 
     [HideInInspector] public bool isAtkEnd;
     private float delayTime;
@@ -18,6 +23,15 @@ public class PlayerGunAttack : PlayerAttackState
 
     [Header("총알 프리팹")]
     [SerializeField] private GameObject bullet;
+
+    [Header("총알 발사 위치")]
+    [SerializeField] private Transform standAtk;
+    [SerializeField] private Transform downAtk;
+
+    [Header("총알 부모")]
+    [SerializeField] private Transform bulletParent;
+
+    private GameObject childBullet;
     //UI
     //private Ver01_DungeonStatManager dungeonStatManager;
 
@@ -25,7 +39,9 @@ public class PlayerGunAttack : PlayerAttackState
     {
         playerMovement = GetComponent<PlayerMovement>();
         bullet.GetComponent<PlayerBullet>().damage = this.damage;
+        bullet.GetComponent<PlayerBullet>().speed = this.bulletSpeed;
         isAtkEnd = false;
+        InitializeBulletPool();
     }
 
     // Update is called once per frame
@@ -59,9 +75,49 @@ public class PlayerGunAttack : PlayerAttackState
 
     private void Attack()
     {
+        Debug.Log("Attack");
         delayTime = delay;
         isAtkEnd = true;
+
+        GameObject bullets;
+        Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
+
+        bullets = GetBulletFromPool();
+        bullets.transform.position = spawnPosition;
+        bullets.transform.rotation = Quaternion.identity;
+
+        PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
+        if (playerBullet != null)
+        {
+            playerBullet.SetDriection(transform.right);
+        }
     }
 
+    private void InitializeBulletPool()
+    {
+        bulletPool = new List<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject newBullet = Instantiate(bullet, bulletParent);
+            newBullet.SetActive(false);
+            bulletPool.Add(newBullet);
+        }
+    }
 
+    private GameObject GetBulletFromPool()
+    {
+        foreach (GameObject bullet in bulletPool)
+        {
+            if (!bullet.activeInHierarchy)
+            {
+                bullet.SetActive(true);
+                return bullet;
+            }
+        }
+
+        // 모든 총알이 사용 중이면 새로 생성
+        GameObject newBullet = Instantiate(bullet, bulletParent);
+        bulletPool.Add(newBullet);
+        return newBullet;
+    }
 }
