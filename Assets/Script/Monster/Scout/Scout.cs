@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
 
-public class Melee : MonoBehaviour, IDetectable, IDamageAble
+public class Scout : MonoBehaviour, IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
@@ -22,22 +22,28 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
     [Header("Detection Settings")]
     public Transform player;
     public bool isPlayerInRange;
+    public float minDistance = 1.5f;
+    public float maxDistance = 3.0f;
+    public GameObject detect;
 
     [Header("Combat Settings")]
     public int health = 100;
     public int attackDamage = 10;
-    public float attackRange = 1.5f;
+    public float attackRange = 2.5f;
     public float attackCooldown = 3f;
-    public float dashRange = 1.5f;
-    public bool isDashing;
     public bool canAttack = true;
-    public bool touchPlayer;
+    public bool canShot = false;
     private bool isCooldownComplete;
     public bool isHit;
     public Rigidbody2D rb;
-    public GameObject L_attack;
-    public GameObject R_attack;
     private StateMachine stateMachine;
+    public Transform leftFirePoint;         // 왼쪽 발사 위치
+    public Transform rightFirePoint;        // 오른쪽 발사 위치
+    public GameObject BulletPrefab;     // 발사체 프리팹
+    public float BulletSpeed = 10f;     // 발사체 속도
+    public int fireCount = 0;       // 발사 횟수
+    public int maxFireCount = 3;    // 최대 발사 횟수
+    private Transform fPoint;
 
     [Header("HP바 UI")]
     [SerializeField] private Image hpBar;
@@ -50,13 +56,13 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         stateMachine = new StateMachine();
 
         // 필요한 상태 생성 시 컴포넌트를 전달
-        var idleState = new M_Idle(stateMachine, this);
-        var readyStade = new M_Ready(stateMachine, this);
-        var attackState = new M_Attack(stateMachine, this);
-        var patrolState = new M_Patrol(stateMachine, this);
-        var chaseState = new M_Chase(stateMachine, this);
-        var hitState = new M_Hit(stateMachine, this);
-        var dieState = new M_Die(stateMachine, this);
+        var idleState = new Scout_Idle(stateMachine, this);
+        var readyStade = new Scout_Ready(stateMachine, this);
+        var attackState = new Scout_Attack(stateMachine, this);
+        var patrolState = new Scout_Patrol(stateMachine, this);
+        var chaseState = new Scout_Chase(stateMachine, this);
+        //var hitState = new Scout_Hit(stateMachine, this);
+        var dieState = new Scout_Die(stateMachine, this);
 
         // 상태 초기화
         stateMachine.Initialize(idleState);
@@ -66,10 +72,10 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
     {
         stateMachine.currentState.Execute();
 
-        if(!isCooldownComplete && canAttack)
+        if (!isCooldownComplete && canAttack)
         {
             attackCooldown -= Time.deltaTime;
-            if(attackCooldown <= 0)
+            if (attackCooldown <= 0)
             {
                 isCooldownComplete = true;
                 canAttack = false;
@@ -79,7 +85,7 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
 
     public bool CanEnterAttackState()
     {
-        if(isCooldownComplete)
+        if (isCooldownComplete)
         {
             isCooldownComplete = false;
             return true;
@@ -131,7 +137,7 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if(isHit)
+        if (isHit)
         {
             return;
         }
@@ -149,13 +155,14 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
 
         if (health <= 0)
         {
-            stateMachine.ChangeState(new M_Die(stateMachine, this));
+           stateMachine.ChangeState(new Scout_Die(stateMachine, this));
         }
         else if (health > 0 && !isHit)
         {
-            stateMachine.ChangeState(new M_Hit(stateMachine, this));
+            //stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
         }
     }
+
 
     // 목표 반대로 변경
     public void FlipTarget()
@@ -168,5 +175,31 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
 
         // 현재 위치를 강제로 재설정하여 즉시 반영
         transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
+    }
+
+    private void FireBullet()
+    {
+        if (BulletPrefab != null)
+        {
+            Debug.Log("Shot!");
+            fireCount++;
+
+            fPoint = sprite.flipX ? rightFirePoint : leftFirePoint;
+
+            Vector2 dir = sprite.flipX ? Vector2.right : Vector2.left;
+
+            // 발사체 생성
+            GameObject bullet = GameObject.Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
+
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            // Rigidbody2D를 이용해 발사체 이동
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = dir * BulletSpeed; // 발사 속도 설정
+            }
+        }
     }
 }
