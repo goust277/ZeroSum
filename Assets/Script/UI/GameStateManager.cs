@@ -136,7 +136,7 @@ public class GameStateManager : MonoBehaviour
     }
 
 
-    public void GetReinforcementItem()
+    public void TakeReinforcementItem()
     {
         reinforcement++;
         UpdateReinforcementHUD();

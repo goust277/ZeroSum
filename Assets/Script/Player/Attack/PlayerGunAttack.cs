@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,20 +9,17 @@ public class PlayerGunAttack : MonoBehaviour
 
     private bool isAtkReady;
     private float delayTime;
+    [Header("애니메이터")]
+    [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
 
-    public event Action OnGunAttack;
-    public event Action OnFirstGunAttack;
     //UI
-    private Ver01_DungeonStatManager dungeonStatManager;
+    //private Ver01_DungeonStatManager dungeonStatManager;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         isAtkReady = true;
-
-        //UI
-        dungeonStatManager = GetComponent<Ver01_DungeonStatManager>();
     }
 
     // Update is called once per frame
@@ -40,7 +36,6 @@ public class PlayerGunAttack : MonoBehaviour
                 isAtkReady = true;
             }
         }
-
     }
 
     public void GunAttack()
@@ -49,20 +44,20 @@ public class PlayerGunAttack : MonoBehaviour
         {
             if (!playerMovement.isDown)
             {
-                OnFirstGunAttack?.Invoke();
+                animator.SetTrigger("GunAttackStart");
                 Attack();
             }
         }
         else
         {
-            OnGunAttack?.Invoke();
+            animator.SetTrigger("GunAttack");
             Attack();
             Debug.Log("Attack");
         }
         if (playerMovement.isDown)
         {
             Debug.Log("AttackDown");
-            OnGunAttack?.Invoke();
+            animator.SetTrigger("GunAttack");
             Attack();
         }
     }
@@ -72,7 +67,5 @@ public class PlayerGunAttack : MonoBehaviour
         delayTime = delay;
         isAtkReady = false;
 
-        //UI & 불렛생성
-        //dungeonStatManager.ShotGun();
     }
 }

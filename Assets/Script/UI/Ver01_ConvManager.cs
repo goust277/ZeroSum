@@ -11,6 +11,8 @@ using System;
 using System.Reflection;
 using Unity.VisualScripting;
 using System.Xml;
+using TMPro.Examples;
+using UnityEngine.SceneManagement;
 
 
 public class Ver01_ConvManager : MonoBehaviour
@@ -19,20 +21,33 @@ public class Ver01_ConvManager : MonoBehaviour
     private SecneData requiredSecneData;
     private List<DialogData> requiredScenes;
 
+    [Header("Resources Before Conversation")]
     #region conversation UI Resources
     [SerializeField] protected TextMeshProUGUI nameTXT; //prtivate
     [SerializeField] protected TextMeshProUGUI desTXT; //prtivate
-    [SerializeField] protected TextMeshProUGUI totalLogTXT; //prtivate
+    //[SerializeField] protected TextMeshProUGUI totalLogTXT; //prtivate
     #endregion
     public bool isConversation = false; // ��ȭâ�� ���� ���ִ��� ���� 
 
-    [SerializeField] private GameObject portraits;
+    [SerializeField] private GameObject[] portraits = new GameObject[2];
     //public List<Image> portraits; //��ȭâ�� ��� �ʻ�ȭ
     private Dictionary<int, NPCInfo> npcDictionary = new Dictionary<int, NPCInfo>();
     private NPCInfo ColNPC;
-
     private Material tmpMaterial;
 
+    [Header("Resource After Conversation")]
+    [SerializeField] private Transform[] movingSections = new Transform[2];
+    [SerializeField] private GameObject mapImage;
+    [SerializeField] protected TextMeshProUGUI missionTXT;
+    [SerializeField] private Image pressE;
+    [SerializeField] private float duration = 1.0f; // 이동 시간
+    private readonly float transitionDuration = 0.2f; 
+    private readonly float consistenceDuration = 0.5f; 
+
+    private readonly Color alpha0 = new Color(1f, 1f, 1f, 0f);
+    private readonly Color alpha1 = new Color(1f, 1f, 1f, 1f);
+    private Coroutine runningCoroutine = null;
+    private bool isTransitionRunning = false;
 
     private void Awake()
     {
@@ -60,21 +75,24 @@ public class Ver01_ConvManager : MonoBehaviour
         //conversationUI.SetActive(false);
         LoadChapterData(GameStateManager.Instance.GetChapterNum());
 
-        // SecneID ���� n(=0) �� Dialog�� ��������
-
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         NormalCommunication();
 
-        // Outline 효과 적용
-        totalLogTXT.outlineWidth = 0.5f; // 외곽선 두께
-        totalLogTXT.outlineColor = Color.cyan; // 네온 색상
+        pressE.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (isTransitionRunning && Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeScene();
+        }
     }
 
     #region DialogResourLoad
-    // JSON ������ �ҷ��� �Ľ�
+    // JSON
     private void LoadChapterData(int chapterNum)
     {
-        //é�� ��� ����
         string fName = $"Chap{chapterNum}Dialog";
         string Path = "Json/Ver01/Dialog/" + fName;
 
@@ -121,8 +139,6 @@ public class Ver01_ConvManager : MonoBehaviour
     // 현재 대화진행정도
     private SecneData GetDialogBySecneID(int secneID)
     {
-        //dialogueRoot�� Secnes���� SecneID�� �Ķ���� secneID�� ���� ã�Ƽ� scene �� ����..
-        //secne�� ���̾ƴϸ� ���̾�α� ��ȯ ���̸� �� ��ȯ
         return ChapterRoot.Secnes.Find(scene => scene.SecneID == secneID);
     }
 
@@ -130,14 +146,15 @@ public class Ver01_ConvManager : MonoBehaviour
     private void PortraitArrangement()
     {
         HashSet<int> uniqueNpcIds = new HashSet<int>();
-        string portraitPaths = null;
+        string[] portraitPaths = new string[2];
 
+        //��ȭ�� �ʿ��� ���Ǿ��� Ȯ���ϰ� �ʻ�ȭ �ҷ�����
         foreach (var entry in requiredSecneData.dialog)
         {
             if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
             {
-                portraitPaths = npc.NPCportrait;
-                Debug.Log($"portraitPaths = {npc.NPCportrait};");
+                portraitPaths[entry.pos] = npc.NPCportrait;
+                Debug.Log($"portraitPaths[{entry.pos}] = {npc.NPCportrait};");
             }
             else if (!npcDictionary.ContainsKey(entry.id))
             {
@@ -146,32 +163,39 @@ public class Ver01_ConvManager : MonoBehaviour
         }
 
         //�ҷ��� �ʻ�ȭ pos�� �°� ������Ʈ�� ��ġ�ϱ�
-
-            Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
-            if (portraitSprite != null)
+        for (int i = 0; i < portraitPaths.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(portraitPaths[i]))
             {
-                portraits.GetComponent<Image>().sprite = portraitSprite;
-                portraits.GetComponent<AdjustSpriteSize>().SetSprite();
+                Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[i]);
+                if (portraitSprite != null)
+                {
+                    portraits[i].GetComponent<Image>().sprite = portraitSprite;
+                    portraits[i].GetComponent<AdjustSpriteSize>().SetSprite();
+                }
+                else
+                {
+                    Debug.LogWarning($"Sprite not found at path: {portraitPaths[i]}");
+                }
             }
             else
             {
-                Debug.LogWarning($"Sprite not found at path: {portraitPaths}");
+                portraits[i].gameObject.SetActive(false);
             }
-
-        
+        }
     }
     #endregion
 
-    #region ��� ��� �� UI ������Ʈ
+    #region afterConvLog
     private void NormalCommunication() //���丮 ���డ���� ��ȭ�� ���
     {
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
 
         if (requiredSecneData == null) return; // null Ȯ��
         requiredScenes = requiredSecneData.dialog;
-        //�ʻ�ȭ��ġ
 
-        //PortraitArrangement();
+
+        PortraitArrangement();
         isConversation = true;
         StartCoroutine(TypeWriter());
     }
@@ -188,31 +212,115 @@ public class Ver01_ConvManager : MonoBehaviour
         }
 
         GameStateManager.Instance.SetCurrenSceneID(after.changeSecneID);
+
+        // active PressE 
+        StartCoroutine(MissionWriter());
+    }
+
+    IEnumerator MissionWriter()
+    {
+        foreach (var dialog in requiredSecneData.afterConditions.missionString)
+        {
+            Debug.Log(dialog);
+            //foreach (var line in dialog)
+            //{   //desTXT.text = line;
+            missionTXT.text = "";
+            for (int index = 0; index < dialog.Length; index++)
+            {
+                missionTXT.text += dialog[index].ToString();
+                yield return new WaitForSeconds(0.05f); //
+            }
+            missionTXT.text += "\n";
+            yield return new WaitForSeconds(1.0f);
+            //}
+        }
+
+        StartCoroutine(MoveImageCoroutine());
+    }
+
+    private IEnumerator TransitionToSprite()
+    {
+        isTransitionRunning = true;
+
+        //Debug.Log("TransitionToSprite");
+        float time = 0f;
+        Color originalColor = pressE.color;
+        while (true)
+        {
+            yield return new WaitForSeconds(consistenceDuration); // ����
+            // ����� ����
+            while (time < transitionDuration) // ��ȯ
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Lerp(1f, 0f, time / transitionDuration);
+                pressE.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+            time = 0f;
+
+            yield return new WaitForSeconds(consistenceDuration); //  ���� �ð�
+
+            while (time < transitionDuration) // ��ȯ
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Lerp(0f, 1f, time / transitionDuration);
+                pressE.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+            time = 0f;
+        }
+    }
+
+    private IEnumerator MoveImageCoroutine()
+    {
+        float elapsedTime = 0f;
+        Vector3 startPos = movingSections[0].position;
+        Vector3 endPos = movingSections[1].position;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            mapImage.gameObject.GetComponent<RectTransform>().position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        mapImage.gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
+
+        pressE.gameObject.SetActive(true);
+        runningCoroutine = StartCoroutine(TransitionToSprite());
+    }
+
+    //씬넘김
+    void ChangeScene()
+    {
+        isTransitionRunning = false;
+        StopAllCoroutines();  // 모든 코루틴 정지
+        SceneManager.LoadScene("Test");
     }
 
     #endregion
 
     #region 대화출력
+    private void UpdatePortraits(int speakingPortraits)
+    {
+        for (int i = 0; i < portraits.Length; i++)
+        {
+            if (portraits[i].activeSelf)
+            {
+                portraits[i].GetComponent<Image>().color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1);
+            }
+        }
+    }
+
     IEnumerator TypeWriter()
     {
-        if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null chk
+        if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null üũ
 
         foreach (var dialog in requiredScenes)
         {
-            
-            string portraitPaths = GetNPC(dialog.id)?.NPCportrait;
-            Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths);
-            if (portraitSprite != null)
-            {
-                portraits.GetComponent<Image>().sprite = portraitSprite;
-                portraits.GetComponent<AdjustSpriteSize>().SetSprite();
-            }
-            else
-            {
-                Debug.LogWarning($"Sprite not found at path: {portraitPaths}");
-            }
-
             nameTXT.text = GetNPC(dialog.id)?.NPCname;
+            UpdatePortraits(dialog.pos);
 
             foreach (var line in dialog.log)
             {   //desTXT.text = line;
@@ -220,15 +328,11 @@ public class Ver01_ConvManager : MonoBehaviour
                 for (int index = 0; index < line.Length; index++)
                 {
                     desTXT.text += line[index].ToString();
-                    yield return new WaitForSeconds(0.05f); //Ÿ���� �ӵ� = 1�ڴ� 0.05��
+                    yield return new WaitForSeconds(0.05f); //
                 }
-                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
-                totalLogTXT.text += GetNPC(dialog.id)?.NPCname + " : " + line + "\n";
+                yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
             }
-
         }
-
         AfterConversationProcess(requiredSecneData.afterConditions);
         EndConversation();
     }

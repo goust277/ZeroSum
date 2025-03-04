@@ -15,9 +15,8 @@ public class HPItem : MonoBehaviour
     {
         if (other.collider.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
-            dungeonStatManager = other.gameObject.GetComponent<Ver01_DungeonStatManager>();
             isCollision = true;
-            dungeonStatManager.GetHPItem();
+            other.gameObject.GetComponent<PlayerHP>().GetHPItem();
             Destroy(gameObject, 0.5f); // 0.5초 후 삭제
         }
     }
