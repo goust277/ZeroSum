@@ -8,6 +8,8 @@ TagManager:
   - InteractDoor
   - Wall
   - MovingBlock
+  - PlayerAtk
+  - Interactive
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Monster
   - M_Attack
   - P_Attack
-  - 
+  - Interactive
   - 
   - 
   - 
@@ -44,7 +46,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 1296380771
     locked: 0

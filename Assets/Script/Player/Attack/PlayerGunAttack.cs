@@ -1,63 +1,58 @@
+using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunAttack : MonoBehaviour
+public class PlayerGunAttack : PlayerAttackState
 {
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
 
-    private bool isAtkReady;
+    [HideInInspector] public bool isAtkEnd;
     private float delayTime;
-    [Header("Ïï†ÎãàÎ©îÏù¥ÌÑ∞")]
-    [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
 
+    public event Action OnGunAttack;
+    public event Action OnFirstGunAttack;
+
+    [Header("√—æÀ «¡∏Æ∆’")]
+    [SerializeField] private GameObject bullet;
     //UI
     //private Ver01_DungeonStatManager dungeonStatManager;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        isAtkReady = true;
+        bullet.GetComponent<PlayerBullet>().damage = this.damage;
+        isAtkEnd = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (isAtkReady)
-        {
-            if (delayTime >= 0)
-            {
-                delayTime -= Time.deltaTime;
-            }
-            else
-            {
-                isAtkReady = true;
-            }
-        }
     }
 
     public void GunAttack()
     {
-        if (isAtkReady)
+        if (!isAtkEnd)
         {
             if (!playerMovement.isDown)
             {
-                animator.SetTrigger("GunAttackStart");
+                OnFirstGunAttack?.Invoke();
                 Attack();
             }
         }
         else
         {
-            animator.SetTrigger("GunAttack");
+            OnGunAttack?.Invoke();
             Attack();
             Debug.Log("Attack");
         }
         if (playerMovement.isDown)
         {
             Debug.Log("AttackDown");
-            animator.SetTrigger("GunAttack");
+            OnGunAttack?.Invoke();
             Attack();
         }
     }
@@ -65,7 +60,8 @@ public class PlayerGunAttack : MonoBehaviour
     private void Attack()
     {
         delayTime = delay;
-        isAtkReady = false;
-
+        isAtkEnd = true;
     }
+
+
 }

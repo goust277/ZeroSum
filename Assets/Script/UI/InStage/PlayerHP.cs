@@ -39,21 +39,21 @@ public class PlayerHP : MonoBehaviour, IDamageAble
 
     public void UpdateUI()
     {
-        if(hpUI is null)
+        if(hpUI != null)
         {
-            return;
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            if (i < hp)
+            for (int i = 0; i < hpUI.Length; i++)
             {
-                hpUI[i].SetActive(true);
-            }
-            else
-            {
-                hpUI[i].SetActive(false);
+                if (i < hp)
+                {
+                    hpUI[i].SetActive(true);
+                }
+                else
+                {
+                    hpUI[i].SetActive(false);
+                }
             }
         }
+
     }
 
     private void HandleDeath(int reinforcement)

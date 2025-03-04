@@ -14,7 +14,6 @@ public class PlayerAnimation : MonoBehaviour
     private bool isMoveStart;
     private bool isDownStart;
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
