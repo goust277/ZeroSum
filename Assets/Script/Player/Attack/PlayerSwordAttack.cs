@@ -14,6 +14,8 @@ public class PlayerSwordAttack : PlayerAttackState
     private bool isAtkReady;
     [SerializeField] private int combo = 1;
     private Animator animator;
+
+
     private void Start()
     {
         isAtkReady = true;
