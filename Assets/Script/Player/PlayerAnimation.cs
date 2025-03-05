@@ -8,6 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
     private PlayerGunAttack playerGunAttack;
+    private PlayerSwordAttack playerSwordAttack;
     private Rigidbody2D rb;
     private bool OnBattleArea;
 
@@ -19,6 +20,7 @@ public class PlayerAnimation : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
         playerGunAttack = GetComponent<PlayerGunAttack>();
+        playerSwordAttack = GetComponent<PlayerSwordAttack>();
 
         playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
         playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
@@ -26,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
         playerMovement.OnStand += StandAnimation;
         playerGunAttack.OnGunAttack += GunAttackAnimation;
         playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
+        playerSwordAttack.OnSwordAttack += SwordAttack;
     }
 
     private void Start()
@@ -97,6 +100,7 @@ public class PlayerAnimation : MonoBehaviour
             playerMovement.OnStand -= StandAnimation;
             playerGunAttack.OnGunAttack -= GunAttackAnimation;
             playerGunAttack.OnFirstGunAttack -= FirstGunAttackAnimation;
+            playerSwordAttack.OnSwordAttack -= SwordAttack;
         }
     }
 
@@ -129,5 +133,10 @@ public class PlayerAnimation : MonoBehaviour
     private void FirstGunAttackAnimation()
     {
         animator.SetTrigger("GunAttackStart");
+    }
+
+    private void SwordAttack()
+    {
+        animator.SetTrigger("Attack");
     }
 }

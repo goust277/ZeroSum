@@ -9,25 +9,44 @@ public class PlayerSwordAttack : PlayerAttackState
 {
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
-
+    
     [HideInInspector] public bool isParryingReady;
 
     private bool isAtkReady;
 
+    public event Action OnSwordAttack;
 
     private void Start()
     {
         isAtkReady = true;
+        delay = 0f;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        if (!isAtkReady)
+        {
+            delay += Time.deltaTime;
+            if (atkCoolTime <= delay)
+            {
+                isAtkReady = true;
+            }
+        }
+        else
+        {
+            if (delay != 0f)
+            {
+                delay = 0f;
+            }
+        }
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
-
+        if(isAtkReady) 
+        {
+            OnSwordAttack?.Invoke();
+        }
     }
 
     public void Parrying()

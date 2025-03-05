@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SwordAttack",
+                    "type": "Button",
+                    "id": "e4c2ba7a-7845-496b-94a4-0f43c6cadf76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Tab",
                     "type": "Button",
                     "id": "28da305c-9c2c-4eae-94a1-e34bc5aad750",
@@ -290,6 +299,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e68a1991-5aa4-4458-9bd7-50df4ce1c05a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "SwordAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
