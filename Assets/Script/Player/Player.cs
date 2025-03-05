@@ -25,11 +25,8 @@ public class Player : MonoBehaviour, IDamageAble
 
             if (Invincibility <= 0)
                 isHit = false;
-
-
         }
     }
-
     public void Damage(int atk)
     {
         if (isHit)

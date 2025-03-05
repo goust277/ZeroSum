@@ -14,7 +14,7 @@ public class M_Idle : BaseState
 
     public override void Enter()
     {
-        Debug.Log("╢К╠Б ╩Себ");
+        Debug.Log("О©╫О©╫О©╫ О©╫О©╫О©╫О©╫");
         timer = 2f;
         m.anim.SetBool("isIdle", true);
     }

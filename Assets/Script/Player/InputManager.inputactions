@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "GunAttack",
                     "type": "Button",
                     "id": "f4ed61e1-8e4b-4ae0-b90b-1db44593e274",
                     "expectedControlType": "Button",
@@ -81,6 +81,24 @@
                     "name": "Down",
                     "type": "Button",
                     "id": "166d894c-6609-40c8-90cf-87288499939b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "c903fdb1-d412-4c6f-98ab-fe2e5645680b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move2",
+                    "type": "Button",
+                    "id": "5e57d11e-8c04-449c-ae4e-dde1a66f5b26",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -157,7 +175,7 @@
                 {
                     "name": "",
                     "id": "0ec083c4-09a6-434a-8ad9-91d4cd90567e",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -168,11 +186,11 @@
                 {
                     "name": "",
                     "id": "41e124d8-3d4c-4b90-bb7a-9bb1540fcab0",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Attack",
+                    "action": "GunAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -239,6 +257,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c7440d1-c1b6-414f-a5d4-a23dfa4d9d46",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f22ab6f-3245-4b17-a6b6-1a0666550218",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eca81d84-97d4-4937-b0b1-7bf1d4d28332",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

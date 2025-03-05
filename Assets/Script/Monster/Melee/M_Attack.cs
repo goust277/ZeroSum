@@ -15,7 +15,7 @@ public class M_Attack : BaseState
 
     public override void Enter()
     {
-        Debug.Log("╟Ь╟щ ╩Себ");
+        Debug.Log("О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫");
         m.anim.SetBool("isAttack", true);
         m.rb.velocity = Vector2.zero;
     }

@@ -137,13 +137,13 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         }
 
         health -= atk;
-
+        Debug.Log("MonHit");
         //HP 바 표기
-        if (hpBar != null)
-        {
-            hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
-        }
-        VisualDamage(atk);
+        //if (hpBar != null)
+        //{
+        //    hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
+        //}
+        //VisualDamage(atk);
 
         //
 

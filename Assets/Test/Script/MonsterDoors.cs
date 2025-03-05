@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class MonsterDoors : MonoBehaviour
 {
-    [Header("½ºÆù½Ã°£")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½")]
     [SerializeField] private float minSpawnTime;
     [SerializeField] private float maxSpawnTime;
     private float spawnTime;
     private float time;
     private bool isSpawnReady;
 
-    [Header("½ºÆù ¸ó½ºÅÍ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private GameObject monster;
     private GameObject target;
 

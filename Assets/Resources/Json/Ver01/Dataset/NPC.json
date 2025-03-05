@@ -2,24 +2,38 @@
   "NPCs": [
     {
       "NPCid": 0,
-      "NPCname": "J",
-      "NPCportrait": "UI/NonCombatElements/Portraits/J",
-      "defalutDialog": "",
-      "shop": null
+      "NPCname": "화난얼굴",
+      "NPCportrait": "UI/Ver1/Profile/Z_angry_v0.1_250227"
     },
     {
       "NPCid": 1,
-      "NPCname": "왼쪽(엔피씨아이디 : 1)",
-      "NPCportrait": "UI/NonCombatElements/Portraits/NPC1",
-      "defalutDialog": "1번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말",
-      "itemsForSale": [ 101, 102, 103, 104, 105 ]
+      "NPCname": "당황",
+      "NPCportrait": "UI/Ver1/Profile/Z_dismay_v0.1_250227"
     },
     {
       "NPCid": 2,
-      "NPCname": "오른쪽(엔피씨아이디 : 2)",
-      "NPCportrait": "UI/NonCombatElements/Portraits/NPC",
-      "defalutDialog": "2번 엔피씨가 스토리 순서가 아닐때 대화하면 기본으로 뱉는 말",
-      "shop": null
+      "NPCname": "삭",
+      "NPCportrait": "UI/Ver1/Profile/Z_mask_v0.1_250227"
+    },
+    {
+      "NPCid": 3,
+      "NPCname": "미소",
+      "NPCportrait": "UI/Ver1/Profile/Z_smile1_v0.1_250227"
+    },
+    {
+      "NPCid": 4,
+      "NPCname": "미소2",
+      "NPCportrait": "UI/Ver1/Profile/Z_smile2_v0.1_250227"
+    },
+    {
+      "NPCid": 5,
+      "NPCname": "기본",
+      "NPCportrait": "UI/Ver1/Profile/Z_standard_v0.1_250227"
+    },
+    {
+      "NPCid": 6,
+      "NPCname": "그믐",
+      "NPCportrait": "UI/Ver1/Profile/Z_standard_v0.1_250227"
     }
   ]
 }
