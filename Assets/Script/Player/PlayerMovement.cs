@@ -1,5 +1,6 @@
 
 using System;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -8,91 +9,79 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private bool isPortalReady = false;
-    [SerializeField] private Vector2 moveDirection;
+    private Vector2 moveDirection;
     private Rigidbody2D rb;
     private PlayerSwordAttack playerSword;
-    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®")]
+
+    public event System.Action OnJumpInitiated; // Á¡ÇÁ ÀÌº¥Æ®
+    public event System.Action OnDashInitiated; // ´ë½¬ ÀÌº¥Æ®
+    public event Action OnTrueChanged;
+    public event Action OnStand;
+
+
+    [Header("½ºÇÁ¶óÀÌÆ®")]
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private GameObject sprite;
 
-    public event System.Action OnJumpInitiated; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
-    public event System.Action OnDashInitiated; // ï¿½ë½¬ ï¿½Ìºï¿½Æ®
-    public event Action OnTrueChanged;
-
-    [Header("ï¿½Ìµï¿½")]
-    [SerializeField] private float moveSpeed = 5f; //ï¿½Ìµï¿½ï¿½Óµï¿½
-    [HideInInspector] public bool isMove; // ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    [Header("ÀÌµ¿")]
+    [SerializeField] private float moveSpeed = 5f; //ÀÌµ¿¼Óµµ
+    [HideInInspector] public bool isMove; // ÀÌµ¿ Áß ÀÎÁö È®ÀÎ
     private float moveDelay = 0.02f;
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
     private bool moveLeft;
 
-    [Header("ï¿½Þ¸ï¿½ï¿½ï¿½")]
+    [Header("´Þ¸®±â")]
     [SerializeField] private float runMoveSpeed = 8f;
     [HideInInspector] public bool isRun = false;
 
-    [Header("ï¿½ï¿½ï¿½ï¿½")]
-    [SerializeField] private float initialjumpForce = 7f; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
-    [SerializeField] private float maxJumpDuration = 0.3f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    [Header("Á¡ÇÁ")]
+    [SerializeField] private float initialjumpForce = 7f; // ÃÊ±â Á¡ÇÁ Èû
+    [SerializeField] private float maxJumpDuration = 0.3f; // Á¡ÇÁ Áö¼Ó ½Ã°£
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
-    [SerializeField] private float gravityScale = 5f; // ï¿½ß·ï¿½ ï¿½ï¿½
-    [SerializeField] private int extraJump = 1; // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float gravityScale = 5f; // Áß·Â °ª
+    [SerializeField] private int extraJump = 1; // Ãß°¡ Á¡ÇÁ
     private float currY_velocity;
-    private bool isJumping; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    private bool isJumping; // Á¡ÇÁ ÁßÀÎÁö È®ÀÎ
     private int extraJumpCurr = 0;
 
-    [SerializeField] private float coyoteTime = 0.3f; // ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    [SerializeField] private float coyoteTime = 0.3f; // ÄÚ¿äÅÂ ½Ã°£
     private float coyoteTimeCurr = 0f;
     private float jumpTimeCounter;
 
 
-    [Header("ï¿½ë½¬")]
-    [SerializeField] private float dashPower = 3f; // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
-    [SerializeField] private float dashDuration = 0.3f; // ï¿½ë½¬ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
-    [SerializeField] private float dashCoolTime = 1f; // ï¿½ë½¬ ï¿½ï¿½Å¸ï¿½ï¿½
+    [Header("´ë½¬")]
+    [SerializeField] private float dashPower = 3f; // ´ë½¬ ¼ø°£ Èû
+    [SerializeField] private float dashDuration = 0.3f; // ´ë½¬ Áö¼Ó½Ã°£
+    [SerializeField] private float dashCoolTime = 1f; // ´ë½¬ ÄðÅ¸ÀÓ
     private bool isDashReady;
 
-    [SerializeField] private float dashcurrentCoolTime; //ï¿½ï¿½ï¿½ï¿½ ï¿½ë½¬ ï¿½ï¿½Å¸ï¿½ï¿½
-    private float dashTime; // ï¿½ë½¬ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½
-    private bool canDash; // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
-    [SerializeField] private bool isDashing; // ï¿½ë½¬ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    [SerializeField] private float dashcurrentCoolTime; //ÇöÀç ´ë½¬ ÄðÅ¸ÀÓ
+    private float dashTime; // ´ë½¬ÇÏ°í ÀÖ´Â ½Ã°£
+    private bool canDash; // ´ë½¬ °¡´ÉÇÑÁö È®ÀÎ
+    [SerializeField] private bool isDashing; // ´ë½¬ Áß ÀÎÁö È®ÀÎ
 
-    [Header("ï¿½Ù´ï¿½Ã¼Å©")]
-    [SerializeField] private LayerMask groundLayer; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½
-    [SerializeField] private float groundBoxOffset = 0f; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    [SerializeField] private Vector2 groundBox = Vector2.zero; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½
-    [SerializeField] private float groundCheckDistance = 0.5f; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
-    [HideInInspector] public bool isGrounded; // ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    [Header("¹Ù´ÚÃ¼Å©")]
+    [SerializeField] private LayerMask groundLayer; // ¹Ù´Ú ·¹ÀÌ¾î
+    [SerializeField] private float groundBoxOffset = 0f; // ¹Ù´Ú ÆÇÁ¤ ¿ÀÇÁ¼Â
+    [SerializeField] private Vector2 groundBox = Vector2.zero; // ¹Ù´Ú ÆÇÁ¤ ¹Ú½º
+    [SerializeField] private float groundCheckDistance = 0.5f; // ¹Ù´Ú ÆÇÁ¤ °Å¸®
+    [HideInInspector] public bool isGrounded; // ¹Ù´ÚÀÎÁö È®ÀÎ
     private bool wasGrounded;
 
-    [Header("ï¿½É±ï¿½")]
-    public bool isDown;
+    [Header("¾É±â")]
+    [HideInInspector] public bool isDown;
 
-    // trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½Ìºï¿½Æ®
-    public static Action<bool> OnBoolChanged;
-    public bool _isGrounded
-    {
-        get { return isGrounded; }
-        set
-        {
-            if (isGrounded != value)
-            {
-                isGrounded = value;
-                OnBoolChanged?.Invoke(isGrounded);
+    // true·Î º¯°æµÉ ¶§ ¹ß»ýÇÏ´Â ÀÌº¥Æ®
 
-                if (isGrounded)
-                {
-                    // ï¿½Ìºï¿½Æ® È£ï¿½ï¿½
-                }
-            }
-        }
-    }
+    private Transform originalParent;
+    private Vector3 lastPlatformPosition;
 
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    private void OnDrawGizmos() // ÇÃ·¹ÀÌ¾î ¹Ù´Ú ÆÇÁ¤ È®ÀÎ
     {
         Gizmos.color = new Color(0, 1, 1, 0.5f);
         Vector2 center = transform.position;
@@ -109,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         isDown = false;
+
+        OnTrueChanged += OnLanding;
     }
 
     // Update is called once per frame
@@ -117,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         if (rb.velocity == Vector2.zero)
         {
-            isRun = false;
+            //isRun = false;
         }
 
         bool isCurGround = isGrounded;
@@ -128,23 +119,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         wasGrounded = isCurGround;
+        Debug.Log($"Velocity: {rb.velocity}");
     }
     private void FixedUpdate()
     {
         if (!isAttack())
         {
-            if (isMove)//moveDirection != Vector2.zero) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (isMove)//moveDirection != Vector2.zero) // ¿òÁ÷ÀÓ
             {
                 if(isRun)
                 {
-                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, moveDirection.y);
+                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, 0f);
                 }
                 else
                 {
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                     if (moveDirection.x != 0)
                     {
-                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, 0f);
                     }
                     Debug.Log($"moveDirection.x: {moveDirection.x}");
                     Debug.Log($"Velocity: {rb.velocity}");
@@ -172,7 +164,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()// ï¿½ï¿½ï¿½ï¿½
+    private void OnDisable()
+    {
+        OnTrueChanged -= OnLanding;
+    }
+    private void Jump()// Á¡ÇÁ
     {
         if (isJumping && jumpTimeCounter > 0)
         {
@@ -182,9 +178,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 isJumping = false;
-            } // ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ô¼ï¿½
+            } // Á¡ÇÁ 2Â÷ ÇÔ¼ö
 
-            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1ï¿½ï¿½ ï¿½Ô¼ï¿½
+            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1Â÷ ÇÔ¼ö
             jumpTimeCounter -= Time.deltaTime / maxJumpDuration;
         }
 
@@ -198,24 +194,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Flip() // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â¿ï¿½ È¸ï¿½ï¿½
+    [Obsolete]
+    private void Flip() // ÇÃ·¹ÀÌ¾î ÁÂ¿ì È¸Àü
     {
         moveLeft = !moveLeft;
-        sprite.GetComponent<SpriteRenderer>().flipX = true;
+        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         
         if (!moveLeft)
         {
-            sprite.GetComponent<SpriteRenderer>().flipX = false;
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             
         }
 
-        float currentPosition = sprite.transform.localPosition.x; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        Debug.Log(currentPosition);
-        currentPosition *= -1; // xï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
+        //float currentPosition = sprite.transform.localPosition.x; // ÇöÀç À§Ä¡ °¡Á®¿À±â
+        //currentPosition *= -1; // xÃà °ª ¹ÝÀü
+        //sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
+        ////////////////////////////////////////////////////////////////////////////
         //Vector2 currentScale = transform.localScale;
         //currentScale.x *= -1;
         //transform.localScale = currentScale;
@@ -230,34 +227,34 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             isMove = false;
-            isRun = false;
+            //isRun = false;
         }
     }
-    public void OnMove(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ìµï¿½ ï¿½Ô·ï¿½
+    public void OnMove(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ÀÔ·Â
     {
         input = context.ReadValue<Vector2>();
 
-        // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ï°ï¿½ ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ yï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ È°ï¿½ï¿½È­
+        // ÀÔ·ÂÀÌ À¯È¿ÇÏ°í ´ë½¬ ÁßÀÌ ¾Æ´Ï¸ç y°ªÀÌ 0ÀÏ °æ¿ì ÀÌµ¿ È°¼ºÈ­
         if (!isDashing && input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
 
-            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ (x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½)
+            // ¹æÇâ ÀüÈ¯ °¨Áö (x °ªÀÇ ºÎÈ£°¡ ¹Ù²î¾ú´ÂÁö È®ÀÎ)
             if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
-                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯!");
+                Debug.Log("¹æÇâ ÀüÈ¯!");
 
             }
 
-            // ï¿½ï¿½ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            // ÇöÀç x ¹æÇâ °ªÀ» ÀúÀå
             lastDirectionX = input.x;
         }
-        // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ÀÔ·ÂÀÌ ¿ÏÀüÈ÷ ¸ØÃèÀ» ¶§¸¸ ÀÌµ¿ ÁßÁö
 
     }
 
-    public void OnJump(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public void OnJump(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î Á¡ÇÁ
     {
         if (context.started && (isGrounded || extraJumpCurr < extraJump) && !isAttack())
         {
@@ -277,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnDash(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ë½¬
+    public void OnDash(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î ´ë½¬
     {
         if (context.started && canDash && isDashReady && !isAttack())
         {
@@ -296,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             Debug.Log("Release");
+            OnStand?.Invoke();
             isDown = false;
         }
     }
@@ -312,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Dash()// ï¿½ë½¬
+    private void Dash()// ´ë½¬
     {
         if (isDashing)
         {
@@ -329,7 +327,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void StartDash() // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½
+    private void StartDash() // ´ë½¬ ½ÃÀÛ
     {
         isDashing = true;
         canDash = false;
@@ -341,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
         dashcurrentCoolTime = 0f;
     }
 
-    private void Dashing() // ï¿½ë½¬ ï¿½ï¿½
+    private void Dashing() // ´ë½¬ Áß
     {
         dashTime += Time.deltaTime;
         if(moveLeft)
@@ -356,7 +354,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void EndDash() // ï¿½ë½¬ ï¿½ï¿½
+    private void EndDash() // ´ë½¬ ³¡
     {
         isDashing = false;
         rb.velocity = new Vector2(0, 0);
@@ -417,5 +415,27 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void OnLanding()
+    {
+        isGrounded = true;
+        rb.velocity = new Vector2(rb.velocity.x, 0f);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingBlock"))
+        {
+            transform.parent = collision.transform;
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingBlock"))
+        {
+            if (transform.parent != null)
+                 transform.parent = null;
+        }
     }
 }

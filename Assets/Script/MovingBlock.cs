@@ -9,46 +9,48 @@ using UnityEngine;
 public class MovingBlock : MonoBehaviour
 {
     private float time;
+    [Header("움직임")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 movePosition;
     [SerializeField] private float waitingTime;
     [SerializeField] private float moveCount;
+
+    [Header("첫 움직이는 수")]
+    [SerializeField] private float firstMoveCount;
+
     private float curMoveCount;
     private float curWaitTime;
     private bool isMoveUp;
 
     private Vector3 targetPostion;
-    private Vector3 startPosition;
 
     private bool isMoving = false;
-    private bool isMoveReady = true;
 
     private void Start()
     {
         targetPostion = transform.position;
-        startPosition = transform.position;
         curWaitTime = 0.0f;
         curMoveCount = 0f;
         isMoveUp = true;
+        if (firstMoveCount == 0f)
+            firstMoveCount = moveCount;
     }
 
     // Update is called once per frame
     private void Update()
+    {
+
+    }
+
+    private void FixedUpdate()
     {
         if (!isMoving)
             MoveToTarget();
         else
             MovingToTarget();
     }
-
     private void MoveToTarget()
     {
-        //if (transform.position != startPosition && curMoveCount == moveCount)
-        //{
-        //    //targetPostion = startPosition;
-        //    targetPostion = transform.position - movePosition;
-        //    curMoveCount = 0f;
-        //}
         if (curMoveCount == moveCount)
         {
             if (isMoveUp)

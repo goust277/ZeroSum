@@ -1345,7 +1345,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 249.7727}
+  m_AnchoredPosition: {x: 0.000061035156, y: 515.7127}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &3296601492597048227
@@ -2285,9 +2285,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameTXT: {fileID: 4588971319118165990}
   desTXT: {fileID: 1980418637186488872}
-  totalLogTXT: {fileID: 2702924887735955872}
   isConversation: 0
-  portraits: {fileID: 724218447627622624}
+  portraits:
+  - {fileID: 0}
+  movingSections:
+  - {fileID: 0}
+  - {fileID: 0}
+  mapImage: {fileID: 0}
+  missionTXT: {fileID: 0}
+  pressE: {fileID: 0}
+  duration: 1
 --- !u!1 &6855320995067356662
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,7 +41,6 @@ public class MonsterDoor : MonoBehaviour
     {
         if (isSpawnReady)
         {
-
             int index = Random.Range(0, monsterPrefabs.Count);
             GameObject monster = Instantiate(monsterPrefabs[index], transform.position, Quaternion.identity, parent);
             monster.name = monsterPrefabs[index].name;

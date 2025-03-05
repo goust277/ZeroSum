@@ -137,7 +137,7 @@ public class Melee : MonoBehaviour, IDetectable, IDamageAble
         }
 
         health -= atk;
-
+        Debug.Log("MonHit");
         //HP ¹Ù Ç¥±â
         //if (hpBar != null)
         //{

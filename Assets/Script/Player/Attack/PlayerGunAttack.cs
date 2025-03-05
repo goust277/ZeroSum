@@ -1,71 +1,123 @@
+using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunAttack : MonoBehaviour
+public class PlayerGunAttack : PlayerAttackState
 {
+    [SerializeField] private int poolSize = 20;
+
+    private List<GameObject> bulletPool;
+
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
+    [SerializeField] private float bulletSpeed;
 
-    private bool isAtkReady;
+    [HideInInspector] public bool isAtkEnd;
     private float delayTime;
-    [Header("Ïï†ÎãàÎ©îÏù¥ÌÑ∞")]
-    [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
 
+    public event Action OnGunAttack;
+    public event Action OnFirstGunAttack;
+
+    [Header("√—æÀ «¡∏Æ∆’")]
+    [SerializeField] private GameObject bullet;
+
+    [Header("√—æÀ πﬂªÁ ¿ßƒ°")]
+    [SerializeField] private Transform standAtk;
+    [SerializeField] private Transform downAtk;
+
+    [Header("√—æÀ ∫Œ∏")]
+    [SerializeField] private Transform bulletParent;
+
+    private GameObject childBullet;
     //UI
     //private Ver01_DungeonStatManager dungeonStatManager;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        isAtkReady = true;
+        bullet.GetComponent<PlayerBullet>().damage = this.damage;
+        bullet.GetComponent<PlayerBullet>().speed = this.bulletSpeed;
+        isAtkEnd = false;
+        InitializeBulletPool();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (isAtkReady)
-        {
-            if (delayTime >= 0)
-            {
-                delayTime -= Time.deltaTime;
-            }
-            else
-            {
-                isAtkReady = true;
-            }
-        }
     }
 
     public void GunAttack()
     {
-        if (isAtkReady)
+        if (!isAtkEnd)
         {
             if (!playerMovement.isDown)
             {
-                animator.SetTrigger("GunAttackStart");
+                OnFirstGunAttack?.Invoke();
                 Attack();
             }
         }
         else
         {
-            animator.SetTrigger("GunAttack");
+            OnGunAttack?.Invoke();
             Attack();
             Debug.Log("Attack");
         }
         if (playerMovement.isDown)
         {
             Debug.Log("AttackDown");
-            animator.SetTrigger("GunAttack");
+            OnGunAttack?.Invoke();
             Attack();
         }
     }
 
     private void Attack()
     {
+        Debug.Log("Attack");
         delayTime = delay;
-        isAtkReady = false;
+        isAtkEnd = true;
 
+        GameObject bullets;
+        Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
+
+        bullets = GetBulletFromPool();
+        bullets.transform.position = spawnPosition;
+        bullets.transform.rotation = Quaternion.identity;
+
+        PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
+        if (playerBullet != null)
+        {
+            playerBullet.SetDriection(transform.right);
+        }
+    }
+
+    private void InitializeBulletPool()
+    {
+        bulletPool = new List<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject newBullet = Instantiate(bullet, bulletParent);
+            newBullet.SetActive(false);
+            bulletPool.Add(newBullet);
+        }
+    }
+
+    private GameObject GetBulletFromPool()
+    {
+        foreach (GameObject bullet in bulletPool)
+        {
+            if (!bullet.activeInHierarchy)
+            {
+                bullet.SetActive(true);
+                return bullet;
+            }
+        }
+
+        // ∏µÁ √—æÀ¿Ã ªÁøÎ ¡ﬂ¿Ã∏È ªı∑Œ ª˝º∫
+        GameObject newBullet = Instantiate(bullet, bulletParent);
+        bulletPool.Add(newBullet);
+        return newBullet;
     }
 }
