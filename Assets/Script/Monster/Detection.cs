@@ -26,11 +26,11 @@ public class Detection : MonoBehaviour
         }
     }
 
-    //void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        detectable?.SetPlayerInRange(false);
-    //    }
-    //}
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            detectable?.SetPlayerInRange(false);
+        }
+    }
 }
