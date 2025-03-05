@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using TMPro;
 using TMPro.Examples;
 using UnityEngine;
@@ -9,21 +10,40 @@ public class PlayerHP : MonoBehaviour, IDamageAble
 {
     [Header("HUD Resource")]
     [SerializeField] private GameObject[] hpUI;
+    [SerializeField] private GameObject painKiller;
+    private TextMeshProUGUI timeText;
 
     private int hp = 5;
-    //take Damage
-    public void Damage(int value)
+    private bool isBlocked = false;
+
+    void Start()
     {
-        if (hp - 1 < 0)
+        // 자식에서 TextMeshProUGUI 찾기
+        timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
+        painKiller.SetActive(false);
+        if (timeText == null)
         {
-            GameStateManager.Instance.UseReinforcement();
-            int reinforcement = GameStateManager.Instance.GetReinforcement();
-            HandleDeath(reinforcement);
+            Debug.Log("못찾");
         }
-        else
+    
+    }
+
+        //take Damage
+        public void Damage(int value)
+    {
+        if (!isBlocked)
         {
-            hp--;
-            UpdateUI();
+            if (hp - 1 < 0)
+            {
+                GameStateManager.Instance.UseReinforcement();
+                int reinforcement = GameStateManager.Instance.GetReinforcement();
+                HandleDeath(reinforcement);
+            }
+            else
+            {
+                hp--;
+                UpdateUI();
+            }
         }
     }
 
@@ -35,6 +55,33 @@ public class PlayerHP : MonoBehaviour, IDamageAble
             hp = 5;
         }
         UpdateUI();
+    }
+
+    public void GetPainKiller(float blockDuration)
+    {
+        if (!isBlocked)
+        {
+            StartCoroutine(BlockFunctionTemporarily(blockDuration));
+        }
+    }
+
+    private IEnumerator BlockFunctionTemporarily(float duration)
+    {
+        if (isBlocked) yield break;
+
+        float time = duration;
+
+        painKiller.SetActive(true);
+        isBlocked = true;
+        while (time > 0.1f)
+        {
+            timeText.text = time.ToString();
+            time -= 1.0f;
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        isBlocked = false;
+        painKiller.SetActive(false);
     }
 
     public void UpdateUI()
