@@ -13,7 +13,7 @@ public class PlayerHP : MonoBehaviour, IDamageAble
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
 
-    private int hp = 5;
+    [SerializeField] private int hp;
     private bool isBlocked = false;
 
     void Start()
@@ -25,11 +25,12 @@ public class PlayerHP : MonoBehaviour, IDamageAble
         {
             Debug.Log("¸øÃ£");
         }
-    
+
+        hp = hpUI.Length;
     }
 
         //take Damage
-        public void Damage(int value)
+    public void Damage(int value)
     {
         if (!isBlocked)
         {

@@ -19,6 +19,19 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     [SerializeField] private int damage = 5;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;  // 싱글톤 인스턴스 초기화
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject); // 이미 다른 인스턴스가 있으면 이 객체를 삭제
+        }
+    }
+
+
     private void Start()
     {
         ResetDungeonState();
@@ -43,14 +56,16 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         return bullet;
     }
 
-    public void ShotGun()
+    public bool ShotGun()
     {
         currentMagazine --;
         if (currentMagazine < 0) {
             Debug.Log("currentMagazine out");
             currentMagazine = 0;
+            return false;
         }
         UpdateHUD();
+        return true;
     }
 
     public void UpdateHUD()

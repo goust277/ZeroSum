@@ -79,18 +79,20 @@ public class PlayerGunAttack : PlayerAttackState
         delayTime = delay;
         isAtkEnd = true;
 
-        GameObject bullets;
-        Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
+       if (Ver01_DungeonStatManager.Instance.ShotGun())
+       {
+            GameObject bullets;
+            Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
 
-        bullets = GetBulletFromPool();
-        bullets.transform.position = spawnPosition;
-        bullets.transform.rotation = Quaternion.identity;
-
-        PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
-        if (playerBullet != null)
-        {
-            playerBullet.SetDriection(transform.right);
-        }
+            bullets = GetBulletFromPool();
+            bullets.transform.position = spawnPosition;
+            bullets.transform.rotation = Quaternion.identity;
+            PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
+            if (playerBullet != null)
+            {
+                playerBullet.SetDriection(transform.right);
+            }
+       }
     }
 
     private void InitializeBulletPool()

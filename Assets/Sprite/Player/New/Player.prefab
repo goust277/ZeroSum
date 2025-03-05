@@ -737,11 +737,15 @@ MonoBehaviour:
   damage: 2
   attackDelay: 0
   isAttack: 0
+  poolSize: 20
   delay: 0.5
   atkCoolTime: 0
   bulletSpeed: 2
   isAtkEnd: 0
   bullet: {fileID: 796731521868513732, guid: 95243165ac068bc409a28c0a9c2fdf74, type: 3}
+  standAtk: {fileID: 0}
+  downAtk: {fileID: 0}
+  bulletParent: {fileID: 0}
 --- !u!114 &2259039916255098375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpUI: []
+  painKiller: {fileID: 0}
+  hp: 0
 --- !u!1 &6838313063021161064
 GameObject:
   m_ObjectHideFlags: 0
