@@ -35,13 +35,16 @@ public class PlayerBullet : MonoBehaviour
             if (damageable != null)
             {
                 damageable.Damage(damage);
+                gameObject.SetActive(false);
             }
 
             Bomb bomb = collision.GetComponent<Bomb>();
             if (bomb != null)
             {
                 bomb.TakeDamage(transform.position);
+                gameObject.SetActive(false);
             }
+
             gameObject.SetActive(false);
         }
     }

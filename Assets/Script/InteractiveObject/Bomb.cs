@@ -17,7 +17,7 @@ public class Bomb : MonoBehaviour
 
     [HideInInspector] public bool isMove;
 
-    private Vector3 knockbackDirection;
+    [SerializeField] private Vector3 knockbackDirection;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private void Start()
@@ -56,7 +56,13 @@ public class Bomb : MonoBehaviour
             {
                 damageable.Damage(damage);
             }
-
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            knockbackDirection.x *= -1;
         }
     }
 
