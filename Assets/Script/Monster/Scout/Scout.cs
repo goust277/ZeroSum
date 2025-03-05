@@ -27,7 +27,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public GameObject detect;
 
     [Header("Combat Settings")]
-    public int health = 100;
+    public int health = 2;
     public int attackDamage = 10;
     public float attackRange = 2.5f;
     public float attackCooldown = 3f;
@@ -142,7 +142,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             return;
         }
 
-        health -= atk;
+        health -= 1;
 
         //HP ¹Ù Ç¥±â
         if (hpBar != null)
