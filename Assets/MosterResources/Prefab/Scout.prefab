@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3239486946816803632}
   - component: {fileID: 3701644994597039663}
   - component: {fileID: 2319712390377021269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ MonoBehaviour:
   minDistance: 1.5
   maxDistance: 3
   detect: {fileID: 3102665111787252549}
-  health: 100
+  health: 2
   attackDamage: 10
   attackRange: 1.5
   attackCooldown: 3

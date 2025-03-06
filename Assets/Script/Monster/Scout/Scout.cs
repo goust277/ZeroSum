@@ -61,7 +61,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         var attackState = new Scout_Attack(stateMachine, this);
         var patrolState = new Scout_Patrol(stateMachine, this);
         var chaseState = new Scout_Chase(stateMachine, this);
-        //var hitState = new Scout_Hit(stateMachine, this);
+        var hitState = new Scout_Hit(stateMachine, this);
         var dieState = new Scout_Die(stateMachine, this);
 
         // 상태 초기화
@@ -98,14 +98,14 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         isPlayerInRange = inRange;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            IDamageAble damageable = other.GetComponent<IDamageAble>();
-            damageable?.Damage(attackDamage);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        IDamageAble damageable = other.GetComponent<IDamageAble>();
+    //        damageable?.Damage(attackDamage);
+    //    }
+    //}
 
     private void VisualDamage(int value)
     {
@@ -137,12 +137,20 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (isHit)
+        if (!isHit)
         {
-            return;
+            health--;
+
+            if (health <= 0)
+            {
+                stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+            }
+            else
+            {
+                stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
+            }
         }
 
-        health -= 1;
 
         //HP 바 표기
         if (hpBar != null)
@@ -150,17 +158,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
         VisualDamage(atk);
-
-        //
-
-        if (health <= 0)
-        {
-           stateMachine.ChangeState(new Scout_Die(stateMachine, this));
-        }
-        else if (health > 0 && !isHit)
-        {
-            //stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
-        }
     }
 
 
