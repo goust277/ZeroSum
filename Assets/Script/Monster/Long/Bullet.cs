@@ -15,6 +15,11 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Player") /*|| other.CompareTag("Plane")*/)
         {
+            if (this.CompareTag("MonsterAtk"))
+            {
+                IDamageAble damageable = other.GetComponent<IDamageAble>();
+                damageable?.Damage(1);
+            }
             Destroy(gameObject);
         }
     }
