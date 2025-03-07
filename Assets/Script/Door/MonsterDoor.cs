@@ -7,6 +7,7 @@ public class MonsterDoor : MonoBehaviour
     [Header("몬스터 프리팹 리스트")]
     [SerializeField] private List<GameObject> monsterPrefabs;
 
+    [SerializeField] private Transform player;
     private List<GameObject> spawnedMonsters = new List<GameObject>();
 
     private static List<Monster_Spawner> allSpawners = new List<Monster_Spawner>();
@@ -19,6 +20,13 @@ public class MonsterDoor : MonoBehaviour
     private Transform parent;
     private void Start()
     {
+        if (player == null)
+        {
+            GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
+            if (foundPlayer != null)
+                player = foundPlayer.transform;
+        }
+
         isSpawnReady = true;
         animator = GetComponent<Animator>();
         doorController = GameObject.Find("DoorManager");
@@ -37,21 +45,34 @@ public class MonsterDoor : MonoBehaviour
     {
         animator.SetTrigger("Open");
     }
-    public void SpawnMonster()
+    private void SpawnMonster()
     {
-        if (isSpawnReady)
-        {
-            int index = Random.Range(0, monsterPrefabs.Count);
-            GameObject monster = Instantiate(monsterPrefabs[index], transform.position, Quaternion.identity, parent);
-            monster.name = monsterPrefabs[index].name;
+        if (monsterPrefabs == null || monsterPrefabs.Count == 0) return; // 리스트가 비어 있으면 리턴
 
-            Melee meleeComponent = monster.GetComponent<Melee>();
-            if (meleeComponent != null)
-            {
-                meleeComponent.player = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어 할당
-            }
+        int index = Random.Range(0, monsterPrefabs.Count);
+        GameObject monster = Instantiate(monsterPrefabs[index], transform.position, Quaternion.identity);
+        monster.name = monsterPrefabs[index].name;
 
-            spawnedMonsters.Add(monster);
-        }
+        // Melee, Scout, Spider 컴포넌트가 있는지 확인하고 플레이어 할당
+        AssignPlayerToMonster(monster);
+
+        spawnedMonsters.Add(monster);
+    }
+
+    private void AssignPlayerToMonster(GameObject monster)
+    {
+        if (player == null) return; // 플레이어가 없으면 할당 불가능하므로 리턴
+
+        Melee meleeComponent = monster.GetComponent<Melee>();
+        if (meleeComponent != null)
+            meleeComponent.player = player;
+
+        Scout scoutComponent = monster.GetComponent<Scout>();
+        if (scoutComponent != null)
+            scoutComponent.player = player;
+
+        Spider spiderComponent = monster.GetComponent<Spider>();
+        if (spiderComponent != null)
+            spiderComponent.player = player;
     }
 }
