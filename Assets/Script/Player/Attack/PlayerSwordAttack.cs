@@ -41,12 +41,13 @@ public class PlayerSwordAttack : PlayerAttackState
             }
         }
     }
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack()
     {
-        if(isAtkReady) 
+        if (isAtkReady)
         {
             OnSwordAttack?.Invoke();
         }
+
     }
 
     public void Parrying()

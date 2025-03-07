@@ -6,16 +6,17 @@ using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHP : MonoBehaviour, IDamageAble
+public class PlayerHP : MonoBehaviour
 {
     [Header("HUD Resource")]
     [SerializeField] private GameObject[] hpUI;
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
 
+    [Header("invincibility time")]
+    public float invincibilityTime;
     private int hp = 5;
     private bool isBlocked = false;
-
     void Start()
     {
         // 자식에서 TextMeshProUGUI 찾기
@@ -28,8 +29,12 @@ public class PlayerHP : MonoBehaviour, IDamageAble
     
     }
 
+    public void Death()
+    {
+        hp = 0;
+    }
         //take Damage
-        public void Damage(int value)
+    public void Damage()
     {
         if (!isBlocked)
         {

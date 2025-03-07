@@ -79,11 +79,6 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("Down", false);
             isDownStart = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            animator.SetTrigger("Attack");
-        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             animator.SetTrigger("Dying");

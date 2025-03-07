@@ -26,6 +26,8 @@ public class MovingBlock : MonoBehaviour
 
     private bool isMoving = false;
 
+    public bool isBottom;
+
     private void Start()
     {
         targetPostion = transform.position;
@@ -34,12 +36,36 @@ public class MovingBlock : MonoBehaviour
         isMoveUp = true;
         if (firstMoveCount == 0f)
             firstMoveCount = moveCount;
+        isBottom = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
-
+        if (curMoveCount == moveCount)
+        {
+            if (transform.position.y - targetPostion.y > 0f)
+            {
+                if (!isBottom)
+                {
+                    isBottom = true;
+                }
+            }
+            else
+            {
+                if (isBottom)
+                {
+                    isBottom = false;
+                }
+            }
+        }
+        else
+        {
+            if (isBottom)
+            {
+                isBottom = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -91,6 +117,18 @@ public class MovingBlock : MonoBehaviour
 
             if (curWaitTime > waitingTime)
                 isMoving = false; // 이동 완료
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(isBottom)
+        {
+            IDamageAble damageAble = collision.GetComponent<IDamageAble>();
+            if (damageAble != null)
+            {
+                damageAble.Damage(1);
+            }
         }
     }
 }
