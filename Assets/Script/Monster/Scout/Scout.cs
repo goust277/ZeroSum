@@ -35,6 +35,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public bool canShot = false;
     private bool isCooldownComplete;
     public bool isHit;
+    public bool isDie;
     public Rigidbody2D rb;
     private StateMachine stateMachine;
     public Transform leftFirePoint;         // 왼쪽 발사 위치
@@ -139,6 +140,11 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     {
         if (!isHit)
         {
+            if(isDie)
+            {
+                return;
+            }
+            
             health--;
 
             if (health <= 0)
