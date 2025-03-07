@@ -12,6 +12,7 @@ public class Scout_Die : BaseState
 
     public override void Enter()
     {
+        scout.isDie = true;
         if ((scout.player.position.x - scout.transform.position.x) >= 0.2f)
         {
             scout.sprite.flipX = true;

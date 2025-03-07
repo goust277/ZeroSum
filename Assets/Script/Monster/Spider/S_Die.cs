@@ -5,6 +5,7 @@ using UnityEngine;
 public class S_Die : BaseState
 {
     private Spider s;
+    private float timer = 0.5f;
     public S_Die(StateMachine stateMachine, Spider monster) : base(stateMachine)
     {
         this.s = monster;
@@ -12,7 +13,8 @@ public class S_Die : BaseState
 
     public override void Enter()
     {
-        s.gameObject.SetActive(false);
+        s.isDie = true;
+        
 
         //s.anim.SetTrigger("isDie");
 
@@ -29,6 +31,12 @@ public class S_Die : BaseState
 
     public override void Execute()
     {
+        timer -= Time.deltaTime;
+
+        if(timer <= 0)
+        {
+            s.gameObject.SetActive(false);
+        }
         //AnimatorStateInfo stateInfo = s.anim.GetCurrentAnimatorStateInfo(0);
 
         //if (stateInfo.IsName("S_Die") && stateInfo.normalizedTime >= 0.98f)
