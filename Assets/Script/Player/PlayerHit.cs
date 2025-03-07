@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHit : MonoBehaviour , IDamageAble
 {
     [SerializeField] private PlayerHP player;
+    [SerializeField] private PlayerMovement playerMovement;
     private bool isInvincibility;
 
     private float time;
@@ -29,17 +30,17 @@ public class PlayerHit : MonoBehaviour , IDamageAble
     }
     public void Damage(int value)
     {
-        if (!isInvincibility)
+        if (!isInvincibility && value != 10)
         {
             player.Damage();
             isInvincibility = true;
-
             time = 0f;
         }
 
-        if(value == 10)
+        if(value == 10 && playerMovement.isGrounded)
+
         {
-            player.Death();
+            player.InstantDeath();
         }
     }
 }

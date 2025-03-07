@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MovingBlock : MonoBehaviour
@@ -127,7 +121,7 @@ public class MovingBlock : MonoBehaviour
             IDamageAble damageAble = collision.GetComponent<IDamageAble>();
             if (damageAble != null)
             {
-                damageAble.Damage(1);
+                damageAble.Damage(10);
             }
         }
     }

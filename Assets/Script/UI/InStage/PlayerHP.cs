@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using TMPro;
 using TMPro.Examples;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
@@ -15,25 +17,53 @@ public class PlayerHP : MonoBehaviour
 
     [Header("invincibility time")]
     public float invincibilityTime;
-    private int hp = 5;
+    [HideInInspector] public int hp = 5;
     private bool isBlocked = false;
+
+    [Header("Dying")]
+    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private GameObject col;
+    [SerializeField] private GameObject ReTry;
+    private Rigidbody2D rb;
+    public event Action OnDying;
+    private bool OnDeath;
     void Start()
     {
         // 자식에서 TextMeshProUGUI 찾기
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
+        
         painKiller.SetActive(false);
         if (timeText == null)
         {
             Debug.Log("못찾");
         }
-    
+
+        OnDeath = false;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Death()
+    [Obsolete]
+    private void Update()
+    {
+        if (hp <= 0)
+        {
+            if(!OnDeath)
+            {
+                playerInput.enabled = false;
+                col.SetActive(false);
+                OnDeath = true;
+                OnDying?.Invoke();
+                rb.velocity = Vector3.zero;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+            }
+        }
+    }
+    public void InstantDeath()
     {
         hp = 0;
+        UpdateUI();
     }
-        //take Damage
+    //take Damage
     public void Damage()
     {
         if (!isBlocked)

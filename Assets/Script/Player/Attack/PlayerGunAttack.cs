@@ -18,7 +18,7 @@ public class PlayerGunAttack : PlayerAttackState
 
     [HideInInspector] public bool isAtkEnd;
     private float delayTime;
-    [SerializeField] private PlayerMovement playerMovement;
+    private PlayerMovement playerMovement;
 
     public event Action OnGunAttack;
     public event Action OnFirstGunAttack;
