@@ -5186,7 +5186,7 @@ MonoBehaviour:
   waitingTime: 1
   moveCount: 1
   firstMoveCount: 0
-  curMoveCount: 0
+  isBottom: 0
 --- !u!61 &802875204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22426,7 +22426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.51
+      value: -3.08
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.z
