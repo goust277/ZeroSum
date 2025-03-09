@@ -29,7 +29,7 @@
                     "id": "7cb24724-19f0-4f6d-a51d-b3d31c46f2b1",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -38,7 +38,16 @@
                     "id": "f4ed61e1-8e4b-4ae0-b90b-1db44593e274",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=1.401298E-45)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwordAttack",
+                    "type": "Button",
+                    "id": "e4c2ba7a-7845-496b-94a4-0f43c6cadf76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=1.401298E-45)",
                     "initialStateCheck": false
                 },
                 {
@@ -290,6 +299,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e68a1991-5aa4-4458-9bd7-50df4ce1c05a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "SwordAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

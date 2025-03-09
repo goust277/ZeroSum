@@ -1,36 +1,70 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using TMPro;
 using TMPro.Examples;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerHP : MonoBehaviour, IDamageAble
+public class PlayerHP : MonoBehaviour
 {
     [Header("HUD Resource")]
     [SerializeField] private GameObject[] hpUI;
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
 
-    [SerializeField] private int hp;
+    [Header("invincibility time")]
+    public float invincibilityTime;
+    [HideInInspector] public int hp = 5;
     private bool isBlocked = false;
 
+    [Header("Dying")]
+    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private GameObject col;
+    [SerializeField] private GameObject ReTry;
+    private Rigidbody2D rb;
+    public event Action OnDying;
+    private bool OnDeath;
     void Start()
     {
-        // ÀÚ½Ä¿¡¼­ TextMeshProUGUI Ã£±â
+        // ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ TextMeshProUGUI Ã£ï¿½ï¿½
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
+        
         painKiller.SetActive(false);
         if (timeText == null)
         {
-            Debug.Log("¸øÃ£");
+            Debug.Log("ï¿½ï¿½Ã£");
         }
 
-        hp = hpUI.Length;
+        OnDeath = false;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-        //take Damage
-    public void Damage(int value)
+    [Obsolete]
+    private void Update()
+    {
+        if (hp <= 0)
+        {
+            if(!OnDeath)
+            {
+                playerInput.enabled = false;
+                col.SetActive(false);
+                OnDeath = true;
+                OnDying?.Invoke();
+                rb.velocity = Vector3.zero;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+            }
+        }
+    }
+    public void InstantDeath()
+    {
+        hp = 0;
+        UpdateUI();
+    }
+    //take Damage
+    public void Damage()
     {
         if (!isBlocked)
         {

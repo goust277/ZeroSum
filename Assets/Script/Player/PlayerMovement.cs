@@ -74,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("앉기")]
     [HideInInspector] public bool isDown;
 
+    [Header("플레이어 히트 콜라이더")]
+    [SerializeField] private GameObject standCollider;
+    [SerializeField] private GameObject downCollider;
+
     // true로 변경될 때 발생하는 이벤트
 
     private Transform originalParent;
@@ -103,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    [Obsolete]
     private void Update()
     {
         GroundCheck();
@@ -119,7 +124,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         wasGrounded = isCurGround;
-        Debug.Log($"Velocity: {rb.velocity}");
+
+        if (isDown)
+        {
+            if(!downCollider.active)
+            {
+                standCollider.SetActive(false);
+                downCollider.SetActive(true);
+            }
+        }
+        else
+        {
+            if (!standCollider.active)
+            {
+                standCollider.SetActive(true);
+                downCollider.SetActive(false);
+            }
+
+        }
     }
     private void FixedUpdate()
     {
@@ -193,8 +215,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity += Vector2.up * gravityScale * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
-
-    [Obsolete]
     private void Flip() // 플레이어 좌우 회전
     {
         moveLeft = !moveLeft;

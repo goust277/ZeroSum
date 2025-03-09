@@ -15,11 +15,18 @@ public class PlayerAttack : MonoBehaviour
         gun = GetComponent<PlayerGunAttack>();
     }
 
-    public void OnAttack(InputAction.CallbackContext context) 
+    public void OnGunAttack(InputAction.CallbackContext context) 
     {
         if (context.started)
         {
             gun.GunAttack();
+        }
+    }
+    public void OnSwordAttack(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            sword.OnAttack();
         }
     }
 }

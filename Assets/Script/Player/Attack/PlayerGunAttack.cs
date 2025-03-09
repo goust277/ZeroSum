@@ -2,7 +2,9 @@ using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGunAttack : PlayerAttackState
 {
@@ -32,6 +34,8 @@ public class PlayerGunAttack : PlayerAttackState
     [SerializeField] private Transform bulletParent;
 
     private GameObject childBullet;
+
+    private bool isAtkReady;
     //UI
     //private Ver01_DungeonStatManager dungeonStatManager;
 
@@ -42,11 +46,27 @@ public class PlayerGunAttack : PlayerAttackState
         bullet.GetComponent<PlayerBullet>().speed = this.bulletSpeed;
         isAtkEnd = false;
         InitializeBulletPool();
+        isAtkReady = true;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (!isAtkReady)
+        {
+            delay += Time.deltaTime;
+            if (atkCoolTime <= delay)
+            {
+                isAtkReady = true;
+            }
+        }
+        else
+        {
+            if (delay != 0f)
+            {
+                delay = 0f;
+            }
+        }
     }
 
     public void GunAttack()
@@ -57,6 +77,7 @@ public class PlayerGunAttack : PlayerAttackState
             {
                 OnFirstGunAttack?.Invoke();
                 Attack();
+                Debug.Log("FirstAttack");
             }
         }
         else
@@ -75,7 +96,6 @@ public class PlayerGunAttack : PlayerAttackState
 
     private void Attack()
     {
-        Debug.Log("Attack");
         delayTime = delay;
         isAtkEnd = true;
 

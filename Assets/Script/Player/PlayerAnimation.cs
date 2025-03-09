@@ -8,6 +8,8 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
     private PlayerGunAttack playerGunAttack;
+    private PlayerSwordAttack playerSwordAttack;
+    private PlayerHP playerHp;
     private Rigidbody2D rb;
     private bool OnBattleArea;
 
@@ -19,6 +21,8 @@ public class PlayerAnimation : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
         playerGunAttack = GetComponent<PlayerGunAttack>();
+        playerSwordAttack = GetComponent<PlayerSwordAttack>();
+        playerHp = GetComponent<PlayerHP>();
 
         playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
         playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
@@ -26,6 +30,8 @@ public class PlayerAnimation : MonoBehaviour
         playerMovement.OnStand += StandAnimation;
         playerGunAttack.OnGunAttack += GunAttackAnimation;
         playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
+        playerSwordAttack.OnSwordAttack += SwordAttack;
+        playerHp.OnDying += Dying;
     }
 
     private void Start()
@@ -76,15 +82,6 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("Down", false);
             isDownStart = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            animator.SetTrigger("Attack");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            animator.SetTrigger("Dying");
-        }
     }
 
     private void OnDisable() // 이벤트 관리
@@ -97,6 +94,8 @@ public class PlayerAnimation : MonoBehaviour
             playerMovement.OnStand -= StandAnimation;
             playerGunAttack.OnGunAttack -= GunAttackAnimation;
             playerGunAttack.OnFirstGunAttack -= FirstGunAttackAnimation;
+            playerSwordAttack.OnSwordAttack -= SwordAttack;
+            playerHp.OnDying -= Dying;
         }
     }
 
@@ -129,5 +128,15 @@ public class PlayerAnimation : MonoBehaviour
     private void FirstGunAttackAnimation()
     {
         animator.SetTrigger("GunAttackStart");
+    }
+
+    private void SwordAttack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    private void Dying()
+    {
+        animator.SetTrigger("Dying");
     }
 }

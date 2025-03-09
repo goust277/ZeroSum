@@ -11,6 +11,7 @@ TagManager:
   - PlayerAtk
   - Interactive
   - Bullets
+  - MonsterAtk
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - M_Attack
   - P_Attack
   - Interactive
-  - 
+  - FeetCollider
   - 
   - 
   - 

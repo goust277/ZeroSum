@@ -27,7 +27,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public GameObject detect;
 
     [Header("Combat Settings")]
-    public int health = 100;
+    public int health = 2;
     public int attackDamage = 10;
     public float attackRange = 2.5f;
     public float attackCooldown = 3f;
@@ -35,6 +35,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public bool canShot = false;
     private bool isCooldownComplete;
     public bool isHit;
+    public bool isDie;
     public Rigidbody2D rb;
     private StateMachine stateMachine;
     public Transform leftFirePoint;         // 왼쪽 발사 위치
@@ -61,7 +62,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         var attackState = new Scout_Attack(stateMachine, this);
         var patrolState = new Scout_Patrol(stateMachine, this);
         var chaseState = new Scout_Chase(stateMachine, this);
-        //var hitState = new Scout_Hit(stateMachine, this);
+        var hitState = new Scout_Hit(stateMachine, this);
         var dieState = new Scout_Die(stateMachine, this);
 
         // 상태 초기화
@@ -100,7 +101,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
         {
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
@@ -137,30 +138,32 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (isHit)
+        if (!isHit)
         {
-            return;
+            if(isDie)
+            {
+                return;
+            }
+            
+            health--;
+
+            if (health <= 0)
+            {
+                stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+            }
+            else
+            {
+                stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
+            }
         }
 
-        health -= atk;
 
         //HP 바 표기
         if (hpBar != null)
         {
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
-        VisualDamage(atk);
-
-        //
-
-        if (health <= 0)
-        {
-           stateMachine.ChangeState(new Scout_Die(stateMachine, this));
-        }
-        else if (health > 0 && !isHit)
-        {
-            //stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
-        }
+        //VisualDamage(atk);
     }
 
 

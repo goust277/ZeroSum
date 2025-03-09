@@ -33,6 +33,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
     public bool canAttack = true;
     private bool isCooldownComplete;
     public bool isHit;
+    public bool isDie;
     public Rigidbody2D rb;
     public GameObject attack;
     private StateMachine stateMachine;
@@ -92,7 +93,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
         {
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
@@ -129,12 +130,25 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (isHit)
+        if (!isHit)
         {
-            return;
+            if (isDie)
+            {
+                return;
+            }
+
+            health--;
+
+            if (health <= 0)
+            {
+                stateMachine.ChangeState(new S_Die(stateMachine, this));
+            }
+            else
+            {
+                //stateMachine.ChangeState(new S_Hit(stateMachine, this));
+            }
         }
 
-        health -= atk;
 
         //HP 바 표기
         if (hpBar != null)
@@ -142,17 +156,6 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
         VisualDamage(atk);
-
-        //
-
-        if (health <= 0)
-        {
-            stateMachine.ChangeState(new S_Die(stateMachine, this));
-        }
-        //else if (health > 0 && !isHit)
-        //{
-        //    stateMachine.ChangeState(new S_Hit(stateMachine, this));
-        //}
     }
 
     // 목표 반대로 변경
