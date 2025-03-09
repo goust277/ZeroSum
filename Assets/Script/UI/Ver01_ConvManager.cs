@@ -162,7 +162,6 @@ public class Ver01_ConvManager : MonoBehaviour
             }
         }
 
-        //�ҷ��� �ʻ�ȭ pos�� �°� ������Ʈ�� ��ġ�ϱ�
         for (int i = 0; i < portraitPaths.Length; i++)
         {
             if (!string.IsNullOrEmpty(portraitPaths[i]))
@@ -295,7 +294,7 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         isTransitionRunning = false;
         StopAllCoroutines();  // 모든 코루틴 정지
-        SceneManager.LoadScene("Lighting");
+        SceneManager.LoadScene("Test_1");
     }
 
     #endregion

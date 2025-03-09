@@ -17,7 +17,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int totalMagazine;
     private int reinforcement;
 
-    [SerializeField] private int damage = 5;
+    //[SerializeField] private int damage = 5;
 
     private void Awake()
     {
@@ -39,14 +39,14 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void ResetDungeonState()
     {
-        currentMagazine = 5;
+        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         UpdateHUD();
     }
 
-    public int GetDamageValue()
-    {
-        return damage;
-    }
+    //public int GetDamageValue()
+    //{
+    //    return damage;
+    //}
 
     public int TakeReloadItem()
     {

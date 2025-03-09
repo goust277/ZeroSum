@@ -328,12 +328,13 @@ MonoBehaviour:
   maxDistance: 3
   detect: {fileID: 3102665111787252549}
   health: 2
-  attackDamage: 10
+  attackDamage: 1
   attackRange: 1.5
   attackCooldown: 3
   canAttack: 1
   canShot: 0
   isHit: 0
+  isDie: 0
   rb: {fileID: 7203164149908800807}
   leftFirePoint: {fileID: 5581874532877563804}
   rightFirePoint: {fileID: 359693834332225334}

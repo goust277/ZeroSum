@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Tab",
-                    "type": "Button",
-                    "id": "28da305c-9c2c-4eae-94a1-e34bc5aad750",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "F",
                     "type": "Button",
                     "id": "0efc0376-f6ca-4a89-b195-53f1529f57aa",
@@ -211,17 +202,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6bc6cf7a-2c00-4f22-8589-5ebd4b9a2bf0",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Tab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
