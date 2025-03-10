@@ -33,7 +33,7 @@ public class SettingsManager : MonoBehaviour
     private int resolutionIndex = 0;
     private bool isFullscreen ;
     private bool isSettingOpen= true;
-    [SerializeField] private Button optionSettingbtn;
+
     [SerializeField] private Button optionResetbtn;
     [SerializeField] private GameObject optionSettingUI;
 
@@ -75,7 +75,7 @@ public class SettingsManager : MonoBehaviour
         // �� UI ��ҿ� �̺�Ʈ ������ �߰�
         resolutionButton.onClick.AddListener(SetResolution);
         fullscreenButton.onClick.AddListener(ToggleFullscreen);
-        optionSettingbtn.onClick.AddListener(SettingOnOff);
+        //optionSettingbtn.onClick.AddListener(SettingOnOff);
         optionResetbtn.onClick.AddListener(OnClickResetBtn);
 
         //brightnessSlider.onValueChanged.AddListener(SetBrightness);
