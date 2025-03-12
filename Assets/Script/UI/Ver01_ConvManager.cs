@@ -142,7 +142,7 @@ public class Ver01_ConvManager : MonoBehaviour
         return ChapterRoot.Secnes.Find(scene => scene.SecneID == secneID);
     }
 
-    //�ʻ�ȭ ��ġ
+    //초상화 배치
     private void PortraitArrangement()
     {
         HashSet<int> uniqueNpcIds = new HashSet<int>();
@@ -162,7 +162,6 @@ public class Ver01_ConvManager : MonoBehaviour
             }
         }
 
-        //�ҷ��� �ʻ�ȭ pos�� �°� ������Ʈ�� ��ġ�ϱ�
         for (int i = 0; i < portraitPaths.Length; i++)
         {
             if (!string.IsNullOrEmpty(portraitPaths[i]))
@@ -187,11 +186,11 @@ public class Ver01_ConvManager : MonoBehaviour
     #endregion
 
     #region afterConvLog
-    private void NormalCommunication() //���丮 ���డ���� ��ȭ�� ���
+    private void NormalCommunication() 
     {
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
 
-        if (requiredSecneData == null) return; // null Ȯ��
+        if (requiredSecneData == null) return; 
         requiredScenes = requiredSecneData.dialog;
 
 
@@ -247,9 +246,8 @@ public class Ver01_ConvManager : MonoBehaviour
         Color originalColor = pressE.color;
         while (true)
         {
-            yield return new WaitForSeconds(consistenceDuration); // ����
-            // ����� ����
-            while (time < transitionDuration) // ��ȯ
+            yield return new WaitForSeconds(consistenceDuration);
+            while (time < transitionDuration)
             {
                 time += Time.deltaTime;
                 float alpha = Mathf.Lerp(1f, 0f, time / transitionDuration);
@@ -258,9 +256,9 @@ public class Ver01_ConvManager : MonoBehaviour
             }
             time = 0f;
 
-            yield return new WaitForSeconds(consistenceDuration); //  ���� �ð�
+            yield return new WaitForSeconds(consistenceDuration); 
 
-            while (time < transitionDuration) // ��ȯ
+            while (time < transitionDuration) 
             {
                 time += Time.deltaTime;
                 float alpha = Mathf.Lerp(0f, 1f, time / transitionDuration);
@@ -296,7 +294,7 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         isTransitionRunning = false;
         StopAllCoroutines();  // 모든 코루틴 정지
-        SceneManager.LoadScene("Test");
+        SceneManager.LoadScene("Test_1");
     }
 
     #endregion
@@ -338,27 +336,27 @@ public class Ver01_ConvManager : MonoBehaviour
     }
     #endregion
 
-    #region ��ȭ �յ� ȣ��� public func
-    // ��ȭ ����
-    public void StartConversation(int CollisionNPC)
-    {
+    #region public func
+    //
+    //public void StartConversation(int CollisionNPC)
+    //{
         
-        ColNPC = GetNPC(CollisionNPC);
+    //    ColNPC = GetNPC(CollisionNPC);
 
-        if (requiredSecneData == null)
-        {
-            Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
-            return; // ��ȭ �����Ͱ� ������ �޼��带 ����
-        }
+    //    if (requiredSecneData == null)
+    //    {
+    //        Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
+    //        return; 
+    //    }
         
 
-        if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //��ȭ���� ���¿��� ��ȭ�� �ϸ�
-        {
-            NormalCommunication();
-        }
-    }
+    //    if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //��ȭ���� ���¿��� ��ȭ�� �ϸ�
+    //    {
+    //        NormalCommunication();
+    //    }
+    //}
 
-    // ��ȭ ����
+    // 
     private void EndConversation()
     {
 

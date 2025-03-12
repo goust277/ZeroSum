@@ -626,6 +626,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &205186384 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121004668742719458, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &205434484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5429,6 +5434,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
   m_PrefabInstance: {fileID: 5463654770158954795}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &947712636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3774815642824488544, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &952507735
 GameObject:
   m_ObjectHideFlags: 0
@@ -8098,6 +8108,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1010404279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6007859960204145892, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1020354930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6826775473947614254, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
@@ -8195,15 +8210,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ver01_UI
       objectReference: {fileID: 0}
-    - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+--- !u!1 &1045140429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6029577008231697875, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045140430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6275165798040391421, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045140431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3946890572641494651, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045140432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3935478685810622344, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045140433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6500370567971828300, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1045140434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876356258790776602, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065333499
 GameObject:
   m_ObjectHideFlags: 0
@@ -8703,6 +8744,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 247944064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1187341620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2436043520896886881, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1189031104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11247,6 +11293,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1669951838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7486042783802687464, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 1045140428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1674511828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18481,6 +18532,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: painKiller
+      value: 
+      objectReference: {fileID: 1045140429}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[0]
+      value: 
+      objectReference: {fileID: 1045140434}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[1]
+      value: 
+      objectReference: {fileID: 1045140433}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[2]
+      value: 
+      objectReference: {fileID: 1045140432}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[3]
+      value: 
+      objectReference: {fileID: 1045140431}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[4]
+      value: 
+      objectReference: {fileID: 1045140430}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[5]
+      value: 
+      objectReference: {fileID: 1669951838}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[6]
+      value: 
+      objectReference: {fileID: 1010404279}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[7]
+      value: 
+      objectReference: {fileID: 205186384}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[8]
+      value: 
+      objectReference: {fileID: 1187341620}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hpUI.Array.data[9]
+      value: 
+      objectReference: {fileID: 947712636}
     - target: {fileID: 2281730580868451855, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: damage
       value: 8

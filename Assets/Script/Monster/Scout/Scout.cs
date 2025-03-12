@@ -46,10 +46,10 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public int maxFireCount = 3;    // 최대 발사 횟수
     private Transform fPoint;
 
-    [Header("HP바 UI")]
-    [SerializeField] private Image hpBar;
-    [SerializeField] private GameObject DamageValuePrefab;
-    [SerializeField] private Transform canvasTransform;
+    //[Header("HP바 UI")]
+    //[SerializeField] private Image hpBar;
+    //[SerializeField] private GameObject DamageValuePrefab;
+    //[SerializeField] private Transform canvasTransform;
 
     void Start()
     {
@@ -110,30 +110,30 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
     private void VisualDamage(int value)
     {
-        Debug.Log("VisualDamage");
-        Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
-        Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
-        GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
-        //Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
+        //Debug.Log("VisualDamage");
+        //Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
+        //Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
+        //GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
+        ////Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
 
 
-        if (canvasTransform == null)
-        {
-            Debug.LogError("Canvas Transform is not assigned!");
-            return;
-        }
+        //if (canvasTransform == null)
+        //{
+        //    Debug.LogError("Canvas Transform is not assigned!");
+        //    return;
+        //}
 
-        newText.transform.SetParent(canvasTransform, false);
-        //Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
-        //TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
-        if (textComponent == null)
-        {
-            Debug.LogError("TextMeshProUGUI component not found in prefab!");
-            return;
-        }
+        //newText.transform.SetParent(canvasTransform, false);
+        ////Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
+        ////TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        //TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
+        //if (textComponent == null)
+        //{
+        //    Debug.LogError("TextMeshProUGUI component not found in prefab!");
+        //    return;
+        //}
 
-        textComponent.text = value.ToString();
+        //textComponent.text = value.ToString();
     }
 
     public void Damage(int atk)
@@ -159,10 +159,10 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
 
         //HP 바 표기
-        if (hpBar != null)
-        {
-            hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
-        }
+        //if (hpBar != null)
+        //{
+        //    hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
+        //}
         //VisualDamage(atk);
     }
 
