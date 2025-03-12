@@ -6,10 +6,16 @@ using UnityEngine;
 public class PlayerAtkEnd : MonoBehaviour
 {
     [SerializeField] private PlayerGunAttack playerGunAttack;
+    [SerializeField] private PlayerSwordAttack playerSwordAttack;
 
     public void IsAtkEnd()
     {
-        playerGunAttack.isAtkEnd = false;
+        playerGunAttack.isAttack = false;
+    }
+    
+    public void IsSwordAtkEnd()
+    {
+        playerSwordAttack.isAttack = false;
     }
 
 }

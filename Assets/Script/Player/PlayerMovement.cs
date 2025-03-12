@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Transform originalParent;
     private Vector3 lastPlatformPosition;
+    private PlayerGunAttack playerGun;
 
 
 #if UNITY_EDITOR
@@ -98,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerSword = GetComponent<PlayerSwordAttack>();
+        playerGun = GetComponent<PlayerGunAttack>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -151,17 +153,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(isRun)
                 {
-                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, 0f);
+                    rb.velocity = new Vector2(moveDirection.x * runMoveSpeed, rb.velocity.y);
                 }
                 else
                 {
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                     if (moveDirection.x != 0)
                     {
-                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, 0f);
+                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
                     }
-                    Debug.Log($"moveDirection.x: {moveDirection.x}");
-                    Debug.Log($"Velocity: {rb.velocity}");
                 }
 
 
@@ -430,7 +430,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isAttack()
     {
-        if (playerSword.isAttack)
+        if (playerSword.isAttack || playerGun.isAttack)
         {
             return true;
         }
