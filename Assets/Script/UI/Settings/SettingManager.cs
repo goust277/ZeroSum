@@ -65,7 +65,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         isFullscreen = Screen.fullScreen;
-        ToggleFullscreen();
+        //ToggleFullscreen();
         //Screen.SetResolution(1920, 1080, true);
         //childTransform = gameObject.transform.GetChild(0);
 

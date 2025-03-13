@@ -11,14 +11,13 @@ using UnityEngine.UI;
 public class PlayerHP : MonoBehaviour
 {
     [Header("HUD Resource")]
-    [SerializeField] private Transform hpSlot;
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
-    [SerializeField] private List<GameObject> hpUI = new List<GameObject>();
-
+    
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
+    private int maxhp = 10;
     private bool isBlocked = false;
 
     [Header("Dying")]
@@ -31,11 +30,6 @@ public class PlayerHP : MonoBehaviour
     {
         // �ڽĿ��� TextMeshProUGUI ã��
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
-
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    hpUI.Add(transform.GetChild(i).gameObject);
-        //}
 
         painKiller.SetActive(false);
         if (timeText == null)
@@ -66,7 +60,7 @@ public class PlayerHP : MonoBehaviour
     public void InstantDeath()
     {
         hp = 0;
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
 
         Debug.Log("Game Over");
 
@@ -89,7 +83,7 @@ public class PlayerHP : MonoBehaviour
             {
                 Debug.Log("Hit");
                 hp--;
-                UpdateUI();
+                Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
             }
         }
     }
@@ -97,11 +91,11 @@ public class PlayerHP : MonoBehaviour
     public void GetHPItem()
     {
         hp++;
-        if (hp > 5)
+        if (hp > maxhp)
         {
-            hp = 5;
+            hp = maxhp;
         }
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
     }
 
     public void GetPainKiller(float blockDuration)
@@ -129,25 +123,6 @@ public class PlayerHP : MonoBehaviour
         
         isBlocked = false;
         painKiller.SetActive(false);
-    }
-
-    public void UpdateUI()
-    {
-        if(hpUI != null)
-        {
-            for (int i = 0; i < hpUI.Count; i++)
-            {
-                if (i < hp)
-                {
-                    hpUI[i].SetActive(true);
-                }
-                else
-                {
-                    hpUI[i].SetActive(false);
-                }
-            }
-        }
-
     }
 
     private void HandleDeath(int reinforcement)

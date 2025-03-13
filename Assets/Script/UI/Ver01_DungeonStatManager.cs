@@ -13,6 +13,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [Header("HUD Resource")]
     [SerializeField] private TextMeshProUGUI currentMagazineText;
 
+    [Header("HP HUD Resource")]
+    [SerializeField] private GameObject hpSlot;
+    [SerializeField] private Sprite emptySprite;
+    [SerializeField] private Sprite defaultSprite;
+    private List<GameObject> hpUI;
+
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
@@ -34,7 +40,19 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     private void Start()
     {
+        ReadyHPHud();
         ResetDungeonState();
+    }
+
+    private void ReadyHPHud()
+    {
+        hpUI = new List<GameObject>();
+
+        for (int i = 0; i < hpSlot.transform.childCount; i++)
+        {
+            //Debug.Log("hpSlot.transform.GetChild(i)" + hpSlot.transform.GetChild(i).name);
+            hpUI.Add(hpSlot.transform.GetChild(i).gameObject);
+        }
     }
 
     public void ResetDungeonState()
@@ -74,21 +92,27 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         reinforcement = GameStateManager.Instance.GetReinforcement();
 
         if (currentMagazineText != null) currentMagazineText.text = currentMagazine.ToString();
-        //if (hpText != null) hpText.text = hp.ToString();
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    if (i < hp)
-        //    {
-        //        hpUI[i].GetComponent<Image>().color.a = 1.0f;
-        //        //hpUI[i].SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        hpUI[i].GetComponent<Image>().color.a = 0.0f;
-        //        //hpUI[i].SetActive(false);
-        //    }
-        //}
     }
+
+    public void UpdateHPUI(int hp)
+    {
+        if (hpUI != null)
+        {
+            for (int i = 0; i < hpUI.Count; i++)
+            {
+                if (i < hp)
+                {
+                    hpUI[i].gameObject.GetComponent<Image>().sprite = defaultSprite;
+                }
+                else
+                {
+                    hpUI[i].gameObject.GetComponent<Image>().sprite = emptySprite;
+                }
+            }
+        }
+
+    }
+
 
     public void GameOver()
     {
