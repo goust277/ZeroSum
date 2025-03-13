@@ -22,6 +22,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
+    private int maxHP = 10;
+
 
     //[SerializeField] private int damage = 5;
 
@@ -37,6 +39,10 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
     }
 
+    public int getMaxHP()
+    {
+        return maxHP;
+    }
 
     private void Start()
     {
@@ -59,6 +65,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     {
         currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         UpdateHUD();
+        UpdateHPUI(10);
     }
 
     //public int GetDamageValue()
@@ -69,7 +76,15 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public int TakeReloadItem()
     {
         int bullet = Random.Range(1, 4);
-        currentMagazine += bullet;
+
+        if( currentMagazine + bullet > totalMagazine)
+        {
+            currentMagazine = totalMagazine;
+        }
+        else
+        {
+            currentMagazine += bullet;
+        }
         UpdateHUD();
         return bullet;
     }

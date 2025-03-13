@@ -14,6 +14,8 @@ public class ReinforceItem : MonoBehaviour
         {
 
             isCollision = true;
+            Collider2D objCollider = GetComponent<Collider2D>();  // 
+            Physics2D.IgnoreCollision(objCollider, other.collider, true);
             GameStateManager.Instance.TakeReinforcementItem();
             Ver01_DungeonStatManager.Instance.UpdateHUD();
             Destroy(gameObject, 0.5f); // 0.5초 후 삭제

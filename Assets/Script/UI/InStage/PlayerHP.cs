@@ -17,7 +17,7 @@ public class PlayerHP : MonoBehaviour
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
-    private int maxhp = 10;
+    private int maxhp;
     private bool isBlocked = false;
 
     [Header("Dying")]
@@ -39,6 +39,9 @@ public class PlayerHP : MonoBehaviour
 
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
+
+        maxhp = Ver01_DungeonStatManager.Instance.getMaxHP();
+        hp = maxhp;
     }
 
     //[Obsolete]

@@ -6,6 +6,7 @@ public class HPItem : MonoBehaviour
 {
     private bool isCollision = false;
 
+
     //private void Start()
     //{
     //    dungeonStatManager ??= FindObjectsOfType<Ver01_DungeonStatManager>(true).FirstOrDefault();
@@ -15,6 +16,8 @@ public class HPItem : MonoBehaviour
         if (other.collider.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
             isCollision = true;
+            Collider2D objCollider = GetComponent<Collider2D>();  // 
+            Physics2D.IgnoreCollision(objCollider, other.collider, true);
             other.gameObject.GetComponent<PlayerHP>().GetHPItem();
             Destroy(gameObject, 0.5f); // 0.5초 후 삭제
         }

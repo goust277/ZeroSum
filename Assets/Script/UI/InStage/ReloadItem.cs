@@ -20,6 +20,8 @@ public class ReloadItem : MonoBehaviour
         if (other.collider.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
             isCollision = true;
+            Collider2D objCollider = GetComponent<Collider2D>();  // 
+            Physics2D.IgnoreCollision(objCollider, other.collider, true);
             amountText.gameObject.SetActive(true);
             amountText.text = "+" + Ver01_DungeonStatManager.Instance.TakeReloadItem();
 
