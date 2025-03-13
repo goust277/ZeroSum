@@ -17,7 +17,7 @@ public class ReloadItem : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
+        if (other.transform.root.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
             isCollision = true;
             Collider2D objCollider = GetComponent<Collider2D>();  // 
