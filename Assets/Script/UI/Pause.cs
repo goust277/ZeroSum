@@ -14,12 +14,18 @@ public class Pause : MonoBehaviour
         pauseUI.SetActive(false);
     }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
     public void OnOffPuase(InputAction.CallbackContext context)
     {
         if (context.started) // 키를 눌렀을 때만 실행
         {
-            TogglePause();
+            //TogglePause();
         }
     }
 

@@ -46,6 +46,7 @@ public class PlayerSwordAttack : PlayerAttackState
         if (isAtkReady)
         {
             OnSwordAttack?.Invoke();
+            isAttack = true;
         }
 
     }

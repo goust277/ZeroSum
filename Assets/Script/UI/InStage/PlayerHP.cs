@@ -14,7 +14,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private Transform hpSlot;
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
-    private List<GameObject> hpUI = new List<GameObject>();
+    [SerializeField] private List<GameObject> hpUI = new List<GameObject>();
 
     [Header("invincibility time")]
     public float invincibilityTime;
@@ -24,7 +24,6 @@ public class PlayerHP : MonoBehaviour
     [Header("Dying")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject col;
-    [SerializeField] private GameObject ReTry;
     private Rigidbody2D rb;
     public event Action OnDying;
     private bool OnDeath;
@@ -33,10 +32,10 @@ public class PlayerHP : MonoBehaviour
         // �ڽĿ��� TextMeshProUGUI ã��
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            hpUI.Add(transform.GetChild(i).gameObject);
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    hpUI.Add(transform.GetChild(i).gameObject);
+        //}
 
         painKiller.SetActive(false);
         if (timeText == null)
@@ -68,6 +67,12 @@ public class PlayerHP : MonoBehaviour
     {
         hp = 0;
         UpdateUI();
+
+        Debug.Log("Game Over");
+
+        GameStateManager.Instance.UseReinforcement();
+        int reinforcement = GameStateManager.Instance.GetReinforcement();
+        HandleDeath(reinforcement);
     }
     //take Damage
     public void Damage()
@@ -82,6 +87,7 @@ public class PlayerHP : MonoBehaviour
             }
             else
             {
+                Debug.Log("Hit");
                 hp--;
                 UpdateUI();
             }
