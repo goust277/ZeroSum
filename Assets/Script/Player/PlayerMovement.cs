@@ -160,8 +160,8 @@ public class PlayerMovement : MonoBehaviour
                     {
                         rb.velocity = new Vector2(moveDirection.x * moveSpeed, 0f);
                     }
-                    Debug.Log($"moveDirection.x: {moveDirection.x}");
-                    Debug.Log($"Velocity: {rb.velocity}");
+                    //Debug.Log($"moveDirection.x: {moveDirection.x}");
+                    //Debug.Log($"Velocity: {rb.velocity}");
                 }
 
 

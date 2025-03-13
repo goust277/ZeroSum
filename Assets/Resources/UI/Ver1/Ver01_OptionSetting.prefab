@@ -3039,9 +3039,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5915630864139221560}
-  - {fileID: 8420538232869629195}
   - {fileID: 3142588397669568651}
   - {fileID: 2054115761257860197}
+  - {fileID: 8420538232869629195}
   m_Father: {fileID: 7926898685642554689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5749,7 +5749,6 @@ MonoBehaviour:
   - {fileID: 7726821635047041732}
   - {fileID: 6047433026384751696}
   audioMixer: {fileID: 24100000, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
-  optionSettingbtn: {fileID: 2201144591007107878}
   optionResetbtn: {fileID: 6339698613156429884}
   optionSettingUI: {fileID: 3276296474214291602}
 --- !u!114 &2808466182220064104
@@ -5764,7 +5763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64cc6ba6960635a408690bc75749bb51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 1618354170298220806, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
   attackAction:
     m_Name: Attack
     m_Type: 0
@@ -6315,7 +6314,6 @@ GameObject:
   - component: {fileID: 112117911346657704}
   - component: {fileID: 3137187441345114679}
   - component: {fileID: 5249319811880697796}
-  - component: {fileID: 6830995188897231202}
   - component: {fileID: 2201144591007107878}
   m_Layer: 5
   m_Name: Close
@@ -6383,20 +6381,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6830995188897231202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7694094891586691221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01436f247b9f15e4b990a96c9bcf5ce6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btns:
-  - {fileID: 2201144591007107878}
 --- !u!114 &2201144591007107878
 MonoBehaviour:
   m_ObjectHideFlags: 0

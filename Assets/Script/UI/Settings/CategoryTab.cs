@@ -18,9 +18,9 @@ public class CategoryTab : MonoBehaviour
 
     void Start()
     {
-        optionSettingBtn.onClick.AddListener(SettingOff);
+        onOffBtn.onClick.AddListener(SettingOff);
         keySettingBtn.onClick.AddListener(KeySettingOnOff);
-        onOffBtn.onClick.AddListener(OptionSettingOnOff);
+        optionSettingBtn.onClick.AddListener(OptionSettingOnOff);
 
         keySettingUI.SetActive(true);
         optionSettingUI.SetActive(false);
