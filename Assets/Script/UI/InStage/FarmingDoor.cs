@@ -1,91 +1,58 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
 
 public class FarmingDoor : MonoBehaviour
 {
-    public Transform[] items; // 룰렛 안에 있는 4개의 아이템
-    public float scrollSpeed = 0.1f; // 스크롤 속도
-    public float spinDuration = 10f; // 슬롯이 굴러갈 시간 (1초)
-    private bool isSpinning = false;
-    public int rewardIndex = 0; // 당첨 아이템의 인덱스
+    [SerializeField] private GameObject spriteChanger;
+    public Sprite[] sprites; // 변경할 스프라이트 배열
 
+    [SerializeField] private bool isTriggerEnter = false; // 플레이어가 근처에 있는지 여부
+    [SerializeField] private GameObject[] dropItemList;
+    [SerializeField] private Animator animator; // Animator 컴포넌트 참조
 
-    private bool isTriggerEnter = false;
-    [SerializeField] private GameObject dropItem;
-    private SpriteRenderer spriteRenderer;
+    private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
+    private Collider2D doorCollider;
 
-
-    private void Start()
+    void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
+        spriteChanger.SetActive(false);
+        spriteChangerScript = spriteChanger.GetComponent<SpriteChanger>();
+        doorCollider = GetComponent<Collider2D>(); // 콜라이더 참조
     }
 
+    private void OpenDoor()
+    {
+        animator.SetTrigger("Open");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.transform.root.CompareTag("Player") && !isTriggerEnter)
+        {
+            isTriggerEnter = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
         if (other.CompareTag("Player"))
         {
-            if (!isTriggerEnter)
-            {
-                StartSpin();
-                isTriggerEnter = true;
-                spriteRenderer.color = Color.gray; // 색상을 회색으로 변경
-                Instantiate(dropItem, transform.position, Quaternion.identity);
-            }
+            isTriggerEnter = false;
         }
     }
 
-
-    // 슬롯 회전 시작
-    public void StartSpin()
+    private void Update()
     {
-        if (!isSpinning)
+        if (isTriggerEnter && Input.GetKeyDown(KeyCode.UpArrow)) // 플레이어가 근처에서 키 입력
         {
-            StartCoroutine(SpinSlots());
+            Invoke("OpenDoor", 2.0f);
+            spriteChanger.SetActive(true); // 활성화하면 자동으로 코루틴 실행됨
+            doorCollider.enabled = false;
         }
     }
 
-    // 슬롯 회전
-    private IEnumerator SpinSlots()
+    public void ReceiveDropIndex(int dropIndex)
     {
-        isSpinning = true;
 
-        // 회전 초기화
-        float elapsedTime = 0f;
-        int currentItemIndex = 0;
-
-        while (elapsedTime < spinDuration)
-        {
-            // 룰렛 회전: 각 아이템을 회전시켜서 보이게 함
-            transform.Rotate(Vector3.forward, scrollSpeed * Time.deltaTime);
-            currentItemIndex = (currentItemIndex + 1) % items.Length;
-
-            // 각 아이템 순차적으로 보이게 만들기
-            for (int i = 0; i < items.Length; i++)
-            {
-                items[i].gameObject.SetActive(i == currentItemIndex);
-            }
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // 회전 멈추기
-        StopRoulette();
+        Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
     }
-
-
-    // 룰렛 멈추고 당첨 아이템 출력
-    private void StopRoulette()
-    {
-        Debug.Log("당첨 아이템: " + items[rewardIndex].name);
-        isSpinning = false;
-    }
-
-
 }
-
