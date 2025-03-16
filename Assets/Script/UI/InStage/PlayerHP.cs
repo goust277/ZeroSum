@@ -93,6 +93,8 @@ public class PlayerHP : MonoBehaviour
 
     public void GetHPItem()
     {
+        Debug.Log("GetHPItem 호출");
+
         hp++;
         if (hp > maxhp)
         {
@@ -103,6 +105,8 @@ public class PlayerHP : MonoBehaviour
 
     public void GetPainKiller(float blockDuration)
     {
+        Debug.Log("GetPainKiller 호출");
+
         if (!isBlocked)
         {
             StartCoroutine(BlockFunctionTemporarily(blockDuration));

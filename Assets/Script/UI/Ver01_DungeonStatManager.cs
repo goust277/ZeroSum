@@ -19,6 +19,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private Sprite defaultSprite;
     private List<GameObject> hpUI;
 
+
+    [Header("Stat Resource")]
+    [SerializeField] private TextMeshProUGUI totalMagazineText;
+    [SerializeField] private TextMeshProUGUI reinforcementText;
+
+
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
@@ -63,6 +69,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void ResetDungeonState()
     {
+        GameStateManager.Instance.resetReinforcement();
         currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         UpdateHUD();
         UpdateHPUI(10);
@@ -138,5 +145,4 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         //. 씬 전환 (전환하더라도 계속 따라감)
         //게임오버 화면에서 컨티뉴 누르면 다시 불러오기 << 이건게임오버화면 컨트롤러같은거 필요한가?
     }
-
 }

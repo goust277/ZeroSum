@@ -13,8 +13,23 @@ public class Painkiller : MonoBehaviour
         {
             isCollision = true;
             Collider2D objCollider = GetComponent<Collider2D>();  // 
-            Physics2D.IgnoreCollision(objCollider, other.collider, true);
-            other.gameObject.GetComponent<PlayerHP>().GetPainKiller(30.0f);
+            objCollider.enabled = false;
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
+
+            rb.isKinematic = true;    //중력 & 물리적 반응 제거
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
+            GameObject playerObj = GameObject.Find("Player");
+            if (playerObj != null)
+            {
+                PlayerHP playerHP = playerObj.GetComponent<PlayerHP>();
+                if (playerHP != null)
+                {
+                    playerHP.GetPainKiller(30.0f);
+                }
+            }
             Destroy(gameObject, 0.5f); // 0.5초 후 삭제
         }
     }
