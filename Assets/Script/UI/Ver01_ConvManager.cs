@@ -49,6 +49,9 @@ public class Ver01_ConvManager : MonoBehaviour
     private Coroutine runningCoroutine = null;
     private bool isTransitionRunning = false;
 
+    private List<String> portraitPaths = new List<String>();
+
+
     private void Awake()
     {
         LoadNPCs();
@@ -145,41 +148,17 @@ public class Ver01_ConvManager : MonoBehaviour
     //초상화 배치
     private void PortraitArrangement()
     {
-        HashSet<int> uniqueNpcIds = new HashSet<int>();
-        string[] portraitPaths = new string[2];
-
         //��ȭ�� �ʿ��� ���Ǿ��� Ȯ���ϰ� �ʻ�ȭ �ҷ�����
         foreach (var entry in requiredSecneData.dialog)
         {
-            if (uniqueNpcIds.Add(entry.id) && npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
-            {
-                portraitPaths[entry.pos] = npc.NPCportrait;
+            if (npcDictionary.TryGetValue(entry.id, out NPCInfo npc))
+            {  
+                portraitPaths.Add(npc.NPCportrait);
                 Debug.Log($"portraitPaths[{entry.pos}] = {npc.NPCportrait};");
             }
             else if (!npcDictionary.ContainsKey(entry.id))
             {
                 Debug.LogWarning($"NPC with ID {entry.id} not found in cache.");
-            }
-        }
-
-        for (int i = 0; i < portraitPaths.Length; i++)
-        {
-            if (!string.IsNullOrEmpty(portraitPaths[i]))
-            {
-                Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[i]);
-                if (portraitSprite != null)
-                {
-                    portraits[i].GetComponent<Image>().sprite = portraitSprite;
-                    portraits[i].GetComponent<AdjustSpriteSize>().SetSprite();
-                }
-                else
-                {
-                    Debug.LogWarning($"Sprite not found at path: {portraitPaths[i]}");
-                }
-            }
-            else
-            {
-                portraits[i].gameObject.SetActive(false);
             }
         }
     }
@@ -300,8 +279,13 @@ public class Ver01_ConvManager : MonoBehaviour
     #endregion
 
     #region 대화출력
-    private void UpdatePortraits(int speakingPortraits)
+    private void UpdatePortraits(int speakingPortraits, int index)
     {
+        Sprite portraitSprite = Resources.Load<Sprite>(portraitPaths[index]);
+
+        portraits[speakingPortraits].GetComponent<Image>().sprite = portraitSprite;
+        portraits[speakingPortraits].GetComponent<AdjustSpriteSize>().SetSprite();
+
         for (int i = 0; i < portraits.Length; i++)
         {
             if (portraits[i].activeSelf)
@@ -313,12 +297,14 @@ public class Ver01_ConvManager : MonoBehaviour
 
     IEnumerator TypeWriter()
     {
+        int i = 0;
+
         if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null üũ
 
         foreach (var dialog in requiredScenes)
         {
             nameTXT.text = GetNPC(dialog.id)?.NPCname;
-            UpdatePortraits(dialog.pos);
+            UpdatePortraits(dialog.pos, i);
 
             foreach (var line in dialog.log)
             {   //desTXT.text = line;
@@ -330,6 +316,8 @@ public class Ver01_ConvManager : MonoBehaviour
                 }
                 yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
             }
+
+            i++;
         }
         AfterConversationProcess(requiredSecneData.afterConditions);
         EndConversation();
