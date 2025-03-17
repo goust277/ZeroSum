@@ -17,7 +17,6 @@ public class PlayerHP : MonoBehaviour
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
-    private int maxhp;
     private bool isBlocked = false;
 
     [Header("Dying")]
@@ -40,8 +39,8 @@ public class PlayerHP : MonoBehaviour
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
 
-        maxhp = Ver01_DungeonStatManager.Instance.getMaxHP();
-        hp = maxhp;
+        hp = Ver01_DungeonStatManager.maxHP;
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
     }
 
     //[Obsolete]
@@ -63,6 +62,7 @@ public class PlayerHP : MonoBehaviour
     public void InstantDeath()
     {
         hp = 0;
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(0);
         Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
 
         Debug.Log("Game Over");
@@ -74,6 +74,8 @@ public class PlayerHP : MonoBehaviour
     //take Damage
     public void Damage()
     {
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
+
         if (!isBlocked)
         {
             if (hp - 1 < 0)
@@ -96,10 +98,11 @@ public class PlayerHP : MonoBehaviour
         Debug.Log("GetHPItem 호출");
 
         hp++;
-        if (hp > maxhp)
+        if (hp > Ver01_DungeonStatManager.maxHP)
         {
-            hp = maxhp;
+            hp = Ver01_DungeonStatManager.maxHP;
         }
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
         Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
     }
 

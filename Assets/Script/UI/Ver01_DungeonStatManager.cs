@@ -28,8 +28,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
-    private int maxHP = 10;
-
+    public const int maxHP = 10;
+    private int currentHP = 10;
 
     //[SerializeField] private int damage = 5;
 
@@ -45,7 +45,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
     }
 
-    public int getMaxHP()
+    public int GetMaxHP()
     {
         return maxHP;
     }
@@ -54,6 +54,16 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     {
         ReadyHPHud();
         ResetDungeonState();
+    }
+
+    public void SetCurrentHP(int hp)
+    {
+        currentHP = hp;
+    }
+
+    public int GetCurrentHP()
+    {
+        return currentHP;
     }
 
     private void ReadyHPHud()
@@ -134,8 +144,6 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
 
     }
-
-
     public void GameOver()
     {
         //Gameover Function 
