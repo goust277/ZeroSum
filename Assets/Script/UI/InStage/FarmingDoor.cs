@@ -34,7 +34,7 @@ public class FarmingDoor : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.transform.root.CompareTag("Player"))
         {
             isTriggerEnter = false;
         }
