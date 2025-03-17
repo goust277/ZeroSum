@@ -11,11 +11,9 @@ using UnityEngine.UI;
 public class PlayerHP : MonoBehaviour
 {
     [Header("HUD Resource")]
-    [SerializeField] private Transform hpSlot;
     [SerializeField] private GameObject painKiller;
     private TextMeshProUGUI timeText;
-    [SerializeField] private List<GameObject> hpUI = new List<GameObject>();
-
+    
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
@@ -32,11 +30,6 @@ public class PlayerHP : MonoBehaviour
         // �ڽĿ��� TextMeshProUGUI ã��
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
 
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    hpUI.Add(transform.GetChild(i).gameObject);
-        //}
-
         painKiller.SetActive(false);
         if (timeText == null)
         {
@@ -45,6 +38,9 @@ public class PlayerHP : MonoBehaviour
 
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
+
+        hp = Ver01_DungeonStatManager.maxHP;
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
     }
 
     //[Obsolete]
@@ -66,7 +62,8 @@ public class PlayerHP : MonoBehaviour
     public void InstantDeath()
     {
         hp = 0;
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(0);
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
 
         Debug.Log("Game Over");
 
@@ -77,6 +74,8 @@ public class PlayerHP : MonoBehaviour
     //take Damage
     public void Damage()
     {
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
+
         if (!isBlocked)
         {
             if (hp - 1 < 0)
@@ -89,23 +88,28 @@ public class PlayerHP : MonoBehaviour
             {
                 Debug.Log("Hit");
                 hp--;
-                UpdateUI();
+                Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
             }
         }
     }
 
     public void GetHPItem()
     {
+        Debug.Log("GetHPItem 호출");
+
         hp++;
-        if (hp > 5)
+        if (hp > Ver01_DungeonStatManager.maxHP)
         {
-            hp = 5;
+            hp = Ver01_DungeonStatManager.maxHP;
         }
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
     }
 
     public void GetPainKiller(float blockDuration)
     {
+        Debug.Log("GetPainKiller 호출");
+
         if (!isBlocked)
         {
             StartCoroutine(BlockFunctionTemporarily(blockDuration));
@@ -129,25 +133,6 @@ public class PlayerHP : MonoBehaviour
         
         isBlocked = false;
         painKiller.SetActive(false);
-    }
-
-    public void UpdateUI()
-    {
-        if(hpUI != null)
-        {
-            for (int i = 0; i < hpUI.Count; i++)
-            {
-                if (i < hp)
-                {
-                    hpUI[i].SetActive(true);
-                }
-                else
-                {
-                    hpUI[i].SetActive(false);
-                }
-            }
-        }
-
     }
 
     private void HandleDeath(int reinforcement)

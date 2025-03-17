@@ -13,72 +13,72 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerSwordAttack playerSword;
 
-    public event System.Action OnJumpInitiated; // Á¡ÇÁ ÀÌº¥Æ®
-    public event System.Action OnDashInitiated; // ´ë½¬ ÀÌº¥Æ®
+    public event System.Action OnJumpInitiated; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+    public event System.Action OnDashInitiated; // ï¿½ë½¬ ï¿½Ìºï¿½Æ®
     public event Action OnTrueChanged;
     public event Action OnStand;
 
 
-    [Header("½ºÇÁ¶óÀÌÆ®")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®")]
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private GameObject sprite;
 
-    [Header("ÀÌµ¿")]
-    [SerializeField] private float moveSpeed = 5f; //ÀÌµ¿¼Óµµ
-    [HideInInspector] public bool isMove; // ÀÌµ¿ Áß ÀÎÁö È®ÀÎ
+    [Header("ï¿½Ìµï¿½")]
+    [SerializeField] private float moveSpeed = 5f; //ï¿½Ìµï¿½ï¿½Óµï¿½
+    [HideInInspector] public bool isMove; // ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     private float moveDelay = 0.02f;
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
     private bool moveLeft;
 
-    [Header("´Þ¸®±â")]
+    [Header("ï¿½Þ¸ï¿½ï¿½ï¿½")]
     [SerializeField] private float runMoveSpeed = 8f;
     [HideInInspector] public bool isRun = false;
 
-    [Header("Á¡ÇÁ")]
-    [SerializeField] private float initialjumpForce = 7f; // ÃÊ±â Á¡ÇÁ Èû
-    [SerializeField] private float maxJumpDuration = 0.3f; // Á¡ÇÁ Áö¼Ó ½Ã°£
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float initialjumpForce = 7f; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    [SerializeField] private float maxJumpDuration = 0.3f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
-    [SerializeField] private float gravityScale = 5f; // Áß·Â °ª
-    [SerializeField] private int extraJump = 1; // Ãß°¡ Á¡ÇÁ
+    [SerializeField] private float gravityScale = 5f; // ï¿½ß·ï¿½ ï¿½ï¿½
+    [SerializeField] private int extraJump = 1; // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
     private float currY_velocity;
-    private bool isJumping; // Á¡ÇÁ ÁßÀÎÁö È®ÀÎ
+    private bool isJumping; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     private int extraJumpCurr = 0;
 
-    [SerializeField] private float coyoteTime = 0.3f; // ÄÚ¿äÅÂ ½Ã°£
+    [SerializeField] private float coyoteTime = 0.3f; // ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     private float coyoteTimeCurr = 0f;
     private float jumpTimeCounter;
 
 
-    [Header("´ë½¬")]
-    [SerializeField] private float dashPower = 3f; // ´ë½¬ ¼ø°£ Èû
-    [SerializeField] private float dashDuration = 0.3f; // ´ë½¬ Áö¼Ó½Ã°£
-    [SerializeField] private float dashCoolTime = 1f; // ´ë½¬ ÄðÅ¸ÀÓ
+    [Header("ï¿½ë½¬")]
+    [SerializeField] private float dashPower = 3f; // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    [SerializeField] private float dashDuration = 0.3f; // ï¿½ë½¬ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+    [SerializeField] private float dashCoolTime = 1f; // ï¿½ë½¬ ï¿½ï¿½Å¸ï¿½ï¿½
     private bool isDashReady;
 
-    [SerializeField] private float dashcurrentCoolTime; //ÇöÀç ´ë½¬ ÄðÅ¸ÀÓ
-    private float dashTime; // ´ë½¬ÇÏ°í ÀÖ´Â ½Ã°£
-    private bool canDash; // ´ë½¬ °¡´ÉÇÑÁö È®ÀÎ
-    [SerializeField] private bool isDashing; // ´ë½¬ Áß ÀÎÁö È®ÀÎ
+    [SerializeField] private float dashcurrentCoolTime; //ï¿½ï¿½ï¿½ï¿½ ï¿½ë½¬ ï¿½ï¿½Å¸ï¿½ï¿½
+    private float dashTime; // ï¿½ë½¬ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½
+    private bool canDash; // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    [SerializeField] private bool isDashing; // ï¿½ë½¬ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
-    [Header("¹Ù´ÚÃ¼Å©")]
-    [SerializeField] private LayerMask groundLayer; // ¹Ù´Ú ·¹ÀÌ¾î
-    [SerializeField] private float groundBoxOffset = 0f; // ¹Ù´Ú ÆÇÁ¤ ¿ÀÇÁ¼Â
-    [SerializeField] private Vector2 groundBox = Vector2.zero; // ¹Ù´Ú ÆÇÁ¤ ¹Ú½º
-    [SerializeField] private float groundCheckDistance = 0.5f; // ¹Ù´Ú ÆÇÁ¤ °Å¸®
-    [HideInInspector] public bool isGrounded; // ¹Ù´ÚÀÎÁö È®ÀÎ
+    [Header("ï¿½Ù´ï¿½Ã¼Å©")]
+    [SerializeField] private LayerMask groundLayer; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½
+    [SerializeField] private float groundBoxOffset = 0f; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Vector2 groundBox = Vector2.zero; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½
+    [SerializeField] private float groundCheckDistance = 0.5f; // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    [HideInInspector] public bool isGrounded; // ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     private bool wasGrounded;
 
-    [Header("¾É±â")]
+    [Header("ï¿½É±ï¿½")]
     [HideInInspector] public bool isDown;
 
-    [Header("ÇÃ·¹ÀÌ¾î È÷Æ® ÄÝ¶óÀÌ´õ")]
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Æ® ï¿½Ý¶ï¿½ï¿½Ì´ï¿½")]
     [SerializeField] private GameObject standCollider;
     [SerializeField] private GameObject downCollider;
 
-    // true·Î º¯°æµÉ ¶§ ¹ß»ýÇÏ´Â ÀÌº¥Æ®
+    // trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½Ìºï¿½Æ®
 
     private Transform originalParent;
     private Vector3 lastPlatformPosition;
@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() // ÇÃ·¹ÀÌ¾î ¹Ù´Ú ÆÇÁ¤ È®ÀÎ
+    private void OnDrawGizmos() // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     {
         Gizmos.color = new Color(0, 1, 1, 0.5f);
         Vector2 center = transform.position;
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAttack())
         {
-            if (isMove)//moveDirection != Vector2.zero) // ¿òÁ÷ÀÓ
+            if (isMove)//moveDirection != Vector2.zero) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 if(isRun)
                 {
@@ -190,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
     {
         OnTrueChanged -= OnLanding;
     }
-    private void Jump()// Á¡ÇÁ
+    private void Jump()// ï¿½ï¿½ï¿½ï¿½
     {
         if (isJumping && jumpTimeCounter > 0)
         {
@@ -200,9 +200,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 isJumping = false;
-            } // Á¡ÇÁ 2Â÷ ÇÔ¼ö
+            } // ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ô¼ï¿½
 
-            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1Â÷ ÇÔ¼ö
+            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1ï¿½ï¿½ ï¿½Ô¼ï¿½
             jumpTimeCounter -= Time.deltaTime / maxJumpDuration;
         }
 
@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity += Vector2.up * gravityScale * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
-    private void Flip() // ÇÃ·¹ÀÌ¾î ÁÂ¿ì È¸Àü
+    private void Flip() // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â¿ï¿½ È¸ï¿½ï¿½
     {
         moveLeft = !moveLeft;
         gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -229,8 +229,8 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
-        //float currentPosition = sprite.transform.localPosition.x; // ÇöÀç À§Ä¡ °¡Á®¿À±â
-        //currentPosition *= -1; // xÃà °ª ¹ÝÀü
+        //float currentPosition = sprite.transform.localPosition.x; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //currentPosition *= -1; // xï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
         ////////////////////////////////////////////////////////////////////////////
         //Vector2 currentScale = transform.localScale;
@@ -250,31 +250,31 @@ public class PlayerMovement : MonoBehaviour
             //isRun = false;
         }
     }
-    public void OnMove(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ÀÔ·Â
+    public void OnMove(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ìµï¿½ ï¿½Ô·ï¿½
     {
         input = context.ReadValue<Vector2>();
 
-        // ÀÔ·ÂÀÌ À¯È¿ÇÏ°í ´ë½¬ ÁßÀÌ ¾Æ´Ï¸ç y°ªÀÌ 0ÀÏ °æ¿ì ÀÌµ¿ È°¼ºÈ­
+        // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ï°ï¿½ ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ yï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ È°ï¿½ï¿½È­
         if (!isDashing && input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
 
-            // ¹æÇâ ÀüÈ¯ °¨Áö (x °ªÀÇ ºÎÈ£°¡ ¹Ù²î¾ú´ÂÁö È®ÀÎ)
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ (x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½)
             if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
-                Debug.Log("¹æÇâ ÀüÈ¯!");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯!");
 
             }
 
-            // ÇöÀç x ¹æÇâ °ªÀ» ÀúÀå
+            // ï¿½ï¿½ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             lastDirectionX = input.x;
         }
-        // ÀÔ·ÂÀÌ ¿ÏÀüÈ÷ ¸ØÃèÀ» ¶§¸¸ ÀÌµ¿ ÁßÁö
+        // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 
     }
 
-    public void OnJump(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î Á¡ÇÁ
+    public void OnJump(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (context.started && (isGrounded || extraJumpCurr < extraJump) && !isAttack())
         {
@@ -294,7 +294,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnDash(InputAction.CallbackContext context) // ÇÃ·¹ÀÌ¾î ´ë½¬
+    public void OnDash(InputAction.CallbackContext context) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ë½¬
     {
         if (context.started && canDash && isDashReady && !isAttack())
         {
@@ -330,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Dash()// ´ë½¬
+    private void Dash()// ï¿½ë½¬
     {
         if (isDashing)
         {
@@ -347,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void StartDash() // ´ë½¬ ½ÃÀÛ
+    private void StartDash() // ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½
     {
         isDashing = true;
         canDash = false;
@@ -359,7 +359,7 @@ public class PlayerMovement : MonoBehaviour
         dashcurrentCoolTime = 0f;
     }
 
-    private void Dashing() // ´ë½¬ Áß
+    private void Dashing() // ï¿½ë½¬ ï¿½ï¿½
     {
         dashTime += Time.deltaTime;
         if(moveLeft)
@@ -374,7 +374,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void EndDash() // ´ë½¬ ³¡
+    private void EndDash() // ï¿½ë½¬ ï¿½ï¿½
     {
         isDashing = false;
         rb.velocity = new Vector2(0, 0);
