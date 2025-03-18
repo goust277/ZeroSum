@@ -98,7 +98,7 @@ public class Ver1_SavePoint : MonoBehaviour
                 x = transform.position.x,
                 y = transform.position.y
             },
-            hp = Ver01_DungeonStatManager.Instance.getMaxHP(),
+            hp = Ver01_DungeonStatManager.Instance.GetMaxHP(),
             settings = new Settings
             {
                 BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 1.0f),

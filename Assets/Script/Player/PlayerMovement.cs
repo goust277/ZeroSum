@@ -13,72 +13,70 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerSwordAttack playerSword;
 
-    public event System.Action OnJumpInitiated; // ���� �̺�Ʈ
-    public event System.Action OnDashInitiated; // �뽬 �̺�Ʈ
+    public event System.Action OnJumpInitiated;
+    public event System.Action OnDashInitiated; 
     public event Action OnTrueChanged;
     public event Action OnStand;
 
 
-    [Header("��������Ʈ")]
+    [Header("Sprite")]
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private GameObject sprite;
 
-    [Header("�̵�")]
-    [SerializeField] private float moveSpeed = 5f; //�̵��ӵ�
-    [HideInInspector] public bool isMove; // �̵� �� ���� Ȯ��
+    [Header("move")]
+    [SerializeField] private float moveSpeed = 5f;
+    [HideInInspector] public bool isMove;
     private float moveDelay = 0.02f;
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
     private bool moveLeft;
 
-    [Header("�޸���")]
+    [Header("run")]
     [SerializeField] private float runMoveSpeed = 8f;
     [HideInInspector] public bool isRun = false;
 
-    [Header("����")]
-    [SerializeField] private float initialjumpForce = 7f; // �ʱ� ���� ��
-    [SerializeField] private float maxJumpDuration = 0.3f; // ���� ���� �ð�
+    [Header("jump")]
+    [SerializeField] private float initialjumpForce = 7f;
+    [SerializeField] private float maxJumpDuration = 0.3f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
-    [SerializeField] private float gravityScale = 5f; // �߷� ��
-    [SerializeField] private int extraJump = 1; // �߰� ����
+    [SerializeField] private float gravityScale = 5f;
+    [SerializeField] private int extraJump = 1;
     private float currY_velocity;
-    private bool isJumping; // ���� ������ Ȯ��
+    private bool isJumping;
     private int extraJumpCurr = 0;
 
-    [SerializeField] private float coyoteTime = 0.3f; // �ڿ��� �ð�
+    [SerializeField] private float coyoteTime = 0.3f;
     private float coyoteTimeCurr = 0f;
     private float jumpTimeCounter;
 
 
-    [Header("�뽬")]
-    [SerializeField] private float dashPower = 3f; // �뽬 ���� ��
-    [SerializeField] private float dashDuration = 0.3f; // �뽬 ���ӽð�
-    [SerializeField] private float dashCoolTime = 1f; // �뽬 ��Ÿ��
+    [Header("parring")]
+    [SerializeField] private float dashPower = 3f;
+    [SerializeField] private float dashDuration = 0.3f;
+    [SerializeField] private float dashCoolTime = 1f;
     private bool isDashReady;
 
-    [SerializeField] private float dashcurrentCoolTime; //���� �뽬 ��Ÿ��
-    private float dashTime; // �뽬�ϰ� �ִ� �ð�
-    private bool canDash; // �뽬 �������� Ȯ��
-    [SerializeField] private bool isDashing; // �뽬 �� ���� Ȯ��
+    [SerializeField] private float dashcurrentCoolTime;
+    private float dashTime;
+    private bool canDash;
+    [SerializeField] private bool isDashing;
 
-    [Header("�ٴ�üũ")]
-    [SerializeField] private LayerMask groundLayer; // �ٴ� ���̾�
-    [SerializeField] private float groundBoxOffset = 0f; // �ٴ� ���� ������
-    [SerializeField] private Vector2 groundBox = Vector2.zero; // �ٴ� ���� �ڽ�
-    [SerializeField] private float groundCheckDistance = 0.5f; // �ٴ� ���� �Ÿ�
-    [HideInInspector] public bool isGrounded; // �ٴ����� Ȯ��
+    [Header("GroundCheck")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundBoxOffset = 0f;
+    [SerializeField] private Vector2 groundBox = Vector2.zero;
+    [SerializeField] private float groundCheckDistance = 0.5f;
+    [HideInInspector] public bool isGrounded; 
     private bool wasGrounded;
 
-    [Header("�ɱ�")]
     [HideInInspector] public bool isDown;
 
-    [Header("�÷��̾� ��Ʈ �ݶ��̴�")]
+    [Header("Collider")]
     [SerializeField] private GameObject standCollider;
     [SerializeField] private GameObject downCollider;
 
-    // true�� ����� �� �߻��ϴ� �̺�Ʈ
 
     private Transform originalParent;
     private Vector3 lastPlatformPosition;
@@ -86,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() // �÷��̾� �ٴ� ���� Ȯ��
+    private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 1, 1, 0.5f);
         Vector2 center = transform.position;
