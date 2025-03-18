@@ -4,25 +4,80 @@ using UnityEngine;
 
 public class PlayerEv : MonoBehaviour
 {
-    [Header("움직임")]
+    [Header("Move")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 movePosition;
 
-    private bool isMoveUp;
-    private bool isPlayerIn;
+    [Header("InputManager")]
+    [SerializeField] private GameObject inputManager;
+    private bool isTop;
+    private bool isMoving;
 
     private Vector3 targetPostion;
     void Start()
     {
-        isMoveUp = false;
-        isPlayerIn = false;
+        targetPostion = transform.position;
+        inputManager = GameObject.Find("InputManager");
+        isMoving = false;
+        isTop = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        List<int> list = new List<int>();
-        int a = 1;
-        list[a + 1] = a;
+       
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isMoving)
+            MoveToTarget();
+        else
+            MovingToTarget();
+    }
+
+    private void MoveToTarget()
+    {
+        if(!isTop)
+        {
+            targetPostion = transform.position + movePosition;
+        }
+        else
+        {
+            targetPostion = transform.position - movePosition;
+        }
+    }
+    private void MovingToTarget()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetPostion, moveSpeed * Time.deltaTime);
+
+        if ((transform.position - targetPostion).sqrMagnitude < 0.001f) // 오차 범위 내에 도달
+        {
+            transform.position = targetPostion; // 최종 위치 보정
+            isMoving = false;
+            if (!isTop)
+            {
+                isTop = true;
+                Debug.Log("위 도착");
+            }
+            else if(isTop)
+            {
+                isTop = false;
+                Debug.Log("아래 도착");
+            }
+            inputManager.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            if (gameObject.CompareTag("MovingBlock"))
+            {
+                isMoving = true;
+                inputManager.SetActive(false);
+            }
+        }
     }
 }

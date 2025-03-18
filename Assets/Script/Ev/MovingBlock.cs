@@ -20,7 +20,7 @@ public class MovingBlock : MonoBehaviour
 
     private bool isMoving = false;
 
-    public bool isBottom;
+    [HideInInspector] public bool isBottom;
 
     private void Start()
     {

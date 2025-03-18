@@ -158,7 +158,8 @@ public class PlayerMovement : MonoBehaviour
                     //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
                     if (moveDirection.x != 0)
                     {
-                        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+                            rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+
                     }
                 }
 
@@ -198,9 +199,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 isJumping = false;
-            } // ���� 2�� �Լ�
+            }
 
-            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);// 1�� �Լ�
+            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
             jumpTimeCounter -= Time.deltaTime / maxJumpDuration;
         }
 
@@ -248,31 +249,26 @@ public class PlayerMovement : MonoBehaviour
             //isRun = false;
         }
     }
-    public void OnMove(InputAction.CallbackContext context) // �÷��̾� �̵� �Է�
+    public void OnMove(InputAction.CallbackContext context) 
     {
         input = context.ReadValue<Vector2>();
 
-        // �Է��� ��ȿ�ϰ� �뽬 ���� �ƴϸ� y���� 0�� ��� �̵� Ȱ��ȭ
         if (!isDashing && input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
 
-            // ���� ��ȯ ���� (x ���� ��ȣ�� �ٲ������ Ȯ��)
             if (Mathf.Sign(input.x) != Mathf.Sign(lastDirectionX) && lastDirectionX != 0)
             {
-                Debug.Log("���� ��ȯ!");
 
             }
 
-            // ���� x ���� ���� ����
             lastDirectionX = input.x;
         }
-        // �Է��� ������ ������ ���� �̵� ����
 
     }
 
-    public void OnJump(InputAction.CallbackContext context) // �÷��̾� ����
+    public void OnJump(InputAction.CallbackContext context) 
     {
         if (context.started && (isGrounded || extraJumpCurr < extraJump) && !isAttack())
         {
@@ -424,8 +420,20 @@ public class PlayerMovement : MonoBehaviour
                 collision.GetComponent<InteractDoor>().OnInteract();
             }
         }
+        if(collision.CompareTag("MovingBlock"))
+        {
+            transform.parent = collision.transform;
+        }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MovingBlock"))
+        {
+            if (transform.parent != null)
+                transform.parent = null;
+        }
+    }
     private bool isAttack()
     {
         if (playerSword.isAttack || playerGun.isAttack)
@@ -439,21 +447,5 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = true;
         rb.velocity = new Vector2(rb.velocity.x, 0f);
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("MovingBlock"))
-        {
-            transform.parent = collision.transform;
-        }
-    }
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("MovingBlock"))
-        {
-            if (transform.parent != null)
-                 transform.parent = null;
-        }
     }
 }
