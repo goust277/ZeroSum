@@ -125,4 +125,9 @@ public class MovingBlock : MonoBehaviour
             }
         }
     }
+
+    public void SpeedUp()
+    {
+
+    }
 }
