@@ -10,8 +10,9 @@ using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
-    [Header("HUD Resource")]
-    [SerializeField] private GameObject painKiller;
+    //[Header("HUD Resource")]
+    //[SerializeField] 
+    private GameObject painKiller;
     private TextMeshProUGUI timeText;
     
     [Header("invincibility time")]
@@ -28,6 +29,7 @@ public class PlayerHP : MonoBehaviour
     void Start()
     {
         // �ڽĿ��� TextMeshProUGUI ã��
+        painKiller = Ver01_DungeonStatManager.Instance.GetPainKiller();
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
 
         painKiller.SetActive(false);

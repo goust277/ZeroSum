@@ -4,6 +4,7 @@ using TMPro;
 using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Ver01_DungeonStatManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private GameObject hpSlot;
     [SerializeField] private Sprite emptySprite;
     [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private GameObject painKiller;
     private List<GameObject> hpUI;
 
 
@@ -37,7 +39,9 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this;  // 싱글톤 인스턴스 초기화
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드될 때 실행할 함수 등록
         }
         else if (Instance != this)
         {
@@ -45,16 +49,22 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
     }
 
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"새로운 씬 : {scene.name}");
+        ReadyHPHud();
+        ResetDungeonState();
+    }
     public int GetMaxHP()
     {
         return maxHP;
     }
 
-    private void Start()
-    {
-        ReadyHPHud();
-        ResetDungeonState();
-    }
+    //private void Start()
+    //{
+    //    ReadyHPHud();
+    //    ResetDungeonState();
+    //}
 
     public void SetCurrentHP(int hp)
     {
@@ -64,6 +74,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public int GetCurrentHP()
     {
         return currentHP;
+    }
+
+
+    public GameObject GetPainKiller()
+    {
+        return painKiller;
     }
 
     private void ReadyHPHud()
@@ -144,6 +160,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
 
     }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 해제
+    }
+
     public void GameOver()
     {
         //Gameover Function 
