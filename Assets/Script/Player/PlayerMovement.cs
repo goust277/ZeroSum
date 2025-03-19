@@ -402,27 +402,12 @@ public class PlayerMovement : MonoBehaviour
                 isDashReady = true;
         }
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.name == "Portal")
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                collision.GetComponent<Portal>().OnPortal();
-            }
-
-        }
-        if (collision.CompareTag("InteractDoor"))
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                collision.GetComponent<InteractDoor>().OnInteract();
-            }
-        }
         if(collision.CompareTag("MovingBlock"))
         {
             transform.parent = collision.transform;
+
         }
     }
 
