@@ -52,6 +52,9 @@ public class Ver01_ConvManager : MonoBehaviour
     private List<String> portraitPaths = new List<String>();
 
 
+    [Header("Change Scene String")]
+    [SerializeField] private String nextScene;
+
     private void Awake()
     {
         LoadNPCs();
@@ -273,7 +276,7 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         isTransitionRunning = false;
         StopAllCoroutines();  // 모든 코루틴 정지
-        SceneManager.LoadScene("TestStage");
+        SceneManager.LoadScene(nextScene);
     }
 
     #endregion
@@ -319,7 +322,7 @@ public class Ver01_ConvManager : MonoBehaviour
 
             i++;
         }
-        AfterConversationProcess(requiredSecneData.afterConditions);
+        //AfterConversationProcess(requiredSecneData.afterConditions);
         EndConversation();
     }
     #endregion
@@ -347,7 +350,7 @@ public class Ver01_ConvManager : MonoBehaviour
     // 
     private void EndConversation()
     {
-
+        StartCoroutine(MissionWriter());
         isConversation = false;
         if (requiredSecneData == null)
         {
