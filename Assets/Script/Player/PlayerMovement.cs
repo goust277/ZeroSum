@@ -347,8 +347,6 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isJumping = false;
 
-        currY_velocity = rb.velocity.y;
-
         dashTime = 0f;
         dashcurrentCoolTime = 0f;
     }
@@ -357,9 +355,9 @@ public class PlayerMovement : MonoBehaviour
     {
         dashTime += Time.deltaTime;
         if(moveLeft)
-            rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, 0);
+            rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, rb.velocity.y);
         else
-            rb.velocity = new Vector2(transform.localScale.x * dashPower, 0);
+            rb.velocity = new Vector2(transform.localScale.x * dashPower, rb.velocity.y);
         rb.gravityScale = 0f;
 
         if (dashTime >= dashDuration)
