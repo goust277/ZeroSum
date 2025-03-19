@@ -39,7 +39,7 @@ public class S_Attack : BaseState
     {
         timer += Time.deltaTime;
 
-        if(timer >= 0.4f)
+        if(timer >= 0.65f)
         {
             stateMachine.ChangeState(new S_Chase(stateMachine, s));
             return;

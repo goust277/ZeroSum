@@ -5,10 +5,10 @@ using UnityEngine;
 public class M_Hit : BaseState
 {
     private Melee m;
-    private float blinkDuration = 0.5f; // ����Ÿ��� �� �ð�
-    private float blinkInterval = 0.1f; // ����Ÿ��� ����
-    public float elapsedBlinkTime = 0f; // ����Ÿ� ���� �ð�
-    private float intervalTimer = 0f; // ���� Ÿ�̸�
+    private float blinkDuration = 0.5f;
+    private float blinkInterval = 0.1f;
+    public float elapsedBlinkTime = 0f;
+    private float intervalTimer = 0f; 
     private bool isBlinking = false;
 
     public M_Hit(StateMachine stateMachine, Melee monster) : base(stateMachine)
@@ -37,12 +37,11 @@ public class M_Hit : BaseState
             if (intervalTimer >= blinkInterval)
             {
                 ToggleSpriteAlpha();
-                intervalTimer = 0f; // ���� Ÿ�̸� �ʱ�ȭ
+                intervalTimer = 0f;
             }
 
             if (elapsedBlinkTime >= blinkDuration)
             {
-                // ����Ÿ� ����
                 isBlinking = false;
                 SetSpriteAlpha(1f);
                 stateMachine.ChangeState(new M_Chase(stateMachine, m));
@@ -52,13 +51,12 @@ public class M_Hit : BaseState
     public override void Exit()
     {
         isBlinking = false;
-        SetSpriteAlpha(1f); // ���� ���� �� ���İ� ����
+        SetSpriteAlpha(1f);
         m.isHit = false;
         m.attackCooldown = 3f;
         m.canAttack = true;
     }
 
-    // ��������Ʈ�� ���İ��� �����ϴ� �޼���
     private void SetSpriteAlpha(float alpha)
     {
         if (m.sprite != null)
@@ -69,13 +67,12 @@ public class M_Hit : BaseState
         }
     }
 
-    // ��������Ʈ ���İ��� ����ϴ� �޼���
     private void ToggleSpriteAlpha()
     {
         if (m.sprite != null)
         {
             Color color = m.sprite.color;
-            color.a = (color.a == 1f) ? 0.5f : 1f; // 1f�� 0.5f ���̸� ���
+            color.a = (color.a == 1f) ? 0.5f : 1f;
             m.sprite.color = color;
         }
     }

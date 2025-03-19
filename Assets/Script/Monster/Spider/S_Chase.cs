@@ -36,9 +36,12 @@ public class S_Chase : BaseState
                 return;
             }
         }
-
-        Vector3 targetPosition = new Vector3(s.player.position.x, s.transform.position.y, 0);
-        s.transform.position = Vector3.MoveTowards(s.transform.position, targetPosition, s.moveSpeed * Time.deltaTime);
+        AnimatorStateInfo stateInfo = s.anim.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("S_walk"))
+        {
+            Vector3 targetPosition = new Vector3(s.player.position.x, s.transform.position.y, 0);
+            s.transform.position = Vector3.MoveTowards(s.transform.position, targetPosition, s.moveSpeed * Time.deltaTime);
+        }
     }
 
     public override void Exit()

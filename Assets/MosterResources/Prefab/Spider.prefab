@@ -293,13 +293,14 @@ MonoBehaviour:
   player: {fileID: 0}
   isPlayerInRange: 0
   detect: {fileID: 875165585584708518}
-  health: 100
+  health: 2
   attackDamage: 10
   attackRange: 1.5
   attackCooldown: 3
   dashRange: 3
   canAttack: 1
   isHit: 0
+  isDie: 0
   rb: {fileID: 8968623416950252967}
   attack: {fileID: 8836912397668106596}
   hpBar: {fileID: 0}

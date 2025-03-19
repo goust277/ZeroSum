@@ -23,6 +23,8 @@ public class Scout_Hit : BaseState
         elapsedBlinkTime = 0f;
         intervalTimer = 0f;
         isBlinking = true;
+
+        SetSpriteAlpha(0.5f);
     }
 
     public override void Execute()
@@ -34,12 +36,14 @@ public class Scout_Hit : BaseState
 
             if (intervalTimer >= blinkInterval)
             {
-                intervalTimer = 0f; 
+                ToggleSpriteAlpha();
+                intervalTimer = 0f;
             }
 
             if (elapsedBlinkTime >= blinkDuration)
             {
                 isBlinking = false;
+                SetSpriteAlpha(1f);
                 stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
             }
         }
@@ -50,5 +54,25 @@ public class Scout_Hit : BaseState
         scout.isHit = false;
         scout.attackCooldown = 3f;
         scout.canAttack = true;
+    }
+
+    private void SetSpriteAlpha(float alpha)
+    {
+        if (scout.sprite != null)
+        {
+            Color color = scout.sprite.color;
+            color.a = alpha;
+            scout.sprite.color = color;
+        }
+    }
+
+    private void ToggleSpriteAlpha()
+    {
+        if (scout.sprite != null)
+        {
+            Color color = scout.sprite.color;
+            color.a = (color.a == 1f) ? 0.5f : 1f;
+            scout.sprite.color = color;
+        }
     }
 }

@@ -21,7 +21,7 @@ public class S_Ready : BaseState
     {
         AnimatorStateInfo stateInfo = s.anim.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("S_ready") && stateInfo.normalizedTime >= 0.98f)
+        if (stateInfo.IsName("S_ready") && stateInfo.normalizedTime >= 0.75f)
         {
             stateMachine.ChangeState(new S_Attack(stateMachine, s));
             return;
