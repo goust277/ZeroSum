@@ -273,7 +273,7 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         isTransitionRunning = false;
         StopAllCoroutines();  // 모든 코루틴 정지
-        SceneManager.LoadScene("Test_1");
+        SceneManager.LoadScene("TestStage");
     }
 
     #endregion
