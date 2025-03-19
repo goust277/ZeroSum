@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class Scout : MonoBehaviour, IDetectable, IDamageAble
 {
@@ -16,6 +17,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
+    public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
 
@@ -105,6 +107,14 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         {
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall") || other.collider.CompareTag("MovingBlock"))
+        {
+            turn = true;
         }
     }
 

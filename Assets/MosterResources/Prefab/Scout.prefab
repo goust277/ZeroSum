@@ -201,7 +201,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 1444204070, guid: 76ec789380fff014aa32618c0c1be3b8, type: 3}
+  m_Sprite: {fileID: 256362034, guid: 850a66274b05bd840a8b7eeb91a07969, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
   patrolRange: 2
   moveSpeed: 2
   currentTarget: {x: 0, y: 0, z: 0}
+  turn: 0
   player: {fileID: 0}
   isPlayerInRange: 0
   minDistance: 1.5

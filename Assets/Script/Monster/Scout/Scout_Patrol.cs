@@ -21,7 +21,6 @@ public class Scout_Patrol : BaseState
 
     public override void Execute()
     {
-
         if (scout.isPlayerInRange)
         {
             stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
@@ -38,6 +37,12 @@ public class Scout_Patrol : BaseState
         {
             scout.sprite.flipX = false;
             scout.detect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+
+        if(scout.turn)
+        {
+            SetNextTarget();
+            scout.turn = false;
         }
 
         scout.transform.position = Vector3.MoveTowards(scout.transform.position, scout.currentTarget, scout.moveSpeed * Time.deltaTime);

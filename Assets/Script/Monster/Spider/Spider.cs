@@ -54,7 +54,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
         var attackState = new S_Attack(stateMachine, this);
         var patrolState = new S_Patrol(stateMachine, this);
         var chaseState = new S_Chase(stateMachine, this);
-        //var hitState = new S_Hit(stateMachine, this);
+        var hitState = new S_Hit(stateMachine, this);
         var dieState = new S_Die(stateMachine, this);
 
         //상태 초기화
@@ -145,7 +145,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
             }
             else
             {
-                //stateMachine.ChangeState(new S_Hit(stateMachine, this));
+                stateMachine.ChangeState(new S_Hit(stateMachine, this));
             }
         }
 
