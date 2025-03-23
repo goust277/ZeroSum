@@ -462,6 +462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ver01_UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -608,6 +612,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7501979410998081083, guid: 19d411a5ec397444180562eb4786bf4c, type: 3}
+      propertyPath: dropItemList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501979410998081083, guid: 19d411a5ec397444180562eb4786bf4c, type: 3}
+      propertyPath: dropItemList.Array.data[0]
+      value: 
+      objectReference: {fileID: 2575600703993014354, guid: b5b504078b79257408e5b5433e89f1b0, type: 3}
+    - target: {fileID: 7501979410998081083, guid: 19d411a5ec397444180562eb4786bf4c, type: 3}
+      propertyPath: dropItemList.Array.data[1]
+      value: 
+      objectReference: {fileID: 3845132708008523123, guid: 0cea8abd6e9e05a44973a8e08da7b300, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13964,6 +13980,10 @@ PrefabInstance:
     - target: {fileID: 2133023775983790941, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_Name
       value: Ver01_Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133023775983790941, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4660451338515754348, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_AnchorMax.x

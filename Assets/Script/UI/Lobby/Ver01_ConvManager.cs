@@ -52,6 +52,9 @@ public class Ver01_ConvManager : MonoBehaviour
     private List<String> portraitPaths = new List<String>();
 
 
+    [Header("Temp Flags")]
+
+
     [Header("Change Scene String")]
     [SerializeField] private String nextScene;
 
@@ -89,7 +92,12 @@ public class Ver01_ConvManager : MonoBehaviour
 
     void Update()
     {
-        if (isTransitionRunning && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            StartCoroutine(TransitionToSprite());
+        }
+     
+        if (isTransitionRunning && Input.GetKeyDown(KeyCode.F))
         {
             ChangeScene();
         }
@@ -275,7 +283,7 @@ public class Ver01_ConvManager : MonoBehaviour
     void ChangeScene()
     {
         isTransitionRunning = false;
-        StopAllCoroutines();  // 모든 코루틴 정지
+        StopAllCoroutines();  // 모든 코루틴 정리
         SceneManager.LoadScene(nextScene);
     }
 
