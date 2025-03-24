@@ -20,7 +20,7 @@ public class MovingBlock : MonoBehaviour
     public bool speedUp;
     public bool inPlayer;
 
-    private Vector3 targetPostion;
+    private Vector3 targetPosition;
     private Vector3 firstPosition;
     private Vector3 lastPostion;
 
@@ -30,7 +30,7 @@ public class MovingBlock : MonoBehaviour
 
     private void Start()
     {
-        targetPostion = transform.position;
+        targetPosition = transform.position;
         curWaitTime = 0.0f;
         curMoveCount = 0f;
         isMoveLastTarget = true;
@@ -46,7 +46,7 @@ public class MovingBlock : MonoBehaviour
     {
         if (curMoveCount == moveCount)
         {
-            if (transform.position.y - targetPostion.y > 0f)
+            if (transform.position.y - targetPosition.y > 0f)
             {
                 if (!isBottom)
                 {
@@ -69,19 +69,19 @@ public class MovingBlock : MonoBehaviour
             }
         }
 
-        if ((transform.position.y - targetPostion.y) < 0f)
+        if ((transform.position.y - targetPosition.y) < 0f)
         {
             if (!isUp)
                 isUp = true;
         }
-        else if ((transform.position.y - targetPostion.y) > 0f)
+        else if ((transform.position.y - targetPosition.y) > 0f)
         {
             if (isUp)
                 isUp = false;
         }
         if (inPlayer)
         {
-            if(targetPostion == firstPosition || targetPostion == lastPostion)
+            if(targetPosition == firstPosition || targetPosition == lastPostion)
             {
                 speedUp = false;
             }
@@ -145,11 +145,11 @@ public class MovingBlock : MonoBehaviour
 
         if(isMoveLastTarget)
         {
-            targetPostion = transform.position + movePosition;
+            targetPosition = transform.position + movePosition;
         }
         else 
         {
-            targetPostion = transform.position - movePosition;
+            targetPosition = transform.position - movePosition;
         }
 
         curWaitTime = 0f;
@@ -159,28 +159,26 @@ public class MovingBlock : MonoBehaviour
 
     private void MovingToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPostion, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        if ((transform.position - targetPostion).sqrMagnitude < 0.001f) // 오차 범위 내에 도달
+        if ((transform.position - targetPosition).sqrMagnitude < 0.001f) // 오차 범위 내에 도달
         {
             if(!speedUp)
             {
-                transform.position = targetPostion; // 최종 위치 보정
+                transform.position = targetPosition; // 최종 위치 보정
                 curWaitTime += Time.deltaTime;
 
-                isWaiting = true;
                 if (speedUp)
                     curWaitTime += waitingTime;
                 if (curWaitTime > waitingTime)
                 {
                     isMoving = false; // 이동 완료
-                    isWaiting = false;
                 }
                     
             }
             else if(speedUp)
             {
-                transform.position = targetPostion; // 최종 위치 보정
+                transform.position = targetPosition; // 최종 위치 보정
                 isMoving = false;
             }
         }
