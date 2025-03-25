@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EvKill : MonoBehaviour
 {
-    [SerializeField] private MovingBlock movingBlock;
+    [SerializeField] private BaseEv movingBlock;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

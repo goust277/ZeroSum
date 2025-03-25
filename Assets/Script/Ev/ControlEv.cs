@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
-public class ControlEv : MonoBehaviour
+public class ControlEv : BaseEv, IControllable
 {
     [Header("Move")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 movePosition;
     [SerializeField] private float waitingTime;
     [SerializeField] private float moveCount;
+    [SerializeField] private bool isUp;
 
-    [Header("Button")]
-    [SerializeField] private GameObject[] evBtns;
+    [Header("ButtonTransform")]
+    [SerializeField] private Transform[] buttonTransforms;
+
+    [HideInInspector] public int btnNum;
 
     private float curMoveCount;
     private float curWaitTime;
-    private bool isUp;
     private bool isMoving = false;
     private bool isBtnOn;
-    [HideInInspector] public bool isBottom;
+
     private Vector3 targetPosition;
     private Vector3 topPosition;
     void Start()
@@ -69,32 +72,37 @@ public class ControlEv : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(isBtnOn)
-        {
-            
-            if (!isMoving)
-                MoveToTarget();
-            else
-                MovingBtns();
-        }
-        else 
-        {
-            if (!isMoving)
-                MoveToTarget();
-            else
-                MovingToTarget();
-        }
-
+        if (!isMoving)
+            MoveToTarget();
+        else
+            MovingToTarget();
     }
     private void MoveToTarget()
     {
         if (curMoveCount == moveCount)
         {
             curMoveCount = 0f;
-            movePosition.y *= -1f;
+            if(isUp)
+                isUp = false;
+            else
+                isUp = true;
+        }
+        if(isBtnOn)
+        {
+            targetPosition = topPosition;
+        }
+        else
+        {
+            if (isUp)
+            {
+                targetPosition = transform.position + movePosition;
+            }
+            else
+            {
+                targetPosition = transform.position - movePosition;
+            }
         }
 
-        targetPosition = transform.position + movePosition;
 
         curWaitTime = 0f;
         isMoving = true;
@@ -112,25 +120,10 @@ public class ControlEv : MonoBehaviour
             if (curWaitTime > waitingTime)
             {
                 isMoving = false; // 이동 완료
-            }
-        }
-    }
-
-    private void MovingBtns()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        if ((transform.position - targetPosition).sqrMagnitude < 0.001f) // 오차 범위 내에 도달
-        {
-            transform.position = targetPosition; // 최종 위치 보정
-            curWaitTime += Time.deltaTime;
-
-            if (curWaitTime > waitingTime)
-            {
-                isMoving = false;
-                if(transform.position == topPosition)
+                if(isBtnOn && transform.position == topPosition)
                 {
-                    
+                    isBtnOn = false;
+                    curMoveCount = moveCount;
                 }
             }
         }
@@ -138,18 +131,21 @@ public class ControlEv : MonoBehaviour
     private void MoveToTop()
     {
         targetPosition = topPosition;
+        curWaitTime = 0f;
     }
-    private void ResetMove()
+    public void MoveBtn(Vector3 pos)
     {
-       
     }
-    public void MoveBtn(Vector3 pos, int floor)
-    {
-        targetPosition = pos;
 
+    public void Exe()
+    {
+        targetPosition = buttonTransforms[btnNum].position;
         curWaitTime += waitingTime;
 
         isBtnOn = true;
         isMoving = true;
+        curWaitTime = 0f;
+        Debug.Log("엘리베이터 상호작용");
+
     }
 }

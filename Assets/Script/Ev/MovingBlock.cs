@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MovingBlock : MonoBehaviour
+public class MovingBlock : BaseEv
 {
     private float time;
     [Header("¿òÁ÷ÀÓ")]
@@ -25,8 +25,6 @@ public class MovingBlock : MonoBehaviour
     private Vector3 lastPostion;
 
     private bool isMoving = false;
-
-    [HideInInspector] public bool isBottom;
 
     private void Start()
     {
