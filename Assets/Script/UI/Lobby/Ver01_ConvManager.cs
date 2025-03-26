@@ -46,11 +46,16 @@ public class Ver01_ConvManager : MonoBehaviour
 
     private readonly Color alpha0 = new Color(1f, 1f, 1f, 0f);
     private readonly Color alpha1 = new Color(1f, 1f, 1f, 1f);
-    private Coroutine runningCoroutine = null;
+    private Coroutine dialogCoroutine = null;
     private bool isTransitionRunning = false;
 
     private List<String> portraitPaths = new List<String>();
 
+
+    //[Header("Temp Flags")] //대화 넘기기관련 플래그들
+    private Coroutine currentCoroutine;
+    //[SerializeField] private bool isSkipLine = false;
+    //[SerializeField] private setNextDialog = false;
 
     [Header("Change Scene String")]
     [SerializeField] private String nextScene;
@@ -89,10 +94,24 @@ public class Ver01_ConvManager : MonoBehaviour
 
     void Update()
     {
-        if (isTransitionRunning && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            EnteredSkipKey();
+        }
+     
+        if (isTransitionRunning && Input.GetKeyDown(KeyCode.F))
         {
             ChangeScene();
         }
+    }
+
+    void EnteredSkipKey()
+    {
+        StopCoroutine(currentCoroutine);
+        Debug.Log("SKIPBTN : F5 IS ENTEREDDDDDDDDDDDDDDD");
+        //StopAllCoroutines();  // 모든 코루틴 정리
+        pressE.gameObject.SetActive(true);
+        currentCoroutine = StartCoroutine(TransitionToSprite());
     }
 
     #region DialogResourLoad
@@ -178,7 +197,7 @@ public class Ver01_ConvManager : MonoBehaviour
 
         PortraitArrangement();
         isConversation = true;
-        StartCoroutine(TypeWriter());
+        currentCoroutine = StartCoroutine(TypeWriter());
     }
 
     private void AfterConversationProcess(AfterConditions after)
@@ -216,7 +235,7 @@ public class Ver01_ConvManager : MonoBehaviour
             //}
         }
 
-        StartCoroutine(MoveImageCoroutine());
+        currentCoroutine = StartCoroutine(MoveImageCoroutine());
     }
 
     private IEnumerator TransitionToSprite()
@@ -268,14 +287,14 @@ public class Ver01_ConvManager : MonoBehaviour
         mapImage.gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
 
         pressE.gameObject.SetActive(true);
-        runningCoroutine = StartCoroutine(TransitionToSprite());
+        currentCoroutine = StartCoroutine(TransitionToSprite());
     }
 
     //씬넘김
     void ChangeScene()
     {
         isTransitionRunning = false;
-        StopAllCoroutines();  // 모든 코루틴 정지
+        StopAllCoroutines();  // 모든 코루틴 정리
         SceneManager.LoadScene(nextScene);
     }
 
@@ -301,8 +320,9 @@ public class Ver01_ConvManager : MonoBehaviour
     IEnumerator TypeWriter()
     {
         int i = 0;
+        bool setNextDialog = false;
 
-        if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null üũ
+        if (requiredScenes == null || requiredScenes.Count == 0) yield break; // null 체크
 
         foreach (var dialog in requiredScenes)
         {
@@ -310,47 +330,63 @@ public class Ver01_ConvManager : MonoBehaviour
             UpdatePortraits(dialog.pos, i);
 
             foreach (var line in dialog.log)
-            {   //desTXT.text = line;
+            {
                 desTXT.text = "";
-                for (int index = 0; index < line.Length; index++)
+                bool isSkipLine = false;
+                dialogCoroutine = StartCoroutine(TypeWriterLine(line));// 대사 출력 코루틴
+
+                //중간에 대사 스킵되도록 처리
+                while (!isSkipLine)
                 {
-                    desTXT.text += line[index].ToString();
-                    yield return new WaitForSeconds(0.05f); //
+                    if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return))
+                    {
+                        isSkipLine = true;
+                        StopCoroutine(dialogCoroutine); // 중지
+                        desTXT.text = line; // 스킵 눌렀을 때 줄 전체 출력
+                    }
+                    yield return null; // 기다림
                 }
-                yield return new WaitUntil(() => Input.GetKey(KeyCode.E));
+
+                // 대사 출력 후, 다음 대사로 넘어가기 위한 입력 대기
+                while (!setNextDialog)
+                {
+                    if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return))
+                    {
+                        setNextDialog = true;
+                    }
+                    yield return null;
+                }
+                setNextDialog = false; // 한 번만 작동하도록 초기화
+
+                dialogCoroutine = null;
             }
 
             i++;
         }
-        //AfterConversationProcess(requiredSecneData.afterConditions);
+
         EndConversation();
     }
+
+    private IEnumerator TypeWriterLine(string line)
+    {
+        desTXT.text = "";  // 매번 출력 전에 텍스트 초기화
+        for (int index = 0; index < line.Length; index++)
+        {
+            desTXT.text += line[index].ToString();
+            yield return new WaitForSeconds(0.05f); // 글자 한 글자씩 출력
+        }
+    }
+
+
+
+
     #endregion
 
     #region public func
-    //
-    //public void StartConversation(int CollisionNPC)
-    //{
-        
-    //    ColNPC = GetNPC(CollisionNPC);
-
-    //    if (requiredSecneData == null)
-    //    {
-    //        Debug.Log($"No dialog found for Scene ID: {GameStateManager.Instance.GetCurrentSceneID()}");
-    //        return; 
-    //    }
-        
-
-    //    if (CheckEventConditions(requiredSecneData.prerequisites, CollisionNPC)) //��ȭ���� ���¿��� ��ȭ�� �ϸ�
-    //    {
-    //        NormalCommunication();
-    //    }
-    //}
-
-    // 
     private void EndConversation()
     {
-        StartCoroutine(MissionWriter());
+        currentCoroutine = null;
+        currentCoroutine = StartCoroutine(MissionWriter());
         isConversation = false;
         if (requiredSecneData == null)
         {
