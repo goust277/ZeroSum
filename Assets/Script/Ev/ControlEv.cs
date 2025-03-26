@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,7 +90,8 @@ public class ControlEv : BaseEv, IControllable
         }
         if(isBtnOn)
         {
-            targetPosition = topPosition;
+            if(targetPosition != topPosition)
+                targetPosition = topPosition;
         }
         else
         {
@@ -119,22 +121,14 @@ public class ControlEv : BaseEv, IControllable
 
             if (curWaitTime > waitingTime)
             {
-                isMoving = false; // 이동 완료
                 if(isBtnOn && transform.position == topPosition)
                 {
                     isBtnOn = false;
                     curMoveCount = moveCount;
                 }
+                isMoving = false; // 이동 완료
             }
         }
-    }
-    private void MoveToTop()
-    {
-        targetPosition = topPosition;
-        curWaitTime = 0f;
-    }
-    public void MoveBtn(Vector3 pos)
-    {
     }
 
     public void Exe()
@@ -142,8 +136,9 @@ public class ControlEv : BaseEv, IControllable
         targetPosition = buttonTransforms[btnNum].position;
         curWaitTime += waitingTime;
 
-        isBtnOn = true;
+        isBtnOn = true; 
         isMoving = true;
+        isUp = true;
         curWaitTime = 0f;
         Debug.Log("엘리베이터 상호작용");
 
