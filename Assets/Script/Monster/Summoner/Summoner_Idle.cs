@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Summoner_Idle : BaseState
+{
+    private Summoner summoner;
+    private float timer = 0f;
+
+    public Summoner_Idle(StateMachine stateMachine, Summoner monster) : base(stateMachine)
+    {
+        this.summoner = monster;
+    }
+
+    public override void Enter()
+    {
+        Debug.Log("대기 상태");
+        timer = 3f;
+        summoner.anim.SetBool("isIdle", true);
+    }
+
+    public override void Execute()
+    {
+        timer -= Time.deltaTime;
+
+        if (summoner.isPlayerInRange)
+        {
+            stateMachine.ChangeState(new Summoner_Chase(stateMachine, summoner));
+            return;
+        }
+
+        if (timer <= 0f)
+        {
+            stateMachine.ChangeState(new Summoner_Patrol(stateMachine, summoner));
+        }
+    }
+    public override void Exit()
+    {
+        summoner.anim.SetBool("isIdle", false);
+    }
+}

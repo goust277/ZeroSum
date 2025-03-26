@@ -4,49 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
-using UnityEngine.InputSystem.XR.Haptics;
 
-public class Scout : MonoBehaviour, IDetectable, IDamageAble
+public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
     public SpriteRenderer sprite;
 
     [Header("Patrol Settings")]
-    public float patrolRange = 10f;
+    public float patrolRange = 3f;
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
-    public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
 
     [Header("Detection Settings")]
     public Transform player;
     public bool isPlayerInRange;
-    public float minDistance = 1.5f;
-    public float maxDistance = 3.0f;
     public GameObject detect;
 
     [Header("Combat Settings")]
-    public int health = 2;
+    public int health = 100;
     public int attackDamage = 10;
-    public float attackRange = 4f;
-    public float attackCooldown = 3f;
+    public float attackRange = 1.5f;
+    public float attackCooldown = 0f;
     public bool canAttack = true;
-    public bool canShot = false;
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;
     public Rigidbody2D rb;
+    public GameObject spider;
+    public float spawnRangeX = 1.5f;    // X 좌표 랜덤 범위
+    public int summonCount = 3;       // 한 번에 소환할 몬스터 개수
     private StateMachine stateMachine;
-    public Transform leftFirePoint;         // 왼쪽 발사 위치
-    public Transform rightFirePoint;        // 오른쪽 발사 위치
-    public GameObject BulletPrefab;     // 발사체 프리팹
-    public float BulletSpeed = 10f;     // 발사체 속도
-    public int fireCount = 0;       // 발사 횟수
-    public int maxFireCount = 3;    // 최대 발사 횟수
-    private Transform fPoint;
 
     [Header("HP바 UI")]
     [SerializeField] private Image hpBar;
@@ -59,15 +50,15 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         stateMachine = new StateMachine();
 
         // 필요한 상태 생성 시 컴포넌트를 전달
-        var idleState = new Scout_Idle(stateMachine, this);
-        var readyStade = new Scout_Ready(stateMachine, this);
-        var attackState = new Scout_Attack(stateMachine, this);
-        var patrolState = new Scout_Patrol(stateMachine, this);
-        var chaseState = new Scout_Chase(stateMachine, this);
-        var hitState = new Scout_Hit(stateMachine, this);
-        var dieState = new Scout_Die(stateMachine, this);
+        var idleState = new Summoner_Idle(stateMachine, this);
+        var readyStade = new Summoner_Ready(stateMachine, this);
+        var attackState = new Summoner_Attack(stateMachine, this);
+        var patrolState = new Summoner_Patrol(stateMachine, this);
+        var chaseState = new Summoner_Chase(stateMachine, this);
+        var hitState = new Summoner_Hit(stateMachine, this);
+        var dieState = new Summoner_Die(stateMachine, this);
 
-        // 상태 초기화
+        //상태 초기화
         stateMachine.Initialize(idleState);
     }
 
@@ -110,14 +101,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall") || other.collider.CompareTag("MovingBlock"))
-        {
-            turn = true;
-        }
-    }
-
     private void VisualDamage(int value)
     {
         Debug.Log("VisualDamage");
@@ -150,20 +133,20 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     {
         if (!isHit)
         {
-            if(isDie)
+            if (isDie)
             {
                 return;
             }
-            
+
             health--;
 
             if (health <= 0)
             {
-                stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+                stateMachine.ChangeState(new Summoner_Die(stateMachine, this));
             }
             else
             {
-                stateMachine.ChangeState(new Scout_Hit(stateMachine, this));
+                stateMachine.ChangeState(new Summoner_Hit(stateMachine, this));
             }
         }
 
@@ -173,9 +156,8 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         {
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
-        //VisualDamage(atk);
+        VisualDamage(atk);
     }
-
 
     // 목표 반대로 변경
     public void FlipTarget()
@@ -190,29 +172,20 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
     }
 
-    private void FireBullet()
+    public void SummonMonsters()
     {
-        if (BulletPrefab != null)
+        if (spider == null)
         {
-            Debug.Log("Shot!");
-            fireCount++;
+            Debug.LogError("소환할 몬스터 프리팹이 설정되지 않았습니다!");
+            return;
+        }
 
-            fPoint = sprite.flipX ? rightFirePoint : leftFirePoint;
+        for (int i = 0; i < summonCount; i++)
+        {
+            float randomX = Random.Range(-spawnRangeX, spawnRangeX);
+            Vector3 spawnPosition = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z);
 
-            Vector2 dir = sprite.flipX ? Vector2.right : Vector2.left;
-
-            // 발사체 생성
-            GameObject bullet = GameObject.Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
-
-            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            // Rigidbody2D를 이용해 발사체 이동
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.velocity = dir * BulletSpeed; // 발사 속도 설정
-            }
+            Instantiate(spider, spawnPosition, Quaternion.identity);
         }
     }
 }
