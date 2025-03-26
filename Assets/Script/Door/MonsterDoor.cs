@@ -53,7 +53,6 @@ public class MonsterDoor : MonoBehaviour
         GameObject monster = Instantiate(monsterPrefabs[index], transform.position, Quaternion.identity);
         monster.name = monsterPrefabs[index].name;
 
-        // Melee, Scout, Spider 컴포넌트가 있는지 확인하고 플레이어 할당
         AssignPlayerToMonster(monster);
 
         spawnedMonsters.Add(monster);
@@ -74,5 +73,9 @@ public class MonsterDoor : MonoBehaviour
         Spider spiderComponent = monster.GetComponent<Spider>();
         if (spiderComponent != null)
             spiderComponent.player = player;
+
+        Summoner summonerComponent = monster.GetComponent<Summoner>();
+        if (summonerComponent != null)
+            summonerComponent.player = player;
     }
 }

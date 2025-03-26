@@ -15,6 +15,7 @@ public class Scout_Chase : BaseState
     {
         Debug.Log("추적 상태");
         scout.anim.SetBool("isWalk", true);
+        scout.moveSpeed = 2.5f;
     }
 
     public override void Execute()
@@ -45,12 +46,14 @@ public class Scout_Chase : BaseState
                 return;
             }
         }
+        float offsetX = scout.sprite.flipX ? -3f : 3f;
 
-        Vector3 targetPosition = new Vector3(scout.player.position.x, scout.transform.position.y, 0);
+        Vector3 targetPosition = new Vector3(scout.player.position.x + offsetX, scout.transform.position.y, 0);
         scout.transform.position = Vector3.MoveTowards(scout.transform.position, targetPosition, scout.moveSpeed * Time.deltaTime);
     }
     public override void Exit()
     {
         scout.anim.SetBool("isWalk", false);
+        scout.moveSpeed = 2;
     }
 }

@@ -31,7 +31,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     [Header("Combat Settings")]
     public int health = 2;
     public int attackDamage = 10;
-    public float attackRange = 2.5f;
+    public float attackRange = 4f;
     public float attackCooldown = 3f;
     public bool canAttack = true;
     public bool canShot = false;
