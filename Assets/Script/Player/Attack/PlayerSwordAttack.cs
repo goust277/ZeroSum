@@ -46,6 +46,7 @@ public class PlayerSwordAttack : PlayerAttackState
         if (isAtkReady)
         {
             OnSwordAttack?.Invoke();
+            isAttack = true;
         }
 
     }
@@ -72,6 +73,10 @@ public class PlayerSwordAttack : PlayerAttackState
             {
                 bomb.TakeDamage(transform.position);
             }
+
+            var shakePreset = ProCamera2DShake.Instance.ShakePresets[0];
+
+            ProCamera2DShake.Instance.Shake(shakePreset);
         }
     }
 }

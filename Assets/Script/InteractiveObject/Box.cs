@@ -5,6 +5,9 @@ using UnityEngine;
 public class Box : MonoBehaviour, IDamageAble
 {
     private int hitCount;
+    [Header("drop items")]
+    [SerializeField] private GameObject[] dropItemList;
+
     [Header("박스 애니메이션")]
     [SerializeField] private Animator animator;
 
@@ -38,6 +41,9 @@ public class Box : MonoBehaviour, IDamageAble
 
     public void OpenBox()
     {
+        int dropIndex = Random.Range(0, dropItemList.Length);
+
+        Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 }

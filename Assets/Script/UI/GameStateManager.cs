@@ -46,7 +46,6 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         LoadEventFlags();
-        getChangedHP(0);
     }
 
     private void LoadEventFlags()
@@ -135,12 +134,25 @@ public class GameStateManager : MonoBehaviour
         return totalMagazine;
     }
 
+    public void resetReinforcement()
+    {
+        reinforcement = 0;
+        totalMagazine = 5;
+        UpdateReinforcementHUD();
+    }
 
     public void TakeReinforcementItem()
     {
         reinforcement++;
         UpdateReinforcementHUD();
     }
+
+    public void ReinforcementItem()
+    {
+        reinforcement++;
+        UpdateReinforcementHUD();
+    }
+
 
     public void UseReinforcement()
     {
@@ -192,17 +204,6 @@ public class GameStateManager : MonoBehaviour
         }
         reinforcementText.text = reinforcement.ToString();
         totalMagazineText.text = totalMagazine.ToString();
-    }
-
-    //hp는 추후에 또 조정해야함
-    public void getChangedHP(int fixHP)
-    {
-
-    }
-
-    public int getCurrentHP()
-    {
-        return hp;
     }
 
 }

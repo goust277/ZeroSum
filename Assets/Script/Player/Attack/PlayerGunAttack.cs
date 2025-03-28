@@ -15,8 +15,6 @@ public class PlayerGunAttack : PlayerAttackState
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
     [SerializeField] private float bulletSpeed;
-
-    [HideInInspector] public bool isAtkEnd;
     private float delayTime;
     private PlayerMovement playerMovement;
 
@@ -44,7 +42,7 @@ public class PlayerGunAttack : PlayerAttackState
         playerMovement = GetComponent<PlayerMovement>();
         bullet.GetComponent<PlayerBullet>().damage = this.damage;
         bullet.GetComponent<PlayerBullet>().speed = this.bulletSpeed;
-        isAtkEnd = false;
+        isAttack = false;
         InitializeBulletPool();
         isAtkReady = true;
     }
@@ -71,7 +69,7 @@ public class PlayerGunAttack : PlayerAttackState
 
     public void GunAttack()
     {
-        if (!isAtkEnd)
+        if (!isAttack)
         {
             if (!playerMovement.isDown)
             {
@@ -97,20 +95,22 @@ public class PlayerGunAttack : PlayerAttackState
     private void Attack()
     {
         delayTime = delay;
-        isAtkEnd = true;
+        isAttack = true;
 
-        GameObject bullets;
-        Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
+       if (Ver01_DungeonStatManager.Instance.ShotGun())
+       {
+            GameObject bullets;
+            Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
 
-        bullets = GetBulletFromPool();
-        bullets.transform.position = spawnPosition;
-        bullets.transform.rotation = Quaternion.identity;
-
-        PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
-        if (playerBullet != null)
-        {
-            playerBullet.SetDriection(transform.right);
-        }
+            bullets = GetBulletFromPool();
+            bullets.transform.position = spawnPosition;
+            bullets.transform.rotation = Quaternion.identity;
+            PlayerBullet playerBullet = bullets.GetComponent<PlayerBullet>();
+            if (playerBullet != null)
+            {
+                playerBullet.SetDriection(transform.right);
+            }
+       }
     }
 
     private void InitializeBulletPool()

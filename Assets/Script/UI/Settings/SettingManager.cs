@@ -33,7 +33,7 @@ public class SettingsManager : MonoBehaviour
     private int resolutionIndex = 0;
     private bool isFullscreen ;
     private bool isSettingOpen= true;
-    [SerializeField] private Button optionSettingbtn;
+
     [SerializeField] private Button optionResetbtn;
     [SerializeField] private GameObject optionSettingUI;
 
@@ -65,7 +65,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         isFullscreen = Screen.fullScreen;
-        ToggleFullscreen();
+        //ToggleFullscreen();
         //Screen.SetResolution(1920, 1080, true);
         //childTransform = gameObject.transform.GetChild(0);
 
@@ -75,7 +75,7 @@ public class SettingsManager : MonoBehaviour
         // �� UI ��ҿ� �̺�Ʈ ������ �߰�
         resolutionButton.onClick.AddListener(SetResolution);
         fullscreenButton.onClick.AddListener(ToggleFullscreen);
-        optionSettingbtn.onClick.AddListener(SettingOnOff);
+        //optionSettingbtn.onClick.AddListener(SettingOnOff);
         optionResetbtn.onClick.AddListener(OnClickResetBtn);
 
         //brightnessSlider.onValueChanged.AddListener(SetBrightness);
@@ -108,6 +108,11 @@ public class SettingsManager : MonoBehaviour
         textMeshPros[1].text = "켜짐";
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         isFullscreen = Screen.fullScreen;
+
+        int width = 1920; // ����
+        int height = 1080; // ����
+        textMeshPros[0].text = $"{width} X {height}";
+
     }
 
 
@@ -208,4 +213,6 @@ public class SettingsManager : MonoBehaviour
 
         //화면떨림 조정?
     }
+
+
 }

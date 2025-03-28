@@ -1,30 +1,41 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
 
-public class FarmingDoor : MonoBehaviour
+public class FarmingDoor : BaseInteractable
 {
-    private bool isTriggerEnter = false;
-    [SerializeField] private GameObject dropItem;
-    private SpriteRenderer spriteRenderer;
-    private void Start()
+    [SerializeField] private GameObject spriteChanger;
+    public Sprite[] sprites; // 변경할 스프라이트 배열
+
+    [SerializeField] private bool isTriggerEnter = false; // 플레이어가 근처에 있는지 여부
+    [SerializeField] private GameObject[] dropItemList;
+    [SerializeField] private Animator animator; // Animator 컴포넌트 참조
+
+    private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
+    private Collider2D doorCollider;
+
+    void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteChanger.SetActive(false);
+        spriteChangerScript = spriteChanger.GetComponent<SpriteChanger>();
+        doorCollider = GetComponent<Collider2D>(); // 콜라이더 참조
+    }
+
+    private void OpenDoor()
+    {
+        animator.SetTrigger("Open");
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void ReceiveDropIndex(int dropIndex)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (!isTriggerEnter)
-            {
-                isTriggerEnter = true;
-                spriteRenderer.color = Color.gray; // 색상을 회색으로 변경
-                Instantiate(dropItem, transform.position, Quaternion.identity);
-            }
-        }
+        Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
+    }
+
+    public override void Exe()
+    {
+        Invoke("OpenDoor", 2.0f);
+        spriteChanger.SetActive(true); // 활성화하면 자동으로 코루틴 실행됨
+        doorCollider.enabled = false;
+        isTriggerEnter = false;
     }
 }

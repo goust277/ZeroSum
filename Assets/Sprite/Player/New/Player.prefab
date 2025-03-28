@@ -64,7 +64,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.125}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &2084547523251236031
 GameObject:
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.8}
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2259039916255098375}
+  playerMovement: {fileID: 4624567407954587440}
 --- !u!1 &2404833764619434691
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1343450040649374167
 Transform:
   m_ObjectHideFlags: 0
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2259039916255098375}
+  playerMovement: {fileID: 4624567407954587440}
 --- !u!1 &3662116609696937257
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.32, y: 1.548068}
+  m_AnchoredPosition: {x: 0.37, y: 1.56}
   m_SizeDelta: {x: 500, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2275144602454062216
@@ -737,11 +739,11 @@ MonoBehaviour:
   maxJumpDuration: 0.15
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  gravityScale: 40
+  gravityScale: 10
   extraJump: 0
   coyoteTime: 0.3
-  dashPower: 5
-  dashDuration: 0.55
+  dashPower: 4
+  dashDuration: 0.5
   dashCoolTime: 1
   dashcurrentCoolTime: 0
   isDashing: 0
@@ -753,6 +755,8 @@ MonoBehaviour:
   groundCheckDistance: 0.15
   isGrounded: 0
   isDown: 0
+  standCollider: {fileID: 2084547523251236031}
+  downCollider: {fileID: 2404833764619434691}
 --- !u!114 &2009554393531965813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +843,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5173645359543541714}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
-        m_MethodName: OnAttack
+        m_MethodName: OnGunAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -869,10 +873,6 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Dash[/Keyboard/c]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 28da305c-9c2c-4eae-94a1-e34bc5aad750
-    m_ActionName: PlayerMovement/Tab[/Keyboard/tab]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 0efc0376-f6ca-4a89-b195-53f1529f57aa
     m_ActionName: PlayerMovement/F[/Keyboard/f]
   - m_PersistentCalls:
@@ -896,7 +896,19 @@ MonoBehaviour:
     m_ActionId: 18ada6fa-5569-45bb-b09a-305117933457
     m_ActionName: PlayerUI/ChangeWeapon[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Pause, Assembly-CSharp
+        m_MethodName: OnOffPuase
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2aecd2ee-363c-4808-8b48-82f7bdf2567e
     m_ActionName: PlayerMovement/ESC[/Keyboard/escape]
   - m_PersistentCalls:
@@ -949,9 +961,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Move2[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1386038478961999304}
-        m_TargetAssemblyTypeName: PlayerSwordAttack, Assembly-CSharp
-        m_MethodName: OnAttack
+      - m_Target: {fileID: 5173645359543541714}
+        m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
+        m_MethodName: OnSwordAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -981,7 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackDelay: 0
+  attackDelay: 0.5
   isAttack: 0
   delay: 0
   atkCoolTime: 0.5
@@ -1005,7 +1017,6 @@ MonoBehaviour:
   delay: 0.5
   atkCoolTime: 0
   bulletSpeed: 10
-  isAtkEnd: 0
   bullet: {fileID: 796731521868513732, guid: 95243165ac068bc409a28c0a9c2fdf74, type: 3}
   standAtk: {fileID: 7058667665522695352}
   downAtk: {fileID: 3644382290680043860}
@@ -1022,13 +1033,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a161f74676c8a6342b67536e8f3c3e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   painKiller: {fileID: 0}
+  invincibilityTime: 1
+  hp: 10
+  playerInput: {fileID: 1618354170298220806}
+  col: {fileID: 5074386604064509266}
 --- !u!1 &6838313063021161064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGunAttack: {fileID: 2281730580868451855}
+  playerSwordAttack: {fileID: 1386038478961999304}
 --- !u!114 &466851306121196646
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,62 +10,74 @@ using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
-    [Header("HUD Resource")]
-    [SerializeField] private GameObject[] hpUI;
-    [SerializeField] private GameObject painKiller;
+    //[Header("HUD Resource")]
+    //[SerializeField] 
+    private GameObject painKiller;
     private TextMeshProUGUI timeText;
-
+    
     [Header("invincibility time")]
     public float invincibilityTime;
-    [HideInInspector] public int hp = 5;
+    [HideInInspector] public int hp = 10;
     private bool isBlocked = false;
 
     [Header("Dying")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject col;
-    [SerializeField] private GameObject ReTry;
     private Rigidbody2D rb;
     public event Action OnDying;
     private bool OnDeath;
     void Start()
     {
-        // ÀÚ½Ä¿¡¼­ TextMeshProUGUI Ã£±â
+        // ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ TextMeshProUGUI Ã£ï¿½ï¿½
+        painKiller = Ver01_DungeonStatManager.Instance.GetPainKiller();
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
-        
+
         painKiller.SetActive(false);
         if (timeText == null)
         {
-            Debug.Log("¸øÃ£");
+            Debug.Log("ï¿½ï¿½Ã£");
         }
 
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
+
+        hp = Ver01_DungeonStatManager.maxHP;
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
     }
 
-    [Obsolete]
-    private void Update()
-    {
-        if (hp <= 0)
-        {
-            if(!OnDeath)
-            {
-                playerInput.enabled = false;
-                col.SetActive(false);
-                OnDeath = true;
-                OnDying?.Invoke();
-                rb.velocity = Vector3.zero;
-                rb.bodyType = RigidbodyType2D.Kinematic;
-            }
-        }
-    }
+    //[Obsolete]
+    //private void Update()
+    //{
+    //    if (hp <= 0)
+    //    {
+    //        if(!OnDeath)
+    //        {
+    //            playerInput.enabled = false;
+    //            col.SetActive(false);
+    //            OnDeath = true;
+    //            OnDying?.Invoke();
+    //            rb.velocity = Vector3.zero;
+    //            rb.bodyType = RigidbodyType2D.Kinematic;
+    //        }
+    //    }
+    //}
     public void InstantDeath()
     {
         hp = 0;
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(0);
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
+
+        Debug.Log("Game Over");
+
+        GameStateManager.Instance.UseReinforcement();
+        int reinforcement = GameStateManager.Instance.GetReinforcement();
+        HandleDeath(reinforcement);
     }
     //take Damage
     public void Damage()
     {
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
+
         if (!isBlocked)
         {
             if (hp - 1 < 0)
@@ -76,24 +88,30 @@ public class PlayerHP : MonoBehaviour
             }
             else
             {
+                Debug.Log("Hit");
                 hp--;
-                UpdateUI();
+                Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
             }
         }
     }
 
     public void GetHPItem()
     {
+        Debug.Log("GetHPItem í˜¸ì¶œ");
+
         hp++;
-        if (hp > 5)
+        if (hp > Ver01_DungeonStatManager.maxHP)
         {
-            hp = 5;
+            hp = Ver01_DungeonStatManager.maxHP;
         }
-        UpdateUI();
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
     }
 
     public void GetPainKiller(float blockDuration)
     {
+        Debug.Log("GetPainKiller í˜¸ì¶œ");
+
         if (!isBlocked)
         {
             StartCoroutine(BlockFunctionTemporarily(blockDuration));
@@ -119,25 +137,6 @@ public class PlayerHP : MonoBehaviour
         painKiller.SetActive(false);
     }
 
-    public void UpdateUI()
-    {
-        if(hpUI != null)
-        {
-            for (int i = 0; i < hpUI.Length; i++)
-            {
-                if (i < hp)
-                {
-                    hpUI[i].SetActive(true);
-                }
-                else
-                {
-                    hpUI[i].SetActive(false);
-                }
-            }
-        }
-
-    }
-
     private void HandleDeath(int reinforcement)
     {
         if (reinforcement > 0)
@@ -147,6 +146,13 @@ public class PlayerHP : MonoBehaviour
         else // die
         {
             Debug.Log("Game Over");
+            playerInput.enabled = false;
+            col.SetActive(false);
+            OnDeath = true;
+            OnDying?.Invoke();
+            rb.velocity = Vector3.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+
             //Ver01_DungeonStatManager.Instance.GameOver();
         }
     }
