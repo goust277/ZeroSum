@@ -32,7 +32,7 @@ public class FarmingDoor : BaseInteractable
         }
 
         invisibleObjs[0] = GameObject.Find("InputManager");
-        invisibleObjs[1] = player.transform.Find("Collider")?.gameObject;
+        invisibleObjs[1] = player.transform.Find("StandHitCollider ")?.gameObject;
         invisibleObjs[2] = player.transform.Find("Sprite")?.gameObject;
 
     }
@@ -40,15 +40,7 @@ public class FarmingDoor : BaseInteractable
     private void OpenDoor()
     {
         animator.SetTrigger("Open");
-
-        foreach (GameObject obj in invisibleObjs)
-        {
-            if (obj != null) // 🔹 null 체크
-            {
-                obj.SetActive(false);
-            }
-        }
-        Invoke("ReopenDoor", 2.0f);
+        Invoke("ReopenDoor", 1.0f);
     }
 
 
@@ -68,6 +60,16 @@ public class FarmingDoor : BaseInteractable
         Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
     }
 
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player") && !isUse)
+    //    {
+    //        Exe();
+    //    }
+    //}
+
+
     public override void Exe()
     {
         if(!isUse)
@@ -76,6 +78,15 @@ public class FarmingDoor : BaseInteractable
             spriteChanger.SetActive(true); // 활성화하면 자동으로 코루틴 실행됨
             doorCollider.enabled = false;
             isUse = true;
+
+            foreach (GameObject obj in invisibleObjs)
+            {
+                if (obj != null) // 🔹 null 체크
+                {
+                    obj.SetActive(false);
+                }
+            }
+
         }
 
     }
