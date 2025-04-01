@@ -111,14 +111,23 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
         }
+
+        if (other.CompareTag("MovingBlock"))
+        {
+            turn = true;
+        }
     }
 
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall") || other.collider.CompareTag("MovingBlock"))
+        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
         {
             turn = true;
+        }
+        if(other.collider.CompareTag("MovingBlock"))
+        {
+            TakeDamage();
         }
     }
 
@@ -197,6 +206,11 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         //    hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         //}
         //VisualDamage(atk);
+    }
+
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new Scout_Die(stateMachine, this));
     }
 
 
