@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
 using UnityEngine.InputSystem.XR.Haptics;
+using UnityEngine.Tilemaps;
 
 public class Scout : MonoBehaviour, IDetectable, IDamageAble
 {
@@ -17,6 +18,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
+    public GameObject groundCheck;
     public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
@@ -47,6 +49,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public int fireCount = 0;       // 발사 횟수
     public int maxFireCount = 3;    // 최대 발사 횟수
     private Transform fPoint;
+    public GameObject hitPrefab;
 
     //[Header("HP바 UI")]
     //[SerializeField] private Image hpBar;
@@ -108,12 +111,41 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
         }
+
+        if (other.CompareTag("MovingBlock"))
+        {
+            turn = true;
+        }
     }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall") || other.collider.CompareTag("MovingBlock"))
+        if(this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
         {
+            turn = true;
+        }
+        if(other.collider.CompareTag("MovingBlock"))
+        {
+            TakeDamage();
+        }
+    }
+
+    private bool isOnGround = false;
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Plane"))
+        {
+            isOnGround = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Plane"))
+        {
+            isOnGround = false;
             turn = true;
         }
     }
@@ -176,6 +208,11 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         //VisualDamage(atk);
     }
 
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+    }
+
 
     // 목표 반대로 변경
     public void FlipTarget()
@@ -212,6 +249,37 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             if (rb != null)
             {
                 rb.velocity = dir * BulletSpeed; // 발사 속도 설정
+            }
+        }
+    }
+
+    public void SpawnHitEffect()
+    {
+        Transform spawnPoint;
+        bool flipX;
+        float xOffset = 1f;
+
+        if ((player.position.x - transform.position.x) >= 0.2f)
+        {
+            spawnPoint = leftFirePoint;
+            flipX = false;
+        }
+        else
+        {
+            spawnPoint = rightFirePoint;
+            flipX = true;
+        }
+
+        if (hitPrefab != null)
+        {
+            Vector3 spawnPosition = spawnPoint.position + new Vector3(flipX ? xOffset : -xOffset, 0, 0);
+
+            GameObject hitInstance = Instantiate(hitPrefab, spawnPosition, Quaternion.identity);
+
+            SpriteRenderer hitSprite = hitInstance.GetComponent<SpriteRenderer>();
+            if (hitSprite != null)
+            {
+                hitSprite.flipX = flipX;
             }
         }
     }
