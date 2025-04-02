@@ -7,6 +7,7 @@ public class PlayerAtkEnd : MonoBehaviour
 {
     [SerializeField] private PlayerGunAttack playerGunAttack;
     [SerializeField] private PlayerSwordAttack playerSwordAttack;
+    [SerializeField] private Animator animator;
 
     public void IsAtkEnd()
     {
@@ -15,7 +16,21 @@ public class PlayerAtkEnd : MonoBehaviour
     
     public void IsSwordAtkEnd()
     {
-        playerSwordAttack.isAttack = false;
+        if(!playerSwordAttack.isAtk2)
+            playerSwordAttack.isAttack = false;
+    }
+    public void IsSwordAtkStart()
+    {
+        playerSwordAttack.isAttack = true;
+        playerSwordAttack.isAtk2 = false;
+    }
+    public void IsSwordComboTrue()
+    {
+        playerSwordAttack.canCombo = true;
     }
 
+    public void IsSwordComboFalse()
+    {
+        playerSwordAttack.canCombo = false;
+    }
 }

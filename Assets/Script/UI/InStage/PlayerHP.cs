@@ -1,12 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
 using TMPro;
-using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -14,7 +10,7 @@ public class PlayerHP : MonoBehaviour
     //[SerializeField] 
     private GameObject painKiller;
     private TextMeshProUGUI timeText;
-    
+    [SerializeField] private PlayerMovement playerMovement;
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
@@ -23,9 +19,14 @@ public class PlayerHP : MonoBehaviour
     [Header("Dying")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject col;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveTime;
+
+    private float curMoveTime;
     private Rigidbody2D rb;
     public event Action OnDying;
     private bool OnDeath;
+    private Vector3 deathDir;
     void Start()
     {
         // �ڽĿ��� TextMeshProUGUI ã��
@@ -43,24 +44,26 @@ public class PlayerHP : MonoBehaviour
 
         hp = Ver01_DungeonStatManager.maxHP;
         Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
+
+        curMoveTime = 0f;
     }
 
-    //[Obsolete]
-    //private void Update()
-    //{
-    //    if (hp <= 0)
-    //    {
-    //        if(!OnDeath)
-    //        {
-    //            playerInput.enabled = false;
-    //            col.SetActive(false);
-    //            OnDeath = true;
-    //            OnDying?.Invoke();
-    //            rb.velocity = Vector3.zero;
-    //            rb.bodyType = RigidbodyType2D.Kinematic;
-    //        }
-    //    }
-    //}
+
+    private void Update()
+    {
+        if(OnDeath)
+        {
+            curMoveTime += Time.deltaTime;
+            if(curMoveTime < moveTime)
+            {
+                rb.velocity = deathDir * moveSpeed;
+            }
+            else if (curMoveTime >= moveTime)
+            {
+                rb.velocity = Vector2.zero;
+            }
+        }
+    }
     public void InstantDeath()
     {
         hp = 0;
@@ -150,9 +153,16 @@ public class PlayerHP : MonoBehaviour
             col.SetActive(false);
             OnDeath = true;
             OnDying?.Invoke();
-            rb.velocity = Vector3.zero;
             rb.bodyType = RigidbodyType2D.Kinematic;
 
+            if(playerMovement.moveLeft)
+            {
+                deathDir = new Vector3(1f, 0f, 0f);
+            }
+            else
+            {
+                deathDir = new Vector3(-1f, 0f, 0f);
+            }
             //Ver01_DungeonStatManager.Instance.GameOver();
         }
     }
