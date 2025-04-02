@@ -11,6 +11,7 @@ public class PlayerHP : MonoBehaviour
     private GameObject painKiller;
     private TextMeshProUGUI timeText;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerAnimation playerAnimation;
     [Header("invincibility time")]
     public float invincibilityTime;
     [HideInInspector] public int hp = 10;
@@ -91,6 +92,7 @@ public class PlayerHP : MonoBehaviour
             }
             else
             {
+                playerAnimation.Hit();
                 Debug.Log("Hit");
                 hp--;
                 Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);

@@ -6891,6 +6891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 7596546353161283310}
   num: 0
+  animator: {fileID: 923448717}
 --- !u!61 &703641420
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7417,6 +7418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 923448715}
   - component: {fileID: 923448716}
+  - component: {fileID: 923448717}
   m_Layer: 0
   m_Name: Z_object1_v0.1_250227
   m_TagString: Untagged
@@ -7491,6 +7493,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &923448717
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923448714}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eb92880719ae03f42a28a2ebb75564f7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &946129940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20455,11 +20478,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.07
+      value: -8.49
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.86
+      value: 17.41
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20517,6 +20540,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1970744127}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: playerAnimation
+      value: 
+      objectReference: {fileID: 1202825062}
     - target: {fileID: 2281730580868451855, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: bulletParent
       value: 
@@ -20564,6 +20591,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6748893214020954111, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
   m_PrefabInstance: {fileID: 1202825060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1202825062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2009554393531965813, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+  m_PrefabInstance: {fileID: 1202825060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202825061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9fd0e8654445b419130df5a05a4564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1245861260
 GameObject:
   m_ObjectHideFlags: 0
@@ -22231,8 +22269,37 @@ PrefabInstance:
     - {fileID: 3734508362130931129, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7500888512106305314, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1343963597}
   m_SourcePrefab: {fileID: 100100000, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+--- !u!1 &1343963596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7500888512106305314, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+  m_PrefabInstance: {fileID: 1343963595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1343963597
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343963596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8ead9c8e4374c940a8df8e667cd3cf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1352714702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24966,6 +25033,8 @@ GameObject:
   - component: {fileID: 1234921687790917169}
   - component: {fileID: 7596546353161283309}
   - component: {fileID: 7596546353161283310}
+  - component: {fileID: 7596546353161283312}
+  - component: {fileID: 7596546353161283311}
   m_Layer: 6
   m_Name: ControlEv
   m_TagString: MovingBlock
@@ -25031,6 +25100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBottom: 0
+  animator: {fileID: 0}
   moveSpeed: 2
   movePosition: {x: 0, y: 4, z: 0}
   waitingTime: 2
@@ -25041,6 +25111,40 @@ MonoBehaviour:
   - {fileID: 421510318}
   - {fileID: 482450332}
   btnNum: 0
+--- !u!114 &7596546353161283311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500888512169576489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b757d6fa2d0fb64790e281b974f998a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7596546353161283312}
+--- !u!95 &7596546353161283312
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500888512169576489}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8ead9c8e4374c940a8df8e667cd3cf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &7622175511110613983
 BoxCollider2D:
   m_ObjectHideFlags: 0

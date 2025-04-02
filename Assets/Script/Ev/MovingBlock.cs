@@ -26,6 +26,7 @@ public class MovingBlock : BaseEv
 
     private bool isMoving = false;
 
+
     private void Start()
     {
         targetPosition = transform.position;
@@ -37,6 +38,7 @@ public class MovingBlock : BaseEv
         isWaiting = false;
         firstPosition = transform.position;
         lastPostion = transform.position + (movePosition * moveCount);
+
     }
 
     // Update is called once per frame

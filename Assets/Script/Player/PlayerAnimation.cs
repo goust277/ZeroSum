@@ -140,4 +140,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetTrigger("Dying");
     }
+
+    public void Hit()
+    {
+        animator.SetTrigger("Hit");
+    }
 }
