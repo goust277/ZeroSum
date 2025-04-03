@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -11,9 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerSwordAttack playerSwordAttack;
     private PlayerHP playerHp;
     private Rigidbody2D rb;
-    private bool OnBattleArea;
 
-    private bool isMoveStart;
     private bool isDownStart;
 
     private void Awake()
@@ -31,6 +26,7 @@ public class PlayerAnimation : MonoBehaviour
         playerGunAttack.OnGunAttack += GunAttackAnimation;
         playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
         playerSwordAttack.OnSwordAttack += SwordAttack;
+        playerSwordAttack.OnSwordSecAttack += SwordSecAttack;
         playerHp.OnDying += Dying;
     }
 
@@ -95,6 +91,7 @@ public class PlayerAnimation : MonoBehaviour
             playerGunAttack.OnGunAttack -= GunAttackAnimation;
             playerGunAttack.OnFirstGunAttack -= FirstGunAttackAnimation;
             playerSwordAttack.OnSwordAttack -= SwordAttack;
+            playerSwordAttack.OnSwordSecAttack -= SwordSecAttack;
             playerHp.OnDying -= Dying;
         }
     }
@@ -135,8 +132,17 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    private void SwordSecAttack()
+    {
+        animator.SetTrigger("Attack2");
+    }
     private void Dying()
     {
         animator.SetTrigger("Dying");
+    }
+
+    public void Hit()
+    {
+        animator.SetTrigger("Hit");
     }
 }

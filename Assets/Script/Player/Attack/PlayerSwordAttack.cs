@@ -13,12 +13,17 @@ public class PlayerSwordAttack : PlayerAttackState
     [HideInInspector] public bool isParryingReady;
 
     private bool isAtkReady;
+    public bool canCombo = true;
+    [HideInInspector] public bool isAtk2;
 
     public event Action OnSwordAttack;
-
+    public event Action OnSwordSecAttack;
+    
     private void Start()
     {
         isAtkReady = true;
+        canCombo = true ;
+        isAtk2 = false;
         delay = 0f;
     }
 
@@ -45,10 +50,18 @@ public class PlayerSwordAttack : PlayerAttackState
     {
         if (isAtkReady)
         {
-            OnSwordAttack?.Invoke();
             isAttack = true;
-        }
 
+            if (canCombo)
+            {
+                OnSwordAttack?.Invoke();
+            }
+            else
+            {
+                OnSwordSecAttack?.Invoke();
+                isAtk2 = true;
+            }
+        }
     }
 
     public void Parrying()

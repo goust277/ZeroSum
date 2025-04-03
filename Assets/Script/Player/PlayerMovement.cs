@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveTime = 0f;
     private Vector2 input;
     private float lastDirectionX = 0f;
-    private bool moveLeft;
+    [HideInInspector] public bool moveLeft;
 
     [Header("run")]
     [SerializeField] private float runMoveSpeed = 8f;
