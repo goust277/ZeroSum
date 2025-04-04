@@ -176,14 +176,12 @@ public class GameStateManager : MonoBehaviour
         if (reinforcement == 1)
         {
             //이펙트 강화, 연사력 강화
-            
-            totalMagazine = 5;
         }
         if (reinforcement == 2)
         {
             //이펙트, 외형강화
             
-            totalMagazine = 8;
+            totalMagazine = 70;
         }
         if (reinforcement == 3)
         {
@@ -195,7 +193,7 @@ public class GameStateManager : MonoBehaviour
         if (reinforcement == 4)
         {
             //이펙트 강화, 외형 강화
-            totalMagazine = 12;
+            totalMagazine = 100;
         }
         if(reinforcement == 5)
         {

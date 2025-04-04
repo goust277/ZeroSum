@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8568741074528870151
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1764679f4a49ac8448ccd6db9f1cac82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 4cb56832a6ce9ec4399036e1c9b5077b, type: 3}
+  _scaleRange: {x: 1, y: 100}
+  _noiseResolution: 512
+  _palette: {fileID: 2800000, guid: 231968c350671734b9d209a7d4e6daa3, type: 3}
+  _pattern: {fileID: 2800000, guid: 349aad560c9df8343a28deb0dad611ee, type: 3}
+  _noiseMode: 1
+  _pixelate: 1
+  _scale: 0.735
+  _frameRate: 0
 --- !u!114 &-4952762805451326580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,7 +54,8 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: 571628450402406983}
-  m_RendererFeatureMap: 4712be090cd5ee07
+  - {fileID: 5233715903261011665}
+  m_RendererFeatureMap: 4712be090cd5ee07d16e2f75e2e4a148
   m_UseNativeRenderPass: 0
   m_TransparencySortMode: 0
   m_TransparencySortAxis: {x: 0, y: 1, z: 0}
@@ -326,6 +348,22 @@ MonoBehaviour:
   _chaoticTime: 0
   _chaoticInterval: 0
   _bleed: 0
+--- !u!114 &5233715903261011665
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f396e9ba7dea945829407a37a6a043, type: 3}
+  m_Name: DitherFx
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _event: 600
+  _pass: {fileID: -8568741074528870151}
+  _blitShader: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
 --- !u!114 &7915078538373673596
 MonoBehaviour:
   m_ObjectHideFlags: 3

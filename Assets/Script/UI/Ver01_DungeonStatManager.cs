@@ -108,7 +108,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public int TakeReloadItem()
     {
-        int bullet = Random.Range(1, 4);
+        int bullet = Random.Range(5, 20);
 
         if( currentMagazine + bullet > totalMagazine)
         {
