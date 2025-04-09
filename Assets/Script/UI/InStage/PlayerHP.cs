@@ -35,10 +35,6 @@ public class PlayerHP : MonoBehaviour
         timeText = painKiller.GetComponentInChildren<TextMeshProUGUI>();
 
         painKiller.SetActive(false);
-        if (timeText == null)
-        {
-            Debug.Log("��ã");
-        }
 
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
@@ -165,7 +161,7 @@ public class PlayerHP : MonoBehaviour
             {
                 deathDir = new Vector3(-1f, 0f, 0f);
             }
-            //Ver01_DungeonStatManager.Instance.GameOver();
+            Ver01_DungeonStatManager.Instance.GameOver();
         }
     }
 }
