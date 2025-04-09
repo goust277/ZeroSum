@@ -18,9 +18,25 @@ public class Bullet : MonoBehaviour
             if (this.CompareTag("MonsterAtk"))
             {
                 IDamageAble damageable = other.GetComponent<IDamageAble>();
-                damageable?.Damage(1);
-                Destroy(gameObject);
+                if (damageable != null)
+                {
+                    try
+                    {
+                        Debug.Log("Damage 호출 전");
+                        damageable.Damage(1);
+                        Debug.Log("Damage 호출 후"); // 이게 안 나오고 있음
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"Damage() 예외 발생! {e.Message}\n{e.StackTrace}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("IDamageAble 컴포넌트 없음");
+                }
             }
+            Destroy(gameObject);
         }
     }
 }

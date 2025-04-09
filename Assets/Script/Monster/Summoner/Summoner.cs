@@ -16,6 +16,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
+    public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
 
@@ -99,6 +100,23 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
         }
+
+        if (other.CompareTag("MovingBlock") || other.CompareTag("Ev"))
+        {
+            turn = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
+        {
+            turn = true;
+        }
+        if (other.collider.CompareTag("MovingBlock"))
+        {
+            TakeDamage();
+        }
     }
 
     private void VisualDamage(int value)
@@ -157,6 +175,11 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
         VisualDamage(atk);
+    }
+
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new Summoner_Die(stateMachine, this));
     }
 
     // 목표 반대로 변경

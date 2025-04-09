@@ -31,11 +31,19 @@ public class Summoner_Patrol : BaseState
         if (summoner.transform.position.x < summoner.currentTarget.x)
         {
             summoner.sprite.flipX = true;
+            summoner.detect.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
 
         if (summoner.transform.position.x > summoner.currentTarget.x)
         {
             summoner.sprite.flipX = false;
+            summoner.detect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+
+        if (summoner.turn)
+        {
+            SetNextTarget();
+            summoner.turn = false;
         }
 
         summoner.transform.position = Vector3.MoveTowards(summoner.transform.position, summoner.currentTarget, summoner.moveSpeed * Time.deltaTime);

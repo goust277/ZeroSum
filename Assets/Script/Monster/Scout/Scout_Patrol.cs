@@ -32,14 +32,12 @@ public class Scout_Patrol : BaseState
         {
             scout.sprite.flipX = true;
             scout.detect.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            scout.groundCheck.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
 
         if (scout.transform.position.x > scout.currentTarget.x)
         {
             scout.sprite.flipX = false;
             scout.detect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            scout.groundCheck.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
 

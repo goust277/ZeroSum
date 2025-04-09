@@ -25,7 +25,8 @@ public class Scout_Chase : BaseState
             return;
         }
         
-        if (!scout.isPlayerInRange)
+        if (Mathf.Abs(scout.player.transform.position.x - scout.transform.position.x) >= 9f 
+            || Mathf.Abs(scout.player.transform.position.y - scout.transform.position.y) >= 2f)
         {
             stateMachine.ChangeState(new Scout_Patrol(stateMachine, scout));
             return;
