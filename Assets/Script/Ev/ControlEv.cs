@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class ControlEv : BaseEv, IControllable
 {
+    [SerializeField] private Animator animator;
+
     [Header("Move")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector3 movePosition;
     [SerializeField] private float waitingTime;
     [SerializeField] private float moveCount;
-    [SerializeField] private bool isUp;
+     public bool isUp;
 
     [Header("ButtonTransform")]
     [SerializeField] private Transform[] buttonTransforms;
@@ -28,6 +30,7 @@ public class ControlEv : BaseEv, IControllable
         curMoveCount = 0f;
         isBottom = false;
         isBtnOn = false;
+
         if (movePosition.y > 0)
         {
             topPosition = transform.position + (movePosition * moveCount);
@@ -80,9 +83,13 @@ public class ControlEv : BaseEv, IControllable
         {
             curMoveCount = 0f;
             if(isUp)
+            {
                 isUp = false;
+            }
             else
+            {
                 isUp = true;
+            }
         }
         if(isBtnOn)
         {
@@ -137,6 +144,5 @@ public class ControlEv : BaseEv, IControllable
         isUp = true;
         curWaitTime = 0f;
         Debug.Log("엘리베이터 상호작용");
-
     }
 }
