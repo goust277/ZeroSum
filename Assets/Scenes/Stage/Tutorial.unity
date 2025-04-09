@@ -743,6 +743,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 3}
   m_EdgeRadius: 0
+--- !u!4 &128183727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6961850882024700502, guid: 685d7272ee64ffe42aa2139b389ed2e1, type: 3}
+  m_PrefabInstance: {fileID: 421510317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &133412422
 GameObject:
   m_ObjectHideFlags: 0
@@ -20682,6 +20687,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 991171206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1334203412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6961850882024700502, guid: 685d7272ee64ffe42aa2139b389ed2e1, type: 3}
+  m_PrefabInstance: {fileID: 482450331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1335256362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29874,15 +29884,15 @@ PrefabInstance:
     - target: {fileID: 8005810666787795101, guid: 75109e486aa1ae940a6fc076990714e0, type: 3}
       propertyPath: buttonTransforms.Array.data[0]
       value: 
-      objectReference: {fileID: 703641418}
+      objectReference: {fileID: 2105300521}
     - target: {fileID: 8005810666787795101, guid: 75109e486aa1ae940a6fc076990714e0, type: 3}
       propertyPath: buttonTransforms.Array.data[1]
       value: 
-      objectReference: {fileID: 421510319}
+      objectReference: {fileID: 128183727}
     - target: {fileID: 8005810666787795101, guid: 75109e486aa1ae940a6fc076990714e0, type: 3}
       propertyPath: buttonTransforms.Array.data[2]
       value: 
-      objectReference: {fileID: 482450333}
+      objectReference: {fileID: 1334203412}
     - target: {fileID: 8005810666787795101, guid: 75109e486aa1ae940a6fc076990714e0, type: 3}
       propertyPath: buttonTransforms.Array.data[3]
       value: 
