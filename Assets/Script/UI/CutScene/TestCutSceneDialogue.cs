@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestCutScneDialogue : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class TestCutScneDialogue : MonoBehaviour
     private string[] texts =
     {
         "requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());",
-        " mapImage.gameObject.GetComponent<RectTransform>()",
-        "portraits[i].GetComponent<Image>().color = (i == speakingPortraits) ? Color.white : new Color(0.3f, 0.3f, 0.3f, 1)"
+        " mapImage.gameObject.GetComponent<RectTransform>()"
     };
 
 
@@ -32,13 +32,16 @@ public class TestCutScneDialogue : MonoBehaviour
     {
         foreach (var dialog in texts)
         {
-            Debug.Log(dialog);
+            //Debug.Log(dialog);
             //foreach (var line in dialog)
             //{   //desTXT.text = line;
             dialogueText.text = "";
             for (int index = 0; index < dialog.Length; index++)
             {
                 dialogueText.text += dialog[index].ToString();
+
+                // 텍스트 추가 후 강제로 레이아웃 갱신
+                //LayoutRebuilder.ForceRebuildLayoutImmediate(dialogueText.rectTransform);
                 yield return new WaitForSeconds(0.03f); //
             }
             dialogueText.text += "\n";

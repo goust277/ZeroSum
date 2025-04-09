@@ -1,9 +1,12 @@
+using Com.LuisPedroFonseca.ProCamera2D;
+using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -26,7 +29,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
-
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverPrefab;
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
@@ -101,11 +105,6 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         UpdateHPUI(10);
     }
 
-    //public int GetDamageValue()
-    //{
-    //    return damage;
-    //}
-
     public int TakeReloadItem()
     {
         int bullet = Random.Range(5, 20);
@@ -168,11 +167,13 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void GameOver()
     {
-        //Gameover Function 
+        if (gameOverPrefab == null)
+        {
+            Debug.LogError("GameOver 프리팹이 할당되지 않았습니다.");
+            return;
+        }
 
-        //최종 세이브 위치 저장
-        //저장했을때 있었던 스탯들 저장
-        //. 씬 전환 (전환하더라도 계속 따라감)
-        //게임오버 화면에서 컨티뉴 누르면 다시 불러오기 << 이건게임오버화면 컨트롤러같은거 필요한가?
+        Instantiate(gameOverPrefab);
+
     }
 }

@@ -172,30 +172,36 @@ public class GameStateManager : MonoBehaviour
         if (reinforcement == 0)
         {
             //이펙트 x, 연사력 x
+            totalMagazine = 5;
         }
-        if (reinforcement == 1)
+        else if (reinforcement == 1)
         {
             //이펙트 강화, 연사력 강화
+            totalMagazine = 8;
         }
-        if (reinforcement == 2)
+        else if(reinforcement == 2)
         {
             //이펙트, 외형강화
             
-            totalMagazine = 70;
+            totalMagazine = 12;
         }
-        if (reinforcement == 3)
+        else if(reinforcement == 3)
         {
             //이펙트 강화, 공격력 5
             
-            totalMagazine = 8;
+            totalMagazine = 16;
 
         }
-        if (reinforcement == 4)
+        else if(reinforcement == 4)
         {
             //이펙트 강화, 외형 강화
-            totalMagazine = 100;
+            totalMagazine = 20;
         }
-        if(reinforcement == 5)
+        else if(reinforcement == 5)
+        {
+            totalMagazine = 30;
+        }
+        else if(reinforcement == 6)
         {
             reinforcement--;
             Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");
