@@ -40,7 +40,7 @@ public class GameOver : MonoBehaviour
         player = playerObj.transform;
 
         StartCoroutine(HandleGameOverSequence());
-        proCamera2D.Zoom(-5.0f, 2.0f, EaseType.EaseInOut);
+        proCamera2D.Zoom(targetSize-cam.orthographicSize, duration, EaseType.EaseInOut);
     }
 
 
@@ -53,15 +53,15 @@ public class GameOver : MonoBehaviour
         proCamera2D.RemoveAllCameraTargets();
         proCamera2D.AddCameraTarget(offsetTarget);
 
-        float targetSize = 2.0f;
+        float halfDuration = duration / 2;
         float startSize = cam.orthographicSize;
         float time = 0f;
 
-        while (time < duration)
+        while (time < halfDuration)
         {
 
             time += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 0.9f, time / duration);
+            float alpha = Mathf.Lerp(0f, 0.9f, time / halfDuration);
             redImg.color = new Color(color.r, color.g, color.b, alpha);
             cam.orthographicSize = Mathf.Lerp(startSize, targetSize, time / duration);
             yield return null;
@@ -72,10 +72,10 @@ public class GameOver : MonoBehaviour
         gameOverUI.SetActive(true);
 
         time = 0f;
-        while (time < duration)
+        while (time < halfDuration)
         {
             time += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 0.9f, time / duration);
+            float alpha = Mathf.Lerp(0f, 0.9f, time / halfDuration);
             blackImg.color = new Color(color.r, color.g, color.b, alpha);
             //cam.transform.position = player.transform.position;
             yield return null;
