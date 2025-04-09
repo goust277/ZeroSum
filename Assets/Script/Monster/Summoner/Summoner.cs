@@ -27,7 +27,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
     [Header("Combat Settings")]
     public int health = 100;
     public int attackDamage = 10;
-    public float attackRange = 1.5f;
+    public float attackRange = 5f;
     public float attackCooldown = 0f;
     public bool canAttack = true;
     private bool isCooldownComplete;
@@ -182,9 +182,10 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 
         for (int i = 0; i < summonCount; i++)
         {
-            float randomX = Random.Range(-spawnRangeX, spawnRangeX);
-            Vector3 spawnPosition = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z);
+            float step = (spawnRangeX * 2) / (summonCount - 1); // 총 거리 나누기 등분수
+            float xOffset = -spawnRangeX + (step * i); // 왼쪽 끝에서 시작해서 step씩 증가
 
+            Vector3 spawnPosition = new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z);
             Instantiate(spider, spawnPosition, Quaternion.identity);
         }
     }

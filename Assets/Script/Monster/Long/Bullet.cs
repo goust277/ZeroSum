@@ -13,14 +13,14 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") /*|| other.CompareTag("Plane")*/)
+        if (other.CompareTag("Player") || other.CompareTag("Plane") || other.CompareTag("Wall"))
         {
             if (this.CompareTag("MonsterAtk"))
             {
                 IDamageAble damageable = other.GetComponent<IDamageAble>();
                 damageable?.Damage(1);
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
 }
