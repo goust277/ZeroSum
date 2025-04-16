@@ -21,19 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1014725747, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: -26774770, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.083333336
-      value: {fileID: -1041196937, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: 1492059208, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.16666667
-      value: {fileID: 1103923650, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: 1411467888, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.25
-      value: {fileID: -638379355, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: 1628920663, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.33333334
-      value: {fileID: 2019199903, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: 1968867627, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.41666666
-      value: {fileID: 488685148, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: 1325894548, guid: da89aba5f7731d149aada050af886504, type: 3}
     - time: 0.5
-      value: {fileID: 447987077, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+      value: {fileID: -1583519479, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - time: 0.5833333
+      value: {fileID: -1516272584, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - time: 0.6666667
+      value: {fileID: -1219609223, guid: da89aba5f7731d149aada050af886504, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -56,19 +60,21 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1014725747, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: -1041196937, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: 1103923650, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: -638379355, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: 2019199903, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: 488685148, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
-    - {fileID: 447987077, guid: 59bfe6c5c545ff54a9c797c42de6e80f, type: 3}
+    - {fileID: -26774770, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: 1492059208, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: 1411467888, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: 1628920663, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: 1968867627, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: 1325894548, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: -1583519479, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: -1516272584, guid: da89aba5f7731d149aada050af886504, type: 3}
+    - {fileID: -1219609223, guid: da89aba5f7731d149aada050af886504, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5833333
+    m_StopTime: 0.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -89,20 +95,41 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: IsSwordAtkStart
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
     functionName: IsSwordComboFalse
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.33333334
+    functionName: OnStandAtk
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c47e66533e0c9e240831cd43de111c74, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: OffStandAtk
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c47e66533e0c9e240831cd43de111c74, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
     functionName: IsSwordAtkEnd
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.6666667
     functionName: IsSwordComboTrue
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
