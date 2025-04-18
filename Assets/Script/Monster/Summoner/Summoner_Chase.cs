@@ -18,20 +18,23 @@ public class Summoner_Chase : BaseState
 
     public override void Execute()
     {
-        if (!summoner.isPlayerInRange)
+        if (Mathf.Abs(summoner.player.transform.position.x - summoner.transform.position.x) >= 9f
+            || Mathf.Abs(summoner.player.transform.position.y - summoner.transform.position.y) >= 2f)
         {
-            stateMachine.ChangeState(new Summoner_Patrol(stateMachine, summoner));
+            stateMachine.ChangeState(new Summoner_Idle(stateMachine, summoner));
             return;
         }
 
         if (summoner.transform.position.x < summoner.player.position.x)
         {
             summoner.sprite.flipX = true;
+            summoner.detect.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
 
         if (summoner.transform.position.x > summoner.player.position.x)
         {
             summoner.sprite.flipX = false;
+            summoner.detect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         if (summoner.attackRange > Mathf.Abs(summoner.player.position.x - summoner.transform.position.x))

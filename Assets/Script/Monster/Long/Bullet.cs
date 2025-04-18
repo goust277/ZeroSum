@@ -13,12 +13,28 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") /*|| other.CompareTag("Plane")*/)
+        if (other.CompareTag("Player") || other.CompareTag("Plane") || other.CompareTag("Wall"))
         {
             if (this.CompareTag("MonsterAtk"))
             {
                 IDamageAble damageable = other.GetComponent<IDamageAble>();
-                damageable?.Damage(1);
+                if (damageable != null)
+                {
+                    try
+                    {
+                        Debug.Log("Damage 호출 전");
+                        damageable.Damage(1);
+                        Debug.Log("Damage 호출 후"); // 이게 안 나오고 있음
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"Damage() 예외 발생! {e.Message}\n{e.StackTrace}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("IDamageAble 컴포넌트 없음");
+                }
             }
             Destroy(gameObject);
         }

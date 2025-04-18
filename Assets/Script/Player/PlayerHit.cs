@@ -32,7 +32,6 @@ public class PlayerHit : MonoBehaviour , IDamageAble
     {
         if (!isInvincibility && value != 10)
         {
-
             player.Damage();
             isInvincibility = true;
             time = 0f;

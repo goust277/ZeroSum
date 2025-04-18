@@ -16,6 +16,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
+    public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
 
@@ -100,6 +101,14 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
+        {
+            turn = true;
+        }
+    }
+
     private void VisualDamage(int value)
     {
         Debug.Log("VisualDamage");
@@ -137,7 +146,14 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
                 return;
             }
 
+            if(atk != 10)
             health--;
+
+            else
+            {
+                stateMachine.ChangeState(new S_Die(stateMachine, this));
+                return;
+            }
 
             if (health <= 0)
             {

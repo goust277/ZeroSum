@@ -20,7 +20,13 @@ public class Scout_Chase : BaseState
 
     public override void Execute()
     {
-        if (!scout.isPlayerInRange)
+        if(scout.anim.GetCurrentAnimatorStateInfo(0).IsName("Scout_attack_end"))
+        {
+            return;
+        }
+        
+        if (Mathf.Abs(scout.player.transform.position.x - scout.transform.position.x) >= 9f 
+            || Mathf.Abs(scout.player.transform.position.y - scout.transform.position.y) >= 2f)
         {
             stateMachine.ChangeState(new Scout_Patrol(stateMachine, scout));
             return;
@@ -46,7 +52,7 @@ public class Scout_Chase : BaseState
                 return;
             }
         }
-        float offsetX = scout.sprite.flipX ? -3f : 3f;
+        float offsetX = scout.sprite.flipX ? -5f : 5f;
 
         Vector3 targetPosition = new Vector3(scout.player.position.x + offsetX, scout.transform.position.y, 0);
         scout.transform.position = Vector3.MoveTowards(scout.transform.position, targetPosition, scout.moveSpeed * Time.deltaTime);

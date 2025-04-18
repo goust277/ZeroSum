@@ -22,10 +22,14 @@ public class Scout_Attack : BaseState
 
     public override void Execute()
     {
-        if (scout.fireCount >= scout.maxFireCount)
+        if (scout.fireCount >= scout.maxFireCount 
+            && scout.anim.GetCurrentAnimatorStateInfo(0).IsName("Scout_attack"))
         {
-            stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
-            return;
+            if(scout.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
+                return;
+            }
         }
     }
     public override void Exit()

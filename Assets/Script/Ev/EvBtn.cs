@@ -35,6 +35,7 @@ public class EvBtn : BaseInteractable
         target.btnNum = num;
         target.Exe();
 
+        animator.SetTrigger("Click");
         Debug.Log("버튼 상호작용");
     }
 }

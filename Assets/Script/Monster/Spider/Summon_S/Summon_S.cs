@@ -16,6 +16,7 @@ public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
+    public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
 
@@ -105,6 +106,14 @@ public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
+        {
+            turn = true;
+        }
+    }
+
     //private void VisualDamage(int value)
     //{
     //    Debug.Log("VisualDamage");
@@ -142,7 +151,15 @@ public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
                 return;
             }
 
-            health--;
+            if (atk == 10)
+            {
+                stateMachine.ChangeState(new S_Die1(stateMachine, this));
+                return;
+            }
+            else if(atk != 10)
+            {
+                health--;
+            }
 
             if (health <= 0)
             {
@@ -161,6 +178,11 @@ public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
         //VisualDamage(atk);
+    }
+
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new S_Die1(stateMachine, this));
     }
 
     // 목표 반대로 변경

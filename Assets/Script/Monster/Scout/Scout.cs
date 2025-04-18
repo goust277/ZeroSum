@@ -18,7 +18,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
     public Vector3 currentTarget;
-    public GameObject groundCheck;
     public bool turn;
 
     public Vector3 spawnPoint => spawnPosition;
@@ -32,8 +31,8 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
 
     [Header("Combat Settings")]
     public int health = 2;
-    public int attackDamage = 10;
-    public float attackRange = 4f;
+    public int attackDamage = 1;
+    public float attackRange = 6f;
     public float attackCooldown = 3f;
     public bool canAttack = true;
     public bool canShot = false;
@@ -112,7 +111,7 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             damageable?.Damage(attackDamage);
         }
 
-        if (other.CompareTag("MovingBlock"))
+        if (other.CompareTag("MovingBlock") || other.CompareTag("Ev"))
         {
             turn = true;
         }
@@ -131,24 +130,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
-    private bool isOnGround = false;
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Plane"))
-        {
-            isOnGround = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Plane"))
-        {
-            isOnGround = false;
-            turn = true;
-        }
-    }
 
     private void VisualDamage(int value)
     {
