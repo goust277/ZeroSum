@@ -58,6 +58,7 @@ public class GameOver : MonoBehaviour
         gameOverCanvas.worldCamera = cam; // 또는 너가 쓰는 proCamera2D 같은 카메라
 
         StartCoroutine(HandleGameOverSequence());
+        Invoke("ShowDeadBodySprite", 1.0f);
         proCamera2D.Zoom(targetSize-cam.orthographicSize, duration, EaseType.EaseInOut);
     }
 
@@ -87,8 +88,6 @@ public class GameOver : MonoBehaviour
 
             yield return null;
         }
-
-        ShowDeadBodySprite();
 
         time = 0f;
         while (time < halfDuration)
