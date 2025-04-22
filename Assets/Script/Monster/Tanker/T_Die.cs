@@ -5,6 +5,7 @@ using UnityEngine;
 public class T_Die : BaseState
 {
     Tanker tanker;
+    float timer = 0;
 
     public T_Die(StateMachine stateMachine, Tanker monster) : base(stateMachine)
     {
@@ -13,6 +14,7 @@ public class T_Die : BaseState
 
     public override void Enter()
     {
+        timer = 2f;
         tanker.isDie = true;
 
         if ((tanker.player.position.x - tanker.transform.position.x) >= 0.2f)
@@ -31,9 +33,14 @@ public class T_Die : BaseState
 
     public override void Execute()
     {
+        timer -= Time.deltaTime;
         AnimatorStateInfo stateInfo = tanker.anim.GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.IsName("T_die") && stateInfo.normalizedTime >= 0.98f)
+        {
+            tanker.gameObject.SetActive(false);
+        }
+        else if(timer <= 0)
         {
             tanker.gameObject.SetActive(false);
         }
