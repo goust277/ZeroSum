@@ -34,10 +34,6 @@ public class PipeRotate : MonoBehaviour
                 {
                     isAnswer = true;
                     answerUp?.Invoke();
-                    foreach(ChangeLink changeLink in change)
-                    {
-                        changeLink.ChangeColor();
-                    }
                 }
             }
             else if (rotationStep != answer)
@@ -46,10 +42,6 @@ public class PipeRotate : MonoBehaviour
                 {
                     isAnswer = false;
                     answerDown?.Invoke();
-                    foreach (ChangeLink changeLink in change)
-                    {
-                        changeLink.ChangeColor();
-                    }
                 }
             }
         }

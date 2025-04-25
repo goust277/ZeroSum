@@ -5,10 +5,17 @@ using UnityEngine;
 public class MonsterDoor : MonoBehaviour
 {
     [Header("몬스터 프리팹 리스트")]
-    [SerializeField] private List<GameObject> monsterPrefabs;
-
+    [SerializeField] private List<GameObject> monsterPrefabsTypeA;
+    [SerializeField] private List<GameObject> monsterPrefabsTypeB;
+    [SerializeField] private List<GameObject> monsterPrefabsTypeC;
     [SerializeField] private Transform player;
-    private List<GameObject> spawnedMonsters = new List<GameObject>();
+
+    [Header("SpawnCoolTime")]
+    [SerializeField] private float spawnCoolTime;
+    [SerializeField] private float curCoolTime;
+    
+    private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
+    [SerializeField] private List<GameObject> spawnedMonsters = new List<GameObject>();
 
     private static List<Monster_Spawner> allSpawners = new List<Monster_Spawner>();
     private static float lastSpawnTime = 0f;
@@ -16,7 +23,6 @@ public class MonsterDoor : MonoBehaviour
     private bool isSpawnReady;
     private Animator animator;
 
-    private GameObject doorController;
     private Transform parent;
     private void Start()
     {
@@ -27,35 +33,66 @@ public class MonsterDoor : MonoBehaviour
                 player = foundPlayer.transform;
         }
 
-        isSpawnReady = true;
-        animator = GetComponent<Animator>();
-        doorController = GameObject.Find("DoorManager");
+        monsterPrefabs.Add(monsterPrefabsTypeA);
+        monsterPrefabs.Add(monsterPrefabsTypeB);
 
-        doorController.GetComponent<DoorController>().AddToList(gameObject);
+        if (monsterPrefabsTypeC != null)
+            monsterPrefabs.Add(monsterPrefabsTypeC);
+
+        curCoolTime = spawnCoolTime;
+
+        isSpawnReady = false;
+        animator = GetComponent<Animator>();
         parent = GameObject.Find("MonsterManager").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isSpawnReady)
+        {
+            if (spawnedMonsters.Count == 0 && curCoolTime >= spawnCoolTime)
+            {
+                SetOpen();
+                curCoolTime = 0;
+            }
+        }
 
+        if (curCoolTime < spawnCoolTime && spawnedMonsters.Count == 0)
+        {
+            curCoolTime += Time.deltaTime;
+        }
+
+        if (spawnedMonsters.Count != 0)
+        {
+            spawnedMonsters.RemoveAll(obj => obj != null && !obj.activeSelf);
+        }
+        //spawnedMonsters.RemoveAll(item => item == null);
     }
 
     public void SetOpen()
     {
-        animator.SetTrigger("Open");
+        animator.SetBool("Open", true);
     }
     private void SpawnMonster()
     {
         if (monsterPrefabs == null || monsterPrefabs.Count == 0) return; // 리스트가 비어 있으면 리턴
 
-        int index = Random.Range(0, monsterPrefabs.Count);
-        GameObject monster = Instantiate(monsterPrefabs[index], transform.position, Quaternion.identity);
-        monster.name = monsterPrefabs[index].name;
+        if (animator.GetBool("Open"))
+            animator.SetBool("Open", false);
+        int spawnType = Random.Range(0, monsterPrefabs.Count);
+        List<GameObject> selectedTypeList = monsterPrefabs[spawnType];
 
-        AssignPlayerToMonster(monster);
+        for(int index = 0; index < selectedTypeList.Count; index++) 
+        {
+            GameObject monster = Instantiate(selectedTypeList[index], transform.position, Quaternion.identity);
+            monster.name = selectedTypeList[index].name;
 
-        spawnedMonsters.Add(monster);
+            AssignPlayerToMonster(monster);
+
+            spawnedMonsters.Add(monster);
+        }
+
     }
 
     private void AssignPlayerToMonster(GameObject monster)
@@ -77,5 +114,22 @@ public class MonsterDoor : MonoBehaviour
         Summoner summonerComponent = monster.GetComponent<Summoner>();
         if (summonerComponent != null)
             summonerComponent.player = player;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isSpawnReady = true;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isSpawnReady = false;
+        }
     }
 }

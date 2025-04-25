@@ -2232,13 +2232,9 @@ MonoBehaviour:
   isAttack: 0
   delay: 0
   atkCoolTime: 0.5
-  col:
-  - {fileID: 1650071471}
-  - {fileID: 882175722}
-  - {fileID: 761277232}
-  - {fileID: 1401164946}
   isParryingReady: 0
-  combo: 1
+  canCombo: 1
+  isAtk2: 0
 --- !u!114 &1857641507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,6 +2875,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   moveSpeed: 5
   isMove: 0
+  moveLeft: 0
   runMoveSpeed: 8
   isRun: 0
   initialjumpForce: 20
@@ -2901,6 +2898,8 @@ MonoBehaviour:
   groundCheckDistance: 0.15
   isGrounded: 0
   isDown: 0
+  standCollider: {fileID: 0}
+  downCollider: {fileID: 0}
 --- !u!95 &5189661374088611069
 Animator:
   serializedVersion: 5
@@ -3070,8 +3069,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a161f74676c8a6342b67536e8f3c3e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageValuePrefab: {fileID: 2561231468067052207, guid: 9a5ab5ff00481154caeba3e71eacdd38, type: 3}
-  canvasTransform: {fileID: 1802367241}
+  playerMovement: {fileID: 0}
+  playerAnimation: {fileID: 0}
+  invincibilityTime: 0
+  hp: 10
+  playerInput: {fileID: 0}
+  col: {fileID: 0}
+  moveSpeed: 0
+  moveTime: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

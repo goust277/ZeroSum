@@ -1,21 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PipeManager : MonoBehaviour
+public class PipeManager : Mission
 {
     [SerializeField] private PipeRotate[] pipes;
     [SerializeField] private ChangeLink[] changeLinks;
     [SerializeField] private GameObject mission;
-    [SerializeField] private GameObject player;
-    
-    private int answerPipe = 0;
+    [SerializeField] private float clearTime;
 
-    public bool isClear;
+    [SerializeField] private GameObject completed;
+    private float _curTime;
+
+    private bool isChange = false;
+    private int answerPipe = 0;
     void Start()
     {
-
+        _curTime = 0;
     }
 
     // Update is called once per frame
@@ -25,10 +25,8 @@ public class PipeManager : MonoBehaviour
         {
             if (!isClear)
             {
-                isClear = true;
-
                 ClearMission();
-               
+
                 Debug.Log("Å¬¸®¾î");
             }
         }
@@ -43,20 +41,35 @@ public class PipeManager : MonoBehaviour
 
     private void ClearMission()
     {
-        foreach (var change in changeLinks)
+        if(!isChange)
         {
-            change.ChangeColor();
+            foreach (var change in changeLinks)
+            {
+                change.ChangeColor();
+            }
+            isChange = true;
         }
 
-        mission.SetActive(false);
-        player.SetActive(true);
+        if (_curTime < clearTime)
+        {
+            _curTime += Time.deltaTime;
+            if (_curTime >= clearTime / 10)
+            {
+                completed.SetActive(true);
+            }
+        }
+        else if (_curTime >= clearTime)
+        {
+            mission.SetActive(false);
+            player.SetActive(true);
+            input.SetActive(true);
+            completed.SetActive(false);
+            isClear = true;
+        }
+
+
     }
 
-    public void OnMission()
-    {
-        mission.SetActive ( true );
-        player.SetActive(false);
-    }
 
     private void UpAnwerPipe()
     {
@@ -84,5 +97,12 @@ public class PipeManager : MonoBehaviour
             pipes[i].answerUp -= UpAnwerPipe;
             pipes[i].answerDown -= DownAnwerPipe;
         }
+    }
+
+    public override void OnMission()
+    {
+        mission.SetActive(true);
+        player.SetActive(false);
+        input.SetActive(false);
     }
 }
