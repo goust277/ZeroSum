@@ -26,9 +26,10 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        closeIntercatable.Exe();
-
-        Debug.Log("플레이어 상호작용");
+        if(closeIntercatable != null) 
+        {
+            closeIntercatable.Exe();
+        }
     }
 
 
