@@ -27,7 +27,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
 
     [Header("Combat Settings")]
     public int health = 100;
-    public int attackDamage = 10;
+    public int attackDamage = 1;
     public float attackRange = 1.5f;
     public float attackCooldown = 3f;
     public float dashRange = 3f;

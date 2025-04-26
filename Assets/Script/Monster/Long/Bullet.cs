@@ -22,9 +22,7 @@ public class Bullet : MonoBehaviour
                 {
                     try
                     {
-                        Debug.Log("Damage 호출 전");
                         damageable.Damage(1);
-                        Debug.Log("Damage 호출 후"); // 이게 안 나오고 있음
                     }
                     catch (System.Exception e)
                     {
