@@ -26,9 +26,6 @@ public class PlayerTScontroll : MonoBehaviour
         }
     }
 
-
-
-
     void OnTimelineStopped(PlayableDirector director)
     {
         ProCamera2D cam = Camera.main.GetComponent<ProCamera2D>();

@@ -22,11 +22,15 @@ public class GameStateManager : MonoBehaviour
     private EventRoot eventRoot;
 
 
+
     [Header("HUD Resource")]
+    [SerializeField] private GameObject hudUI;
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
-    private int totalMagazine = 5;
+
+    [Header("Battle Resource")]
+    [SerializeField] private int totalMagazine = 5;
     private int reinforcement;
 
 
@@ -165,6 +169,12 @@ public class GameStateManager : MonoBehaviour
         reinforcement--;
         UpdateReinforcementHUD();
     }
+
+    public void OnOffHudUI()
+    {
+        hudUI.SetActive(!hudUI.activeSelf);
+    }
+
 
     //탄창수
     private void UpdateReinforcementHUD()

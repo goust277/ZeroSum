@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using System.Xml;
 using TMPro.Examples;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class Ver01_ConvManager : MonoBehaviour
@@ -41,6 +42,7 @@ public class Ver01_ConvManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI missionTXT;
     [SerializeField] private Image pressE;
     [SerializeField] private float duration = 1.0f; // 이동 시간
+    [SerializeField] private Image Panel;
     private readonly float transitionDuration = 0.2f; 
     private readonly float consistenceDuration = 0.5f; 
 
@@ -290,12 +292,30 @@ public class Ver01_ConvManager : MonoBehaviour
         currentCoroutine = StartCoroutine(TransitionToSprite());
     }
 
+
+    private IEnumerator fadeOut()
+    {
+        float elapsedTime = 0f;
+        float fadeoutTime = 1.0f;
+
+        Panel.gameObject.SetActive(true);
+        Color alpha = Panel.color;
+        while (alpha.a < 1)
+        {
+            elapsedTime += Time.deltaTime / fadeoutTime;
+            alpha.a = Mathf.Lerp(0, 1, elapsedTime);
+            Panel.color = alpha;
+            yield return null;
+        }
+        StopAllCoroutines();  // 모든 코루틴 정리
+        SceneManager.LoadScene(nextScene);
+    }
+
     //씬넘김
     void ChangeScene()
     {
         isTransitionRunning = false;
-        StopAllCoroutines();  // 모든 코루틴 정리
-        SceneManager.LoadScene(nextScene);
+        currentCoroutine = StartCoroutine(fadeOut());
     }
 
     #endregion
@@ -376,8 +396,6 @@ public class Ver01_ConvManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f); // 글자 한 글자씩 출력
         }
     }
-
-
 
 
     #endregion
