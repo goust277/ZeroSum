@@ -199,6 +199,7 @@ MonoBehaviour:
   patrolRange: 3
   moveSpeed: 2
   currentTarget: {x: 0, y: 0, z: 0}
+  turn: 0
   player: {fileID: 0}
   isPlayerInRange: 0
   detect: {fileID: 6033505917364078907}
