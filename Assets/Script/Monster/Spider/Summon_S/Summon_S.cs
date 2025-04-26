@@ -99,7 +99,7 @@ public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
+        if (other.CompareTag("Player"))
         {
             IDamageAble damageable = other.GetComponent<IDamageAble>();
             damageable?.Damage(attackDamage);
