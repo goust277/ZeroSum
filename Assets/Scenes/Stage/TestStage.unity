@@ -13064,11 +13064,11 @@ PrefabInstance:
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerMovement
       value: 
-      objectReference: {fileID: 1970744127}
+      objectReference: {fileID: 0}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerAnimation
       value: 
-      objectReference: {fileID: 1970744131}
+      objectReference: {fileID: 0}
     - target: {fileID: 6748893214020954111, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_Name
       value: Player
@@ -15080,17 +15080,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4b5281d6d23e0b4383ced9453df360d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1970744131 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2009554393531965813, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
-  m_PrefabInstance: {fileID: 1202825060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9fd0e8654445b419130df5a05a4564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2018795890
