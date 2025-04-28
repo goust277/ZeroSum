@@ -14,7 +14,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private PlayerAnimation playerAnimation;
     [Header("invincibility time")]
     public float invincibilityTime;
-    [HideInInspector] public int hp = 10;
+    [HideInInspector] public int hp;
     private bool isBlocked = false;
 
     [Header("Dying")]

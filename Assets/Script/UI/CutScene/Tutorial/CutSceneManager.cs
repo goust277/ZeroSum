@@ -26,7 +26,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (cutsceneDirector == null)
         {
-            Debug.LogError("CutsceneManager: 재생할 Cutscene이 없습니다.");
+            Debug.Log("CutsceneManager: 재생할 Cutscene이 없습니다.");
             return;
         }
 

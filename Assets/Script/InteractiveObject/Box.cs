@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Box : MonoBehaviour, IDamageAble
 {
-    private int hitCount;
+    public int hitCount;
     [Header("drop items")]
     [SerializeField] private GameObject[] dropItemList;
 
