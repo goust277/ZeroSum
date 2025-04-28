@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class Bomb : MonoBehaviour
 
     [Header("데미지")]
     [SerializeField] private int damage;
+    [SerializeField] private float time;
+    private float curTime;
 
     [Header("움직이는 속도")]
     [SerializeField] private float moveSpeed;
@@ -49,12 +52,25 @@ public class Bomb : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if (collision.CompareTag("Monster"))
         {
             IDamageAble damageable = collision.GetComponent<IDamageAble>();
             if (damageable != null)
             {
-                damageable.Damage(damage);
+                if (curTime < time)
+                {
+                    curTime += Time.deltaTime;
+                }
+                else if (curTime >= time) 
+                {
+                    damageable.Damage(damage);
+                    curTime = 0;
+                }
             }
         }
     }

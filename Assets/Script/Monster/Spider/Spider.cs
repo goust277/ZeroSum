@@ -171,7 +171,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
         {
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
-        VisualDamage(atk);
+        //VisualDamage(atk);
     }
 
     // 목표 반대로 변경
