@@ -13,9 +13,9 @@ public class MonsterDoor : MonoBehaviour
     [Header("SpawnCoolTime")]
     [SerializeField] private float spawnCoolTime;
     [SerializeField] private float curCoolTime;
-    
-    private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
-    [SerializeField] private List<GameObject> spawnedMonsters = new List<GameObject>();
+
+    [SerializeField] private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
+    private List<GameObject> spawnedMonsters = new List<GameObject>();
 
     private static List<Monster_Spawner> allSpawners = new List<Monster_Spawner>();
     private static float lastSpawnTime = 0f;
@@ -36,8 +36,10 @@ public class MonsterDoor : MonoBehaviour
         monsterPrefabs.Add(monsterPrefabsTypeA);
         monsterPrefabs.Add(monsterPrefabsTypeB);
 
-        if (monsterPrefabsTypeC != null)
+        if (monsterPrefabsTypeC.Count != 0)
+        {
             monsterPrefabs.Add(monsterPrefabsTypeC);
+        }
 
         curCoolTime = spawnCoolTime;
 
