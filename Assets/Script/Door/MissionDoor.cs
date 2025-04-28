@@ -21,7 +21,6 @@ public class MissionDoor : BaseInteractable
             doorManager.clearMission++;
             monsterDoor.SetActive(true);
             
-            mission.isClear = false;
             gameObject.SetActive(false);
         }
     }

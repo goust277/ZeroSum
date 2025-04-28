@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -21,6 +22,8 @@ public class Bomb : MonoBehaviour
     [HideInInspector] public bool isMove;
 
     [SerializeField] private Vector3 knockbackDirection;
+    private Dictionary<Collider2D, float> monsterTimers = new Dictionary<Collider2D, float>();
+
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private void Start()
@@ -53,7 +56,11 @@ public class Bomb : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        if (collision.CompareTag("Monster"))
+        {
+            if (!monsterTimers.ContainsKey(collision))
+                monsterTimers.Add(collision, 0f);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -63,14 +70,12 @@ public class Bomb : MonoBehaviour
             IDamageAble damageable = collision.GetComponent<IDamageAble>();
             if (damageable != null)
             {
-                if (curTime < time)
-                {
-                    curTime += Time.deltaTime;
-                }
-                else if (curTime >= time) 
+                monsterTimers[collision] += Time.deltaTime;
+
+                if (monsterTimers[collision] >= time)
                 {
                     damageable.Damage(damage);
-                    curTime = 0;
+                    monsterTimers[collision] = 0f;
                 }
             }
         }
@@ -81,6 +86,12 @@ public class Bomb : MonoBehaviour
         {
             knockbackDirection.x *= -1;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (monsterTimers.ContainsKey(collision))
+            monsterTimers.Remove(collision);
     }
 
     public void TakeDamage(Vector3 attackerPosition)
