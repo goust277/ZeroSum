@@ -29,6 +29,7 @@ public class Bomb : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         isMove = false;
+        curTime = time;
     }
 
     private void Update()
