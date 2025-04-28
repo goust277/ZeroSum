@@ -29,7 +29,7 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
     public int health = 100;
     public int attackDamage = 1;
     public float attackRange = 1.5f;
-    public float attackCooldown = 3f;
+    public float attackCooldown = 1f;
     public float dashRange = 3f;
     public bool canAttack = true;
     private bool isCooldownComplete;

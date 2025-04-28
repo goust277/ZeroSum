@@ -29,7 +29,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
     public int health = 100;
     public int attackDamage = 10;
     public float attackRange = 5f;
-    public float attackCooldown = 0f;
+    public float attackCooldown = 1f;
     public bool canAttack = true;
     private bool isCooldownComplete;
     public bool isHit;
