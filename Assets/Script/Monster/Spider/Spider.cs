@@ -101,14 +101,6 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
-        {
-            turn = true;
-        }
-    }
-
     private void VisualDamage(int value)
     {
         Debug.Log("VisualDamage");
