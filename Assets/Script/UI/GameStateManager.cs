@@ -16,17 +16,21 @@ public class GameStateManager : MonoBehaviour
     public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
     [SerializeField] private int currentSceneID = 0;
     [SerializeField] private int currentStagePoint = 0;     // 
-    private int chapterNum = 0;                           // ���� é��
+    [SerializeField] private int chapterNum = 0;                           // ���� é��
     //private int Gold = 0;
     private int hp = 5;
     private EventRoot eventRoot;
 
 
+
     [Header("HUD Resource")]
+    [SerializeField] private GameObject hudUI;
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
-    private int totalMagazine = 5;
+
+    [Header("Battle Resource")]
+    [SerializeField] private int totalMagazine = 5;
     private int reinforcement;
 
 
@@ -55,7 +59,7 @@ public class GameStateManager : MonoBehaviour
             Debug.Log("GameStateManager - LoadEventFlags// There is already currentEventFlags............");
             return;
         }
-        string Path = Application.dataPath + "/Resources/Json/Ver00/Dataset/Eventcondition.json";
+        string Path = Application.dataPath + "/Resources/Json/Ver01/Dataset/Eventcondition.json";
         string jsonData = File.ReadAllText(Path);
 
         eventRoot = JsonConvert.DeserializeObject<EventRoot>(jsonData);
@@ -112,7 +116,7 @@ public class GameStateManager : MonoBehaviour
         currentStagePoint = stagePointID;
     }
 
-    public void SetchapterNum(int chapNum)
+    private void SetchapterNum(int chapNum)
     {
         Event events = eventRoot.Events.Find(e => e.chapterNum == chapterNum);
         if (events != null)
@@ -121,6 +125,12 @@ public class GameStateManager : MonoBehaviour
         }
 
         chapterNum = chapNum;
+    }
+
+    public void SetNextChapterNum()
+    {
+        chapterNum++;
+        SetchapterNum(chapterNum);
     }
 
     //강화수
@@ -165,6 +175,12 @@ public class GameStateManager : MonoBehaviour
         reinforcement--;
         UpdateReinforcementHUD();
     }
+
+    public void OnOffHudUI()
+    {
+        hudUI.SetActive(!hudUI.activeSelf);
+    }
+
 
     //탄창수
     private void UpdateReinforcementHUD()

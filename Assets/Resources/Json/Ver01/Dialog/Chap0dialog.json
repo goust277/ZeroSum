@@ -8,8 +8,33 @@
       "SecneID": 0,
       "Dialog": [
         {
+          "id": 5,
+          "pos": 1,
+          "log": [
+            "… 오늘이 마지막 기회야",
+            "오랫동안 준비해 왔으니 계획에는 오차가 없어야한다"
+          ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [],
+        "changeSecneID": 1,
+        "missionString": [
+          "피안 사의 음모를 파헤치기 위해 본사의 지하주차장에 잠입했다.",
+          "목격자를 해치우며, 중요한 문의 잠금을 풀어 임무에 도움이 될 단서를 획득하라."
+        ]
+      }
+    },
+    {
+      "Prerequisites": {
+        "needEventConditions": [],
+        "currentSecneID": 1 //현재 씬 아이디 
+      },
+      "SecneID": 0,
+      "Dialog": [
+        {
           "id": 9,
-          "pos" :  1,
+          "pos": 1,
           "log": [
             "잡혀있는 동안 몰래 인근 시설의 정보를 빼돌렸어. 그리고... 네 기록도 발견했지.",
             "그것도 백 년도 더 된 기록을.",
@@ -34,8 +59,10 @@
         {
           "id": 0,
           "pos": 0,
-          "log": [ "전후 관계가 바뀌었어.",
-            "바라문을 찾고있다. 도움의 대가로 답 몇마디를 주는 것 쯤은 고려해보지." ]
+          "log": [
+            "전후 관계가 바뀌었어.",
+            "바라문을 찾고있다. 도움의 대가로 답 몇마디를 주는 것 쯤은 고려해보지."
+          ]
         },
         {
           "id": 9,
@@ -48,13 +75,14 @@
         "changeSecneID": 1,
         "missionString": [
           "그믐이 정보를 얻을만한 곳으로 니르바나 중층부에 위치한 컨트롤센터 ‘녹야원’을 제시했다.",
-          "중층부 컨트롤센터 ‘녹야원’의 하층으로 잠입해 경비를 해치우며 상층의 보안시스템을 해킹하라."]
+          "중층부 컨트롤센터 ‘녹야원’의 하층으로 잠입해 경비를 해치우며 상층의 보안시스템을 해킹하라."
+        ]
       }
     },
     {
       "Prerequisites": {
         "eventConditions": [ "TalkNPCA" ],
-        "currentSecneID": 1
+        "currentSecneID":2
       },
       "SecneID": 1,
       "Dialog": [
@@ -84,7 +112,7 @@
       "Prerequisites": {
         "npc": 1,
         "eventConditions": [ "TalkNPCA" ],
-        "currentSecneID": 2
+        "currentSecneID": 3
       },
       "SecneID": 2,
       "Dialog": [
@@ -106,7 +134,7 @@
     {
       "Prerequisites": {
         "needEventConditions": [ "ReTalkNPCA" ],
-        "currentSecneID": 3 //현재 씬 아이디 
+        "currentSecneID": 4 //현재 씬 아이디 
       },
       "SecneID": 3,
       "Dialog": [
@@ -120,7 +148,7 @@
         }
       ],
       "AfterConditions": {
-        "changeEventConditions": [ ],
+        "changeEventConditions": [],
         "changeSecneID": 4
       }
     }

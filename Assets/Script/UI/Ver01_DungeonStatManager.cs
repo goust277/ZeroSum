@@ -31,6 +31,9 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPrefab;
+    [SerializeField] private GameObject hudUI;
+
+
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
@@ -99,6 +102,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void ResetDungeonState()
     {
+        hudUI.SetActive(true);
         GameStateManager.Instance.resetReinforcement();
         currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         UpdateHUD();
@@ -173,6 +177,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
             return;
         }
 
+        hudUI.SetActive(false);
         Instantiate(gameOverPrefab);
 
     }
