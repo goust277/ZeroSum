@@ -28,7 +28,7 @@ public class Tanker : MonoBehaviour, IDetectable, IDamageAble
     public int health = 2;
     public int attackDamage = 1;
     public float attackRange = 6f;
-    public float attackCooldown = 3f;
+    public float attackCooldown = 1f;
     public bool canAttack = true;
     public bool canShot = false;
     private bool isCooldownComplete;

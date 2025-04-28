@@ -27,9 +27,9 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
 
     [Header("Combat Settings")]
     public int health = 100;
-    public int attackDamage = 10;
+    public int attackDamage = 1;
     public float attackRange = 1.5f;
-    public float attackCooldown = 3f;
+    public float attackCooldown = 1f;
     public float dashRange = 3f;
     public bool canAttack = true;
     private bool isCooldownComplete;
@@ -92,14 +92,6 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
         isPlayerInRange = inRange;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
-        {
-            IDamageAble damageable = other.GetComponent<IDamageAble>();
-            damageable?.Damage(attackDamage);
-        }
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {

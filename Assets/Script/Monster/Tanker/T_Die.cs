@@ -5,6 +5,7 @@ using UnityEngine;
 public class T_Die : BaseState
 {
     Tanker tanker;
+    float timer = 0;
 
     public T_Die(StateMachine stateMachine, Tanker monster) : base(stateMachine)
     {

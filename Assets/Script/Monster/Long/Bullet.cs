@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Plane") || other.CompareTag("Wall"))
+        if (other.CompareTag("Player") || other.CompareTag("ground") || other.CompareTag("Wall"))
         {
             if (this.CompareTag("MonsterAtk"))
             {
@@ -20,9 +20,8 @@ public class Bullet : MonoBehaviour
                 {
                     try
                     {
-                        Debug.Log("Damage 호출 전");
+                        Debug.Log($"충돌한 오브젝트 이름: {other.gameObject.name}");
                         damageable.Damage(1);
-                        Debug.Log("Damage 호출 후"); // 이게 안 나오고 있음
                     }
                     catch (System.Exception e)
                     {
