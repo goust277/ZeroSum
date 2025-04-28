@@ -116,6 +116,10 @@ public class MonsterDoor : MonoBehaviour
         Summoner summonerComponent = monster.GetComponent<Summoner>();
         if (summonerComponent != null)
             summonerComponent.player = player;
+
+        Tanker tankerComponent = monster.GetComponent<Tanker>();
+        if(tankerComponent != null)
+            tankerComponent.player = player;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
