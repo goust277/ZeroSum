@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Melee_Attack : MonoBehaviour
 {
-    public float timer = 5f;
-
-    private void Start()
-    {
-        Destroy(gameObject, timer);
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("ground") || other.CompareTag("Wall"))
+        if (other.CompareTag("Player"))
         {
             if (this.CompareTag("MonsterAtk"))
             {
@@ -35,7 +28,6 @@ public class Bullet : MonoBehaviour
                     Debug.LogWarning("IDamageAble 컴포넌트 없음");
                 }
             }
-            Destroy(gameObject);
         }
     }
 }
