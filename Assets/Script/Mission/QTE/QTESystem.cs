@@ -34,6 +34,7 @@ public class QTESystem : MonoBehaviour
     public bool isClear;
     private bool isDone;
     public bool isFail;
+    private bool isFailed;
 
     private void Update()
     {
@@ -75,7 +76,7 @@ public class QTESystem : MonoBehaviour
                         {
                             keyUIElements[currentIndex].color = failColor;
 
-                            isFail = true;
+                            isFailed = true;
                         }
                     }
                 }
@@ -101,7 +102,7 @@ public class QTESystem : MonoBehaviour
             }
             else if (_curTime >= clearTime)
             {
-                if (isFail)
+                if (isFailed)
                 {
                     IsFailed();
                 }
@@ -127,6 +128,7 @@ public class QTESystem : MonoBehaviour
 
         gameObject.SetActive(false);
         failed.SetActive(false);
+        isFail = true;
     }
 
     private void IsClear()
@@ -158,7 +160,7 @@ public class QTESystem : MonoBehaviour
         keyUIElements.Clear();
         currentIndex = 0;
         isClear = false;
-        isFail = false;
+        isFailed = false;
         // »õ UI »ý¼º
         foreach (KeyCode key in qteSequence)
         {
