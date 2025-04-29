@@ -40,7 +40,7 @@ public class T_Attack : BaseState
         }
         else
         {
-            if (tanker.anim.GetCurrentAnimatorStateInfo(0).IsName("T_attack_end") &&
+            if (tanker.anim.GetCurrentAnimatorStateInfo(0).IsName("T_attack") &&
                 tanker.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
             {
                 stateMachine.ChangeState(new T_Chase(stateMachine, tanker));
