@@ -21,8 +21,7 @@ public class T_Chase : BaseState
 
     public override void Execute()
     {
-        if (tanker.anim.GetCurrentAnimatorStateInfo(0).IsName("T_attack_end")
-            && tanker.anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.85f)
+        if (tanker.anim.GetCurrentAnimatorStateInfo(0).IsName("T_attack_end"))
         {
             return;
         }
