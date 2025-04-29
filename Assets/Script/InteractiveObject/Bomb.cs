@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour
         if (collision.CompareTag("Monster"))
         {
             if (!monsterTimers.ContainsKey(collision))
-                monsterTimers.Add(collision, 0f);
+                monsterTimers.Add(collision, time);
         }
     }
 
@@ -85,6 +85,7 @@ public class Bomb : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             knockbackDirection.x *= -1;
+            Debug.Log("Æø¹ß º®");
         }
     }
 

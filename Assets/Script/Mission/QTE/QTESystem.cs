@@ -38,7 +38,7 @@ public class QTESystem : MonoBehaviour
 
     private void Update()
     {
-        if (!isDone && !isFail)
+        if (!isDone && !isFailed)
         {
             if (curTime > 0f)
             {
@@ -50,7 +50,7 @@ public class QTESystem : MonoBehaviour
 
             else if (curTime <= 0f)
             {
-                isFail = true;
+                isFailed = true;
             }
 
             if (currentIndex < qteSequence.Count)
@@ -83,14 +83,14 @@ public class QTESystem : MonoBehaviour
             }
         }
 
-        if (isDone || isFail)
+        if (isDone || isFailed)
         {
             if (_curTime < clearTime)
             {
                 _curTime += Time.deltaTime;
                 if (_curTime >= clearTime / 10)
                 {
-                    if (isFail)
+                    if (isFailed)
                     {
                         failed.SetActive(true);
                     }

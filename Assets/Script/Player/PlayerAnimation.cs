@@ -19,15 +19,7 @@ public class PlayerAnimation : MonoBehaviour
         playerSwordAttack = GetComponent<PlayerSwordAttack>();
         playerHp = GetComponent<PlayerHP>();
 
-        playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
-        playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
-        playerMovement.OnTrueChanged += LandingAnimation;
-        playerMovement.OnStand += StandAnimation;
-        playerGunAttack.OnGunAttack += GunAttackAnimation;
-        playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
-        playerSwordAttack.OnSwordAttack += SwordAttack;
-        playerSwordAttack.OnSwordSecAttack += SwordSecAttack;
-        playerHp.OnDying += Dying;
+
     }
 
     private void Start()
@@ -80,6 +72,18 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        playerMovement.OnJumpInitiated += JumpAnimation; //점프 이벤트
+        playerMovement.OnDashInitiated += DashAnimation; //대쉬 이벤트
+        playerMovement.OnTrueChanged += LandingAnimation;
+        playerMovement.OnStand += StandAnimation;
+        playerGunAttack.OnGunAttack += GunAttackAnimation;
+        playerGunAttack.OnFirstGunAttack += FirstGunAttackAnimation;
+        playerSwordAttack.OnSwordAttack += SwordAttack;
+        playerSwordAttack.OnSwordSecAttack += SwordSecAttack;
+        playerHp.OnDying += Dying;
+    }
     private void OnDisable() // 이벤트 관리
     {
         if (playerMovement != null)

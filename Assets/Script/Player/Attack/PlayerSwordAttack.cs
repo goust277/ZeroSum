@@ -1,9 +1,6 @@
 using Com.LuisPedroFonseca.ProCamera2D;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerSwordAttack : PlayerAttackState
 {
@@ -48,6 +45,7 @@ public class PlayerSwordAttack : PlayerAttackState
     }
     public void OnAttack()
     {
+        Debug.Log("АјАн");
         if (isAtkReady)
         {
             isAttack = true;
