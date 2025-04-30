@@ -38,7 +38,7 @@ public class CutsceneManager : MonoBehaviour
         if (playerController != null)
             playerController.SetActive(false);
 
-        director.Play();
+        //director.Play();
         director.stopped += OnCutsceneEnd;
     }
 
