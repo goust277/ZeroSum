@@ -1,0 +1,263 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Tanker : MonoBehaviour, IDetectable, IDamageAble
+{
+    [Header("Animation")]
+    public Animator anim;
+    public SpriteRenderer sprite;
+
+    [Header("Patrol Settings")]
+    public float patrolRange = 10f;
+    public float moveSpeed = 2f;
+    private Vector3 spawnPosition;
+    public Vector3 currentTarget;
+    public bool turn;
+
+    public Vector3 spawnPoint => spawnPosition;
+
+    [Header("Detection Settings")]
+    public Transform player;
+    public bool isPlayerInRange;
+    public float minDistance = 1.5f;
+    public float maxDistance = 3.0f;
+    public GameObject detect;
+
+    [Header("Combat Settings")]
+    public int health = 2;
+    public int attackDamage = 1;
+    public float attackRange = 6f;
+    public float attackCooldown = 1f;
+    public bool canAttack = true;
+    public bool canShot = false;
+    private bool isCooldownComplete;
+    public bool isHit;
+    public bool isDie;
+    public Rigidbody2D rb;
+    private StateMachine stateMachine;
+    public Transform leftFirePoint;         // 왼쪽 발사 위치
+    public Transform rightFirePoint;        // 오른쪽 발사 위치
+    public GameObject BulletPrefab;     // 발사체 프리팹
+    public float BulletSpeed = 10f;     // 발사체 속도
+    public int fireCount = 0;       // 발사 횟수
+    public int maxFireCount = 10;    // 최대 발사 횟수
+    public float fireInterval = 0.1f;
+    private Transform fPoint;
+    //public GameObject hitPrefab;
+
+    //[Header("HP바 UI")]
+    //[SerializeField] private Image hpBar;
+    //[SerializeField] private GameObject DamageValuePrefab;
+    //[SerializeField] private Transform canvasTransform;
+
+    void Start()
+    {
+        spawnPosition = transform.position;
+        stateMachine = new StateMachine();
+
+        // 필요한 상태 생성 시 컴포넌트를 전달
+        var idleState = new T_Idle(stateMachine, this);
+        var readyStade = new T_Ready(stateMachine, this);
+        var attackState = new T_Attack(stateMachine, this);
+        var patrolState = new T_Patrol(stateMachine, this);
+        var chaseState = new T_Chase(stateMachine, this);
+        var hitState = new T_Hit(stateMachine, this);
+        var dieState = new T_Die(stateMachine, this);
+
+        // 상태 초기화
+        stateMachine.Initialize(idleState);
+    }
+
+    void Update()
+    {
+        stateMachine.currentState.Execute();
+
+        if (!isCooldownComplete && canAttack)
+        {
+            attackCooldown -= Time.deltaTime;
+            if (attackCooldown <= 0)
+            {
+                isCooldownComplete = true;
+                canAttack = false;
+            }
+        }
+    }
+
+    public bool CanEnterAttackState()
+    {
+        if (isCooldownComplete)
+        {
+            isCooldownComplete = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void SetPlayerInRange(bool inRange)
+    {
+        isPlayerInRange = inRange;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
+        {
+            IDamageAble damageable = other.GetComponent<IDamageAble>();
+            damageable?.Damage(attackDamage);
+        }
+
+        if (other.CompareTag("MovingBlock") || other.CompareTag("Ev"))
+        {
+            turn = true;
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (this.CompareTag("Monster") && other.collider.CompareTag("Wall"))
+        {
+            turn = true;
+        }
+        if (other.collider.CompareTag("MovingBlock"))
+        {
+            TakeDamage();
+        }
+    }
+
+
+    private void VisualDamage(int value)
+    {
+        //Debug.Log("VisualDamage");
+        //Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
+        //Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
+        //GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
+        ////Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
+
+
+        //if (canvasTransform == null)
+        //{
+        //    Debug.LogError("Canvas Transform is not assigned!");
+        //    return;
+        //}
+
+        //newText.transform.SetParent(canvasTransform, false);
+        ////Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
+        ////TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        //TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
+        //if (textComponent == null)
+        //{
+        //    Debug.LogError("TextMeshProUGUI component not found in prefab!");
+        //    return;
+        //}
+
+        //textComponent.text = value.ToString();
+    }
+
+    public void Damage(int atk)
+    {
+        if (!isHit)
+        {
+            if (isDie)
+            {
+                return;
+            }
+
+            health--;
+
+            if (health <= 0)
+            {
+                stateMachine.ChangeState(new T_Die(stateMachine, this));
+            }
+            else
+            {
+                stateMachine.ChangeState(new T_Hit(stateMachine, this));
+            }
+        }
+
+
+        //HP 바 표기
+        //if (hpBar != null)
+        //{
+        //    hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
+        //}
+        //VisualDamage(atk);
+    }
+
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new T_Die(stateMachine, this));
+    }
+
+
+    // 목표 반대로 변경
+    public void FlipTarget()
+    {
+        // 현재 이동 방향 확인
+        float moveDirection = Mathf.Sign(currentTarget.x - transform.position.x);
+
+        // 반대 방향으로 목표 지점 설정
+        currentTarget = new Vector3(transform.position.x - (moveDirection * patrolRange), transform.position.y, transform.position.z);
+
+        // 현재 위치를 강제로 재설정하여 즉시 반영
+        transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
+    }
+
+    private void EnableFire()
+    {
+        canShot = true;
+    }
+
+    public void FireBullet()
+    {
+        if (BulletPrefab == null) return;
+
+        fPoint = sprite.flipX ? rightFirePoint : leftFirePoint;
+        Vector2 baseDir = sprite.flipX ? Vector2.right : Vector2.left;
+
+        float spreadAngle = 20f;
+        float randomAngle = Random.Range(-spreadAngle / 2f, spreadAngle / 2f);
+
+        Vector2 shootDir = Quaternion.Euler(0, 0, randomAngle * (sprite.flipX ? -1 : 1)) * baseDir;
+
+        GameObject bullet = Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
+
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = shootDir.normalized * BulletSpeed;
+        }
+    }
+
+    //public void SpawnHitEffect()
+    //{
+    //    Transform spawnPoint;
+    //    bool flipX;
+    //    float xOffset = 1f;
+
+    //    if ((player.position.x - transform.position.x) >= 0.2f)
+    //    {
+    //        spawnPoint = leftFirePoint;
+    //        flipX = false;
+    //    }
+    //    else
+    //    {
+    //        spawnPoint = rightFirePoint;
+    //        flipX = true;
+    //    }
+
+    //    if (hitPrefab != null)
+    //    {
+    //        Vector3 spawnPosition = spawnPoint.position + new Vector3(flipX ? xOffset : -xOffset, 0, 0);
+
+    //        GameObject hitInstance = Instantiate(hitPrefab, spawnPosition, Quaternion.identity);
+
+    //        SpriteRenderer hitSprite = hitInstance.GetComponent<SpriteRenderer>();
+    //        if (hitSprite != null)
+    //        {
+    //            hitSprite.flipX = flipX;
+    //        }
+    //    }
+    //}
+}

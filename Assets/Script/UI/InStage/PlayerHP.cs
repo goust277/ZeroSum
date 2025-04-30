@@ -14,7 +14,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private PlayerAnimation playerAnimation;
     [Header("invincibility time")]
     public float invincibilityTime;
-    [HideInInspector] public int hp;
+     public int hp = 10;
     private bool isBlocked = false;
 
     [Header("Dying")]
@@ -91,7 +91,9 @@ public class PlayerHP : MonoBehaviour
                 playerAnimation.Hit();
                 Debug.Log("Hit");
                 hp--;
+                Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
                 Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
+                Debug.Log("Hit_");
             }
         }
     }

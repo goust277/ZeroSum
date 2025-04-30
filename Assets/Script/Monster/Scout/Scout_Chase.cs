@@ -52,9 +52,9 @@ public class Scout_Chase : BaseState
                 return;
             }
         }
-        float offsetX = scout.sprite.flipX ? -5f : 5f;
+        //float offsetX = scout.sprite.flipX ? -5f : 5f;
 
-        Vector3 targetPosition = new Vector3(scout.player.position.x + offsetX, scout.transform.position.y, 0);
+        Vector3 targetPosition = new Vector3(scout.player.position.x /*+ offsetX*/, scout.transform.position.y, 0);
         scout.transform.position = Vector3.MoveTowards(scout.transform.position, targetPosition, scout.moveSpeed * Time.deltaTime);
     }
     public override void Exit()

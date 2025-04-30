@@ -31,11 +31,11 @@ public class ControlEv : BaseEv, IControllable
         isBottom = false;
         isBtnOn = false;
 
-        if (movePosition.y > 0)
+        if (isUp)
         {
             topPosition = transform.position + (movePosition * moveCount);
         }
-        else if (movePosition.y < 0)
+        else if (!isUp)
         {
             topPosition = transform.position;
         }

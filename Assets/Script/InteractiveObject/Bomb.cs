@@ -1,5 +1,7 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -8,6 +10,8 @@ public class Bomb : MonoBehaviour
 
     [Header("데미지")]
     [SerializeField] private int damage;
+    [SerializeField] private float time;
+    private float curTime;
 
     [Header("움직이는 속도")]
     [SerializeField] private float moveSpeed;
@@ -18,6 +22,8 @@ public class Bomb : MonoBehaviour
     [HideInInspector] public bool isMove;
 
     [SerializeField] private Vector3 knockbackDirection;
+    private Dictionary<Collider2D, float> monsterTimers = new Dictionary<Collider2D, float>();
+
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private void Start()
@@ -26,6 +32,7 @@ public class Bomb : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         isMove = false;
+        curTime = time;
     }
 
     private void Update()
@@ -51,10 +58,25 @@ public class Bomb : MonoBehaviour
     {
         if (collision.CompareTag("Monster"))
         {
+            if (!monsterTimers.ContainsKey(collision))
+                monsterTimers.Add(collision, time);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
             IDamageAble damageable = collision.GetComponent<IDamageAble>();
             if (damageable != null)
             {
-                damageable.Damage(damage);
+                monsterTimers[collision] += Time.deltaTime;
+
+                if (monsterTimers[collision] >= time)
+                {
+                    damageable.Damage(damage);
+                    monsterTimers[collision] = 0f;
+                }
             }
         }
     }
@@ -63,7 +85,14 @@ public class Bomb : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             knockbackDirection.x *= -1;
+            Debug.Log("폭발 벽");
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (monsterTimers.ContainsKey(collision))
+            monsterTimers.Remove(collision);
     }
 
     public void TakeDamage(Vector3 attackerPosition)
