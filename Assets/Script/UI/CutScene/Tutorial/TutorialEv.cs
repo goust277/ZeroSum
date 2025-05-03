@@ -14,7 +14,6 @@ public class TutorialEv : MonoBehaviour
     [Header("CutScene Resources")]
     [SerializeField] private GameObject directorCanvas;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private RectTransform uiTextTransform;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     private bool isClear;
@@ -28,7 +27,7 @@ public class TutorialEv : MonoBehaviour
             {
                 isClear = true;
                 ev.enabled = true;
-
+                directorCanvas.SetActive(false);
                 Invoke("PlayCutScene", 1.0f);
             }
         }
@@ -43,10 +42,6 @@ public class TutorialEv : MonoBehaviour
         // 버츄얼 카메라의 위치와 회전값을 현재 카메라 값으로 설정
         virtualCamera.transform.position = currentCameraPosition;
         virtualCamera.transform.rotation = currentCameraRotation;
-
-        uiTextTransform.position = playerTransform.position + new Vector3(0.5f, 2.3f, 0);
-
-        directorCanvas.SetActive(false);
         director.Play();
     }
 }

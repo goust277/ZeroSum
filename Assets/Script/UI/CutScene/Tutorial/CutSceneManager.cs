@@ -5,7 +5,7 @@ using Com.LuisPedroFonseca.ProCamera2D;
 public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] public Transform playerTransform;
     [SerializeField] private GameObject playerController; // 스크립트는 MonoBehaviour로 통일해서 받기
 
     private GameObject camObj;
@@ -44,15 +44,23 @@ public class CutsceneManager : MonoBehaviour
 
     public void OnCutsceneEnd(PlayableDirector obj)
     {
+
         if (proCamera2D != null)
         {
             proCamera2D.enabled = true;
             proCamera2D.RemoveAllCameraTargets();
-            proCamera2D.AddCameraTarget(playerTransform);
+            proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
+
         }
 
         playerController.SetActive(true);
 
         director.stopped -= OnCutsceneEnd;
     }
+
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
+    }
+
 }

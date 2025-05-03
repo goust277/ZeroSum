@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3e1b2de33c749248b3302c04f4c2a0e
+guid: 2103b5ca0669946478590941f01fae8b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Z_UI13-1_v0.1_250430_0
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 203
+        width: 770
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93fd894657c51f7469118cbd9c0e3435
+      internalID: -1176725945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +140,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Z_UI13-1_v0.1_250430_0: -1176725945
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
