@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     [Header("Camera Resource")]
-    [SerializeField] private readonly float targetSize = 2.0f;
+    [SerializeField] private readonly float targetSize = 3.3f;
     [SerializeField] private readonly float duration = 2.0f;
 
     [Header("BackGround Resource")]

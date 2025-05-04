@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Timeline;
 
 public class BeforeEvUp : MonoBehaviour
 {
@@ -19,6 +20,36 @@ public class BeforeEvUp : MonoBehaviour
     [Header("Fadeout Light")]
     [SerializeField] private Light2D light2D;
     [SerializeField] private float fadeDuration = 5f;
+
+    [Header("Before LastCutScene")]
+    [SerializeField] private MissionDoorManager tutorialMissionManager;
+    [SerializeField] private MissionDoorManager realMissionDoorManager;
+
+
+    void Start()
+    {
+        PlayableAsset asset = director.playableAsset;
+        AnimationTrack hudTrack = null;
+
+        foreach (var track in asset.outputs)
+        {
+            if (track.streamName == "Hud")
+            {
+                hudTrack = track.sourceObject as AnimationTrack;
+                break;
+            }
+        }
+
+        if (hudTrack != null)
+        {
+            director.SetGenericBinding(hudTrack, GameStateManager.Instance.hudUI);
+        }
+        else
+        {
+            Debug.LogWarning("HUD ¸øÃ£À½.");
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -62,6 +93,8 @@ public class BeforeEvUp : MonoBehaviour
         }
 
         light2D.enabled = false;
+        tutorialMissionManager.enabled = false;
+        realMissionDoorManager.enabled = true;
     }
 
 }

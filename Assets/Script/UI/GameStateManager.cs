@@ -24,7 +24,7 @@ public class GameStateManager : MonoBehaviour
 
 
     [Header("HUD Resource")]
-    [SerializeField] private GameObject hudUI;
+    [SerializeField] public GameObject hudUI;
     [SerializeField] private TextMeshProUGUI totalMagazineText;
     [SerializeField] private TextMeshProUGUI reinforcementText;
 

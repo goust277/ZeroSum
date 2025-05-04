@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class BattleCutScene : MonoBehaviour
 {
@@ -13,6 +14,30 @@ public class BattleCutScene : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     private bool hasPlayed = false; // 여러번 재생 방지
+
+    void Start()
+    {
+        PlayableAsset asset = director.playableAsset;
+        AnimationTrack hudTrack = null;
+
+        foreach (var track in asset.outputs)
+        {
+            if (track.streamName == "Hud")
+            {
+                hudTrack = track.sourceObject as AnimationTrack;
+                break;
+            }
+        }
+
+        if (hudTrack != null)
+        {
+            director.SetGenericBinding(hudTrack, GameStateManager.Instance.hudUI);
+        }
+        else
+        {
+            Debug.LogWarning("HUD 못찾음.");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

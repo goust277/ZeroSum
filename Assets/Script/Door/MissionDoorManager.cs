@@ -19,6 +19,9 @@ public class MissionDoorManager : MonoBehaviour
         clearMission = 0;
         curMission = 0;
         txt.text = clearMission.ToString() + " / " + maxMission.ToString();
+    
+        //튜토리얼때문에 초기화 코드
+        txt.color = Color.white;
     }
 
     // Update is called once per frame

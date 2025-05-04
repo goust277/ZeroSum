@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSlotSprite: {fileID: -304557215, guid: df5025a51c1a9e24895d2b21cb72dd0b, type: 3}
   defaultSSlotprite: {fileID: -578292664, guid: 13210601f8d15c049bf034c1c4353a68, type: 3}
-  hoverScale: {x: 1.1, y: 1.1, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &2132986652243828473
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSlotSprite: {fileID: -1176725945, guid: 2103b5ca0669946478590941f01fae8b, type: 3}
   defaultSSlotprite: {fileID: 1656591667, guid: df1989b3946829349b3b05a27c3e9e9a, type: 3}
-  hoverScale: {x: 1.1, y: 1.1, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &2133023775983790941
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,9 +537,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.9098039}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -711,9 +711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c67e9726020284bbd607be00337f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSlotSprite: {fileID: -304557215, guid: df5025a51c1a9e24895d2b21cb72dd0b, type: 3}
+  selectedSlotSprite: {fileID: -2064727361, guid: 653475d9c5624e94f8eeaa10a80e820b, type: 3}
   defaultSSlotprite: {fileID: 1619279718, guid: ffdf70d746898d54b89ce586dfb8367c, type: 3}
-  hoverScale: {x: 1.1, y: 1.1, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &8955667162445625019
 GameObject:
   m_ObjectHideFlags: 0

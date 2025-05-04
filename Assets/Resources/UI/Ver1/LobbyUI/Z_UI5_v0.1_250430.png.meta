@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Z_UI5_v0.1_250430_16
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 636
+        width: 432
+        height: 273
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a8316172db77d46ac578e20833060e
+      internalID: -1098151565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +140,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Z_UI5_v0.1_250430_0: -415986491
+      Z_UI5_v0.1_250430_1: 1183530397
+      Z_UI5_v0.1_250430_10: -866209997
+      Z_UI5_v0.1_250430_11: -468493468
+      Z_UI5_v0.1_250430_12: -1726036906
+      Z_UI5_v0.1_250430_13: -2092620025
+      Z_UI5_v0.1_250430_14: 1473337745
+      Z_UI5_v0.1_250430_15: 238858435
+      Z_UI5_v0.1_250430_16: -1098151565
+      Z_UI5_v0.1_250430_2: 171805975
+      Z_UI5_v0.1_250430_3: 670846619
+      Z_UI5_v0.1_250430_4: -1788443919
+      Z_UI5_v0.1_250430_5: 2030295178
+      Z_UI5_v0.1_250430_6: -2080338411
+      Z_UI5_v0.1_250430_7: -184113195
+      Z_UI5_v0.1_250430_8: 1111894598
+      Z_UI5_v0.1_250430_9: 1969205813
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
