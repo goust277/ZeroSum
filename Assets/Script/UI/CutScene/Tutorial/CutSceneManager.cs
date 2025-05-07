@@ -51,6 +51,13 @@ public class CutsceneManager : MonoBehaviour
             proCamera2D.RemoveAllCameraTargets();
             proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
 
+            // Boundaries 다시 초기화
+            var boundaries = proCamera2D.GetComponent<ProCamera2DNumericBoundaries>();
+            if (boundaries != null)
+            {
+                boundaries.enabled = false;
+                boundaries.enabled = true;
+            }
         }
 
         playerController.SetActive(true);

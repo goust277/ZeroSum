@@ -15,7 +15,6 @@ public class BeforeEvUp : MonoBehaviour
 
     [Header("virtualCamera Resources")]
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     [Header("Fadeout Light")]
     [SerializeField] private Light2D light2D;
@@ -57,16 +56,8 @@ public class BeforeEvUp : MonoBehaviour
         {
             Debug.Log("BeforeEvUp - OnTriggerEnter2D");
             ev.enabled = false;
-            num5Canvas.gameObject.SetActive(false); // 안내문 비활성화
+            num5Canvas.SetActive(false); // 안내문 비활성화
             hasPlayed = true;
-
-            // 현재 카메라 위치와 회전값을 가져와서 버츄얼 카메라에 적용
-            Vector3 currentCameraPosition = Camera.main.transform.position;
-            Quaternion currentCameraRotation = Camera.main.transform.rotation;
-
-            // 버츄얼 카메라의 위치와 회전값을 현재 카메라 값으로 설정
-            virtualCamera.transform.position = currentCameraPosition;
-            virtualCamera.transform.rotation = currentCameraRotation;
 
             StartCoroutine(GrowAndFade());
             director.Play();
@@ -80,7 +71,6 @@ public class BeforeEvUp : MonoBehaviour
         float startFalloff = 1f;
         float endFalloff = 0.2f;
 
-        // Step: Grow + Falloff 강화
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;

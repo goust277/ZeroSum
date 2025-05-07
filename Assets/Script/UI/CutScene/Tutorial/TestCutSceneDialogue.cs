@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 
 public class TestCutScneDialogue : MonoBehaviour
 {
-    [SerializeField] private GameObject textBox;
+    [SerializeField] private Canvas textBox;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private CutsceneManager cutsceneManager;
     [SerializeField] private PlayableDirector director;
@@ -53,12 +53,7 @@ public class TestCutScneDialogue : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
 
-        textBox.gameObject.SetActive(false); // 대사창 비활성화
-
-        if (director != null)
-        {
-            cutsceneManager.OnCutsceneEnd(director);
-        }
+        textBox.enabled = false; // 대사창 비활성화
     }
 
 }

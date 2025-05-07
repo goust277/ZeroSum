@@ -308,6 +308,8 @@ public class Ver01_ConvManager : MonoBehaviour
             yield return null;
         }
         StopAllCoroutines();  // 모든 코루틴 정리
+        GameStateManager.Instance.SetCurrenSceneID(GameStateManager.Instance.GetCurrentSceneID()+1);
+
         SceneManager.LoadScene(nextScene);
     }
 
