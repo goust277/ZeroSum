@@ -53,7 +53,10 @@ public class TestCutScneDialogue : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
 
-        textBox.enabled = false; // 대사창 비활성화
+        if( textBox != null)
+        {
+            textBox.enabled = false; // 대사창 비활성화
+        }
     }
 
 }
