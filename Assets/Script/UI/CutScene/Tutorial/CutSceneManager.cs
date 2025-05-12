@@ -47,20 +47,25 @@ public class CutsceneManager : MonoBehaviour
 
         if (proCamera2D != null)
         {
-            proCamera2D.enabled = true;
-            proCamera2D.RemoveAllCameraTargets();
-            proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
 
             // 현재 카메라 사이즈와 ProCamera2D 줌을 맞춤
             float targetZoom = Camera.main.orthographicSize;
 
-            if( targetZoom > 3.6f)
+            proCamera2D.enabled = true;
+
+            if (targetZoom > 3.6f)
             {
-                
-                float deltaZoom = (targetZoom / 3.0f); // 상대 변화량
+                Debug.Log("orthographicSize : " + targetZoom);
+                float deltaZoom = (targetZoom / 2.01f); // 상대 변화량
                 Debug.Log("deltaZoom : " + deltaZoom);
                 proCamera2D.Zoom(deltaZoom); // 적용
+                Debug.Log("orthographicSize : " + Camera.main.orthographicSize);
             }
+
+            
+            //proCamera2D.RemoveAllCameraTargets();
+            //proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
+
         }
 
         playerController.SetActive(true);

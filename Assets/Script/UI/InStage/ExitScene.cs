@@ -17,11 +17,11 @@ public class ExitScene : MonoBehaviour
     private GameObject inputManager;
     private Transform playerTransform;
     private bool canActivate = false; // F 키 입력 활성화 여부
-
+    private GameObject player;
 
     void Start()
     {
-        var player = GameObject.Find("Player");
+        player = GameObject.Find("Player");
         if (player != null)
         {
             playerTransform = player.transform;
@@ -80,10 +80,10 @@ public class ExitScene : MonoBehaviour
         if (proCamera2D != null)
             proCamera2D.RemoveAllCameraTargets();
 
-
-        playerAnimator.Play("Walk");
-
+        
         collided = false;
+        player.GetComponent<PlayerAnimation>().enabled = collided;
+        playerAnimator.Play("Walk");
 
         while (!collided && elapsedTime < duration)
         {
@@ -96,6 +96,7 @@ public class ExitScene : MonoBehaviour
         }
 
         playerAnimator.Play("Idle");
+
         moveCoroutine = null;
     }
 }
