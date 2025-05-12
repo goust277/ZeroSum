@@ -95,7 +95,7 @@ public class GameStartController : BaseUi
             Panel.color = alpha;
             yield return null;
         }
-        StartCoroutine(LoadSceneCoroutine("Lobby"));
+        SceneManager.LoadScene("Lobby");
     }
 
     private IEnumerator LoadSceneCoroutine(string sceneName)

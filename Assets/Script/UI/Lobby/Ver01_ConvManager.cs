@@ -86,9 +86,12 @@ public class Ver01_ConvManager : MonoBehaviour
     void Start()
     {
         //conversationUI.SetActive(false);
-        LoadChapterData(GameStateManager.Instance.GetChapterNum());
-
-        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
+        if(ChapterRoot == null)
+        {
+            LoadChapterData(GameStateManager.Instance.GetChapterNum());
+        }
+        
+        //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         NormalCommunication();
 
         pressE.gameObject.SetActive(false);
@@ -310,7 +313,7 @@ public class Ver01_ConvManager : MonoBehaviour
         StopAllCoroutines();  // 모든 코루틴 정리
         GameStateManager.Instance.SetCurrenSceneID(GameStateManager.Instance.GetCurrentSceneID()+1);
 
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene(requiredSecneData.afterConditions.nextScene);
     }
 
     //씬넘김

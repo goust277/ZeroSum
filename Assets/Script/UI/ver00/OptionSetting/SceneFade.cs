@@ -35,7 +35,7 @@ public class SceneFade : MonoBehaviour
             Panel.color = alpha;
             yield return null;
         }
-        SceneManager.LoadScene("PlayScene");
+        SceneManager.LoadScene("Lobby");
     }
 
     // Start is called before the first frame update
