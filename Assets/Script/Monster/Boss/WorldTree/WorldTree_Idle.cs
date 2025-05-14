@@ -26,13 +26,9 @@ public class WorldTree_Idle : BaseState
         // 대기 후 다음 패턴 선택
         if (timer <= 0f)
         {
-            if (boss.isDying)
-            {
-                stateMachine.ChangeState(boss.finalBurstState);
-                return;
-            }
-            boss.GetRandomPattern();
-            stateMachine.ChangeState(boss.pattern1);
+            boss.ChooseOnePattern();
+            stateMachine.ChangeState(boss.nextPattern);
+            boss.nextPattern = null;
         }
     }
 

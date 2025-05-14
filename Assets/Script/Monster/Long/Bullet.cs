@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float timer = 5f;
+    public float timer = 2.5f;
 
     private void Start()
     {
@@ -18,22 +18,14 @@ public class Bullet : MonoBehaviour
                 IDamageAble damageable = other.GetComponent<IDamageAble>();
                 if (damageable != null)
                 {
-                    try
-                    {
-                        Debug.Log($"충돌한 오브젝트 이름: {other.gameObject.name}");
-                        damageable.Damage(1);
-                    }
-                    catch (System.Exception e)
-                    {
-                        Debug.LogError($"Damage() 예외 발생! {e.Message}\n{e.StackTrace}");
-                    }
+                    damageable.Damage(1);
+                    Destroy(gameObject);
                 }
                 else
                 {
-                    Debug.LogWarning("IDamageAble 컴포넌트 없음");
+                    Destroy(gameObject);
                 }
             }
-            Destroy(gameObject);
         }
     }
 }

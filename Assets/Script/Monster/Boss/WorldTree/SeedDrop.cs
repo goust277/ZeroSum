@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiddleArm : BaseState
+public class SeedDrop : BaseState
 {
     private WorldTree boss;
     private float timer;
     private float duration = 3.0f;
 
-    public bool boosted = false;
-
     private Transform player;
     private Transform armObject;
     private float moveSpeed = 1.0f;
+    private bool hasSpawned = false; 
 
-    public MiddleArm(StateMachine stateMachine, WorldTree boss) : base(stateMachine)
+    public SeedDrop(StateMachine stateMachine, WorldTree boss) : base(stateMachine)
     {
         this.boss = boss;
-        this.armObject = boss.MiddleArm.transform;
         this.player = GameObject.FindWithTag("Player")?.transform;
+        this.armObject = boss.MiddleArm.transform;
     }
 
     public override void Enter()
     {
         timer = duration;
+        hasSpawned = false;
         boss.anim.SetBool("Middle_atk", true);
         if (player != null && armObject != null)
         {
@@ -43,15 +43,16 @@ public class MiddleArm : BaseState
             armObject.position = Vector3.Lerp(armObject.position, targetPos, Time.deltaTime * moveSpeed);
         }
 
-        if (timer <= 2f)
+        if (!hasSpawned && timer <= 2f)
         {
-            boss.laser.SetActive(true); // 레이저 활성화 시점
+            hasSpawned = true;
+            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, -90f);
+            Vector2 spawnPosition = armObject.position + Vector3.down * 1.5f;
+            GameObject.Instantiate(boss.seed, spawnPosition, spawnRotation);
         }
 
         if (timer <= 0f)
         {
-            boss.laser.SetActive(false);
-
             stateMachine.ChangeState(boss.idleState);
         }
     }

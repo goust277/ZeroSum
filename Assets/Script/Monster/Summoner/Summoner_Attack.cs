@@ -29,7 +29,7 @@ public class Summoner_Attack : BaseState
     {
         AnimatorStateInfo stateInfo = summoner.anim.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("Summoner_attack") && stateInfo.normalizedTime >= 0.85f)
+        if (stateInfo.IsName("Summoner_attack") && stateInfo.normalizedTime >= 0.80f)
         {
             stateMachine.ChangeState(new Summoner_Chase(stateMachine, summoner));
             return;
@@ -39,7 +39,7 @@ public class Summoner_Attack : BaseState
     public override void Exit()
     {
         summoner.canAttack = true;
-        summoner.attackCooldown = 5f;
+        summoner.attackCooldown = 2f;
         summoner.anim.SetBool("isAttack", false);
     }
 }
