@@ -8,7 +8,11 @@ using UnityEngine.UI;
 
 public class ExitScene : MonoBehaviour
 {
+    [Header("Pre-work Resource")]
+    [SerializeField] private Collider2D elevatorCd;
     [SerializeField] private GameObject targetObject;        // On/Off 대상
+
+    [Header("Cut Secene Resource")]
     [SerializeField] private Transform targetPoint;          // 이동할 지점
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private Animator playerAnimator;
@@ -35,6 +39,8 @@ public class ExitScene : MonoBehaviour
         {
             playerTransform = player.transform;
         }
+
+        elevatorCd.enabled = false;
     }
 
     private void Update()
@@ -75,6 +81,7 @@ public class ExitScene : MonoBehaviour
     {
         if (moveCoroutine == null && playerTransform != null)
         {
+            elevatorCd.enabled = true;
             moveCoroutine = StartCoroutine(MovePlayer());
             StartCoroutine(fadeOut());
         }
@@ -82,7 +89,7 @@ public class ExitScene : MonoBehaviour
 
     private IEnumerator MovePlayer()
     {
-        proCamera2D.Zoom(2.0f, 1.0f);
+        proCamera2D.Zoom(-2.0f, 1.0f);
 
         float duration = 1f;
         float elapsedTime = 0f;

@@ -31,25 +31,14 @@
         "needEventConditions": [],
         "currentSecneID": 1 //현재 씬 아이디 
       },
-      "SecneID": 0,
+      "SecneID": 1,
       "Dialog": [
-        {
-          "id": 9,
-          "pos": 1,
-          "log": [
-            "생각보다 경비가 철저하군. 번거롭게 됐어.",
-            "하지만 생각보다 흥미로운 정보를 얻었다."
-          ]
-        },
         {
           "id": 5,
           "pos": 0,
-          "log": [ "해커… 그믐이라고 했나?" ]
-        },
-        {
-          "id": 8,
-          "pos": 1,
           "log": [
+            "생각보다 경비가 철저하군. 번거롭게 됐어.",
+            "하지만 생각보다 흥미로운 정보를 얻었다.",
             "그들과 한 패인 척 목숨을 부지중이라…",
             "도박수를 던져봐야겠어.",
             "이 ‘그믐’이 그 ‘그믐’ 이 맞다면 분명 도움이 될 테니까."
@@ -71,7 +60,7 @@
         "needEventConditions": [],
         "currentSecneID": 2 //현재 씬 아이디 
       },
-      "SecneID": 0,
+      "SecneID": 2,
       "Dialog": [
         {
           "id": 9,
@@ -110,7 +99,7 @@
         "needEventConditions": [],
         "currentSecneID": 3 //현재 씬 아이디 
       },
-      "SecneID": 0,
+      "SecneID": 3,
       "Dialog": [
         {
           "id": 9,

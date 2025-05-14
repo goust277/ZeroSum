@@ -23057,6 +23057,11 @@ MonoBehaviour:
   aSprite: {fileID: 1828708077, guid: 841dd67e73c672049bd958ea00657ec8, type: 3}
   qSprite: {fileID: 21300000, guid: 7871eab43d9061a4a9d08eacfcf53ace, type: 3}
   image: {fileID: 1186900497}
+--- !u!61 &1189147357 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3962425395185544046, guid: fdcc490826a6ea64f84e235ffef80aa1, type: 3}
+  m_PrefabInstance: {fileID: 1388917111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1200355837
 GameObject:
   m_ObjectHideFlags: 0
@@ -34507,6 +34512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2370f29be862a489dde915455c935f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elevatorCd: {fileID: 1581992874}
   targetObject: {fileID: 1181956820}
   targetPoint: {fileID: 1844960572}
   moveSpeed: 2
@@ -36653,7 +36659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133023775983790941, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4660451338515754348, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -40133,6 +40139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2370f29be862a489dde915455c935f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elevatorCd: {fileID: 1189147357}
   targetObject: {fileID: 849199958}
   targetPoint: {fileID: 1866058355}
   moveSpeed: 2
@@ -40726,6 +40733,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1581992874 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3962425395185544046, guid: fdcc490826a6ea64f84e235ffef80aa1, type: 3}
+  m_PrefabInstance: {fileID: 325189896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1584775884
 GameObject:
   m_ObjectHideFlags: 0
