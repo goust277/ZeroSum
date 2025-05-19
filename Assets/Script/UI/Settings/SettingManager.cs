@@ -9,12 +9,16 @@ using System.Collections.Generic;
 
 public class SettingsManager : MonoBehaviour
 {
-    // UI menuList
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("UI menu Resource")]
     [SerializeField] private Button resolutionButton;  // �ػ� ���� ��ư
     [SerializeField] private Button fullscreenButton;  // ��üȭ�� ��ư
     [SerializeField] private Slider backgroundSoundSlider;  // ����� �����̴�
     [SerializeField] private Slider effectsSoundSlider;  // ȿ���� �����̴�
     [SerializeField] private Button vibrationButtons;   // ȭ�� ���� ��ư�� (5��)
+
+    [Header("Option  Resource")]
     [SerializeField] private TextMeshProUGUI[] textMeshPros = new TextMeshProUGUI[4];
     // ����� �ͼ� (�����, ȿ����)
     public AudioMixer audioMixer;  // ������� ȿ������ �����ϴ� �ͼ�
@@ -78,22 +82,20 @@ public class SettingsManager : MonoBehaviour
         //optionSettingbtn.onClick.AddListener(SettingOnOff);
         optionResetbtn.onClick.AddListener(OnClickResetBtn);
 
-        //brightnessSlider.onValueChanged.AddListener(SetBrightness);
-        backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
-        effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
-        vibrationButtons.onClick.AddListener(SetVibration);
-
-
-        // �ʱ� �� ���� (�����̴� �� ��ư �ʱ�ȭ)
-        //brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 1.0f);  // �⺻�� 1.0
+        // 1. 먼저 값 세팅
         backgroundSoundSlider.value = PlayerPrefs.GetFloat("BackgroundVolume", defaultBackgroundVolume);
         effectsSoundSlider.value = PlayerPrefs.GetFloat("EffectsVolume", defaultEffectsVolume);
         vibrationLevel = PlayerPrefs.GetInt("VibrationLevel", defaultVibrationLevel);
 
+        // 2. 그 다음에 이벤트 연결
+        backgroundSoundSlider.onValueChanged.AddListener(SetBackgroundSound);
+        effectsSoundSlider.onValueChanged.AddListener(SetEffectsSound);
+        vibrationButtons.onClick.AddListener(SetVibration);
     }
 
     private void OnClickResetBtn()
     {
+        audioSource.Play();
         backgroundSoundSlider.value = defaultBackgroundVolume;
         SetBackgroundSound(defaultBackgroundVolume);
 
@@ -136,6 +138,7 @@ public class SettingsManager : MonoBehaviour
     // �ػ󵵸� �����ϴ� �޼���
     private void SetResolution()
     {
+        audioSource.Play();
         resolutionIndex--;
 
         if (resolutionIndex < 0 )
@@ -158,6 +161,7 @@ public class SettingsManager : MonoBehaviour
     // ��üȭ�� ���
     private void ToggleFullscreen()
     {
+        audioSource.Play();
         //bool isFullscreen = Screen.fullScreen;
 
         isFullscreen = Screen.fullScreen;
@@ -180,6 +184,7 @@ public class SettingsManager : MonoBehaviour
     // ����� ����
     private void SetBackgroundSound(float value)
     {
+        audioSource.Play();
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
         int mappedValue = Mathf.RoundToInt((value) * (100f));
         textMeshPros[3].text = mappedValue.ToString();
@@ -190,6 +195,7 @@ public class SettingsManager : MonoBehaviour
     // ȿ���� ����
     private void SetEffectsSound(float value)
     {
+        audioSource.Play();
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
         int mappedValue = Mathf.RoundToInt((value) * (100f));
         textMeshPros[4].text = mappedValue.ToString();
@@ -199,6 +205,7 @@ public class SettingsManager : MonoBehaviour
 
     private void SetVibration()
     {
+        audioSource.Play();
         vibrationLevel--;
 
         string[] vibrationLevels = { "x0.3", "x0.7", "x1.0", "x1.3", "x1.6" };

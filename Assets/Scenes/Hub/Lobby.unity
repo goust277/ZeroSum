@@ -1422,14 +1422,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2765385444547649041, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 134
-      objectReference: {fileID: 0}
-    - target: {fileID: 4211981699957714298, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: m_text
-      value: ' '
-      objectReference: {fileID: 0}
     - target: {fileID: 5470433184468116080, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
       propertyPath: m_Name
       value: Lobby
@@ -1438,22 +1430,14 @@ PrefabInstance:
       propertyPath: Panel
       value: 
       objectReference: {fileID: 48648682}
-    - target: {fileID: 7384760391923666666, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: nextScene
-      value: Stage1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8714968518929107809, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 7657148969033890573, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
+      propertyPath: bgm
       value: 
-      objectReference: {fileID: 21300000, guid: 4e6e292ceb254a643ba899ba2c41d85f, type: 3}
-    - target: {fileID: 8912750178438903476, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: m_SortingOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 9135633544308186455, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      propertyPath: m_text
-      value: ' '
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2036339200}
+    - target: {fileID: 7657148969033890573, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
+      propertyPath: fadeCanvas
+      value: 
+      objectReference: {fileID: 48648682}
     - target: {fileID: 9170534908530623263, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1537,31 +1521,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5470433184468116080, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2013285371}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
---- !u!1 &2013285370 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5470433184468116080, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
-  m_PrefabInstance: {fileID: 2013285369}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2013285371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013285370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b4f0ee4baa77e4ebc2449bd0877e26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeCanvas: {fileID: 48648682}
-  bgm: {fileID: 2036339200}
-  fadeDuration: 2
 --- !u!1 &2036339199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1550,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3290955932721249065, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 4d06296012dd79c46bef680fc5e3cdd9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f628e50eaf86ac447be8c3cc9252ed83, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

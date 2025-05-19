@@ -6,6 +6,8 @@ using TMPro; // TextMeshPro 사용
 
 public class CategoryTab : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+
     [Header("ActionBtns")]
     [SerializeField] private Button optionSettingBtn; // UI 버튼
     [SerializeField] private Button keySettingBtn;
@@ -36,6 +38,8 @@ public class CategoryTab : MonoBehaviour
     }
 
     public void KeySettingOnOff() {
+        audioSource.Play();
+
         if (keySettingUI.activeSelf) return;
 
         keySettingUI.SetActive(true);
@@ -45,6 +49,8 @@ public class CategoryTab : MonoBehaviour
         }
     }
     public void OptionSettingOnOff() {
+        audioSource.Play();
+
         if (optionSettingUI.activeSelf) return;
 
         optionSettingUI.SetActive(true);

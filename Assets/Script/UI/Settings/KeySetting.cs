@@ -8,6 +8,7 @@ using TMPro; // TextMeshPro 사용
 public class KeySetting : MonoBehaviour
 {
     [SerializeField] public PlayerInput playerInput; // PlayerInput 컴포넌트
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private InputAction attackAction; // 변경할 입력 액션
     public string actionName;
 
@@ -57,6 +58,7 @@ public class KeySetting : MonoBehaviour
 
     public void StartRebinding(Button rebindButton, string actionName)
     {
+        audioSource.Play();
         InputAction action = playerInput.actions[actionName];
 
         if (action == null)
@@ -82,6 +84,7 @@ public class KeySetting : MonoBehaviour
 
     public void ResetBinding()
     {
+        audioSource.Play();
         foreach (var entry in defaultMap)
         {
             InputAction action = playerInput.actions[entry.Key];
@@ -96,6 +99,7 @@ public class KeySetting : MonoBehaviour
 
     public void SaveRebinding()
     {
+        audioSource.Play();
         foreach (var entry in tempMap)
         {
             string actionName = entry.Value;
