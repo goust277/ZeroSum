@@ -40145,24 +40145,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1704464797747374988, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -3290955932721249065, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
-    - target: {fileID: 6843455855589802340, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6843455855589802340, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4885409558514337743, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
     - target: {fileID: 6970203870306122558, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3507695468731999845, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
