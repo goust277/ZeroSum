@@ -82,14 +82,19 @@ public class ControlEv : BaseEv, IControllable
         if (curMoveCount == moveCount)
         {
             curMoveCount = 0f;
-            if(isUp)
+
+            if (!isBtnOn)
             {
-                isUp = false;
+                if (isUp)
+                {
+                    isUp = false;
+                }
+                else
+                {
+                    isUp = true;
+                }
             }
-            else
-            {
-                isUp = true;
-            }
+
         }
         if(isBtnOn)
         {
