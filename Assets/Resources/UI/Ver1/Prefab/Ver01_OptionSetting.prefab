@@ -3349,15 +3349,15 @@ RectTransform:
   m_GameObject: {fileID: 5221474571884082204}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8420538232869629195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -860, y: 0}
-  m_SizeDelta: {x: 255, y: 180}
+  m_AnchoredPosition: {x: -840, y: 300}
+  m_SizeDelta: {x: 220, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3308039192245409771
 CanvasRenderer:
@@ -3455,7 +3455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSlotSprite: {fileID: 778723520, guid: 8e9b1850dd7fcee4e9789d35fcf40b42, type: 3}
   defaultSSlotprite: {fileID: -1872851837, guid: c9eba7d915686d142b02c32cfb230379, type: 3}
-  hoverScale: {x: 0.8, y: 0.8, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &5240418165441997414
 GameObject:
   m_ObjectHideFlags: 0
@@ -4231,15 +4231,15 @@ RectTransform:
   m_GameObject: {fileID: 6839177926152766510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8420538232869629195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -860, y: 240}
-  m_SizeDelta: {x: 255, y: 180}
+  m_AnchoredPosition: {x: -840, y: 0}
+  m_SizeDelta: {x: 220, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6349388524614948385
 CanvasRenderer:
@@ -4337,7 +4337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSlotSprite: {fileID: 654325520, guid: a4239620da324734a9a39e6f2dbcfe1a, type: 3}
   defaultSSlotprite: {fileID: 308444243, guid: 20934825b8629744495a7b4fc282ea0f, type: 3}
-  hoverScale: {x: 0.8, y: 0.8, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &6936864790335761767
 GameObject:
   m_ObjectHideFlags: 0
@@ -4576,15 +4576,15 @@ RectTransform:
   m_GameObject: {fileID: 7694094891586691221}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8420538232869629195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -860, y: -238}
-  m_SizeDelta: {x: 255, y: 180}
+  m_AnchoredPosition: {x: -840, y: -300}
+  m_SizeDelta: {x: 220, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3137187441345114679
 CanvasRenderer:
@@ -4682,7 +4682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSlotSprite: {fileID: -1092649050, guid: 8e848d5f724a1294bbd220e6d1e3c7b0, type: 3}
   defaultSSlotprite: {fileID: 1548379776, guid: 8e5390e15031a5c4696def8a2ba92299, type: 3}
-  hoverScale: {x: 0.8, y: 0.8, z: 1}
+  hoverScale: {x: 1, y: 1, z: 1}
 --- !u!1 &7768916537402377926
 GameObject:
   m_ObjectHideFlags: 0
