@@ -14,13 +14,13 @@ public class Pause : MonoBehaviour
         pauseUI.SetActive(false);
     }
 
-    private void Update()
+    public void OnESC(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
+        if (!context.performed) return;
+
+        TogglePause();
     }
+
 
     private void TogglePause()
     {

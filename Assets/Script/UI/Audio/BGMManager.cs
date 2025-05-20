@@ -1,27 +1,14 @@
 using UnityEngine;
 
+
 public class BGMManager : MonoBehaviour
 {
-    public static BGMManager Instance;
 
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioClip normalBGM;
     [SerializeField] private AudioClip dangerBGM;
 
     private bool isDangerBGM = false;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {

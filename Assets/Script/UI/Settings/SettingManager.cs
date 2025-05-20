@@ -184,7 +184,7 @@ public class SettingsManager : MonoBehaviour
     // ����� ����
     private void SetBackgroundSound(float value)
     {
-        audioSource.Play();
+        //audioSource.Play();
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
         int mappedValue = Mathf.RoundToInt((value) * (100f));
         textMeshPros[3].text = mappedValue.ToString();
@@ -195,7 +195,7 @@ public class SettingsManager : MonoBehaviour
     // ȿ���� ����
     private void SetEffectsSound(float value)
     {
-        audioSource.Play();
+        //audioSource.Play();
         float volume = Mathf.Approximately(value, 0.0f) ? -80f : Mathf.Log10(value) * 20;
         int mappedValue = Mathf.RoundToInt((value) * (100f));
         textMeshPros[4].text = mappedValue.ToString();
@@ -221,5 +221,9 @@ public class SettingsManager : MonoBehaviour
         //화면떨림 조정?
     }
 
+    public void playEffectSound()
+    {
+        audioSource.Play();
+    }
 
 }
