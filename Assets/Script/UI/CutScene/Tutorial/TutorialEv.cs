@@ -35,11 +35,11 @@ public class TutorialEv : MonoBehaviour
     void PlayCutScene()
     {
 
-        // ÇöÀç Ä«¸Þ¶ó À§Ä¡¿Í È¸Àü°ªÀ» °¡Á®¿Í¼­ ¹öÃò¾ó Ä«¸Þ¶ó¿¡ Àû¿ë
+        // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector3 currentCameraPosition = Camera.main.transform.position;
         Quaternion currentCameraRotation = Camera.main.transform.rotation;
 
-        // ¹öÃò¾ó Ä«¸Þ¶óÀÇ À§Ä¡¿Í È¸Àü°ªÀ» ÇöÀç Ä«¸Þ¶ó °ªÀ¸·Î ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         virtualCamera.transform.position = currentCameraPosition;
         virtualCamera.transform.rotation = currentCameraRotation;
         director.Play();

@@ -14,6 +14,9 @@ public class MonsterDoor : MonoBehaviour
     [SerializeField] private float spawnCoolTime;
     [SerializeField] private float curCoolTime;
 
+    [SerializeField] private float spawnTime;
+    private float curSpawnTime = 0f;
+
     [SerializeField] private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
     private List<GameObject> spawnedMonsters = new List<GameObject>();
 
@@ -46,6 +49,8 @@ public class MonsterDoor : MonoBehaviour
         isSpawnReady = false;
         animator = GetComponent<Animator>();
         parent = GameObject.Find("MonsterManager").transform;
+
+        
     }
 
     // Update is called once per frame
@@ -56,7 +61,7 @@ public class MonsterDoor : MonoBehaviour
             if (spawnedMonsters.Count == 0 && curCoolTime >= spawnCoolTime)
             {
                 SetOpen();
-                curCoolTime = 0;
+                curSpawnTime = 0;
             }
         }
 
@@ -70,6 +75,11 @@ public class MonsterDoor : MonoBehaviour
             spawnedMonsters.RemoveAll(obj => obj != null && !obj.activeSelf);
         }
         //spawnedMonsters.RemoveAll(item => item == null);
+
+        if (curSpawnTime > 0)
+        {
+            curSpawnTime -= Time.deltaTime;
+        }
     }
 
     public void SetOpen()
@@ -93,6 +103,7 @@ public class MonsterDoor : MonoBehaviour
             AssignPlayerToMonster(monster);
 
             spawnedMonsters.Add(monster);
+
         }
 
     }

@@ -1363,6 +1363,14 @@ PrefabInstance:
       propertyPath: fadeCanvas
       value: 
       objectReference: {fileID: 48648682}
+    - target: {fileID: 7384760391923666666, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
+      propertyPath: nextScene
+      value: Stage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912750178438903476, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 9170534908530623263, guid: 7971c6120556f524c997e7ea17fdc010, type: 3}
       propertyPath: m_Pivot.x
       value: 0
