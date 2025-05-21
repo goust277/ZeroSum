@@ -16,6 +16,9 @@ public class FarmingDoor : BaseInteractable
     [Header("Monster Door")]
     [SerializeField] private GameObject monsterDoor;
 
+    [Header("Monster Door")]
+    [SerializeField] private GameObject monsterDoor;
+
     private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
     private Collider2D doorCollider;
 
