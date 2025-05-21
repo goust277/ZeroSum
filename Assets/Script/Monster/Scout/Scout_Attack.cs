@@ -37,6 +37,7 @@ public class Scout_Attack : BaseState
         scout.anim.SetBool("isAttack", false);
         scout.canAttack = true;
         scout.canShot = false;
+        scout.seeMark = true;
         scout.attackCooldown = 3f;
     }
 }

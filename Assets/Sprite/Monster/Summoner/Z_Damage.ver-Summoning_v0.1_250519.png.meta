@@ -1,0 +1,589 @@
+fileFormatVersion: 2
+guid: 96d473fe6b2b5a646a2732cfb32da5f9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1472
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddd822263d63d164d9d807607a1455d8
+      internalID: 1829703380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1472
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd7c08c39da14445b898a942db5fd5c
+      internalID: 1905104187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1472
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cd8346653820714a829b0af35f37b4c
+      internalID: -483596429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 1472
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff8965bcaaa4e1f43b75f2b19d72082f
+      internalID: 1168054887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1472
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e7cc9631c2310a4abb724f62fc571fb
+      internalID: -1027083552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1104
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55c50fffd88fc7a43bb3e5f531f6e772
+      internalID: -1066310400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1104
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d9c8c5e8951a846ab07271a79e569f
+      internalID: 2064744097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_7
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1104
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1e71c4a092e41b4495128295e6f2717
+      internalID: -1052997336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_8
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 1104
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26e0cffad86e0824c87c6e2102d02e9a
+      internalID: -592402437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_9
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1104
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a0831a7a8e8a3a4baf1156e84c8e165
+      internalID: -300548462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 736
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5d421458d2c1e4ab23b91d44ad7acb
+      internalID: 731564872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_11
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 736
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da2316be34cca16449bcb21a364365ae
+      internalID: -1269976963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_12
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 736
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c232d137a3c88428c3eb4e0da67b71
+      internalID: 739854990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_13
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 736
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01eae8565614f9a45b26eb02bf7d86c3
+      internalID: -408412977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_14
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 736
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27f4cc5bb16b3734d9c2764b68ed2f83
+      internalID: -276298490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 368
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6120778e7054b54dab35f3fdc9821e7
+      internalID: 1714964588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_16
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 368
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8d2cdbf60f1094e97ea89b0f64230c
+      internalID: 307507285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_17
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 368
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bfc477fac7698541a4e7be3eeb29950
+      internalID: 1442634676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_18
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 368
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e84e302c0e1079242a5d35887691551d
+      internalID: -1880825813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_19
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 368
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c6551adabc362642b76ecbc3b71d2ca
+      internalID: 57922318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-Summoning_v0.1_250519_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e43583959ad8664e9418bac7691c759
+      internalID: -1933008758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Z_Damage.ver-Summoning_v0.1_250519_0: 1829703380
+      Z_Damage.ver-Summoning_v0.1_250519_1: 1905104187
+      Z_Damage.ver-Summoning_v0.1_250519_10: 731564872
+      Z_Damage.ver-Summoning_v0.1_250519_11: -1269976963
+      Z_Damage.ver-Summoning_v0.1_250519_12: 739854990
+      Z_Damage.ver-Summoning_v0.1_250519_13: -408412977
+      Z_Damage.ver-Summoning_v0.1_250519_14: -276298490
+      Z_Damage.ver-Summoning_v0.1_250519_15: 1714964588
+      Z_Damage.ver-Summoning_v0.1_250519_16: 307507285
+      Z_Damage.ver-Summoning_v0.1_250519_17: 1442634676
+      Z_Damage.ver-Summoning_v0.1_250519_18: -1880825813
+      Z_Damage.ver-Summoning_v0.1_250519_19: 57922318
+      Z_Damage.ver-Summoning_v0.1_250519_2: -483596429
+      Z_Damage.ver-Summoning_v0.1_250519_20: -1933008758
+      Z_Damage.ver-Summoning_v0.1_250519_3: 1168054887
+      Z_Damage.ver-Summoning_v0.1_250519_4: -1027083552
+      Z_Damage.ver-Summoning_v0.1_250519_5: -1066310400
+      Z_Damage.ver-Summoning_v0.1_250519_6: 2064744097
+      Z_Damage.ver-Summoning_v0.1_250519_7: -1052997336
+      Z_Damage.ver-Summoning_v0.1_250519_8: -592402437
+      Z_Damage.ver-Summoning_v0.1_250519_9: -300548462
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

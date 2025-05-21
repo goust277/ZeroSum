@@ -9,7 +9,15 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
+    public AnimatorOverrideController overrideController;
     public SpriteRenderer sprite;
+
+    [Header("Hit Animation Clips")]
+    public AnimationClip idle_Hit;
+    public AnimationClip attack_Hit;
+    public AnimationClip move_Hit;
+    public AnimationClip chase_Hit;
+    public AnimationClip long_Hit;
 
     [Header("Patrol Settings")]
     public float patrolRange = 3f;
@@ -26,14 +34,17 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
     public GameObject detect;
 
     [Header("Combat Settings")]
-    public int health = 100;
+    public int health = 2;
     public int attackDamage = 10;
     public float attackRange = 5f;
     public float attackCooldown = 1f;
     public bool canAttack = true;
     public bool canLAttack = false;
+    public bool seeMark;
+    public GameObject mark;
     private bool isCooldownComplete;
     public bool isHit;
+    public bool invincibility;
     public bool isDie;
     public Transform leftFirePoint;         // 왼쪽 발사 위치
     public Transform rightFirePoint;        // 오른쪽 발사 위치
@@ -156,7 +167,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (!isHit)
+        if (!invincibility)
         {
             if (isDie)
             {
@@ -171,6 +182,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
             }
             else
             {
+                HitAnimationOverrides();
                 stateMachine.ChangeState(new Summoner_Hit(stateMachine, this));
             }
         }
@@ -243,5 +255,19 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
                 rb.velocity = dir * BulletSpeed; // 발사 속도 설정
             }
         }
+    }
+
+    private void HitAnimationOverrides()
+    {
+        if (isHit)
+            return;
+
+        overrideController["Summoner_idle"] = idle_Hit;
+        overrideController["Summoner_attack"] = attack_Hit;
+        overrideController["Summoner_walk"] = move_Hit;
+        overrideController["Summoner_chase"] = chase_Hit;
+        overrideController["Summoner_L_attack"] = long_Hit;
+
+        anim.runtimeAnimatorController = overrideController;
     }
 }

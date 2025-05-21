@@ -40,6 +40,7 @@ public class Summoner_Attack : BaseState
     {
         summoner.canAttack = true;
         summoner.attackCooldown = 2f;
+        summoner.seeMark = true;
         summoner.anim.SetBool("isAttack", false);
     }
 }
