@@ -33,6 +33,8 @@ public class TestCutScneDialogue : MonoBehaviour
 
     IEnumerator CutSceneTextWriter()
     {
+        yield return new WaitForSeconds(1);
+
         foreach (var dialog in texts)
         {
             //Debug.Log(dialog);

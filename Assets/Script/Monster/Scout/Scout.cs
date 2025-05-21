@@ -8,7 +8,16 @@ using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.Tilemaps;
 
 public class Scout : MonoBehaviour, IDetectable, IDamageAble
-{ 
+{
+
+    [Header("Monster Audio")]
+    public AudioSource moveAudioSource;
+    public AudioSource battleAudioSource;
+
+    public AudioClip attackClip;
+    public AudioClip damagedClip;
+    //죽는 소리가 따로 있다면 여기다가 추가
+
     [Header("Animation")]
     public Animator anim;
     public SpriteRenderer sprite;
@@ -116,7 +125,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             turn = true;
         }
     }
-
 
     private void OnCollisionEnter2D(Collision2D other)
     {
