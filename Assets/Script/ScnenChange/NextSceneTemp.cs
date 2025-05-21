@@ -4,7 +4,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NextScene : MonoBehaviour
+public class NextSceneTemp : MonoBehaviour
 {
     [SerializeField] private string SceneName;
     void Start()
