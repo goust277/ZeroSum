@@ -11,9 +11,11 @@ public class FarmingDoor : BaseInteractable
 
     [Header("Auto Independent Resources")]
     [SerializeField] private GameObject[] dropItemList;
-    
 
     [SerializeField] private Animator animator; // Animator 컴포넌트 참조
+    [Header("Monster Door")]
+    [SerializeField] private GameObject monsterDoor;
+
     private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
     private Collider2D doorCollider;
 
@@ -45,6 +47,14 @@ public class FarmingDoor : BaseInteractable
         Invoke("ReopenDoor", 1.0f);
     }
 
+    public void DoorChang()
+    {
+        if (monsterDoor != null)
+        {
+            monsterDoor.SetActive(true);
+        }
+        gameObject.SetActive(false);
+    }
 
     private void ReopenDoor()
     {
@@ -55,11 +65,13 @@ public class FarmingDoor : BaseInteractable
                 obj.SetActive(true);
             }
         }
+        
     }
 
     public void ReceiveDropIndex(int dropIndex)
     {
         Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
+       //DoorChang();
     }
 
 
@@ -70,7 +82,6 @@ public class FarmingDoor : BaseInteractable
     //        Exe();
     //    }
     //}
-
 
     public override void Exe()
     {

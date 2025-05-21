@@ -41,7 +41,16 @@ public class Summoner_Chase : BaseState
         {
             if (summoner.CanEnterAttackState())
             {
-                stateMachine.ChangeState(new Summoner_Attack(stateMachine, summoner));
+                if (summoner.canLAttack)
+                {
+                    summoner.canLAttack = false;
+                    stateMachine.ChangeState(new Summoner_L_atk(stateMachine, summoner));
+                }
+                else
+                {
+                    summoner.canLAttack = true;
+                    stateMachine.ChangeState(new Summoner_Attack(stateMachine, summoner));
+                }
                 return;
             }
         }

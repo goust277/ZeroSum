@@ -42,39 +42,17 @@ public class MiddleArm : BaseState
             Vector3 targetPos = new Vector3(player.position.x, armObject.position.y, armObject.position.z);
             armObject.position = Vector3.Lerp(armObject.position, targetPos, Time.deltaTime * moveSpeed);
         }
-        if(timer <= 2f)
+
+        if (timer <= 2f)
         {
-            boss.laser.SetActive(true);
+            boss.laser.SetActive(true); // 레이저 활성화 시점
         }
+
         if (timer <= 0f)
         {
             boss.laser.SetActive(false);
 
-            // 발악 상태인지 확인
-            if (boss.isDying && boss.finalBurst.Count > 0)
-            {
-                if (boss.burstIndex < boss.finalBurst.Count - 1)
-                {
-                    boss.burstIndex++;
-                    stateMachine.ChangeState(boss.patternPause);
-                }
-                else
-                {
-                    stateMachine.ChangeState(boss.idleState); // 모든 발악 패턴 종료
-                }
-            }
-            else
-            {
-                // 일반 전투 흐름
-                if (boss.pattern2 != null)
-                {
-                    stateMachine.ChangeState(boss.patternPause);
-                }
-                else
-                {
-                    stateMachine.ChangeState(boss.idleState);
-                }
-            }
+            stateMachine.ChangeState(boss.idleState);
         }
     }
 

@@ -93,4 +93,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: DoorChang
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 4c884634e93c8e74892dae76d6ce0af3, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
