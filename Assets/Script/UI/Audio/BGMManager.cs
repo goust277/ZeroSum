@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioClip normalBGM;
     [SerializeField] private AudioClip dangerBGM;

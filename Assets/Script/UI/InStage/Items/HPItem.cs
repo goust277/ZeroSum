@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HPItem : MonoBehaviour
+public class HPItem : BaseItem
 {
     private bool isCollision = false;
 
-
-    //private void Start()
-    //{
-    //    dungeonStatManager ??= FindObjectsOfType<Ver01_DungeonStatManager>(true).FirstOrDefault();
-    //}
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.transform.root.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
@@ -20,6 +15,8 @@ public class HPItem : MonoBehaviour
             objCollider.enabled = false;
 
             Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
+
+            PlaySound();
 
             rb.isKinematic = true;    //중력 & 물리적 반응 제거
             rb.velocity = Vector2.zero;

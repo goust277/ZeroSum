@@ -36751,7 +36751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133023775983790941, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4660451338515754348, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -36858,6 +36858,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
+--- !u!114 &1451187534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2480140666995951682, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
+  m_PrefabInstance: {fileID: 1451187533}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec669f4d5a05c954bb83db20d169af0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1453414512
 GameObject:
   m_ObjectHideFlags: 0
@@ -40154,6 +40165,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+--- !u!114 &1547007439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8495527512984579100, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+  m_PrefabInstance: {fileID: 1547007438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799b0981964980e4aa228dd6cf943332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1547007440 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6250674415385956441, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+  m_PrefabInstance: {fileID: 1547007438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e014fe39d5f41e6418e22c89e34b8e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548016359
 GameObject:
   m_ObjectHideFlags: 0
@@ -41521,6 +41554,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2135322937}
     m_Modifications:
+    - target: {fileID: -4310296105025181681, guid: d90c4a6521b935543bfda2895d464c82, type: 3}
+      propertyPath: spriteChanger
+      value: 
+      objectReference: {fileID: 1686436172}
     - target: {fileID: 2768359455553116457, guid: d90c4a6521b935543bfda2895d464c82, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12
@@ -41581,6 +41618,11 @@ PrefabInstance:
 --- !u!4 &1686436171 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2768359455553116457, guid: d90c4a6521b935543bfda2895d464c82, type: 3}
+  m_PrefabInstance: {fileID: 1686436170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1686436172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1941320110785893575, guid: d90c4a6521b935543bfda2895d464c82, type: 3}
   m_PrefabInstance: {fileID: 1686436170}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1690130933
@@ -47722,6 +47764,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1547007440}
+        m_TargetAssemblyTypeName: MoveAudioManager, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 946e68d4-0f1a-4324-82c1-64c4f1e30560
     m_ActionName: PlayerMovement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -47744,6 +47798,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1970744126}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
+        m_MethodName: OnGunAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1547007439}
+        m_TargetAssemblyTypeName: BattleAudioManager, Assembly-CSharp
         m_MethodName: OnGunAttack
         m_Mode: 0
         m_Arguments:
@@ -47794,9 +47860,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/E[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1451187534}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
-        m_MethodName: OnOffPuase
+        m_MethodName: OnESC
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -47838,6 +47904,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1547007440}
+        m_TargetAssemblyTypeName: MoveAudioManager, Assembly-CSharp
+        m_MethodName: OnRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c903fdb1-d412-4c6f-98ab-fe2e5645680b
     m_ActionName: PlayerMovement/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
@@ -47860,6 +47938,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1970744126}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
+        m_MethodName: OnSwordAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1547007439}
+        m_TargetAssemblyTypeName: BattleAudioManager, Assembly-CSharp
         m_MethodName: OnSwordAttack
         m_Mode: 0
         m_Arguments:

@@ -8,6 +8,9 @@ public class Bomb : MonoBehaviour
 {
     private Animator animator;
 
+    [Header("오디오")]
+    [SerializeField] private AudioSource audioSource;
+
     [Header("데미지")]
     [SerializeField] private int damage;
     [SerializeField] private float time;
@@ -47,6 +50,7 @@ public class Bomb : MonoBehaviour
 
     public void IsBomb()
     {
+        audioSource.Play();
         col.SetActive(true);
     }
 

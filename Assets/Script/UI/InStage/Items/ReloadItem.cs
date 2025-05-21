@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ReloadItem : MonoBehaviour
+public class ReloadItem :  BaseItem
 {
     private bool isCollision = false;
     // Start is called before the first frame update
@@ -23,6 +23,7 @@ public class ReloadItem : MonoBehaviour
             Collider2D objCollider = GetComponent<Collider2D>();  // 
             objCollider.enabled = false;
 
+            PlaySound();
             Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
 
             rb.isKinematic = true;    //중력 & 물리적 반응 제거

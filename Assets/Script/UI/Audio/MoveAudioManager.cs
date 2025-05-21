@@ -8,9 +8,8 @@ using UnityEngine.InputSystem;
 public class MoveAudioManager : MonoBehaviour
 {
 
-    [SerializeField] private AudioSource moveAudioSource;
-    [SerializeField] private AudioClip walkAudioClip;
-    [SerializeField] private AudioClip runAudioClip;
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private AudioSource runAudioSource;
 
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
@@ -22,22 +21,26 @@ public class MoveAudioManager : MonoBehaviour
 
         if (context.performed && dir != Vector2.zero)
         {
-            if (!isMoving && !isRunning)
+            if (!isMoving)
             {
                 isMoving = true;
-                moveAudioSource.clip = walkAudioClip;
-                moveAudioSource.loop = true;
-                moveAudioSource.Play();
-                Debug.Log("🎵 걷기 소리 시작");
+                walkAudioSource.loop = true;
+                walkAudioSource.Play();
+                Debug.Log(" 걷기 소리 시작");
             }
         }
         else if (context.canceled || dir == Vector2.zero)
         {
-            if (moveAudioSource.isPlaying)
+            if (walkAudioSource.isPlaying)
             {
                 isMoving = false;
-                moveAudioSource.Stop();
-                Debug.Log("🛑 걷기 소리 정지");
+                walkAudioSource.Stop();
+                Debug.Log(" 걷기 소리 정지");
+
+                if (isRunning)
+                {
+                    runAudioSource.Stop();
+                }
             }
         }
     }
@@ -46,24 +49,21 @@ public class MoveAudioManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (!isRunning && moveAudioSource.clip != runAudioClip)
+            if (!isRunning)
             {
                 Debug.Log("MoveAudioManager 0 OnDash on");
                 isRunning = true;
-                moveAudioSource.clip = runAudioClip;
-                moveAudioSource.loop = true;
-                moveAudioSource.Play();
+                runAudioSource.loop = true;
+                runAudioSource.Play();
             }
         }
         else if (context.canceled)
         {
-            Debug.Log("MoveAudioManager 0 OnDash false");
-            if (moveInput != Vector2.zero)
+            if (runAudioSource.isPlaying)
             {
-                isRunning = false;
-                moveAudioSource.clip = walkAudioClip;
-                moveAudioSource.loop = true;
-                moveAudioSource.Play();
+                isMoving = false;
+                runAudioSource.Stop();
+                Debug.Log("MoveAudioManager 0 OnDash off");
             }
         }
     }
