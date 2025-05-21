@@ -26,7 +26,7 @@ public class WorldTree : MonoBehaviour, IDamageAble
     public bool headExposed;
     public bool isDying;
 
-    [Header("팔 관련")]
+    [Header("전투 관련")]
     public float regenDelay = 40f;
     private float leftRegenTimer = -1f;
     private float rightRegenTimer = -1f;
@@ -38,26 +38,34 @@ public class WorldTree : MonoBehaviour, IDamageAble
     public Collider2D Right_atk;
     public GameObject MiddleArm;
     public GameObject laser;
+    public GameObject Eye_laser;
+    public GameObject Eye_laser_col;
+    public GameObject seed;
     private float BulletSpeed = 10f;
     public GameObject BulletPrefab;
     public Transform fPoint;
 
     [Header("상태 참조")]
-    public BaseState pattern1;
-    public BaseState pattern2;
-    public PatternPause patternPause;
+    //public BaseState pattern1;
+    //public BaseState pattern2;
+    //public PatternPause patternPause;
+
+    public BaseState nextPattern;
+    private BaseState previousPattern;
 
     private StateMachine stateMachine;
 
     public WorldTree_Idle idleState;
     public HeadExposed headExposedState;
     public Recovery recoveryState;
-    public FinalBurst finalBurstState;
+    //public FinalBurst finalBurstState;
     public WorldTree_Die dieState;
 
     public LeftArm patternA;
     public RightArm patternB;
     public MiddleArm patternC;
+    public SeedDrop patternD;
+    public Laser patternE;
 
     public List<BaseState> finalBurst = new();
     public int burstIndex = 0;
@@ -68,15 +76,17 @@ public class WorldTree : MonoBehaviour, IDamageAble
 
         // 상태 인스턴스 초기화
         idleState = new WorldTree_Idle(stateMachine, this);
-        patternPause = new PatternPause(stateMachine, this);
+        //patternPause = new PatternPause(stateMachine, this);
         headExposedState = new HeadExposed(stateMachine, this);
         recoveryState = new Recovery(stateMachine, this);
-        finalBurstState = new FinalBurst(stateMachine, this);
+        //finalBurstState = new FinalBurst(stateMachine, this);
         dieState = new WorldTree_Die(stateMachine, this);
 
         patternA = new LeftArm(stateMachine, this);
         patternB = new RightArm(stateMachine, this);
         patternC = new MiddleArm(stateMachine, this);
+        patternD = new SeedDrop(stateMachine, this);
+        patternE = new Laser(stateMachine, this);
 
         stateMachine.Initialize(idleState);
     }
@@ -139,7 +149,6 @@ public class WorldTree : MonoBehaviour, IDamageAble
             {
                 isDying = true;
                 finalBurstTimer = finalBurstDuration;
-                stateMachine.ChangeState(finalBurstState);
             }
         }
     }
@@ -190,84 +199,114 @@ public class WorldTree : MonoBehaviour, IDamageAble
         stateMachine.ChangeState(recoveryState);
     }
 
-    public void GetRandomPattern()
+    public void ChooseOnePattern()
     {
-        bool boostProjectile = phaseValue <= 0.3f && phaseValue > 0.1f;
+        List<BaseState> candidates = new();
 
-        List<BaseState> pattern = new();
+        if (!leftArmDestroyed) candidates.Add(patternA);
+        if (!rightArmDestroyed) candidates.Add(patternB);
+        candidates.Add(patternC);
+        candidates.Add(patternD);
+        candidates.Add(patternE);
 
-        if (!leftArmDestroyed) pattern.Add(patternA);
-        if (!rightArmDestroyed) pattern.Add(patternB);
-        pattern.Add(patternC); // 중간 팔은 항상 가능
+        patternC.boosted = false;
 
-        // 투사체 강화 플래그 세팅
-        patternC.boosted = boostProjectile;
+        // 이전 패턴 제거
+        if (previousPattern != null)
+            candidates.Remove(previousPattern);
 
-        if (pattern.Count == 0)
+        if (candidates.Count == 0)
         {
-            pattern1 = idleState;
-            pattern2 = null;
-            return;
-        }
-
-        if (phaseValue > 0.7f)
-        {
-            // 100~70% 구간 → 단일 패턴 실행
-            pattern1 = pattern[Random.Range(0, pattern.Count)];
-            pattern2 = null;
+            nextPattern = idleState;
         }
         else
         {
-            // 69~10% 구간 → 두 개 랜덤 실행
-            if (pattern.Count == 1)
-            {
-                pattern1 = pattern[0];
-                pattern2 = null;
-            }
-            else
-            {
-                int first = Random.Range(0, pattern.Count);
-                int second;
-                do { second = Random.Range(0, pattern.Count); } while (second == first);
-
-                pattern1 = pattern[first];
-                pattern2 = pattern[second];
-            }
-        }
-    }
-
-    public void PrepareFinalBurst()
-    {
-        finalBurst.Clear();
-
-        if (!leftArmDestroyed) finalBurst.Add(patternA);
-        if (!rightArmDestroyed) finalBurst.Add(patternB);
-        finalBurst.Add(patternC);
-
-        for (int i = 0; i < finalBurst.Count; i++)
-        {
-            int j = Random.Range(i, finalBurst.Count);
-            (finalBurst[i], finalBurst[j]) = (finalBurst[j], finalBurst[i]);
+            int random = Random.Range(0, candidates.Count);
+            nextPattern = candidates[random];
         }
 
-        burstIndex = 0;
+        previousPattern = nextPattern; // 다음 패턴을 이전 패턴으로 저장
     }
 
-    private BaseState GetPatternByIndex(int i, bool boost)
-    {
-        if (i == 0) return patternA;
-        if (i == 1) return patternB;
-        if (i == 2) { patternC.boosted = boost; return patternC; }
-        return idleState;
-    }
+    //기존 패턴 주석처리
+    //public void GetRandomPattern()
+    //{
+    //    bool boostProjectile = phaseValue <= 0.3f && phaseValue > 0.1f;
 
-    private int[] GetTwoRandomIndexes(int count)
-    {
-        int first = Random.Range(0, count);
-        int second;
-        do { second = Random.Range(0, count); } while (second == first);
-        return new int[] { first, second };
-    }
+    //    List<BaseState> pattern = new();
+
+    //    if (!leftArmDestroyed) pattern.Add(patternA);
+    //    if (!rightArmDestroyed) pattern.Add(patternB);
+    //    pattern.Add(patternC); // 중간 팔은 항상 가능
+
+    //    // 투사체 강화 플래그 세팅
+    //    patternC.boosted = boostProjectile;
+
+    //    if (pattern.Count == 0)
+    //    {
+    //        pattern1 = idleState;
+    //        pattern2 = null;
+    //        return;
+    //    }
+
+    //    if (phaseValue > 0.7f)
+    //    {
+    //        // 100~70% 구간 → 단일 패턴 실행
+    //        pattern1 = pattern[Random.Range(0, pattern.Count)];
+    //        pattern2 = null;
+    //    }
+    //    else
+    //    {
+    //        // 69~10% 구간 → 두 개 랜덤 실행
+    //        if (pattern.Count == 1)
+    //        {
+    //            pattern1 = pattern[0];
+    //            pattern2 = null;
+    //        }
+    //        else
+    //        {
+    //            int first = Random.Range(0, pattern.Count);
+    //            int second;
+    //            do { second = Random.Range(0, pattern.Count); } while (second == first);
+
+    //            pattern1 = pattern[first];
+    //            pattern2 = pattern[second];
+    //        }
+    //    }
+    //}
+
+    //public void PrepareFinalBurst()
+    //{
+    //    finalBurst.Clear();
+
+    //    if (!leftArmDestroyed) finalBurst.Add(patternA);
+    //    if (!rightArmDestroyed) finalBurst.Add(patternB);
+    //    finalBurst.Add(patternC);
+
+    //    for (int i = 0; i < finalBurst.Count; i++)
+    //    {
+    //        int j = Random.Range(i, finalBurst.Count);
+    //        (finalBurst[i], finalBurst[j]) = (finalBurst[j], finalBurst[i]);
+    //    }
+
+    //    burstIndex = 0;
+    //}
+
+    //private BaseState GetPatternByIndex(int i, bool boost)
+    //{
+    //    if (i == 0) return patternA;
+    //    if (i == 1) return patternB;
+    //    if (i == 2) { patternC.boosted = boost; return patternC; }
+    //    return idleState;
+    //}
+
+    //private int[] GetTwoRandomIndexes(int count)
+    //{
+    //    int first = Random.Range(0, count);
+    //    int second;
+    //    do { second = Random.Range(0, count); } while (second == first);
+    //    return new int[] { first, second };
+    //}
 
     private void Fire()
     {

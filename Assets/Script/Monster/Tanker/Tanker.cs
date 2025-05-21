@@ -31,6 +31,7 @@ public class Tanker : MonoBehaviour, IDetectable, IDamageAble
     public float attackCooldown = 1f;
     public bool canAttack = true;
     public bool canShot = false;
+    public bool canMove = true;
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;
@@ -207,6 +208,19 @@ public class Tanker : MonoBehaviour, IDetectable, IDamageAble
     private void EnableFire()
     {
         canShot = true;
+    }
+
+
+    private void Move_controll()
+    {
+        if (canMove)
+        {
+            canMove = false;
+        }
+        else if(!canMove)
+        {
+            canMove = true;
+        }
     }
 
     public void FireBullet()

@@ -24,31 +24,7 @@ public class LeftArm : BaseState
 
         if (animInfo.IsName("Left_Atk") && animInfo.normalizedTime >= 0.8f)
         {
-            // 발악 상태인지 확인
-            if (boss.isDying && boss.finalBurst.Count > 0)
-            {
-                if (boss.burstIndex < boss.finalBurst.Count - 1)
-                {
-                    boss.burstIndex++;
-                    stateMachine.ChangeState(boss.patternPause);
-                }
-                else
-                {
-                    stateMachine.ChangeState(boss.idleState); // 모든 발악 패턴 종료
-                }
-            }
-            else
-            {
-                // 일반 전투 흐름
-                if (boss.pattern2 != null)
-                {
-                    stateMachine.ChangeState(boss.patternPause);
-                }
-                else
-                {
-                    stateMachine.ChangeState(boss.idleState);
-                }
-            }
+            stateMachine.ChangeState(boss.idleState);
         }
     }
 

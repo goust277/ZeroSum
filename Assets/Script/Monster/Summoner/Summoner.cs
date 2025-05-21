@@ -31,14 +31,20 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
     public float attackRange = 5f;
     public float attackCooldown = 1f;
     public bool canAttack = true;
+    public bool canLAttack = false;
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;
+    public Transform leftFirePoint;         // 왼쪽 발사 위치
+    public Transform rightFirePoint;        // 오른쪽 발사 위치
+    public GameObject BulletPrefab;     // 발사체 프리팹
+    public float BulletSpeed = 10f;     // 발사체 속도
     public Rigidbody2D rb;
     public GameObject spider;
     public float spawnRangeX = 1.5f;    // X 좌표 랜덤 범위
     public int summonCount = 3;       // 한 번에 소환할 몬스터 개수
     private StateMachine stateMachine;
+    private Transform fPoint;
 
     [Header("HP바 UI")]
     [SerializeField] private Image hpBar;
@@ -54,6 +60,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
         var idleState = new Summoner_Idle(stateMachine, this);
         var readyStade = new Summoner_Ready(stateMachine, this);
         var attackState = new Summoner_Attack(stateMachine, this);
+        var LattackState = new Summoner_L_atk(stateMachine, this);
         var patrolState = new Summoner_Patrol(stateMachine, this);
         var chaseState = new Summoner_Chase(stateMachine, this);
         var hitState = new Summoner_Hit(stateMachine, this);
@@ -212,6 +219,31 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 
             Vector3 spawnPosition = new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z);
             Instantiate(spider, spawnPosition, Quaternion.identity);
+        }
+    }
+
+    private void FireBullet()
+    {
+        if (BulletPrefab != null)
+        {
+            Debug.Log("Shot!");
+
+            fPoint = sprite.flipX ? rightFirePoint : leftFirePoint;
+
+            Vector2 dir = sprite.flipX ? Vector2.right : Vector2.left;
+
+            // 발사체 생성
+            GameObject bullet = GameObject.Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
+
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            // Rigidbody2D를 이용해 발사체 이동
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = dir * BulletSpeed; // 발사 속도 설정
+            }
         }
     }
 }
