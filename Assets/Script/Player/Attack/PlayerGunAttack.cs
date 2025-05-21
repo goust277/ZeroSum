@@ -99,6 +99,7 @@ public class PlayerGunAttack : PlayerAttackState
 
        if (Ver01_DungeonStatManager.Instance.ShotGun())
        {
+            
             GameObject bullets;
             Vector3 spawnPosition = playerMovement.isDown ? downAtk.position : standAtk.position;
 

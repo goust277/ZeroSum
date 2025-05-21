@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.Tilemaps;
 
 public class Scout : MonoBehaviour, IDetectable, IDamageAble
-{
+{ 
     [Header("Animation")]
     public Animator anim;
     public SpriteRenderer sprite;

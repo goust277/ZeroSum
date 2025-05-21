@@ -55,17 +55,12 @@ public class CutsceneManager : MonoBehaviour
 
             if (targetZoom > 3.6f)
             {
-                Debug.Log("orthographicSize : " + targetZoom);
-                float deltaZoom = (targetZoom / 2.01f); // 상대 변화량
-                Debug.Log("deltaZoom : " + deltaZoom);
+                //Debug.Log("orthographicSize : " + targetZoom);
+                float deltaZoom = (targetZoom / 2.3f); // 상대 변화량
+                                                        // Debug.Log("deltaZoom : " + deltaZoom);
                 proCamera2D.Zoom(deltaZoom); // 적용
-                Debug.Log("orthographicSize : " + Camera.main.orthographicSize);
+                //Debug.Log("orthographicSize : " + Camera.main.orthographicSize);
             }
-
-            
-            //proCamera2D.RemoveAllCameraTargets();
-            //proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
-
         }
 
         playerController.SetActive(true);

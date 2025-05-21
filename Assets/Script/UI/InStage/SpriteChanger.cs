@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SpriteChanger : MonoBehaviour
 {
+
+    [SerializeField] private AudioSource spriteChangerAudioSource;
     public SpriteRenderer spriteRenderer; // 오브젝트의 스프라이트 렌더러
     public Sprite[] sprites; // 변경할 스프라이트 배열
 
@@ -16,6 +18,8 @@ public class SpriteChanger : MonoBehaviour
         float elapsedTime = 0f; // 총 변경 시간
         float interval = 0.1f;  // 초기 변경 간격
         int spriteIndex = Random.Range(0, 4);
+
+        spriteChangerAudioSource.PlayOneShot(spriteChangerAudioSource.clip);
 
         while (elapsedTime < 2f) // 2초 동안 변경
         {

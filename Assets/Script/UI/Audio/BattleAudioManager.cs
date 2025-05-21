@@ -16,7 +16,7 @@ public class BattleAudioManager : MonoBehaviour
     {
         if (!context.performed) return;
 
-        if (Ver01_DungeonStatManager.Instance.ShotGun())
+        if (Ver01_DungeonStatManager.Instance.GetCurrentMagazine() > 0 )
         {
             battleAudioSource.PlayOneShot(shotAudioClip);
         }

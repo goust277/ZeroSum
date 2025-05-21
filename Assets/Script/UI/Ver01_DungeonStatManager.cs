@@ -125,6 +125,11 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         return bullet;
     }
 
+    public int GetCurrentMagazine()
+    {
+        return currentMagazine;
+    }
+
     public bool ShotGun()
     {
         currentMagazine --;

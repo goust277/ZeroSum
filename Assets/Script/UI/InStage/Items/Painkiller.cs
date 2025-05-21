@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Painkiller : MonoBehaviour
+public class Painkiller : BaseItem
 {
     private bool isCollision = false;
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         //Debug.Log(other.collider.CompareTag("Player") + "부딪힘");
@@ -15,6 +16,7 @@ public class Painkiller : MonoBehaviour
             Collider2D objCollider = GetComponent<Collider2D>();  // 
             objCollider.enabled = false;
 
+            PlaySound();
             Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
 
             rb.isKinematic = true;    //중력 & 물리적 반응 제거

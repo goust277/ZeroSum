@@ -22,6 +22,10 @@ public class Ver01_ConvManager : MonoBehaviour
     private SecneData requiredSecneData;
     private List<DialogData> requiredScenes;
 
+    [Header("오디오")]
+    [SerializeField] private AudioSource audioSource;
+
+
     [Header("Resources Before Conversation")]
     #region conversation UI Resources
     [SerializeField] protected TextMeshProUGUI nameTXT; //prtivate
@@ -92,7 +96,7 @@ public class Ver01_ConvManager : MonoBehaviour
             var prop = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
             if (prop == null) continue;
 
-            // 🔒 제네릭 타입 파라미터가 남아 있으면 Skip
+            // 제네릭 타입 파라미터가 남아 있으면 Skip
             if (prop.PropertyType.ContainsGenericParameters)
             {
                 Debug.LogWarning($"⚠️ {type.Name}.Instance → generic type 아직 확정 안 됨, 건너뜀");
@@ -150,6 +154,7 @@ public class Ver01_ConvManager : MonoBehaviour
      
         if (isTransitionRunning && Input.GetKeyDown(KeyCode.F))
         {
+            audioSource.PlayOneShot(audioSource.clip);
             ChangeScene();
         }
     }

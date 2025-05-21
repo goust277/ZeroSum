@@ -8,8 +8,13 @@ public class FarmingDoor : BaseInteractable
     //public Sprite[] sprites; // 변경할 스프라이트 배열
 
     [SerializeField] private bool isUse = false; // 플레이어가 근처에 있는지 여부
+
+    [Header("Auto Independent Resources")]
     [SerializeField] private GameObject[] dropItemList;
+
     [SerializeField] private Animator animator; // Animator 컴포넌트 참조
+    [Header("Monster Door")]
+    [SerializeField] private GameObject monsterDoor;
 
     [Header("Monster Door")]
     [SerializeField] private GameObject monsterDoor;
@@ -22,7 +27,7 @@ public class FarmingDoor : BaseInteractable
 
     void Start()
     {
-        spriteChanger.SetActive(false);
+        //spriteChanger.SetActive(false);
         spriteChangerScript = spriteChanger.GetComponent<SpriteChanger>();
         doorCollider = GetComponent<Collider2D>(); // 콜라이더 참조
         animator = GetComponent<Animator>();
@@ -37,7 +42,6 @@ public class FarmingDoor : BaseInteractable
         invisibleObjs[0] = GameObject.Find("InputManager");
         invisibleObjs[1] = player.transform.Find("StandHitCollider ")?.gameObject;
         invisibleObjs[2] = player.transform.Find("Sprite")?.gameObject;
-
     }
 
     private void OpenDoor()

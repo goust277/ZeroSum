@@ -4,9 +4,10 @@ using System.Linq;
 using TMPro.Examples;
 using UnityEngine;
 
-public class ReinforceItem : MonoBehaviour
+public class ReinforceItem : BaseItem
 {
     private bool isCollision = false;
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -17,6 +18,7 @@ public class ReinforceItem : MonoBehaviour
             Collider2D objCollider = GetComponent<Collider2D>();  // 
             objCollider.enabled = false;
 
+            PlaySound();
             Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
 
             rb.isKinematic = true;    //중력 & 물리적 반응 제거

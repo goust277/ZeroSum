@@ -9,6 +9,10 @@ using System.Linq;
 
 public class GameStartController : BaseUi
 {
+
+    [Header("오디오")]
+    [SerializeField] private AudioSource audioSource;
+
     [SerializeField] private Image Panel;
     float currentTime = 0.0f;  //���� �ð�
     private readonly float fadeoutTime = 2.0f;  //���̵�ƿ��� ����� �ð�
@@ -25,6 +29,8 @@ public class GameStartController : BaseUi
     protected override void Start()
     {
         base.Start();
+        settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
+
         //Panel.gameObject.SetActive(false);
     }
 
@@ -49,31 +55,19 @@ public class GameStartController : BaseUi
                 Debug.Log("Exit");
                 GameQuit();
                 break;
-            case "SaveNClose":
-                SettingListener();
-                Debug.Log("SaveNClose");
-                break;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && isSettingOpen)
-        {
-            isSettingOpen = false;
-            //SettingsManager.Instance.SettingOnOff();
         }
     }
 
     private void SettingListener()
     {
-        settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
+        ClickSount();
 
         settingsManager.SettingOnOff();
     }
 
     private void LoadBtnOnClick()
     {
+        ClickSount();
         if (!File.Exists(savePath1))
         {
             Debug.LogWarning("User01.json ���̺� ������ �������� �ʽ��ϴ�!");
@@ -118,12 +112,19 @@ public class GameStartController : BaseUi
 
     private void NewStart()
     {
+        ClickSount();
         StartCoroutine(fadeOut());
     }
 
     private void GameQuit()
     {
+        ClickSount();
         Application.Quit();
+    }
+
+    private void ClickSount()
+    {
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
 }
