@@ -27,7 +27,7 @@ public class PipeManager : Mission
             {
                 ClearMission();
 
-                Debug.Log("클리어");
+                //Debug.Log("클리어");
             }
         }
         else if (answerPipe != pipes.Length)
@@ -66,8 +66,6 @@ public class PipeManager : Mission
             completed.SetActive(false);
             isClear = true;
         }
-
-
     }
 
 

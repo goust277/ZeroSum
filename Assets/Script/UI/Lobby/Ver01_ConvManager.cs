@@ -62,11 +62,6 @@ public class Ver01_ConvManager : MonoBehaviour
     [Header("Change Scene String")]
     [SerializeField] private String nextScene;
 
-    private void Awake()
-    {
-        LoadNPCs();
-    }
-
     private void LoadNPCs()
     {
         TextAsset NPCJson = Resources.Load<TextAsset>("Json/Ver01/Dataset/NPC");
@@ -83,12 +78,64 @@ public class Ver01_ConvManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void PrintAllSingletons()
     {
-        //conversationUI.SetActive(false);
-        LoadChapterData(GameStateManager.Instance.GetChapterNum());
+        Debug.Log("===== Singleton Instances with static 'Instance' PROPERTY =====");
 
-        requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
+        var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+
+        foreach (var type in allTypes)
+        {
+            if (!type.IsClass || !typeof(UnityEngine.Object).IsAssignableFrom(type))
+                continue;
+
+            var prop = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (prop == null) continue;
+
+            // 🔒 제네릭 타입 파라미터가 남아 있으면 Skip
+            if (prop.PropertyType.ContainsGenericParameters)
+            {
+                Debug.LogWarning($"⚠️ {type.Name}.Instance → generic type 아직 확정 안 됨, 건너뜀");
+                continue;
+            }
+
+            try
+            {
+                var instance = prop.GetValue(null, null);
+                if (instance != null)
+                {
+                    Debug.Log($"✔️ {type.Name} → {((MonoBehaviour)instance).gameObject.name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"⚠️ {type.Name}.Instance 는 존재하지만 현재 null 상태임");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"❌ {type.Name}.Instance 접근 실패: {e.Message}");
+            }
+        }
+    }
+
+    IEnumerator Start()
+    {
+        yield return null;
+        Debug.Log(" Ver01_ConvManager Start ");
+        PrintAllSingletons();
+
+        if (npcDictionary.Count < 2)
+        {
+            LoadNPCs();
+        }
+
+        //conversationUI.SetActive(false);
+        if (ChapterRoot == null)
+        {
+            LoadChapterData(GameStateManager.Instance.GetChapterNum());
+        }
+        
+        //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         NormalCommunication();
 
         pressE.gameObject.SetActive(false);
@@ -191,9 +238,15 @@ public class Ver01_ConvManager : MonoBehaviour
     #region afterConvLog
     private void NormalCommunication() 
     {
+        Debug.Log(" Ver01_ConvManager NormalCommunication ");
+
         requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
 
-        if (requiredSecneData == null) return; 
+        if (requiredSecneData == null)
+        {
+            Debug.LogWarning($"⚠️ {requiredSecneData}는 현재 null 상태임");
+            return;
+        }
         requiredScenes = requiredSecneData.dialog;
 
 
@@ -308,7 +361,9 @@ public class Ver01_ConvManager : MonoBehaviour
             yield return null;
         }
         StopAllCoroutines();  // 모든 코루틴 정리
-        SceneManager.LoadScene(nextScene);
+        GameStateManager.Instance.SetCurrenSceneID(GameStateManager.Instance.GetCurrentSceneID()+1);
+
+        SceneManager.LoadScene(requiredSecneData.afterConditions.nextScene);
     }
 
     //씬넘김

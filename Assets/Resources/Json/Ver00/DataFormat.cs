@@ -50,7 +50,7 @@ public class AfterConditions
     public List<string> changeEventConditions;
     public int changeSecneID;
     public List<string> missionString;
-
+    public String nextScene;
 }
 #endregion
 

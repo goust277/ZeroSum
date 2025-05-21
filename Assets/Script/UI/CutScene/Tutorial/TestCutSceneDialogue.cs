@@ -7,17 +7,26 @@ using UnityEngine.Playables;
 
 public class TestCutScneDialogue : MonoBehaviour
 {
-    [SerializeField] private GameObject textBox;
+    [SerializeField] private Canvas textBox;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private CutsceneManager cutsceneManager;
     [SerializeField] private PlayableDirector director;
 
+    [Header("Dialog Resources")]
     [SerializeField] private string[] texts ={};
+    [SerializeField] private Vector3 movingOffset = new Vector3(0.5f, 2.3f, 0);
 
+    [Header("CutScene Resources")]
+    private RectTransform uiTextTransform;
 
     public void Start()
     {
-        cutsceneManager.PlayCutscene(director);
+        uiTextTransform = gameObject.GetComponent<RectTransform>();
+        uiTextTransform.position = cutsceneManager.GetPlayerTransform().position + movingOffset;
+
+        if (director != null) {
+            cutsceneManager.PlayCutscene(director);
+        }
         StartCoroutine(CutSceneTextWriter());
     }
 
@@ -44,8 +53,10 @@ public class TestCutScneDialogue : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
 
-        textBox.gameObject.SetActive(false); // 대사창 비활성화
-        cutsceneManager.OnCutsceneEnd(director);
+        if( textBox != null)
+        {
+            textBox.enabled = false; // 대사창 비활성화
+        }
     }
 
 }

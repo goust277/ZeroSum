@@ -121,6 +121,8 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 
     private void VisualDamage(int value)
     {
+
+        return;
         Debug.Log("VisualDamage");
         Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
         Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
@@ -130,7 +132,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
 
         if (canvasTransform == null)
         {
-            Debug.LogError("Canvas Transform is not assigned!");
+            Debug.Log("Canvas Transform is not assigned!");
             return;
         }
 
@@ -140,7 +142,7 @@ public class Summoner : MonoBehaviour , IDetectable, IDamageAble
         TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
         if (textComponent == null)
         {
-            Debug.LogError("TextMeshProUGUI component not found in prefab!");
+            Debug.Log("TextMeshProUGUI component not found in prefab!");
             return;
         }
 

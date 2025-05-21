@@ -5,8 +5,8 @@ using Com.LuisPedroFonseca.ProCamera2D;
 public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private GameObject playerController; // ½ºÅ©¸³Æ®´Â MonoBehaviour·Î ÅëÀÏÇØ¼­ ¹Ş±â
+    [SerializeField] public Transform playerTransform;
+    [SerializeField] private GameObject playerController; // ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ MonoBehaviourï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ş±ï¿½
 
     private GameObject camObj;
     private ProCamera2D proCamera2D;
@@ -16,7 +16,7 @@ public class CutsceneManager : MonoBehaviour
         camObj = GameObject.FindWithTag("MainCamera");
         if (camObj == null)
         {
-            Debug.LogError("GameOver - Ä«¸Ş¶ó ¸øÃ£À½ ");
+            Debug.LogError("GameOver - Ä«ï¿½Ş¶ï¿½ ï¿½ï¿½Ã£ï¿½ï¿½ ");
             return;
         }
         proCamera2D = camObj.GetComponent<ProCamera2D>();
@@ -26,7 +26,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (cutsceneDirector == null)
         {
-            Debug.Log("CutsceneManager: Àç»ıÇÒ CutsceneÀÌ ¾ø½À´Ï´Ù.");
+            Debug.Log("CutsceneManager: ï¿½ï¿½ï¿½ï¿½ï¿½ Cutsceneï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
@@ -38,21 +38,43 @@ public class CutsceneManager : MonoBehaviour
         if (playerController != null)
             playerController.SetActive(false);
 
-        director.Play();
+        //director.Play();
         director.stopped += OnCutsceneEnd;
     }
 
     public void OnCutsceneEnd(PlayableDirector obj)
     {
+
         if (proCamera2D != null)
         {
+
+            // í˜„ì¬ ì¹´ë©”ë¼ ì‚¬ì´ì¦ˆì™€ ProCamera2D ì¤Œì„ ë§ì¶¤
+            float targetZoom = Camera.main.orthographicSize;
+
             proCamera2D.enabled = true;
-            proCamera2D.RemoveAllCameraTargets();
-            proCamera2D.AddCameraTarget(playerTransform);
+
+            if (targetZoom > 3.6f)
+            {
+                Debug.Log("orthographicSize : " + targetZoom);
+                float deltaZoom = (targetZoom / 2.01f); // ìƒëŒ€ ë³€í™”ëŸ‰
+                Debug.Log("deltaZoom : " + deltaZoom);
+                proCamera2D.Zoom(deltaZoom); // ì ìš©
+                Debug.Log("orthographicSize : " + Camera.main.orthographicSize);
+            }
+
+            
+            //proCamera2D.RemoveAllCameraTargets();
+            //proCamera2D.AddCameraTarget(playerTransform, 1f, 1f, 0f, new Vector2(0f, 2f));
+
         }
 
         playerController.SetActive(true);
-
         director.stopped -= OnCutsceneEnd;
     }
+
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
+    }
+
 }

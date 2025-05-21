@@ -22,7 +22,8 @@
         "missionString": [
           "피안 사의 음모를 파헤치기 위해 본사의 지하주차장에 잠입했다.",
           "목격자를 해치우며, 중요한 문의 잠금을 풀어 임무에 도움이 될 단서를 획득하라."
-        ]
+        ],
+        "nextScene" :  "Tutorial0426"
       }
     },
     {
@@ -30,7 +31,75 @@
         "needEventConditions": [],
         "currentSecneID": 1 //현재 씬 아이디 
       },
-      "SecneID": 0,
+      "SecneID": 1,
+      "Dialog": [
+        {
+          "id": 5,
+          "pos": 1,
+          "log": [
+            "생각보다 경비가 철저하군. 번거롭게 됐어.",
+            "하지만 생각보다 흥미로운 정보를 얻었다.",
+            "그들과 한 패인 척 목숨을 부지중이라…",
+            "도박수를 던져봐야겠어.",
+            "이 ‘그믐’이 그 ‘그믐’ 이 맞다면 분명 도움이 될 테니까."
+          ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [],
+        "changeSecneID": 2,
+        "missionString": [
+          "한 때 이름을 날린 인간 해커, ‘그믐’ 이 본사의 정원층에 숨어있다는 사실을 알아냈다.",
+          "그믐을 찾아내 컨트롤센터의 메인 컴퓨터를 고장내고, 목적지에 도달하라."
+        ],
+        "nextScene": "Stage2"
+      }
+    },
+    {
+      "Prerequisites": {
+        "needEventConditions": [],
+        "currentSecneID": 2 //현재 씬 아이디 
+      },
+      "SecneID": 2,
+      "Dialog": [
+        {
+          "id": 9,
+          "pos": 1,
+          "log": [
+            "저 위로는 보안층이 있고, 그 위로 연구센터가 있어.",
+            "영화수의 눈을 가리는 데는 성공했지만, 어디까지나 일시적이야!",
+            "이 곳에는 영화수만 있는게 아니니까 무슨 일이 생길지는 모르는 일이지.",
+            "그러니까 최대한 빠르게 올라가면서 보안용 서버를 전부 망가뜨려.",
+            "그러면 최상층으로 향하는 엘리베이터가 작동할거야"
+          ]
+        },
+        {
+          "id": 5,
+          "pos": 0,
+          "log": [
+            "…",
+            "…라고 했었지 분명.",
+            "대체 뭘 숨기고 있는지 내 눈으로 직접 확인하겠어.",
+            "영화수…"
+          ]
+        }
+      ],
+      "AfterConditions": {
+        "changeEventConditions": [],
+        "changeSecneID": 3,
+        "missionString": [
+          "그믐이 상층에 대한 정보를 알려줬다.",
+          "보안용 서버를 망가뜨리며, 최상층으로 향하는 엘리베이터에 도달하라."
+        ],
+        "nextScene": "Stage3"
+      }
+    },
+    {
+      "Prerequisites": {
+        "needEventConditions": [],
+        "currentSecneID": 3 //현재 씬 아이디 
+      },
+      "SecneID": 3,
       "Dialog": [
         {
           "id": 9,
@@ -72,84 +141,12 @@
       ],
       "AfterConditions": {
         "changeEventConditions": [ "TalkNPCA" ],
-        "changeSecneID": 1,
+        "changeSecneID": 4,
         "missionString": [
           "그믐이 정보를 얻을만한 곳으로 니르바나 중층부에 위치한 컨트롤센터 ‘녹야원’을 제시했다.",
           "중층부 컨트롤센터 ‘녹야원’의 하층으로 잠입해 경비를 해치우며 상층의 보안시스템을 해킹하라."
-        ]
-      }
-    },
-    {
-      "Prerequisites": {
-        "eventConditions": [ "TalkNPCA" ],
-        "currentSecneID":2
-      },
-      "SecneID": 1,
-      "Dialog": [
-        {
-          "id": 1,
-          "log": [ "왼쪽사람 대화 00", "왼쪽사람 대화 11", "왼쪽사람 대화 22" ]
-        },
-        {
-          "id": 2,
-          "log": [ "오른쪽사람 대화 0", "오른쪽사람 대화 1111", "오른쪽사람 대화 2222" ]
-        },
-        {
-          "id": 1,
-          "log": [ "왼쪽사람 대화 0000000000" ]
-        },
-        {
-          "id": 2,
-          "log": [ "마지막 말" ]
-        }
-      ],
-      "AfterConditions": {
-        "changeEventConditions": [ "TalkNPCB" ],
-        "changeSecneID": 2
-      }
-    },
-    {
-      "Prerequisites": {
-        "npc": 1,
-        "eventConditions": [ "TalkNPCA" ],
-        "currentSecneID": 3
-      },
-      "SecneID": 2,
-      "Dialog": [
-        {
-          "id": 1,
-          "log": [ "이 것은 다음 스테이지나 챕터에서", "쓰일 대사" ]
-        },
-        {
-          "id": 2,
-          "log": [ "만약 여기가 플레이어라면", "조건문 달아서", "한꺼번에 대사 출력지로", "사용할수도" ]
-        }
-      ],
-      "AfterConditions": {
-        "changeEventConditions": [ "ReTalkNPCA" ],
-        "changeSecneID": 3
-
-      }
-    },
-    {
-      "Prerequisites": {
-        "needEventConditions": [ "ReTalkNPCA" ],
-        "currentSecneID": 4 //현재 씬 아이디 
-      },
-      "SecneID": 3,
-      "Dialog": [
-        {
-          "id": 1,
-          "log": [ "대사 출력할 때", "따로 이펙트 혹은", "볼드체로 써야하는 구간이 있으면" ]
-        },
-        {
-          "id": 2,
-          "log": [ "@특수키(@, &, $)@로 감싸서", "다르게 출력 할수도" ]
-        }
-      ],
-      "AfterConditions": {
-        "changeEventConditions": [],
-        "changeSecneID": 4
+        ],
+        "nextScene": "Stage1"
       }
     }
   ]

@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BattleAudioManager : MonoBehaviour
+{
+    [SerializeField] private AudioSource battleAudioSource;
+
+    [Header("Hit audio Resources")]
+    [SerializeField] private AudioClip basicAtkAudioClip;
+    [SerializeField] private AudioClip shotAudioClip;
+    [SerializeField] private AudioClip emptyGunAudioClip;
+
+    public void OnGunAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (Ver01_DungeonStatManager.Instance.ShotGun())
+        {
+            battleAudioSource.PlayOneShot(shotAudioClip);
+        }
+        else
+        {
+            battleAudioSource.PlayOneShot(emptyGunAudioClip);
+        }
+    }
+
+    public void OnSwordAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        battleAudioSource.PlayOneShot(basicAtkAudioClip);
+    }
+}

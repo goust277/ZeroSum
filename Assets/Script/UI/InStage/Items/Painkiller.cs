@@ -9,7 +9,7 @@ public class Painkiller : MonoBehaviour
     {
         //Debug.Log(other.collider.CompareTag("Player") + "부딪힘");
 
-        if (other.transform.root.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
+        if (other.transform.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
             isCollision = true;
             Collider2D objCollider = GetComponent<Collider2D>();  // 
