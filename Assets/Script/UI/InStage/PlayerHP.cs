@@ -12,9 +12,11 @@ public class PlayerHP : MonoBehaviour
     private TextMeshProUGUI timeText;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimation playerAnimation;
+    private AudioSource externalAudioSource;
+
     [Header("invincibility time")]
     public float invincibilityTime;
-     public int hp = 10;
+    public int hp = 10;
     private bool isBlocked = false;
 
     [Header("Dying")]
@@ -43,6 +45,19 @@ public class PlayerHP : MonoBehaviour
         Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
 
         curMoveTime = 0f;
+
+        //오디오 세팅
+        if (externalAudioSource == null)
+        {
+            GameObject audioManager = GameObject.Find("AudioManager");
+            if (audioManager == null)
+            {
+                Debug.LogWarning("AudioManager 오브젝트 xxxx");
+            }
+
+            Transform itemChild = audioManager.transform.Find("Hit");
+            externalAudioSource = itemChild.GetComponent<AudioSource>();
+        }
     }
 
 
@@ -76,6 +91,8 @@ public class PlayerHP : MonoBehaviour
     //take Damage
     public void Damage()
     {
+        externalAudioSource.Play();
+
         hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
 
         if (!isBlocked)
