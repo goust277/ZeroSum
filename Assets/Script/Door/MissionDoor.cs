@@ -19,8 +19,10 @@ public class MissionDoor : BaseInteractable
         if (mission.isClear)
         {
             doorManager.clearMission++;
-            monsterDoor.SetActive(true);
-            
+            if(monsterDoor != null ) 
+            {
+                monsterDoor.SetActive(true);
+            }
             gameObject.SetActive(false);
         }
     }

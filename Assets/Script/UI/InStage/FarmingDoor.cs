@@ -13,8 +13,10 @@ public class FarmingDoor : BaseInteractable
     [SerializeField] private GameObject[] dropItemList;
 
     [SerializeField] private Animator animator; // Animator 컴포넌트 참조
+
     [Header("Monster Door")]
     [SerializeField] private GameObject monsterDoor;
+
 
     private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
     private Collider2D doorCollider;
