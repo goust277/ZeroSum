@@ -16,6 +16,8 @@ public class Scout_Patrol : BaseState
     public override void Enter()
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
+
+
         scout.anim.SetBool("isWalk", true);
         SetNextTarget();
     }

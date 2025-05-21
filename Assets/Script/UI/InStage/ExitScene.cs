@@ -18,7 +18,7 @@ public class ExitScene : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private ProCamera2D proCamera2D;
 
-    private bool isPlayerInside = false;
+    [SerializeField] private bool isPlayerInside = false;
     private bool collided = false;
     private Coroutine moveCoroutine;
     private GameObject inputManager;
@@ -72,6 +72,7 @@ public class ExitScene : MonoBehaviour
     {
         if (other.CompareTag("Player") && isPlayerInside)
         {
+            canActivate = false;
             isPlayerInside = false;
             targetObject.SetActive(false);
         }

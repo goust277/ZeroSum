@@ -953,13 +953,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c772f41fd673784ba6a08d51d76a2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBox: {fileID: 1217770018328400064}
+  textBox: {fileID: 1692672767871173909}
   dialogueText: {fileID: 3678202978229677900}
-  cutsceneManager: {fileID: 0}
-  director: {fileID: 1999117310909819789}
   texts:
   - "\uC774 \uC704\uB85C\uB294 \uB85C\uBE44\uC640 \uC138\uBBF8\uB098\uC2E4\u2026"
   movingOffset: {x: 0.5, y: 2.3, z: 0}
+  trackingTransform: {fileID: 9039374326066890821}
 --- !u!1 &1307510803312724519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,14 +2207,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBox: {fileID: 868382938924287135}
   dialogueText: {fileID: 4350960123834096435}
-  cutsceneManager: {fileID: 0}
-  director: {fileID: 7382988731520461943}
   texts:
   - "\u2026\uB09C \uB2F9\uC2E0\uC744 \uBBFF\uC9C0 \uC54A\uC544."
   - "\uB05D\uAE4C\uC9C0 \uC758\uC2EC\uD558\uACE0 \uD30C\uD5E4\uCCD0\uC8FC\uACA0\uC5B4."
   - "\uADF8\uB807\uB2E4\uBA74 \uC774 \uAC74\uBB3C\uC744 \uC624\uB974\uB294 \uAC83\uC774
     \uBA3C\uC800\uACA0\uC9C0"
   movingOffset: {x: 0.1, y: 2.3, z: 0}
+  trackingTransform: {fileID: 9039374326066890821}
 --- !u!1 &2440231182842652340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,13 +2596,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c772f41fd673784ba6a08d51d76a2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBox: {fileID: 2761871408467668551}
+  textBox: {fileID: 4701200212161445145}
   dialogueText: {fileID: 4639697851782796113}
-  cutsceneManager: {fileID: 0}
-  director: {fileID: 615786068644794227}
   texts:
   - "\uC6B4\uC774 \uB098\uC058\uC9C4 \uC54A\uAD70"
   movingOffset: {x: 0.5, y: 2.3, z: 0}
+  trackingTransform: {fileID: 9039374326066890821}
 --- !u!1 &2804910028948654914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,14 +2947,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c772f41fd673784ba6a08d51d76a2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBox: {fileID: 2910629017277023589}
+  textBox: {fileID: 2717723317548627403}
   dialogueText: {fileID: 7131870601340080107}
-  cutsceneManager: {fileID: 0}
-  director: {fileID: 3288244444493120653}
   texts:
   - "\u2026\uBC8C\uC368\uBD80\uD130 \uC77C\uC744 \uADF8\uB974\uCE60 \uC218\uB294
     \uC5C6\uC9C0!\r"
   movingOffset: {x: 0.5, y: 2.3, z: 0}
+  trackingTransform: {fileID: 9039374326066890821}
 --- !u!1 &2972718056570227889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,9 +4605,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 3122800889879322855}
-  director: {fileID: 7098534345315376237}
   virtualCamera: {fileID: 4002127904137743137}
   playerTransform: {fileID: 0}
+  cutsceneManager: {fileID: 0}
+  director: {fileID: 7098534345315376237}
 --- !u!1 &6050014648983056542
 GameObject:
   m_ObjectHideFlags: 0
@@ -7985,13 +7982,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBox: {fileID: 6727561119379849875}
   dialogueText: {fileID: 5858294262132999326}
-  cutsceneManager: {fileID: 0}
-  director: {fileID: 7098534345315376237}
   texts:
   - "\uAC89\uBCF4\uAE30\uC5D4 \uBA40\uCA61\uD55C \uAC74\uBB3C\uC778\uB370\u2026"
   - "\uADF8\uB7F4\uB9AC\uAC00 \uC5C6\uC9C0."
   - "\uBD84\uBA85 \uADFC\uC6D0\uC801\uC73C\uB85C \uACEA\uC544\uC788\uC744\uAC70\uB2E4."
   movingOffset: {x: 0.5, y: 2.3, z: 0}
+  trackingTransform: {fileID: 9039374326066890821}
 --- !u!1 &8502017150209364806
 GameObject:
   m_ObjectHideFlags: 0

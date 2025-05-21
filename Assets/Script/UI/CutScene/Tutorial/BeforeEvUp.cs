@@ -9,7 +9,11 @@ using UnityEngine.Timeline;
 public class BeforeEvUp : MonoBehaviour
 {
     [SerializeField] private GameObject num5Canvas;
-    [SerializeField] public PlayableDirector director;
+
+    [Header("CutsceneManager Resources")]
+    [SerializeField] private CutsceneManager cutsceneManager;
+    [SerializeField] private PlayableDirector director;
+
     private bool hasPlayed = false; // 여러번 재생 방지
     [SerializeField] private BoxCollider2D ev;
 
@@ -60,7 +64,10 @@ public class BeforeEvUp : MonoBehaviour
             hasPlayed = true;
 
             StartCoroutine(GrowAndFade());
-            director.Play();
+            if (director != null)
+            {
+                cutsceneManager.PlayCutscene(director);
+            }
         }
     }
 

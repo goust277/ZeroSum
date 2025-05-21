@@ -15,6 +15,8 @@ public class MissionDoorManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txt;
     private void Start()
     {
+        Debug.Log("MissionDoorManager - Start ½ÇÇàµÊ");
+
         maxMission = missionDoors.Count;
         clearMission = 0;
         curMission = 0;

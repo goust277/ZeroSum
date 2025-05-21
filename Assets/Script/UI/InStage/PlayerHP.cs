@@ -30,6 +30,10 @@ public class PlayerHP : MonoBehaviour
     public event Action OnDying;
     private bool OnDeath;
     private Vector3 deathDir;
+
+    private bool isPainKillerRunning = false;
+    private Coroutine painKillerCoroutine = null;
+
     void Start()
     {
         // �ڽĿ��� TextMeshProUGUI ã��
@@ -130,31 +134,36 @@ public class PlayerHP : MonoBehaviour
 
     public void GetPainKiller(float blockDuration)
     {
+        if (isPainKillerRunning)
+        {
+            StopCoroutine(painKillerCoroutine);
+        }
+
         Debug.Log("GetPainKiller 호출");
 
-        if (!isBlocked)
-        {
-            StartCoroutine(BlockFunctionTemporarily(blockDuration));
-        }
+        // 항상 새로 시작함
+        painKillerCoroutine = StartCoroutine(BlockFunctionTemporarily(blockDuration));
     }
 
     private IEnumerator BlockFunctionTemporarily(float duration)
     {
-        if (isBlocked) yield break;
+        isPainKillerRunning = true;
 
         float time = duration;
 
         painKiller.SetActive(true);
         isBlocked = true;
+
         while (time > 0.1f)
         {
-            timeText.text = time.ToString();
+            timeText.text = time.ToString("F0");  // 소수점 제거
             time -= 1.0f;
             yield return new WaitForSeconds(1.0f);
         }
-        
+
         isBlocked = false;
         painKiller.SetActive(false);
+        isPainKillerRunning = false;
     }
 
     private void HandleDeath(int reinforcement)
