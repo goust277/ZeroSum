@@ -56,8 +56,8 @@ public class CutsceneManager : MonoBehaviour
             if (targetZoom > 3.6f)
             {
                 //Debug.Log("orthographicSize : " + targetZoom);
-                float deltaZoom = (targetZoom / 2.01f); // 상대 변화량
-               // Debug.Log("deltaZoom : " + deltaZoom);
+                float deltaZoom = (targetZoom / 2.3f); // 상대 변화량
+                                                        // Debug.Log("deltaZoom : " + deltaZoom);
                 proCamera2D.Zoom(deltaZoom); // 적용
                 //Debug.Log("orthographicSize : " + Camera.main.orthographicSize);
             }
