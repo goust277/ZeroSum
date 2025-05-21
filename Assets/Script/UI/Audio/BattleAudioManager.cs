@@ -8,7 +8,6 @@ public class BattleAudioManager : MonoBehaviour
     [SerializeField] private AudioSource battleAudioSource;
 
     [Header("Hit audio Resources")]
-    [SerializeField] private AudioClip basicAtkAudioClip;
     [SerializeField] private AudioClip shotAudioClip;
     [SerializeField] private AudioClip emptyGunAudioClip;
 
@@ -25,13 +24,5 @@ public class BattleAudioManager : MonoBehaviour
         {
             battleAudioSource.PlayOneShot(emptyGunAudioClip);
         }
-    }
-
-    public void OnSwordAttack(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        if (battleAudioSource.isPlaying) return; // 이미 재생 중이면 무시
-
-        battleAudioSource.PlayOneShot(basicAtkAudioClip);
     }
 }

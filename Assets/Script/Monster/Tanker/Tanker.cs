@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tanker : MonoBehaviour, IDetectable, IDamageAble
+public class Tanker : BaseAudioMonster, IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
@@ -126,7 +126,6 @@ public class Tanker : MonoBehaviour, IDetectable, IDamageAble
             TakeDamage();
         }
     }
-
 
     private void VisualDamage(int value)
     {

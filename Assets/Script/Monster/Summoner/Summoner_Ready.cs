@@ -13,6 +13,7 @@ public class Summoner_Ready : BaseState
 
     public override void Enter()
     {
+        summoner.StopMoveSound();
         summoner.rb.velocity = Vector2.zero;
         summoner.anim.SetBool("isReady", true);
     }

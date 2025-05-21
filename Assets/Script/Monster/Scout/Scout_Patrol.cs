@@ -17,7 +17,7 @@ public class Scout_Patrol : BaseState
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
 
-
+        scout.PlayMoveSound(1.0f);
         scout.anim.SetBool("isWalk", true);
         SetNextTarget();
     }
@@ -58,6 +58,7 @@ public class Scout_Patrol : BaseState
     }
     public override void Exit()
     {
+        scout.StopMoveSound();
         scout.anim.SetBool("isWalk", false);
     }
 

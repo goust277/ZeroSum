@@ -15,6 +15,7 @@ public class T_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
+        tanker.PlayMoveSound(1.2f);
         tanker.anim.SetBool("isWalk", true);
         tanker.moveSpeed = 2.5f;
     }
@@ -60,6 +61,7 @@ public class T_Chase : BaseState
     }
     public override void Exit()
     {
+        tanker.StopMoveSound();
         tanker.anim.SetBool("isWalk", false);
         tanker.moveSpeed = 2;
     }

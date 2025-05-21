@@ -13,6 +13,7 @@ public class Summoner_Attack : BaseState
 
     public override void Enter()
     {
+        summoner.PlayAttackSound();
         summoner.anim.SetBool("isAttack", true);
         if (summoner.transform.position.x >= summoner.player.position.x)
         {

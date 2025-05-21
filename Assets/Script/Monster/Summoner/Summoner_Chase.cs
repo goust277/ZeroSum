@@ -13,6 +13,7 @@ public class Summoner_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
+        summoner.PlayMoveSound(1.2f);
         summoner.anim.SetBool("isChase", true);
     }
 

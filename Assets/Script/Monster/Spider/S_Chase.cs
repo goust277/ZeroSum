@@ -13,6 +13,7 @@ public class S_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
+        s.PlayMoveSound(1.4f);
         s.anim.SetBool("isWalk", true);
     }
 
@@ -46,6 +47,7 @@ public class S_Chase : BaseState
 
     public override void Exit()
     {
+        s.StopMoveSound();
         s.anim.SetBool("isWalk", false);
     }
 }

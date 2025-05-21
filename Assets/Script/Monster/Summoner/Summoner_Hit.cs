@@ -23,6 +23,7 @@ public class Summoner_Hit : BaseState
         elapsedBlinkTime = 0f;
         intervalTimer = 0f;
         isBlinking = true;
+        summoner.PlayDamagedSound();
         summoner.anim.SetTrigger("isHit");
 
         SetSpriteAlpha(0.5f);

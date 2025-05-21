@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
 
-public class Summon_S : MonoBehaviour, IDetectable, IDamageAble
+public class Summon_S : BaseAudioMonster, IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;

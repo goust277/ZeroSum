@@ -15,6 +15,7 @@ public class Scout_Attack : BaseState
     {
         Debug.Log("공격 상태");
 
+        scout.PlayAttackSound();
         scout.anim.SetBool("isAttack", true);
 
         scout.fireCount = 0; // 발사 횟수 초기화

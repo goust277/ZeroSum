@@ -16,6 +16,7 @@ public class T_Attack : BaseState
     {
         Debug.Log("공격 상태");
 
+        tanker.PlayAttackSound();
         tanker.anim.SetBool("isAttack", true);
 
         tanker.fireCount = 0;

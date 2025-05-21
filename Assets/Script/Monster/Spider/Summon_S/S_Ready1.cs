@@ -13,6 +13,7 @@ public class S_Ready1 : BaseState
 
     public override void Enter()
     {
+        s.StopMoveSound();
         s.rb.velocity = Vector2.zero;
         s.anim.SetBool("isReady", true);
     }

@@ -15,6 +15,7 @@ public class Summoner_Patrol : BaseState
     public override void Enter()
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
+        summoner.PlayMoveSound(1.0f);
         summoner.anim.SetBool("isWalk", true);
         SetNextTarget();
     }

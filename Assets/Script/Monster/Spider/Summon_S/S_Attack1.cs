@@ -18,6 +18,7 @@ public class S_Attack1 : BaseState
         int dir = 0;
         timer = 0;
         s.attack.gameObject.SetActive(true);
+        s.PlayAttackSound();
         s.anim.SetBool("isAttack", true);
         if (s.transform.position.x >= s.player.position.x)
         {

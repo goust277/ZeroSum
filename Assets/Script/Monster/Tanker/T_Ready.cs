@@ -14,7 +14,7 @@ public class T_Ready : BaseState
     public override void Enter()
     {
         Debug.Log("공격준비 상태");
-
+        tanker.StopMoveSound();
         tanker.anim.SetBool("isReady", true);
     }
 

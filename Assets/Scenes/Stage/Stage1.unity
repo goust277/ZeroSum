@@ -10450,6 +10450,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2159314930033586429, guid: 685d7272ee64ffe42aa2139b389ed2e1, type: 3}
   m_PrefabInstance: {fileID: 455427384}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &455580144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+  m_PrefabInstance: {fileID: 1202825060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &457600974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8143435851064826789, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
@@ -32189,6 +32194,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1386038478961999304, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: basicAtkAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
+    - target: {fileID: 1386038478961999304, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: battleAudioSource
+      value: 
+      objectReference: {fileID: 3848255547963399310}
+    - target: {fileID: 2009554393531965813, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: basicAtkAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
+    - target: {fileID: 2009554393531965813, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: battleAudioSource
+      value: 
+      objectReference: {fileID: 3848255547963399310}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerInput
       value: 
@@ -32256,12 +32277,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6748893214020954111, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1970744129}
+    - targetCorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1202825067}
   m_SourcePrefab: {fileID: 100100000, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
 --- !u!95 &1202825061 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1389383170650293230, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
   m_PrefabInstance: {fileID: 1202825060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1202825067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455580144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6ccbd80e21a0848bce05c6671b8cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordAudioSource: {fileID: 3848255547963399310}
+  swordAttackClip: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
 --- !u!1 &1210574160
 GameObject:
   m_ObjectHideFlags: 0
@@ -51618,18 +51656,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3848255547963399309}
-        m_TargetAssemblyTypeName: BattleAudioManager, Assembly-CSharp
-        m_MethodName: OnSwordAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_ActionId: e4c2ba7a-7845-496b-94a4-0f43c6cadf76
     m_ActionName: PlayerMovement/SwordAttack[/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
@@ -56584,6 +56610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8495527512984579100, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+      propertyPath: basicAtkAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: be6d5e5c7ed84ae42908cd5ede222f2f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56611,6 +56641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799b0981964980e4aa228dd6cf943332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &3848255547963399310 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2034328289871035373, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+  m_PrefabInstance: {fileID: 3848255547963399307}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5504126427733861511
 MonoBehaviour:
   m_ObjectHideFlags: 0

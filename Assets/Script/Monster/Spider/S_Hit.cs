@@ -18,6 +18,7 @@ public class S_Hit : BaseState
 
     public override void Enter()
     {
+        s.PlayDamagedSound();
         s.isHit = true;
         s.rb.velocity = Vector2.zero;
         elapsedBlinkTime = 0f;
