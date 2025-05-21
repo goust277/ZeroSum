@@ -3501,39 +3501,39 @@ MonoBehaviour:
   input: {fileID: 1894624006}
   isClear: 0
   pipes:
-  - {fileID: 679766369}
-  - {fileID: 436685336}
-  - {fileID: 2101157894}
-  - {fileID: 568938587}
-  - {fileID: 1538406875}
+  - {fileID: 564713990}
+  - {fileID: 1894988403}
+  - {fileID: 798204429}
+  - {fileID: 619389624}
+  - {fileID: 1586867923}
   changeLinks:
-  - {fileID: 679766368}
-  - {fileID: 436685331}
-  - {fileID: 2101157889}
-  - {fileID: 568938582}
-  - {fileID: 1538406871}
-  - {fileID: 568642518}
-  - {fileID: 819939414}
-  - {fileID: 10197930}
-  - {fileID: 483804919}
-  - {fileID: 2120554015}
-  - {fileID: 1705049952}
-  - {fileID: 93097589}
-  - {fileID: 1948249511}
-  - {fileID: 1496086918}
-  - {fileID: 227433356}
-  - {fileID: 1818334828}
-  - {fileID: 2031779892}
-  - {fileID: 673353605}
-  - {fileID: 1371614883}
-  - {fileID: 1721067016}
-  - {fileID: 982548523}
-  - {fileID: 148827013}
-  - {fileID: 1085579089}
-  - {fileID: 1303581918}
-  - {fileID: 934098862}
-  - {fileID: 1194173905}
-  - {fileID: 2048211333}
+  - {fileID: 564713991}
+  - {fileID: 1894988404}
+  - {fileID: 798204430}
+  - {fileID: 619389625}
+  - {fileID: 1586867924}
+  - {fileID: 1910619687}
+  - {fileID: 691902825}
+  - {fileID: 707727267}
+  - {fileID: 329064041}
+  - {fileID: 1249009375}
+  - {fileID: 138504737}
+  - {fileID: 1787453503}
+  - {fileID: 676216604}
+  - {fileID: 1330754576}
+  - {fileID: 413091552}
+  - {fileID: 499615777}
+  - {fileID: 1484041379}
+  - {fileID: 1765492134}
+  - {fileID: 250129860}
+  - {fileID: 1445165012}
+  - {fileID: 945552888}
+  - {fileID: 481739358}
+  - {fileID: 1476129758}
+  - {fileID: 1518184258}
+  - {fileID: 1385225183}
+  - {fileID: 383268922}
+  - {fileID: 1111645600}
   mission: {fileID: 1686537572}
   clearTime: 2
   completed: {fileID: 647525370}
@@ -3567,7 +3567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9004c9cff3e35c342b723b0364f96a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Stage2
 --- !u!61 &293477631
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10252,7 +10251,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450482036}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b7909f3168fb90499249e1ab8a50e99, type: 3}
   m_Name: 
@@ -32142,7 +32141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.18
+      value: -7.818
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45093,7 +45092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1686537573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56825,6 +56824,7 @@ SceneRoots:
   - {fileID: 450482037}
   - {fileID: 883725710}
   - {fileID: 293477632}
+  - {fileID: 3848255547963399307}
   - {fileID: 880238563}
   - {fileID: 483970728}
   - {fileID: 1302826880}
@@ -56837,7 +56837,6 @@ SceneRoots:
   - {fileID: 230320629}
   - {fileID: 18014150}
   - {fileID: 432886089}
-  - {fileID: 3848255547963399307}
   - {fileID: 434881830}
   - {fileID: 1958024292}
   - {fileID: 7817394098329750813}
