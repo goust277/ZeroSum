@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleAudioSource: {fileID: 2034328289871035373}
-  basicAtkAudioClip: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
   shotAudioClip: {fileID: 8300000, guid: 282b394265ae4f64a9e777d5626f4fef, type: 3}
   emptyGunAudioClip: {fileID: 8300000, guid: 4d8e5f466503cfe438428d404cc59e08, type: 3}
 --- !u!82 &2034328289871035373
@@ -59,7 +58,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4885409558514337743, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 282b394265ae4f64a9e777d5626f4fef, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
