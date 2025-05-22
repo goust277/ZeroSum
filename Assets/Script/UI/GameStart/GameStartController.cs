@@ -16,7 +16,7 @@ public class GameStartController : BaseUi
     [SerializeField] private Image Panel;
     float currentTime = 0.0f;  //���� �ð�
     private readonly float fadeoutTime = 2.0f;  //���̵�ƿ��� ����� �ð�
-    private bool isSettingOpen = false;
+    //private bool isSettingOpen = false;
     private SettingsManager settingsManager;
     private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
 

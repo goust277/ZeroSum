@@ -21,8 +21,8 @@ public class GameOver : MonoBehaviour
     [SerializeField] GameObject gameOverUI;
     [SerializeField] RectTransform up;
     [SerializeField] RectTransform down;
-    [SerializeField] private float blackBarTargetY = 130f; // 이동할 거리
-    [SerializeField] private float blackBarSlideAmount = 130f;
+    //[SerializeField] private float blackBarTargetY = 130f; // 이동할 거리
+    //[SerializeField] private float blackBarSlideAmount = 130f;
 
     private Transform player;
     private GameObject camObj;
@@ -30,7 +30,7 @@ public class GameOver : MonoBehaviour
     private ProCamera2D proCamera2D;
     Vector2 upStartPos;
     Vector2 downStartPos;
-    private GameObject MissionUI;
+    private GameObject missionUI;
 
     private void Start()
     {
@@ -56,8 +56,8 @@ public class GameOver : MonoBehaviour
         }
         player = playerObj.transform;
 
-        MissionUI = GameObject.Find("Mission");
-        if (MissionUI == null)
+        missionUI = GameObject.Find("Mission");
+        if (missionUI == null)
         {
             Debug.LogError("Mission 오브젝트를 찾을 수 없습니다.");
             return;
@@ -157,7 +157,7 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator MoveUIVerticallyUp()
     {
-        RectTransform target = MissionUI.transform as RectTransform;
+        RectTransform target = missionUI.transform as RectTransform;
 
         Vector2 startPos = target.anchoredPosition;
         Vector2 endPos = startPos + new Vector2(0f, +200f);

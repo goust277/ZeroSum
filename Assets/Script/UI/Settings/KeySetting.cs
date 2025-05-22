@@ -16,6 +16,9 @@ public class KeySetting : MonoBehaviour
     [SerializeField] private Button defaultAtkBtn; // UI 버튼
     [SerializeField] private Button parryingBtn;
     [SerializeField] private Button gunAtkBtn;
+    [SerializeField] private Button runBtn;
+    [SerializeField] private Button sitBtn;
+    [SerializeField] private Button JumpBtn;
 
     private Dictionary<Button, string> buttonActionMap; // button-action Mapping
     private Dictionary<string, string> tempMap = new Dictionary<string, string>(); // temp save before Applyyyyyyyyyyyyyy
@@ -29,7 +32,10 @@ public class KeySetting : MonoBehaviour
     {
         { "SwordAttack", "<Keyboard>/a" },
         { "Dash", "<Keyboard>/x" },
-        { "GunAttack", "<Keyboard>/c" }
+        { "GunAttack", "<Keyboard>/c" },
+        { "Jump", "<Keyboard>/space" },
+        { "Down", "<Keyboard>/control" },
+        { "Run", "<Keyboard>/left shift" }
     };
 
 
@@ -40,7 +46,10 @@ public class KeySetting : MonoBehaviour
         {
             { defaultAtkBtn, "SwordAttack" },
             { parryingBtn, "Dash" },
-            { gunAtkBtn, "GunAttack" }
+            { gunAtkBtn, "GunAttack" },
+            { runBtn, "Run" },
+            { sitBtn, "Down" },
+            { JumpBtn, "Jump" }
         };
 
         //attackAction = playerInput.actions["SwordAttack"]; //액션 가져오기
@@ -93,8 +102,8 @@ public class KeySetting : MonoBehaviour
         tempMap.Clear();
         UpdateButtonTexts();
 
-        TMP_Text buttonText = saveBtn.GetComponentInChildren<TMP_Text>();
-        buttonText.text = "저장";
+        //TMP_Text buttonText = saveBtn.GetComponentInChildren<TMP_Text>();
+        //buttonText.text = "저장";
     }
 
     public void SaveRebinding()
@@ -117,11 +126,11 @@ public class KeySetting : MonoBehaviour
 
         tempMap.Clear(); // 저장 후 임시 저장소 비우기
 
-        TMP_Text buttonText = resetBtn.GetComponentInChildren<TMP_Text>();
-        buttonText.text = "초기화";
+        //TMP_Text buttonText = resetBtn.GetComponentInChildren<TMP_Text>();
+        //buttonText.text = "초기화";
 
-        buttonText = saveBtn.GetComponentInChildren<TMP_Text>();
-        buttonText.text = "저장 완료";
+        //buttonText = saveBtn.GetComponentInChildren<TMP_Text>();
+        //buttonText.text = "저장 완료";
     }
 
     private void UpdateButtonTexts()
@@ -142,7 +151,10 @@ public class KeySetting : MonoBehaviour
         }
 
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
-        buttonText.text = action.bindings[0].ToDisplayString(); //액션 바인딩 된 키(바뀐거) 버튼 위에다가 바꿔줌
+
+        //Press 붙으거 떼주려고 로직 추가
+        string displayName = action.bindings[0].ToDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        buttonText.text = displayName;
     }
 
 }

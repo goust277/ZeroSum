@@ -12,14 +12,12 @@ using UnityEngine.SceneManagement;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
-
-    // ���� ���� ������
-    public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
+    public Dictionary<string, bool> currentEventFlags;  
     [SerializeField] private int currentSceneID = 0;
-    [SerializeField] private int currentStagePoint = 0;     // 
-    [SerializeField] private int chapterNum = 0;                           // ���� é��
+    [SerializeField] private int currentStagePoint = 0;
+    [SerializeField] private int chapterNum = 0;         
     //private int Gold = 0;
-    private int hp = 5;
+    //private int hp = 5;
     private EventRoot eventRoot;
     private Dictionary<string, int> sceneEnterCount = new();
 

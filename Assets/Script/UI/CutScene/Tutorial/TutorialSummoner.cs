@@ -9,7 +9,7 @@ public class TutorialSummoner : MonoBehaviour
 {
     [SerializeField] public PlayerInput playerInput;
 
-    private int health = 3;
+    //private int health = 3;
 
     [SerializeField] private GameObject box;
     [SerializeField] private TextMeshProUGUI boxText;
