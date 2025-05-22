@@ -6,6 +6,7 @@ using UnityEngineInternal;
 using TMPro;
 using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 public class Scout : MonoBehaviour, IDetectable, IDamageAble
 { 
@@ -39,6 +40,9 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;
+    public bool canMove = true;
+    public bool seeMark;
+    public GameObject mark;
     public Rigidbody2D rb;
     private StateMachine stateMachine;
     public Transform leftFirePoint;         // 왼쪽 발사 위치
@@ -231,6 +235,18 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             {
                 rb.velocity = dir * BulletSpeed; // 발사 속도 설정
             }
+        }
+    }
+
+    private void Move_controll()
+    {
+        if (canMove)
+        {
+            canMove = false;
+        }
+        else if (!canMove)
+        {
+            canMove = true;
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scout_Chase : BaseState
 {
     private Scout scout;
+    private float timer = 1.0f;
 
     public Scout_Chase(StateMachine stateMachine, Scout monster) : base(stateMachine)
     {
@@ -15,12 +16,23 @@ public class Scout_Chase : BaseState
     {
         Debug.Log("추적 상태");
         scout.anim.SetBool("isWalk", true);
+        
+        if(!scout.seeMark)
+        scout.mark.gameObject.SetActive(true);
+        
         scout.moveSpeed = 2.5f;
     }
 
     public override void Execute()
     {
-        if(scout.anim.GetCurrentAnimatorStateInfo(0).IsName("Scout_attack_end"))
+        timer -= Time.deltaTime;
+
+        if(timer <= 0)
+        {
+            scout.mark.gameObject.SetActive(false);
+        }
+        
+        if(!scout.canMove)
         {
             return;
         }
@@ -61,5 +73,6 @@ public class Scout_Chase : BaseState
     {
         scout.anim.SetBool("isWalk", false);
         scout.moveSpeed = 2;
+        timer = 1f;
     }
 }

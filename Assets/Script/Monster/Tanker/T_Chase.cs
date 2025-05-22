@@ -6,6 +6,7 @@ using UnityEngine;
 public class T_Chase : BaseState
 {
     Tanker tanker;
+    private float timer = 1f;
 
     public T_Chase(StateMachine stateMachine, Tanker monster) : base(stateMachine)
     {
@@ -16,11 +17,22 @@ public class T_Chase : BaseState
     {
         Debug.Log("추적 상태");
         tanker.anim.SetBool("isWalk", true);
+
+        if (!tanker.seeMark)
+            tanker.mark.gameObject.SetActive(true);
+
         tanker.moveSpeed = 2.5f;
     }
 
     public override void Execute()
     {
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            tanker.mark.gameObject.SetActive(false);
+        }
+
         if (!tanker.canMove)
         {
             return;

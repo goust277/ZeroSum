@@ -17,6 +17,7 @@ public class Scout_Patrol : BaseState
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
         scout.anim.SetBool("isWalk", true);
+        scout.seeMark = false;
         SetNextTarget();
     }
 
