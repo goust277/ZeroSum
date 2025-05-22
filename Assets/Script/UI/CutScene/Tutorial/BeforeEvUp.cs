@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class BeforeEvUp : MonoBehaviour
     [SerializeField] private PlayableDirector director;
 
     private bool hasPlayed = false; // 여러번 재생 방지
-    [SerializeField] private BoxCollider2D ev;
+    [SerializeField] public BoxCollider2D ev;
 
     [Header("virtualCamera Resources")]
     [SerializeField] private Transform playerTransform;
@@ -28,6 +29,8 @@ public class BeforeEvUp : MonoBehaviour
     [SerializeField] private MissionDoorManager tutorialMissionManager;
     [SerializeField] private MissionDoorManager realMissionDoorManager;
 
+    [Header("Tutorial End")]
+    [SerializeField] private GameObject cutSceneTrigger;
 
     void Start()
     {
@@ -63,6 +66,8 @@ public class BeforeEvUp : MonoBehaviour
             num5Canvas.SetActive(false); // 안내문 비활성화
             hasPlayed = true;
 
+            director.stopped += OnTutorialEnd;
+
             StartCoroutine(GrowAndFade());
             if (director != null)
             {
@@ -71,7 +76,12 @@ public class BeforeEvUp : MonoBehaviour
         }
     }
 
-    private IEnumerator GrowAndFade()
+    private void OnTutorialEnd(PlayableDirector director)
+    {
+        cutSceneTrigger.SetActive(false);
+    }
+
+    public IEnumerator GrowAndFade()
     {
 
         float timer = 0f;

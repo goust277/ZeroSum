@@ -33,7 +33,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPrefab;
     [SerializeField] private GameObject hudUI;
 
-
+    private bool isRestarted = false;
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
@@ -61,6 +61,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         Debug.Log($"새로운 씬 : {scene.name}");
         ReadyHPHud();
         ResetDungeonState();
+        isRestarted = false;
     }
     public int GetMaxHP()
     {
@@ -102,6 +103,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void ResetDungeonState()
     {
+        isRestarted = true;
         hudUI.SetActive(true);
         GameStateManager.Instance.resetReinforcement();
         currentMagazine = GameStateManager.Instance.GetTotalMagazine();
