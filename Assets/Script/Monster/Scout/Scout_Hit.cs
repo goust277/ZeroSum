@@ -18,6 +18,7 @@ public class Scout_Hit : BaseState
 
     public override void Enter()
     {
+        scout.PlayDamagedSound();
         scout.isHit = true;
         scout.rb.velocity = Vector2.zero;
         elapsedBlinkTime = 0f;

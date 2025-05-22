@@ -15,6 +15,7 @@ public class Scout_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
+        scout.PlayMoveSound(1.2f);
         scout.anim.SetBool("isWalk", true);
         
         if(!scout.seeMark)
@@ -71,6 +72,7 @@ public class Scout_Chase : BaseState
     }
     public override void Exit()
     {
+        scout.StopMoveSound();
         scout.anim.SetBool("isWalk", false);
         scout.moveSpeed = 2;
         timer = 1f;

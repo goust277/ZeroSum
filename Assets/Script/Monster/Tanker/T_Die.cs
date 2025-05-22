@@ -27,6 +27,7 @@ public class T_Die : BaseState
         }
         //tanker.SpawnHitEffect();
 
+        tanker.PlayDeathSound();
         tanker.anim.SetTrigger("isDie");
     }
 

@@ -25,6 +25,7 @@ public class Scout_Die : BaseState
         }
         scout.SpawnHitEffect();
 
+        scout.PlayDeathSound();
         scout.anim.SetTrigger("isDie");
     }
 

@@ -8,9 +8,13 @@ using UnityEngine.Playables;
 
 public class TutorialBox : MonoBehaviour
 {
+
+    [Header("CutsceneManager Resources")]
+    [SerializeField] private CutsceneManager cutsceneManager;
+    [SerializeField] private PlayableDirector director;
+
     private int dmg;
     [SerializeField] private Box box;
-    [SerializeField] private PlayableDirector director;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject Num4Obj;
     //[SerializeField] private CutsceneManager cutsceneManager;
@@ -45,7 +49,10 @@ public class TutorialBox : MonoBehaviour
         virtualCamera.transform.position = currentCameraPosition;
         virtualCamera.transform.rotation = currentCameraRotation;
         //cutsceneManager.PlayCutscene(director);
-        director.Play();
+        if (director != null)
+        {
+            cutsceneManager.PlayCutscene(director);
+        }
         Num4Obj.SetActive(true);
     }
 

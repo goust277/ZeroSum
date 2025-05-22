@@ -15,6 +15,7 @@ public class S_Patrol : BaseState
     public override void Enter()
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
+        s.PlayMoveSound(1.0f);
         s.anim.SetBool("isWalk", true);
         SetNextTarget();
     }
@@ -47,6 +48,7 @@ public class S_Patrol : BaseState
     }
     public override void Exit()
     {
+        s.StopMoveSound();
         s.anim.SetBool("isWalk", false);
     }
 

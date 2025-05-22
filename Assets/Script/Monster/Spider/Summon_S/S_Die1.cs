@@ -15,7 +15,7 @@ public class S_Die1 : BaseState
     {
         s.isDie = true;
         
-
+        s.PlayDeathSound();
         s.anim.SetTrigger("isDie");
 
         if ((s.player.position.x - s.transform.position.x) >= 0.2f)

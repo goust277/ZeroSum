@@ -15,7 +15,7 @@ public class PlayerSwordAttack : PlayerAttackState
 
     public event Action OnSwordAttack;
     public event Action OnSwordSecAttack;
-    
+
     private void Start()
     {
         isAtkReady = true;

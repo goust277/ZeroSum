@@ -19,6 +19,7 @@ public class T_Hit : BaseState
 
     public override void Enter()
     {
+        tanker.PlayDamagedSound();
         tanker.isHit = true;
         tanker.rb.velocity = Vector2.zero;
         elapsedBlinkTime = 0f;

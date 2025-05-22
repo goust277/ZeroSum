@@ -15,7 +15,7 @@ public class Summoner_Die : BaseState
     {
         summoner.isDie = true;
 
-
+        summoner.PlayDeathSound();
         summoner.anim.SetTrigger("isDie");
 
         if ((summoner.player.position.x - summoner.transform.position.x) >= 0.2f)

@@ -15,6 +15,7 @@ public class T_Patrol : BaseState
     public override void Enter()
     {
         Debug.Log("ผ๘ย๛ ป๓ลย");
+        tanker.PlayMoveSound(1.0f);
         tanker.anim.SetBool("isWalk", true);
         tanker.seeMark = false;
         SetNextTarget();
@@ -56,6 +57,7 @@ public class T_Patrol : BaseState
     }
     public override void Exit()
     {
+        tanker.StopMoveSound();
         tanker.anim.SetBool("isWalk", false);
     }
 

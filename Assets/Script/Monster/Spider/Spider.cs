@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
 
-public class Spider : MonoBehaviour, IDetectable, IDamageAble
+public class Spider : BaseAudioMonster, IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
@@ -102,7 +102,6 @@ public class Spider : MonoBehaviour, IDetectable, IDamageAble
             turn = true;
         }
     }
-
     private void VisualDamage(int value)
     {
         Debug.Log("VisualDamage");

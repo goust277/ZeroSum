@@ -17,6 +17,7 @@ public class T_Idle : BaseState
     {
         Debug.Log("대기 상태");
         timer = 3f;
+        tanker.StopMoveSound();
         tanker.anim.SetBool("isIdle", true);
     }
 

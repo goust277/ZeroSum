@@ -7,7 +7,11 @@ using UnityEngine.Playables;
 
 public class TutorialEv : MonoBehaviour
 {
-    [SerializeField] public PlayableDirector director;
+    [Header("CutsceneManager Resources")]
+    [SerializeField] private CutsceneManager cutsceneManager;
+    [SerializeField] private PlayableDirector director;
+
+    [Header("Direct Resources")]
     [SerializeField] private Mission mission;
     [SerializeField] private BoxCollider2D ev;
 
@@ -26,15 +30,13 @@ public class TutorialEv : MonoBehaviour
             if (!isClear)
             {
                 isClear = true;
-                ev.enabled = true;
                 directorCanvas.SetActive(false);
-                Invoke("PlayCutScene", 1.0f);
+                PlayCutScene();
             }
         }
     }
     void PlayCutScene()
     {
-
         // ���� ī�޶� ��ġ�� ȸ������ �����ͼ� ����� ī�޶� ����
         Vector3 currentCameraPosition = Camera.main.transform.position;
         Quaternion currentCameraRotation = Camera.main.transform.rotation;
@@ -42,6 +44,19 @@ public class TutorialEv : MonoBehaviour
         // ����� ī�޶��� ��ġ�� ȸ������ ���� ī�޶� ������ ����
         virtualCamera.transform.position = currentCameraPosition;
         virtualCamera.transform.rotation = currentCameraRotation;
-        director.Play();
+
+        
+        if (director != null)
+        {
+            director.stopped += ElevatorOn;
+            cutsceneManager.PlayCutscene(director);
+        }
     }
+
+    void ElevatorOn(PlayableDirector obj)
+    {
+        ev.enabled = true;
+        director.stopped -= ElevatorOn;
+    }
+
 }

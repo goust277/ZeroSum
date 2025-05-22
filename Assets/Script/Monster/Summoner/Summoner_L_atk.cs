@@ -14,7 +14,7 @@ public class Summoner_L_atk : BaseState
     public override void Enter()
     {
         Debug.Log("공격 상태");
-
+        summoner.PlayAttackSound();
         summoner.anim.SetBool("isLAttack", true);
     }
 

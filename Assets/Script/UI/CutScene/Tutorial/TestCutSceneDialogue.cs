@@ -9,8 +9,7 @@ public class TestCutScneDialogue : MonoBehaviour
 {
     [SerializeField] private Canvas textBox;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private CutsceneManager cutsceneManager;
-    [SerializeField] private PlayableDirector director;
+
 
     [Header("Dialog Resources")]
     [SerializeField] private string[] texts ={};
@@ -19,14 +18,14 @@ public class TestCutScneDialogue : MonoBehaviour
     [Header("CutScene Resources")]
     private RectTransform uiTextTransform;
 
+    [Header("Tracking Resources")]
+    [SerializeField] private Transform trackingTransform;
+
     public void Start()
     {
         uiTextTransform = gameObject.GetComponent<RectTransform>();
-        uiTextTransform.position = cutsceneManager.GetPlayerTransform().position + movingOffset;
+        uiTextTransform.position = trackingTransform.position + movingOffset;
 
-        if (director != null) {
-            cutsceneManager.PlayCutscene(director);
-        }
         StartCoroutine(CutSceneTextWriter());
     }
 

@@ -7,7 +7,9 @@ using UnityEngine.Timeline;
 
 public class BattleCutScene : MonoBehaviour
 {
-    [SerializeField] public PlayableDirector director;
+    [Header("CutsceneManager Resources")]
+    [SerializeField] private CutsceneManager cutsceneManager;
+    [SerializeField] private PlayableDirector director;
 
     [Header("Resources")]
     [SerializeField] private GameObject num1Obj;
@@ -48,7 +50,10 @@ public class BattleCutScene : MonoBehaviour
             num1Obj.gameObject.SetActive(false); // 대사창 비활성화
             //cutsceneManager.PlayCutscene(director);
             hasPlayed = true;
-            director.Play();
+            if (director != null)
+            {
+                cutsceneManager.PlayCutscene(director);
+            }
         }
     }
     void CanvasTrnasform()

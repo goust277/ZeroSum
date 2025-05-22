@@ -15,6 +15,7 @@ public class S_Attack1 : BaseState
     public override void Enter()
     {
         s.attack.gameObject.SetActive(true);
+        s.PlayAttackSound();
         s.anim.SetBool("isAttack", true);
     }
 

@@ -13,6 +13,7 @@ public class S_Chase1 : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
+        s.PlayMoveSound(1.2f);
         s.anim.SetBool("isWalk", true);
     }
 

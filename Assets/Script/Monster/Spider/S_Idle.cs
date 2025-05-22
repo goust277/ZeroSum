@@ -16,6 +16,7 @@ public class S_Idle : BaseState
     {
         Debug.Log("대기 상태");
         timer = 2f;
+        s.StopMoveSound();
         s.anim.SetBool("isIdle", true);
     }
 

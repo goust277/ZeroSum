@@ -8,8 +8,9 @@ using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
 
-public class Scout : MonoBehaviour, IDetectable, IDamageAble
-{ 
+public class Scout : BaseAudioMonster, IDetectable, IDamageAble
+{
+
     [Header("Animation")]
     public Animator anim;
     public SpriteRenderer sprite;
@@ -120,7 +121,6 @@ public class Scout : MonoBehaviour, IDetectable, IDamageAble
             turn = true;
         }
     }
-
 
     private void OnCollisionEnter2D(Collision2D other)
     {

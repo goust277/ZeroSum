@@ -5,7 +5,6 @@ using UnityEngine;
 public class S_Chase : BaseState
 {
     private Spider s;
-    private float timer = 1f;
     public S_Chase(StateMachine stateMachine, Spider monster) : base(stateMachine)
     {
         this.s = monster;
@@ -14,20 +13,12 @@ public class S_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
-        if(!s.seeMark)
-        s.mark.gameObject.SetActive(true);
+        s.PlayMoveSound(1.4f);
         s.anim.SetBool("isWalk", true);
     }
 
     public override void Execute()
     {
-        timer -= Time.deltaTime;
-
-        if (timer <= 0)
-        {
-            s.mark.gameObject.SetActive(false);
-        }
-
         if (s.transform.position.x < s.currentTarget.x)
         {
             s.sprite.flipX = true;
@@ -56,6 +47,7 @@ public class S_Chase : BaseState
 
     public override void Exit()
     {
+        s.StopMoveSound();
         s.anim.SetBool("isWalk", false);
     }
 }

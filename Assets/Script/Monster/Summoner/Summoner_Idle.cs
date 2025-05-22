@@ -16,6 +16,7 @@ public class Summoner_Idle : BaseState
     {
         Debug.Log("대기 상태");
         timer = 3f;
+        summoner.StopMoveSound();
         summoner.anim.SetBool("isIdle", true);
     }
 

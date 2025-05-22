@@ -5,8 +5,6 @@ using UnityEngine;
 public class Summoner_Chase : BaseState
 {
     private Summoner summoner;
-    private float timer = 1f;
-
     public Summoner_Chase(StateMachine stateMachine, Summoner monster) : base(stateMachine)
     {
         this.summoner = monster;
@@ -15,20 +13,12 @@ public class Summoner_Chase : BaseState
     public override void Enter()
     {
         Debug.Log("추적 상태");
-        if(!summoner.seeMark)
-        summoner.mark.gameObject.SetActive(true);
+        summoner.PlayMoveSound(1.2f);
         summoner.anim.SetBool("isChase", true);
     }
 
     public override void Execute()
     {
-        timer -= Time.deltaTime;
-
-        if(timer <= 0)
-        {
-            summoner.mark.SetActive(false);
-        }
-        
         if (Mathf.Abs(summoner.player.transform.position.x - summoner.transform.position.x) >= 9f
             || Mathf.Abs(summoner.player.transform.position.y - summoner.transform.position.y) >= 2f)
         {
