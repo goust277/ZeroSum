@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSaveFile : MonoBehaviour
 {
-    private string saveFile1 = "User01.json";
+    //private string saveFile1 = "User01.json";
     private string savePath;
     private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
     private readonly string savePath2 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User02.json";

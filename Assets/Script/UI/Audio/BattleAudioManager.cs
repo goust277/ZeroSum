@@ -14,7 +14,7 @@ public class BattleAudioManager : MonoBehaviour
     public void OnGunAttack(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        if (battleAudioSource.isPlaying) return; // 이미 재생 중이면 무시
+        //if (battleAudioSource.isPlaying) return; // 이미 재생 중이면 무시
 
         if (Ver01_DungeonStatManager.Instance.GetCurrentMagazine() > 0 )
         {

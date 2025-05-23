@@ -7,21 +7,19 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using TMPro.Examples;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
-
-    // ���� ���� ������
-    public Dictionary<string, bool> currentEventFlags;  // �̺�Ʈ �÷��� (��: �̺�Ʈ �Ϸ� ����)
+    public Dictionary<string, bool> currentEventFlags;  
     [SerializeField] private int currentSceneID = 0;
-    [SerializeField] private int currentStagePoint = 0;     // 
-    [SerializeField] private int chapterNum = 0;                           // ���� é��
+    [SerializeField] private int currentStagePoint = 0;
+    [SerializeField] private int chapterNum = 0;         
     //private int Gold = 0;
-    private int hp = 5;
+    //private int hp = 5;
     private EventRoot eventRoot;
-
-
+    private Dictionary<string, int> sceneEnterCount = new();
 
     [Header("HUD Resource")]
     [SerializeField] public GameObject hudUI;
@@ -39,6 +37,7 @@ public class GameStateManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -79,6 +78,34 @@ public class GameStateManager : MonoBehaviour
         {
             currentEventFlags.Add(eventName, value);
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string sceneName = scene.name;
+        if (sceneEnterCount.ContainsKey(sceneName))
+            sceneEnterCount[sceneName]++;
+        else
+            sceneEnterCount[sceneName] = 1;
+
+        Debug.Log($"[씬 입장] {sceneName} 입장 {sceneEnterCount[sceneName]}회");
+    }
+
+    public int GetEnterCount(string sceneName)
+    {
+        return sceneEnterCount.ContainsKey(sceneName) ? sceneEnterCount[sceneName] : 0;
+    }
+
+    public int GetCurrentSceneEnterCount()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneEnterCount.ContainsKey(currentSceneName))
+        {
+            return sceneEnterCount[currentSceneName];
+        }
+
+        return 0; // 아직 한 번도 안 들어온 경우
     }
 
     public EventRoot GetEventRoot()
@@ -179,6 +206,66 @@ public class GameStateManager : MonoBehaviour
     public void OnOffHudUI()
     {
         hudUI.SetActive(!hudUI.activeSelf);
+    }
+
+    private IEnumerator MoveUIVerticallyDown(RectTransform target)
+    {
+        Vector2 startPos = target.anchoredPosition;
+
+        Vector2 endPos = startPos + new Vector2(0f, -312f);
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
+            float t = Mathf.Clamp01(elapsed / duration);
+            target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        target.anchoredPosition = endPos;
+    }
+    public void StartMoveUIDown()
+    {
+        RectTransform target = hudUI.transform as RectTransform;
+
+        if (target == null || target.anchoredPosition.y <= 300f)
+        {
+            return;
+        }
+
+        StartCoroutine(MoveUIVerticallyDown(target));
+    }
+
+    private IEnumerator MoveUIVerticallyUp(RectTransform target)
+    {
+        Vector2 startPos = target.anchoredPosition;
+
+        Vector2 endPos = startPos + new Vector2(0f, +312f);
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
+            float t = Mathf.Clamp01(elapsed / duration);
+            target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        target.anchoredPosition = endPos;
+    }
+    public void StartMoveUIUp()
+    {
+        RectTransform target = hudUI.transform as RectTransform;
+
+        if (target == null || target.anchoredPosition.y > 1.0f)
+        {
+            return;
+        }
+
+        StartCoroutine(MoveUIVerticallyUp(target));
     }
 
 

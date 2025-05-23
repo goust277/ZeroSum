@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     [Header("Camera Resource")]
-    [SerializeField] private readonly float targetSize = 3.3f;
+    [SerializeField] private readonly float targetSize = 3.5f;
     [SerializeField] private readonly float duration = 2.0f;
 
     [Header("BackGround Resource")]
@@ -21,8 +21,8 @@ public class GameOver : MonoBehaviour
     [SerializeField] GameObject gameOverUI;
     [SerializeField] RectTransform up;
     [SerializeField] RectTransform down;
-    [SerializeField] private float blackBarTargetY = 130f; // 이동할 거리
-    [SerializeField] private float blackBarSlideAmount = 130f;
+    //[SerializeField] private float blackBarTargetY = 130f; // 이동할 거리
+    //[SerializeField] private float blackBarSlideAmount = 130f;
 
     private Transform player;
     private GameObject camObj;
@@ -30,6 +30,7 @@ public class GameOver : MonoBehaviour
     private ProCamera2D proCamera2D;
     Vector2 upStartPos;
     Vector2 downStartPos;
+    private GameObject missionUI;
 
     private void Start()
     {
@@ -55,11 +56,19 @@ public class GameOver : MonoBehaviour
         }
         player = playerObj.transform;
 
-        gameOverCanvas.worldCamera = cam; // 또는 너가 쓰는 proCamera2D 같은 카메라
+        missionUI = GameObject.Find("Mission");
+        if (missionUI == null)
+        {
+            Debug.LogError("Mission 오브젝트를 찾을 수 없습니다.");
+            return;
+        }
+
+        gameOverCanvas.worldCamera = cam;
 
         StartCoroutine(HandleGameOverSequence());
+        StartCoroutine(MoveUIVerticallyUp());
         Invoke("ShowDeadBodySprite", 1.0f);
-        proCamera2D.Zoom(targetSize-cam.orthographicSize, duration, EaseType.EaseInOut);
+        proCamera2D.Zoom(targetSize-cam.orthographicSize, duration);
     }
 
 
@@ -144,5 +153,25 @@ public class GameOver : MonoBehaviour
 
         // 마지막 값 보정
         sr.color = new Color(startColor.r, startColor.g, startColor.b, 1f);
+    }
+
+    private IEnumerator MoveUIVerticallyUp()
+    {
+        RectTransform target = missionUI.transform as RectTransform;
+
+        Vector2 startPos = target.anchoredPosition;
+        Vector2 endPos = startPos + new Vector2(0f, +200f);
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
+            float t = Mathf.Clamp01(elapsed / duration);
+            target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        target.anchoredPosition = endPos;
     }
 }

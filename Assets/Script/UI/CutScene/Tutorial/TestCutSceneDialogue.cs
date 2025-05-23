@@ -32,6 +32,8 @@ public class TestCutScneDialogue : MonoBehaviour
 
     IEnumerator CutSceneTextWriter()
     {
+        float time = 0.0f;
+
         foreach (var dialog in texts)
         {
             //Debug.Log(dialog);
@@ -45,17 +47,20 @@ public class TestCutScneDialogue : MonoBehaviour
                 // 텍스트 추가 후 강제로 레이아웃 갱신
                 //LayoutRebuilder.ForceRebuildLayoutImmediate(dialogueText.rectTransform);
                 yield return new WaitForSeconds(0.05f); //
+                time += 0.05f;
             }
             dialogueText.text += "\n";
             yield return new WaitForSeconds(1.0f);
-            //}
+            time += 1.0f;
         }
         yield return new WaitForSeconds(0.5f);
+        time += 0.5f;
 
-        if( textBox != null)
+        if ( textBox != null)
         {
             textBox.enabled = false; // 대사창 비활성화
         }
-    }
 
+        Debug.Log($"CutSceneTextWriter 총 소요 시간: {time}초");
+    }
 }
