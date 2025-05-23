@@ -42,6 +42,7 @@ public class CutSceneBase : MonoBehaviour
         // 플레이어 따라다니는 거 제거
         proCamera2D.RemoveAllCameraTargets();
 
+        GameStateManager.Instance.StartMoveUIUp();
         up.SetActive(true);
         down.SetActive(true);
         StartCoroutine(MoveUIVerticallyDown(up, 100.0f));
@@ -53,6 +54,8 @@ public class CutSceneBase : MonoBehaviour
 
     protected void EndCutScene()
     {
+        GameStateManager.Instance.StartMoveUIDown();
+
         float startZoom = Camera.main.orthographicSize;
         
         MoveAndZoomTo(new Vector2(playerTarget.position.x, playerTarget.position.y), originOrthographic, 2.0f);
@@ -61,7 +64,7 @@ public class CutSceneBase : MonoBehaviour
         player.GetComponent<PlayerAnimation>().enabled = true;
         up.SetActive(false);
         down.SetActive(false);
-        StartCoroutine(MoveUIVerticallyDown(down, 100.0f));
+        StartCoroutine(MoveUIVerticallyDown(down, 130.0f));
         StartCoroutine(MoveUIVerticallyUp(up, 100.0f));
 
         if (inputManager != null)
@@ -103,7 +106,7 @@ public class CutSceneBase : MonoBehaviour
         proCamera2D.transform.position = endPos;
     }
 
-    private IEnumerator MoveUIVerticallyDown(GameObject targetObj, float distance)
+    protected IEnumerator MoveUIVerticallyDown(GameObject targetObj, float distance)
     {
         RectTransform target = targetObj.transform as RectTransform;
 
@@ -123,7 +126,7 @@ public class CutSceneBase : MonoBehaviour
         target.anchoredPosition = endPos;
     }
 
-    private IEnumerator MoveUIVerticallyUp(GameObject targetObj, float distance)
+    protected IEnumerator MoveUIVerticallyUp(GameObject targetObj, float distance)
     {
         RectTransform target = targetObj.transform as RectTransform;
 

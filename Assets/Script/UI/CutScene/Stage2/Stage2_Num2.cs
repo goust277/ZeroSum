@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Stage2_Num2 : CutSceneBase
 {
     [SerializeField] private MovingBlock[] evs;
+    //[SerializeField] private Collider2D[] evs;
     [SerializeField] private GameObject npc;
     [SerializeField] private Transform[] npcmoves;
 
@@ -52,11 +53,11 @@ public class Stage2_Num2 : CutSceneBase
         yield return ShowDialog(0, 2.0f); //1
         StartCoroutine(MoveNpcTo(npcmoves[2], "Run"));
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 3.5f, 3.0f);
-        yield return MovePlayerTo(npcmoves[3], 5.0f);
+        StartCoroutine(MovePlayerTo(npcmoves[3], 7.0f));
+        yield return new WaitForSeconds(5.0f);
         //2,3
         yield return ShowDialog(1, 4.0f);
         //터치나 타자 효과음 > 잠시잠잠했다가 오류뜨는게 나아보이는데
-        error9.SetActive(false);
         yield return new WaitForSeconds(2.0f);
 
         yield return ShowDialog(2, 2.0f); //4
@@ -67,8 +68,8 @@ public class Stage2_Num2 : CutSceneBase
 
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 4.0f, 2.0f);
         yield return new WaitForSeconds(3.0f);
-        MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.0f, 2.0f);
-        yield return new WaitForSeconds(3.0f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.5f, 2.0f);
+        yield return new WaitForSeconds(4.0f);
 
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
         yield return new WaitForSeconds(3.0f);
@@ -78,7 +79,20 @@ public class Stage2_Num2 : CutSceneBase
         yield return ShowDialog(5, 1.5f); //8
         yield return ShowDialog(6, 3.0f); //7
 
-        EndCutScene();
+        CustomeEneScene();
+    }
+
+    private void CustomeEneScene()
+    {
+        GameStateManager.Instance.StartMoveUIDown();
+        MoveAndZoomTo((Vector2)cutsceneTarget[4].position, 4.0f, 2.0f);
+
+        StartCoroutine(MoveUIVerticallyDown(up, 130.0f));
+        StartCoroutine(MoveUIVerticallyUp(down, 100.0f));
+        player.GetComponent<PlayerAnimation>().enabled = true;
+
+        if (inputManager != null)
+            inputManager.SetActive(true);
     }
 
     private IEnumerator MoveNpcTo(Transform targetPoint, string motionName)

@@ -13,6 +13,7 @@ public class Stage2_Num1Scene : CutSceneBase
     [SerializeField] private GameObject fade;
     [SerializeField] private GameObject npc;
     [SerializeField] private GameObject scout;
+    [SerializeField] private GameObject scout_die;
     [SerializeField] private AudioSource battleAudio;
     [SerializeField] private AudioSource runAudio;
 
@@ -31,6 +32,13 @@ public class Stage2_Num1Scene : CutSceneBase
             StartCutScene();
             StartCoroutine(From1To3());
         }
+    }
+
+    private void KillScout()
+    {
+        scout.transform.position = new Vector3(8.0f, npcmove.y, 0.0f);
+        scout.GetComponent<Scout>().Damage(1);
+        scout_die.SetActive(true);
     }
 
     private IEnumerator From1To3(){
@@ -134,9 +142,10 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(0.3f);
         battleAudio.PlayOneShot(battleAudio.clip);
         yield return new WaitForSeconds(0.5f);
-        scout.GetComponent<Scout>().Damage(2);
-        scout.SetActive(false);
+        //scout.GetComponent<Scout>().Damage(2);
+        //scout.SetActive(false);
         battleAudio.PlayOneShot(battleAudio.clip);
+        KillScout();
         MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.0f, 1.0f);
         yield return new WaitForSeconds(1.0f);
         fade.SetActive(false);
@@ -155,9 +164,12 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(2.5f);
         MoveAndZoomTo((Vector2)cutsceneTarget[5].position, 7.9f, 5.0f);
         yield return new WaitForSeconds(6.0f);
+        scout_die.SetActive(true);
         EndCutScene();
         evs[0].enabled = true;
         evs[1].enabled = true;
+
+        error9.SetActive(false);
     }
 
     IEnumerator ErrorBlink()
