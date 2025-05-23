@@ -31,6 +31,7 @@ public class BeforeEvUp : MonoBehaviour
 
     [Header("Tutorial End")]
     [SerializeField] private GameObject cutSceneTrigger;
+    private GameObject skipper;
 
     void Start()
     {
@@ -54,6 +55,9 @@ public class BeforeEvUp : MonoBehaviour
         {
             Debug.LogWarning("HUD ¸øÃ£À½.");
         }
+
+        skipper = GameObject.Find("SkipDetect");
+
     }
 
 
@@ -81,6 +85,9 @@ public class BeforeEvUp : MonoBehaviour
     private void OnTutorialEnd(PlayableDirector director)
     {
         cutSceneTrigger.SetActive(false);
+        skipper.GetComponent<TutorialSkipper>().ConnectPause();
+
+        skipper.SetActive(false);
     }
 
     public IEnumerator GrowAndFade()
