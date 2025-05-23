@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterDoor : MonoBehaviour
+public class Stage1MonsterDoor : MonoBehaviour
 {
     [Header("몬스터 프리팹 리스트")]
     [SerializeField] private List<GameObject> monsterPrefabsTypeA;
@@ -14,8 +14,16 @@ public class MonsterDoor : MonoBehaviour
     [SerializeField] private float spawnCoolTime;
     [SerializeField] private float curCoolTime;
 
-    [SerializeField] private float spawnTime;
     private float curSpawnTime = 0f;
+
+    [Header("SpawnNum")]
+    [SerializeField] private float spawnNum = -1f;
+
+    [Header("CheckPointDoor")]
+    [SerializeField] private bool isChackPointDoor = false;
+
+    private bool isCheckPoint = false;
+    private float curSpawnNum = 0f;
 
     [SerializeField] private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
     private List<GameObject> spawnedMonsters = new List<GameObject>();
@@ -25,6 +33,8 @@ public class MonsterDoor : MonoBehaviour
 
     private bool isSpawnReady;
     private Animator animator;
+
+    private int spawnType = 0;
 
     private Transform parent;
     private void Start()
@@ -37,7 +47,11 @@ public class MonsterDoor : MonoBehaviour
         }
 
         monsterPrefabs.Add(monsterPrefabsTypeA);
-        monsterPrefabs.Add(monsterPrefabsTypeB);
+
+        if(monsterPrefabsTypeB.Count != 0)
+        {
+            monsterPrefabs.Add(monsterPrefabsTypeB);
+        }
 
         if (monsterPrefabsTypeC.Count != 0)
         {
@@ -50,7 +64,7 @@ public class MonsterDoor : MonoBehaviour
         animator = GetComponent<Animator>();
         parent = GameObject.Find("MonsterManager").transform;
 
-        
+
     }
 
     // Update is called once per frame
@@ -58,11 +72,16 @@ public class MonsterDoor : MonoBehaviour
     {
         if (isSpawnReady)
         {
-            if (spawnedMonsters.Count == 0 && curCoolTime >= spawnCoolTime)
+            if (spawnNum != curSpawnNum)
             {
-                SetOpen();
-                curCoolTime = 0;
+                if (spawnedMonsters.Count == 0 && curCoolTime >= spawnCoolTime)
+                {
+                    SetOpen();
+                    curCoolTime = 0;
+                    curSpawnNum++;
+                }
             }
+            
         }
 
         if (curCoolTime < spawnCoolTime && spawnedMonsters.Count == 0)
@@ -92,10 +111,11 @@ public class MonsterDoor : MonoBehaviour
 
         if (animator.GetBool("Open"))
             animator.SetBool("Open", false);
-        int spawnType = Random.Range(0, monsterPrefabs.Count);
-        List<GameObject> selectedTypeList = monsterPrefabs[spawnType];
 
-        for(int index = 0; index < selectedTypeList.Count; index++) 
+        List<GameObject> selectedTypeList = monsterPrefabs[spawnType];
+        spawnType++;
+
+        for (int index = 0; index < selectedTypeList.Count; index++)
         {
             GameObject monster = Instantiate(selectedTypeList[index], transform.position, Quaternion.identity);
             monster.name = selectedTypeList[index].name;
@@ -129,7 +149,7 @@ public class MonsterDoor : MonoBehaviour
             summonerComponent.player = player;
 
         Tanker tankerComponent = monster.GetComponent<Tanker>();
-        if(tankerComponent != null)
+        if (tankerComponent != null)
             tankerComponent.player = player;
     }
 
@@ -146,7 +166,11 @@ public class MonsterDoor : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            isSpawnReady = false;
+            if(!isChackPointDoor)
+            {
+                isSpawnReady = false;
+
+            }
         }
     }
 }

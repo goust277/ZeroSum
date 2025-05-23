@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
         if (rb.velocity == Vector2.zero)
         {
             //isRun = false;
@@ -191,25 +192,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isJumping && jumpTimeCounter > 0)
         {
-            float jumpForce = Mathf.Lerp(0, initialjumpForce, jumpTimeCounter);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpTimeCounter);
+            rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
+            jumpTimeCounter -= Time.unscaledDeltaTime;
+
+            // velocity.y 임계값도 TimeScale 영향 없이 고정
             if (rb.velocity.y < 3f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 isJumping = false;
             }
 
-            //rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
-            jumpTimeCounter -= Time.deltaTime / maxJumpDuration;
+            // 점프 시간 카운터 감소 (Time.unscaledDeltaTime 사용)
+            jumpTimeCounter -= Time.unscaledDeltaTime / maxJumpDuration;
         }
 
+        // 중력 적용 (FixedUpdate에서 Time.fixedDeltaTime 사용)
         if (rb.velocity.y < 0 && !isDashing)
         {
-            rb.velocity += Vector2.up * gravityScale * (fallMultiplier - 1) * Time.deltaTime;
+            rb.velocity += Vector2.up * gravityScale * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (rb.velocity.y > 0 && !isJumping && !isDashing)
         {
-            rb.velocity += Vector2.up * gravityScale * (lowJumpMultiplier - 1) * Time.deltaTime;
+            rb.velocity += Vector2.up * gravityScale * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
     }
     private void Flip() // �÷��̾� �¿� ȸ��
@@ -375,7 +379,6 @@ public class PlayerMovement : MonoBehaviour
             isDashReady = false;
         }
     }
-
     private void GroundCheck()
     {
         Vector2 groundBoxCenter = transform.position;
@@ -428,5 +431,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = true;
         rb.velocity = new Vector2(rb.velocity.x, 0f);
+    }
+
+    private void OnEnable()
+    {
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 }
