@@ -16,7 +16,7 @@ public class CutsceneManager : MonoBehaviour
         camObj = GameObject.FindWithTag("MainCamera");
         if (camObj == null)
         {
-            Debug.LogError("GameOver - ī�޶� ��ã�� ");
+            Debug.LogError("CutsceneManager - camObj is null");
             return;
         }
         proCamera2D = camObj.GetComponent<ProCamera2D>();
@@ -26,7 +26,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (cutsceneDirector == null)
         {
-            Debug.Log("CutsceneManager: ����� Cutscene�� �����ϴ�.");
+            Debug.LogError("CutsceneManager: ����� Cutscene�� �����ϴ�.");
             return;
         }
 
@@ -35,8 +35,12 @@ public class CutsceneManager : MonoBehaviour
         if (proCamera2D != null)
             proCamera2D.enabled = false;
 
-        if (playerController != null)
-            playerController.SetActive(false);
+        playerController.SetActive(false);
+        if( playerController == null)
+        {
+            Debug.LogError("CutsceneManager - playerController is null");
+            return;
+        }
 
         director.Play();
         director.stopped += OnCutsceneEnd;

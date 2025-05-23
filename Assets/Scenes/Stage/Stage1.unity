@@ -32627,6 +32627,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1202825067}
+    - targetCorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1202825073}
   m_SourcePrefab: {fileID: 100100000, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
 --- !u!95 &1202825061 stripped
 Animator:
@@ -32647,6 +32650,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordAudioSource: {fileID: 3848255547963399310}
   swordAttackClip: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
+--- !u!114 &1202825073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455580144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87887c14110bef47af58e269d5cf5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAudio: {fileID: 3848255547963399308}
 --- !u!1 &1210574160
 GameObject:
   m_ObjectHideFlags: 0
@@ -39568,7 +39584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5652013286664341101, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 331.44315
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 6654621317422832389, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_AnchorMax.x
