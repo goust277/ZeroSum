@@ -66,6 +66,8 @@ public class BeforeEvUp : MonoBehaviour
             num5Canvas.SetActive(false); // 안내문 비활성화
             hasPlayed = true;
 
+            gameObject.GetComponent<Collider2D>().enabled = false;
+
             director.stopped += OnTutorialEnd;
 
             StartCoroutine(GrowAndFade());
