@@ -6,7 +6,6 @@ using TMPro;
 
 public class Stage2_Num1Scene : CutSceneBase
 {
-    [SerializeField] private Collider2D trigger;
     [SerializeField] private MovingBlock[] evs;
     [SerializeField] private Transform move;
     [SerializeField] private Vector3 npcmove;
@@ -22,11 +21,6 @@ public class Stage2_Num1Scene : CutSceneBase
     [SerializeField] private Image error9img;
     [SerializeField] private TextMeshProUGUI error9txt;
 
-    private void Start()
-    {
-        base.Start();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hasPlayed && collision.CompareTag("Player"))
@@ -37,13 +31,6 @@ public class Stage2_Num1Scene : CutSceneBase
             StartCutScene();
             StartCoroutine(From1To3());
         }
-    }
-
-    private IEnumerator ShowDialog(int index, float duration)
-    {
-        dialogs[index].SetActive(true);
-        yield return new WaitForSeconds(duration);
-        dialogs[index].SetActive(false);
     }
 
     private IEnumerator From1To3(){
@@ -144,7 +131,7 @@ public class Stage2_Num1Scene : CutSceneBase
         fade.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         battleAudio.PlayOneShot(battleAudio.clip);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
         battleAudio.PlayOneShot(battleAudio.clip);
         yield return new WaitForSeconds(0.5f);
         scout.GetComponent<Scout>().Damage(2);
@@ -165,10 +152,12 @@ public class Stage2_Num1Scene : CutSceneBase
         npc.GetComponent<NPCController>().enabled = true;
         yield return new WaitForSeconds(1.0f);
         MoveAndZoomTo((Vector2)cutsceneTarget[4].position, 7.9f, 2.0f);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
         MoveAndZoomTo((Vector2)cutsceneTarget[5].position, 7.9f, 5.0f);
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(6.0f);
         EndCutScene();
+        evs[0].enabled = true;
+        evs[1].enabled = true;
     }
 
     IEnumerator ErrorBlink()

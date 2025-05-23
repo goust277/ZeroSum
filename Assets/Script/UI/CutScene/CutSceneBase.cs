@@ -6,6 +6,7 @@ using TMPro.Examples;
 
 public class CutSceneBase : MonoBehaviour
 {
+    [SerializeField] protected Collider2D trigger;
     [SerializeField] protected ProCamera2D proCamera2D;
     [SerializeField] protected Transform[] cutsceneTarget; // ÄÆ¾À ½Ã º¼ ÁöÁ¡
     [SerializeField] protected GameObject[] dialogs; // ÄÆ¾À ½Ã º¼ ÁöÁ¡
@@ -15,13 +16,9 @@ public class CutSceneBase : MonoBehaviour
     protected GameObject inputManager;
     [SerializeField] protected Animator playerAnimator;
 
-    [SerializeField] protected float zoomDuringCutscene = 4.5f;
-    [SerializeField] protected float zoomSpeed = 1.5f;
-
     protected float originOrthographic = 6.7f;
     protected bool hasPlayed = false;
     private Coroutine moveCoroutine;
-
 
 
     [Header("BackGround")]
@@ -38,7 +35,6 @@ public class CutSceneBase : MonoBehaviour
         {
             Debug.LogError("¸øÃ£À½");
         }
-
     }
 
     protected void StartCutScene()
@@ -58,9 +54,9 @@ public class CutSceneBase : MonoBehaviour
     protected void EndCutScene()
     {
         float startZoom = Camera.main.orthographicSize;
-
-        proCamera2D.AddCameraTarget(playerTarget, 0f, 2f);
-        proCamera2D.Zoom(originOrthographic - startZoom, 2.0f);
+        
+        MoveAndZoomTo(new Vector2(playerTarget.position.x, playerTarget.position.y), originOrthographic, 2.0f);
+        proCamera2D.AddCameraTarget(playerTarget, 1f, 1f, 0f, new Vector2(0f,2f));
 
         player.GetComponent<PlayerAnimation>().enabled = true;
         up.SetActive(false);
@@ -70,6 +66,13 @@ public class CutSceneBase : MonoBehaviour
 
         if (inputManager != null)
             inputManager.SetActive(true);
+    }
+
+    public IEnumerator ShowDialog(int index, float duration)
+    {
+        dialogs[index].SetActive(true);
+        yield return new WaitForSeconds(duration);
+        dialogs[index].SetActive(false);
     }
 
     public void MoveAndZoomTo(Vector2 targetPosition, float targetZoom, float duration)
