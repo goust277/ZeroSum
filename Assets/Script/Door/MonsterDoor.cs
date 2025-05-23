@@ -61,7 +61,7 @@ public class MonsterDoor : MonoBehaviour
             if (spawnedMonsters.Count == 0 && curCoolTime >= spawnCoolTime)
             {
                 SetOpen();
-                curSpawnTime = 0;
+                curCoolTime = 0;
             }
         }
 

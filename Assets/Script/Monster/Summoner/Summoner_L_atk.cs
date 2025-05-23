@@ -33,6 +33,7 @@ public class Summoner_L_atk : BaseState
     {
         summoner.canAttack = true;
         summoner.attackCooldown = 3f;
+        summoner.seeMark = true;
         summoner.anim.SetBool("isLAttack", false);
     }
 }

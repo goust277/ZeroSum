@@ -19,6 +19,7 @@ public class Summoner_Hit : BaseState
     public override void Enter()
     {
         summoner.isHit = true;
+        summoner.invincibility = true;
         summoner.rb.velocity = Vector2.zero;
         elapsedBlinkTime = 0f;
         intervalTimer = 0f;
@@ -53,7 +54,7 @@ public class Summoner_Hit : BaseState
     public override void Exit()
     {
         isBlinking = false;
-        summoner.isHit = false;
+        summoner.invincibility = false;
         summoner.attackCooldown = 3f;
         summoner.canAttack = true;
     }

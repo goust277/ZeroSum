@@ -1,0 +1,545 @@
+fileFormatVersion: 2
+guid: 33db4f41f74354b4ea067e69f62cabd7
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1140
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08ca827117ee3604a98de3d00709a334
+      internalID: -1806221045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_1
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1140
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b73a427b133e8c4c87df693de3f6a9f
+      internalID: -2058047230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_2
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 1140
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 508bbb59c4eaa6846bac61cab79ccf14
+      internalID: 1635164264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_3
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1140
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8875328c852c23a409393dc010771b91
+      internalID: -652373023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_4
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 1140
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 023652b03f23af14eb35dccfbeccbcc7
+      internalID: 1558767134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 760
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab0a36781e601d642a6e3e1f40243697
+      internalID: -2023953195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_6
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 760
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea3b8e191e9d88d4d87bf1ab20dc4489
+      internalID: 1055241484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_7
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 760
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4bbbb713679ab64d92f996bb605e0fb
+      internalID: 306793414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_8
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 760
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb979df8b199ad499dac2c4471e8fc6
+      internalID: -462574760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_9
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 760
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd69ac3e387400c4aa290babd583c74f
+      internalID: 1867991635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 380
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af23c7116e00d7e4c94fb89d99c55b1e
+      internalID: -1434649247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_11
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 380
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d528f829260bc8242a1da40923e52799
+      internalID: -1041693397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_12
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 380
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0507509a1f244b45a8bd9a0add8e123
+      internalID: 100158714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_13
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 380
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b53a2c6003b28e4b9b3267993f37031
+      internalID: 247166230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_14
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 380
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea606631a317cf4995877ba259d5cc6
+      internalID: 72615197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b66597af1ef5454f9e687ac1bd35840
+      internalID: -1238511097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_16
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9e0f4b2886ade04e95d7721a486071a
+      internalID: 338123707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_17
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d221628ed354c948a7b6ff9a73a2fc4
+      internalID: 483458851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z_Damage.ver-attack2_v0.1_250519_18
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 280
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad0f5f160389b64e9d318b3363a3610
+      internalID: 544198298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Z_Damage.ver-attack2_v0.1_250519_0: -1806221045
+      Z_Damage.ver-attack2_v0.1_250519_1: -2058047230
+      Z_Damage.ver-attack2_v0.1_250519_10: -1434649247
+      Z_Damage.ver-attack2_v0.1_250519_11: -1041693397
+      Z_Damage.ver-attack2_v0.1_250519_12: 100158714
+      Z_Damage.ver-attack2_v0.1_250519_13: 247166230
+      Z_Damage.ver-attack2_v0.1_250519_14: 72615197
+      Z_Damage.ver-attack2_v0.1_250519_15: -1238511097
+      Z_Damage.ver-attack2_v0.1_250519_16: 338123707
+      Z_Damage.ver-attack2_v0.1_250519_17: 483458851
+      Z_Damage.ver-attack2_v0.1_250519_18: 544198298
+      Z_Damage.ver-attack2_v0.1_250519_2: 1635164264
+      Z_Damage.ver-attack2_v0.1_250519_3: -652373023
+      Z_Damage.ver-attack2_v0.1_250519_4: 1558767134
+      Z_Damage.ver-attack2_v0.1_250519_5: -2023953195
+      Z_Damage.ver-attack2_v0.1_250519_6: 1055241484
+      Z_Damage.ver-attack2_v0.1_250519_7: 306793414
+      Z_Damage.ver-attack2_v0.1_250519_8: -462574760
+      Z_Damage.ver-attack2_v0.1_250519_9: 1867991635
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

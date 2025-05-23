@@ -19,6 +19,7 @@ public class Scout_Patrol : BaseState
 
         scout.PlayMoveSound(1.0f);
         scout.anim.SetBool("isWalk", true);
+        scout.seeMark = false;
         SetNextTarget();
     }
 

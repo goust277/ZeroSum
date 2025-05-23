@@ -53,6 +53,7 @@ public class T_Attack : BaseState
         tanker.anim.SetBool("isAttack", false);
         tanker.canAttack = true;
         tanker.canShot = false;
+        tanker.seeMark = true;
         tanker.attackCooldown = 3f;
     }
 }

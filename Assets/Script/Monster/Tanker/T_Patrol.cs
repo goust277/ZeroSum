@@ -17,6 +17,7 @@ public class T_Patrol : BaseState
         Debug.Log("ผ๘ย๛ ป๓ลย");
         tanker.PlayMoveSound(1.0f);
         tanker.anim.SetBool("isWalk", true);
+        tanker.seeMark = false;
         SetNextTarget();
     }
 

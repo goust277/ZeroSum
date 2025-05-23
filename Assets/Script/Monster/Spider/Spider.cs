@@ -32,6 +32,8 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
     public float attackCooldown = 1f;
     public float dashRange = 3f;
     public bool canAttack = true;
+    public GameObject mark;
+    public bool seeMark;
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;

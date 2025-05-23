@@ -35,6 +35,8 @@ public class Tanker : BaseAudioMonster, IDetectable, IDamageAble
     private bool isCooldownComplete;
     public bool isHit;
     public bool isDie;
+    public bool seeMark;
+    public GameObject mark;
     public Rigidbody2D rb;
     private StateMachine stateMachine;
     public Transform leftFirePoint;         // 왼쪽 발사 위치

@@ -6,7 +6,6 @@ using UnityEngine;
 public class S_Attack1 : BaseState
 {
     private Summon_S s;
-    private float timer = 0;
 
     public S_Attack1(StateMachine stateMachine, Summon_S monster) : base(stateMachine)
     {
@@ -15,45 +14,22 @@ public class S_Attack1 : BaseState
 
     public override void Enter()
     {
-        int dir = 0;
-        timer = 0;
         s.attack.gameObject.SetActive(true);
         s.PlayAttackSound();
         s.anim.SetBool("isAttack", true);
-        if (s.transform.position.x >= s.player.position.x)
-        {
-            s.sprite.flipX = true;
-            s.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
-            dir = -1;
-        }
-
-        else if(s.transform.position.x < s.player.position.x)
-        {
-            s.sprite.flipX = false;
-            s.transform.rotation = Quaternion.Euler(0f, 0f, -45f);
-            dir = 1;
-        }
-        s.rb.velocity = new Vector2(s.dashRange * dir, s.dashRange);
     }
 
     public override void Execute()
     {
-        timer += Time.deltaTime;
-
-        if(timer >= 0.65f)
+        if (s.anim.GetCurrentAnimatorStateInfo(0).IsName("S_attack")
+            && s.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
-            stateMachine.ChangeState(new S_Chase1(stateMachine, s));
-            return;
+            s.attack.gameObject.SetActive(false);
+            s.gameObject.SetActive(false);
         }
     }
 
     public override void Exit()
     {
-        s.attack.gameObject.SetActive(false);
-        s.canAttack = true;
-        s.attackCooldown = 3f;
-        s.anim.SetBool("isWalk", true);
-        s.anim.SetBool("isAttack", false);
-        s.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 }

@@ -17,6 +17,7 @@ public class Summoner_Patrol : BaseState
         Debug.Log("ผ๘ย๛ ป๓ลย");
         summoner.PlayMoveSound(1.0f);
         summoner.anim.SetBool("isWalk", true);
+        summoner.seeMark = false;
         SetNextTarget();
     }
 
