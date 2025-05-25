@@ -50227,7 +50227,7 @@ PrefabInstance:
       objectReference: {fileID: 1654589003}
     - target: {fileID: 1428258375254296378, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1501174740783073120, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
       propertyPath: m_IsActive
@@ -50305,6 +50305,30 @@ PrefabInstance:
       propertyPath: cutsceneManager
       value: 
       objectReference: {fileID: 1654589003}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343908579257728663, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3632538617550327819, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -50370,6 +50394,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1292103769}
     - target: {fileID: 5008981059768667408, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: cutSceneTrigger
+      value: 
+      objectReference: {fileID: 1161961087}
+    - target: {fileID: 5008981059768667408, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
       propertyPath: cutsceneManager
       value: 
       objectReference: {fileID: 1654589003}
@@ -50419,6 +50447,14 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 22b1bd8331055fe44848c3035eb4bab7, type: 3}
     - target: {fileID: 6276446434110834574, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622646395538663659, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622646395538663659, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6881544140175882775, guid: d6518f6945af24e468d6f318afd50bd8, type: 3}
