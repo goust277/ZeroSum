@@ -18,7 +18,6 @@ public class ControlEv : BaseEv, IControllable
 
     private float curMoveCount;
     private float curWaitTime;
-    private bool isMoving = false;
     private bool isBtnOn;
 
     private Vector3 targetPosition;

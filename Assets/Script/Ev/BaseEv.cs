@@ -5,4 +5,5 @@ using UnityEngine;
 public class BaseEv : MonoBehaviour
 {
     public bool isBottom;
+    public bool isMoving = false;
 }
