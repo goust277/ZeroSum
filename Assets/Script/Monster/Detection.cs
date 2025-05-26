@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class Detection : MonoBehaviour
 {
-    private IDetectable detectable; // 인터페이스로 상위 객체와 통신
+    private IDetectable detectable;
+
+    //[SerializeField] private Transform eyePosition; // 몬스터의 눈 위치
+    //[SerializeField] private LayerMask wall; // 벽 레이어
+
+    //private Transform player;
 
     void Start()
     {
-        // 부모 객체에서 IDetectable 인터페이스를 구현한 스크립트를 찾음
         detectable = GetComponentInParent<IDetectable>();
 
         if (detectable == null)
         {
-            Debug.LogError("IDetectable 인터페이스를 구현한 스크립트를 부모 객체에서 찾을 수 없습니다!");
+            Debug.LogError("부모 객체에서 찾을 수 없습니다");
         }
     }
 
@@ -19,7 +23,13 @@ public class Detection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //player = other.transform;
             detectable?.SetPlayerInRange(true);
+            //if (M_Sight(player))
+            //{
+            //    detectable?.SetPlayerInRange(true);
+            //    Debug.Log("인식");
+            //}
         }
     }
 
@@ -28,6 +38,38 @@ public class Detection : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             detectable?.SetPlayerInRange(false);
+            //player = null;
         }
     }
+
+
+    //void Update()
+    //{
+    //    if (player != null)
+    //    {
+    //        if (!M_Sight(player))
+    //        {
+    //            detectable?.SetPlayerInRange(false);
+    //        }
+    //    }
+    //}
+
+    //private bool M_Sight(Transform target)
+    //{
+    //    Vector2 eyePos = eyePosition.position;
+    //    Vector2 targetPos = player.position;
+
+    //    Vector2 flatTargetPos = new Vector2(targetPos.x, eyePos.y);
+    //    Vector2 direction = (flatTargetPos - eyePos).normalized;
+    //    float distance = Mathf.Abs(flatTargetPos.x - eyePos.x);
+
+    //    RaycastHit2D hit = Physics2D.Raycast(eyePos, direction, distance, wall);
+
+    //    if (hit.collider != null)
+    //    {
+    //        return false;
+    //    }
+
+    //    return true;
+    //}
 }

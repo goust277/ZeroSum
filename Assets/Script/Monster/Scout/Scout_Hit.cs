@@ -7,9 +7,10 @@ public class Scout_Hit : BaseState
     private Scout scout;
     private float blinkDuration = 0.5f;
     private float blinkInterval = 0.1f; 
-    public float elapsedBlinkTime = 0f; 
+    public float elapsedBlinkTime = 0f;
     private float intervalTimer = 0f; 
     private bool isBlinking = false;
+    private float hit_T;
 
     public Scout_Hit(StateMachine stateMachine, Scout monster) : base(stateMachine)
     {
@@ -20,60 +21,24 @@ public class Scout_Hit : BaseState
     {
         scout.PlayDamagedSound();
         scout.isHit = true;
+        scout.anim.SetTrigger("isHit");
         scout.rb.velocity = Vector2.zero;
-        elapsedBlinkTime = 0f;
-        intervalTimer = 0f;
-        isBlinking = true;
-
-        SetSpriteAlpha(0.5f);
+        hit_T = 0.1f;
     }
 
     public override void Execute()
-    {
-        if (isBlinking)
+    {        
+        if (scout.anim.GetCurrentAnimatorStateInfo(0).IsName("Scout_hit")
+        && scout.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f)
         {
-            elapsedBlinkTime += Time.deltaTime;
-            intervalTimer += Time.deltaTime;
-
-            if (intervalTimer >= blinkInterval)
-            {
-                ToggleSpriteAlpha();
-                intervalTimer = 0f;
-            }
-
-            if (elapsedBlinkTime >= blinkDuration)
-            {
-                isBlinking = false;
-                SetSpriteAlpha(1f);
-                stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
-            }
+            stateMachine.ChangeState(new Scout_Chase(stateMachine, scout));
         }
     }
     public override void Exit()
     {
-        isBlinking = false;
+        scout.anim.ResetTrigger("isHit");
         scout.isHit = false;
         scout.attackCooldown = 3f;
         scout.canAttack = true;
-    }
-
-    private void SetSpriteAlpha(float alpha)
-    {
-        if (scout.sprite != null)
-        {
-            Color color = scout.sprite.color;
-            color.a = alpha;
-            scout.sprite.color = color;
-        }
-    }
-
-    private void ToggleSpriteAlpha()
-    {
-        if (scout.sprite != null)
-        {
-            Color color = scout.sprite.color;
-            color.a = (color.a == 1f) ? 0.5f : 1f;
-            scout.sprite.color = color;
-        }
     }
 }

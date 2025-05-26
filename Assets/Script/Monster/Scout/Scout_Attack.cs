@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scout_Attack : BaseState
 {
     private Scout scout;
+    private float timer = 0.2f;
 
     public Scout_Attack(StateMachine stateMachine, Scout monster) : base(stateMachine)
     {
@@ -23,6 +24,13 @@ public class Scout_Attack : BaseState
 
     public override void Execute()
     {
+        timer -= Time.deltaTime;
+
+        if (timer < 0)
+        {
+            scout.mark.gameObject.SetActive(false);
+        }
+
         if (scout.fireCount >= scout.maxFireCount 
             && scout.anim.GetCurrentAnimatorStateInfo(0).IsName("Scout_attack"))
         {
