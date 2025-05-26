@@ -27,8 +27,6 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
     [Header("Detection Settings")]
     public Transform player;
     public bool isPlayerInRange;
-    public float minDistance = 1.5f;
-    public float maxDistance = 3.0f;
     public GameObject detect;
 
     [Header("Combat Settings")]
@@ -223,11 +221,12 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
 
             Vector2 dir = sprite.flipX ? Vector2.right : Vector2.left;
 
+
             // 발사체 생성
             GameObject bullet = GameObject.Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
-
-            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            if(fPoint == rightFirePoint)
+            bullet.GetComponent<SpriteRenderer>().flipX = true;
 
             // Rigidbody2D를 이용해 발사체 이동
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -254,22 +253,23 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
     {
         Transform spawnPoint;
         bool flipX;
-        float xOffset = 1f;
+        float xOffset = 0.5f;
+        float yOffset = 0.3f;
 
         if ((player.position.x - transform.position.x) >= 0.2f)
         {
             spawnPoint = leftFirePoint;
-            flipX = false;
+            flipX = true;
         }
         else
         {
             spawnPoint = rightFirePoint;
-            flipX = true;
+            flipX = false;
         }
 
         if (hitPrefab != null)
         {
-            Vector3 spawnPosition = spawnPoint.position + new Vector3(flipX ? xOffset : -xOffset, 0, 0);
+            Vector3 spawnPosition = spawnPoint.position + new Vector3(flipX ? -xOffset : xOffset, +yOffset, 0);
 
             GameObject hitInstance = Instantiate(hitPrefab, spawnPosition, Quaternion.identity);
 

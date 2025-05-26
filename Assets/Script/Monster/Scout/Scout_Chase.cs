@@ -16,7 +16,8 @@ public class Scout_Chase : BaseState
     {
         Debug.Log("추적 상태");
         scout.PlayMoveSound(1.2f);
-        scout.anim.SetBool("isWalk", true);
+        //scout.anim.SetBool("isRun", true);
+        scout.anim.SetBool("isIdle", true);
         
         if(!scout.seeMark)
         scout.mark.gameObject.SetActive(true);
@@ -38,8 +39,8 @@ public class Scout_Chase : BaseState
             return;
         }
         
-        if (Mathf.Abs(scout.player.transform.position.x - scout.transform.position.x) >= 9f 
-            || Mathf.Abs(scout.player.transform.position.y - scout.transform.position.y) >= 2f)
+        if (/*Mathf.Abs(scout.player.transform.position.x - scout.transform.position.x) >= 9f 
+            ||*/ Mathf.Abs(scout.player.transform.position.y - scout.transform.position.y) >= 2f)
         {
             stateMachine.ChangeState(new Scout_Patrol(stateMachine, scout));
             return;
@@ -57,23 +58,38 @@ public class Scout_Chase : BaseState
             scout.detect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
-        if (scout.attackRange > Mathf.Abs(scout.player.position.x - scout.transform.position.x))
+        if (scout.CanEnterAttackState())
         {
-            if (scout.CanEnterAttackState())
-            {
-                stateMachine.ChangeState(new Scout_Ready(stateMachine, scout));
-                return;
-            }
+            stateMachine.ChangeState(new Scout_Ready(stateMachine, scout));
+            return;
         }
-        //float offsetX = scout.sprite.flipX ? -5f : 5f;
 
-        Vector3 targetPosition = new Vector3(scout.player.position.x /*+ offsetX*/, scout.transform.position.y, 0);
-        scout.transform.position = Vector3.MoveTowards(scout.transform.position, targetPosition, scout.moveSpeed * Time.deltaTime);
+        //if (scout.attackRange > Mathf.Abs(scout.player.position.x - scout.transform.position.x))
+        //{
+        //    if (scout.CanEnterAttackState())
+        //    {
+        //        stateMachine.ChangeState(new Scout_Ready(stateMachine, scout));
+        //        return;
+        //    }
+        //    else if(!scout.CanEnterAttackState())
+        //    {
+        //        scout.anim.SetBool("isIdle", true);
+        //        scout.anim.SetBool("isRun", false);
+        //    }
+        //}
+        //else if(scout.attackRange < Mathf.Abs(scout.player.position.x - scout.transform.position.x))
+        //{
+        //    scout.anim.SetBool("isIdle", false);
+        //    scout.anim.SetBool("isRun", true);
+        //    Vector3 targetPosition = new Vector3(scout.player.position.x, scout.transform.position.y, 0);
+        //    scout.transform.position = Vector3.MoveTowards(scout.transform.position, targetPosition, scout.moveSpeed * Time.deltaTime);
+        //}
     }
     public override void Exit()
     {
         scout.StopMoveSound();
-        scout.anim.SetBool("isWalk", false);
+        //scout.anim.SetBool("isRun", false);
+        scout.anim.SetBool("isIdle", false);
         scout.moveSpeed = 2;
         timer = 1f;
     }
