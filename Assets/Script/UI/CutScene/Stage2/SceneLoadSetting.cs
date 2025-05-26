@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SceneLoadSetting : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool isMissionStart = false;
+    public bool isClearMission = false;
+    
     void Start()
     {
         GameStateManager.Instance.StartMoveUIDown();   
     }
-
 }

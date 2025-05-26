@@ -1,3 +1,4 @@
+using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,15 +9,22 @@ using UnityEngine.UI;
 
 public class Stage2_Num2 : CutSceneBase
 {
-    [SerializeField] private MovingBlock[] evs;
     //[SerializeField] private Collider2D[] evs;
     [SerializeField] private GameObject npc;
     [SerializeField] private Transform[] npcmoves;
+    [SerializeField] private MovingBlock[] evs;
+
+    [SerializeField] private MonsterDoor[] mDoors;
+
+    [Header("Shutter")]
+    [SerializeField] private Collider2D[] shutters;
 
     [Header("Error Ani")]
     [SerializeField] private GameObject error9;
     [SerializeField] private Image error9img;
     [SerializeField] private TextMeshProUGUI error9txt;
+
+    [SerializeField] private SceneLoadSetting SceneLoadSetting;
 
     private Transform npcTarget;
     private Animator npcAnimator;
@@ -66,18 +74,27 @@ public class Stage2_Num2 : CutSceneBase
         evs[0].enabled = false;
         yield return new WaitForSeconds(2.0f);
 
-        MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 4.0f, 2.0f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 4.0f, 2.0f); //坷弗率
+        yield return new WaitForSeconds(1.0f);
+        mDoors[0].isSpawnReady = true;
+        shutters[1].enabled = true;
         yield return new WaitForSeconds(3.0f);
-        MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.5f, 2.0f);
-        yield return new WaitForSeconds(4.0f);
+        
 
-        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.0f, 2.0f); //哭率
+        yield return new WaitForSeconds(1.0f);
+        mDoors[1].isSpawnReady = true;
+        shutters[0].enabled = true;
+        yield return new WaitForSeconds(3.0f);
+
+
+        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f); //力磊府
         yield return new WaitForSeconds(3.0f);
 
         yield return ShowDialog(3, 3.0f); //6
         yield return ShowDialog(4, 2.0f); //7
         yield return ShowDialog(5, 1.5f); //8
-        yield return ShowDialog(6, 3.0f); //7
+        yield return ShowDialog(6, 2.0f); //7
 
         CustomeEneScene();
     }
@@ -85,7 +102,7 @@ public class Stage2_Num2 : CutSceneBase
     private void CustomeEneScene()
     {
         GameStateManager.Instance.StartMoveUIDown();
-        MoveAndZoomTo((Vector2)cutsceneTarget[4].position, 4.0f, 2.0f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
 
         StartCoroutine(MoveUIVerticallyDown(up, 130.0f));
         StartCoroutine(MoveUIVerticallyUp(down, 100.0f));
@@ -93,6 +110,10 @@ public class Stage2_Num2 : CutSceneBase
 
         if (inputManager != null)
             inputManager.SetActive(true);
+
+        shutters[1].enabled = false;
+        shutters[0].enabled = false;
+        SceneLoadSetting.isMissionStart = true;
     }
 
     private IEnumerator MoveNpcTo(Transform targetPoint, string motionName)

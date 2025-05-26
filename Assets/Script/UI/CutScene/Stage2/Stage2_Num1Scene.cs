@@ -22,6 +22,15 @@ public class Stage2_Num1Scene : CutSceneBase
     [SerializeField] private Image error9img;
     [SerializeField] private TextMeshProUGUI error9txt;
 
+    private Animator npcAnimator;
+
+    private new void Start()
+    {
+        base.Start();
+        npcAnimator = npc.GetComponent<Animator>();
+        //npc.GetComponent<NPCController>().enabled = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hasPlayed && collision.CompareTag("Player"))
@@ -62,7 +71,7 @@ public class Stage2_Num1Scene : CutSceneBase
         for (int i = 0; i < 5; i++)
         {
             runAudio.PlayOneShot(runAudio.clip);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
@@ -95,7 +104,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
         // 11
         dialogs[6].SetActive(true);
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(2.5f);
         dialogs[7].SetActive(true); //12
         yield return new WaitForSeconds(2.0f);
         dialogs[7].SetActive(false);
@@ -134,8 +143,12 @@ public class Stage2_Num1Scene : CutSceneBase
         dialogs[14].SetActive(false);
         dialogs[15].SetActive(false);
 
+        //숙이기
+        npcAnimator.SetBool("Down", true);
+        yield return new WaitForSeconds(0.49f); // 예: 0.5초
+        npcAnimator.enabled = false;
+        npcAnimator.StopPlayback();
         //쏘기 모션
-        yield return new WaitForSeconds(1.0f);
         fade.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         battleAudio.PlayOneShot(battleAudio.clip);
@@ -149,9 +162,13 @@ public class Stage2_Num1Scene : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.0f, 1.0f);
         yield return new WaitForSeconds(1.0f);
         fade.SetActive(false);
-
         //숙인거 다시 일어서기
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
+        npcAnimator.enabled = true;
+        npcAnimator.SetBool("Down", false);
+        npcAnimator.SetBool("Up", true);
+        yield return new WaitForSeconds(0.5f);
+        npcAnimator.SetBool("Up", false);
 
         //21
         yield return ShowDialog(16, 3.0f);

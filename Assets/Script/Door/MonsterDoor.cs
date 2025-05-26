@@ -23,7 +23,7 @@ public class MonsterDoor : MonoBehaviour
     private static List<Monster_Spawner> allSpawners = new List<Monster_Spawner>();
     private static float lastSpawnTime = 0f;
 
-    private bool isSpawnReady;
+    public bool isSpawnReady;
     private Animator animator;
 
     private Transform parent;
