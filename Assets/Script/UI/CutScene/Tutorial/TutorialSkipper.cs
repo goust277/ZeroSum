@@ -89,7 +89,10 @@ public class TutorialSkipper : MonoBehaviour
         isAwaitingSkipConfirm = false;
 
         Debug.Log("TutorialSkipper - 튜토리얼 스킵");
+    }
 
+    public void ConnectPause()
+    {
         // TogglePause()를 ESC에 연결
         var escAction = playerInput.actions["ESC"];
         escAction.Disable(); // 내부적으로 콜백 유지 안 함
