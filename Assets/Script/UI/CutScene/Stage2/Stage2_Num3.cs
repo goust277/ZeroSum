@@ -32,7 +32,7 @@ public class Stage2_Num3 : CutSceneBase
     void Update()
     {
         if (!isPlay) {
-            if (sceneLoadSetting.isClearMission)
+            if (sceneLoadSetting.isMissionClear)
             {
                 StartClearCutScene();
             }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneLoadSetting : MonoBehaviour
 {
     public bool isMissionStart = false;
-    public bool isClearMission = false;
+    public bool isMissionClear = false;
     
     void Start()
     {
