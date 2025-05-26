@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +20,7 @@ public class Stage1_Num1 : CutSceneBase
 
 
     private bool isComplete = false;
-    private bool isParringKeyDown = false;
-    private bool isDownKeyDown = false;
-    private bool isGunAtkKeyDown = false;
-    private bool isSwordAtkKeyDown = false;
+    private bool isAdvancing = false;
 
     private int completeCnt = 0;
 
@@ -54,50 +51,62 @@ public class Stage1_Num1 : CutSceneBase
         if (!hasPlayed && collision.CompareTag("Player"))
         {
             trigger.enabled = false;
+            hasPlayed = true;
 
-            inputManager.SetActive(false); //ÀÔ·Â¸ø¹Ş°ÔÇÏ°í
-            proCamera2D.RemoveAllCameraTargets(); //Ä«¸Ş¶ó °íÁ¤ÇÏ°í 
-            player.GetComponent<PlayerAnimation>().enabled = false; // ¾Ö´Ï¤Ó²¨
+            inputManager.SetActive(false); //ì…ë ¥ëª»ë°›ê²Œí•˜ê³ 
+            proCamera2D.RemoveAllCameraTargets(); //ì¹´ë©”ë¼ ê³ ì •í•˜ê³  
+
             StartCoroutine(Num1Scene());
         }
     }
 
     private IEnumerator Num1Scene()
     {
-        //À¯Àú °É¾î¿À°í Ä«¸Ş¶ó °íÁ¤ÇØ³õ°í
-        MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 3.5f, 2.0f);
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<PlayerAnimation>().enabled = false; // ì• ë‹ˆã…£êº¼
+        //ìœ ì € ê±¸ì–´ì˜¤ê³  ì¹´ë©”ë¼ ê³ ì •í•´ë†“ê³ 
         yield return MovePlayerTo(movesTransform, 3.0f);
 
-        //Ä«¸Ş¶ó ¿À¸¥ÂÊ°¬´Ù°¡
+        //ì¹´ë©”ë¼ ì˜¤ë¥¸ìª½ê°”ë‹¤ê°€
+        MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f);
+        yield return new WaitForSeconds(2.0f);
+        //ëª¹ì†Œí™˜
+        summoner.SetActive(true);
+        //ìœ ì €ê°€ ëŒ€ì‚¬í•˜ê³ 
+        yield return ShowDialog(0, 2.0f); //2
+        
+
+        //ë˜ëŒì•„ì˜¤ê³ 
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 3.5f, 2.0f);
         yield return new WaitForSeconds(2.0f);
 
-        //À¯Àú°¡ ´ë»çÇÏ°í
-        yield return ShowDialog(0, 2.0f); //2
-
-        //¸÷¼ÒÈ¯
-
-        //µÇµ¹¾Æ¿À°í
-        MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f);
-        yield return new WaitForSeconds(2.0f);
-
-        //ÈÄÃ³¸®
-        player.GetComponent<PlayerAnimation>().enabled = true;
-        StartCoroutine(MoveUIVerticallyUp(up, 150.0f));
-        GameStateManager.Instance.StartMoveUIDown(); //UI ³»·Á¿À°í
-        proCamera2D.AddCameraTarget(playerTarget, 1f, 1f, 0f, new Vector2(0f, 2f)); //ÇÃ·¹ÀÌ¾î ÃßÀûÀºÇÏ°í
+        //í›„ì²˜ë¦¬
+        AfterProcesing();
         yield return new WaitForSeconds(1.0f);
+       
         inputManager.SetActive(true);
 
-        //Å° ÀÔ·Â¹Ş´Â°Å Ç¥±â
+        //í‚¤ ì…ë ¥ë°›ëŠ”ê±° í‘œê¸°
         StartCoroutine(ScanInputValue());
+    }
+
+
+    private void AfterProcesing()
+    {
+        player.GetComponent<PlayerAnimation>().enabled = true;
+        StartCoroutine(MoveUIVerticallyUp(up, 150.0f));
+        GameStateManager.Instance.StartMoveUIDown(); //UI ë‚´ë ¤ì˜¤ê³ 
+
+        proCamera2D.AddCameraTarget(playerTarget, 1f, 1f, 0f, new Vector2(0f, 2f)); //í”Œë ˆì´ì–´ ì¶”ì ì€í•˜ê³ 
     }
 
     private IEnumerator ScanInputValue()
     {
         while (!isComplete)
         {
-            HandleInputStep();
+            if (!isAdvancing)  //ì§„í–‰ ì¤‘ì´ ì•„ë‹ ë•Œë§Œ ì…ë ¥ ë°›ê¸°
+                HandleInputStep();
             yield return null;
         }
     }
@@ -110,7 +119,6 @@ public class Stage1_Num1 : CutSceneBase
                 keyImg[0].SetActive(true);
                 if (parringAction.WasPressedThisFrame())
                 {
-                    isParringKeyDown = true;
                     keyChecks[0].enabled = true;
                     StartCoroutine(AdvanceStep(0));
                 }
@@ -120,7 +128,6 @@ public class Stage1_Num1 : CutSceneBase
                 keyImg[1].SetActive(true);
                 if (downAction.WasPressedThisFrame())
                 {
-                    isDownKeyDown = true;
                     keyChecks[1].enabled = true;
                     StartCoroutine(AdvanceStep(1));
                 }
@@ -130,7 +137,6 @@ public class Stage1_Num1 : CutSceneBase
                 keyImg[2].SetActive(true);
                 if (gunAction.WasPressedThisFrame())
                 {
-                    isGunAtkKeyDown = true;
                     keyChecks[2].enabled = true;
                     StartCoroutine(AdvanceStep(2));
                 }
@@ -140,7 +146,6 @@ public class Stage1_Num1 : CutSceneBase
                 keyImg[3].SetActive(true);
                 if (swordAtkAction.WasPressedThisFrame())
                 {
-                    isSwordAtkKeyDown = true;
                     keyChecks[3].enabled = true;
                     StartCoroutine(AdvanceStep(3));
                 }
@@ -148,14 +153,19 @@ public class Stage1_Num1 : CutSceneBase
 
             case 4:
                 isComplete = true;
+                summoner.GetComponent<Summoner>().DamageDie();
                 break;
         }
     }
 
+
     private IEnumerator AdvanceStep(int index)
     {
+        isAdvancing = true;  //  ì ê¸ˆ
         yield return new WaitForSeconds(1.5f);
         keyImg[index].SetActive(false);
         completeCnt++;
+        isAdvancing = false; // í—ˆìš©
     }
+
 }

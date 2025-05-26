@@ -42,13 +42,13 @@ public class CutSceneBase : MonoBehaviour
         // 플레이어 따라다니는 거 제거
         proCamera2D.RemoveAllCameraTargets();
 
-        GameStateManager.Instance.StartMoveUIUp();
+        GameStateManager.Instance.StartMoveUIUp(); //UI올라가기
         up.SetActive(true);
         down.SetActive(true);
-        StartCoroutine(MoveUIVerticallyDown(up, 100.0f));
-        StartCoroutine(MoveUIVerticallyUp(down, 100.0f));
+        StartCoroutine(MoveUIVerticallyDown(up, 100.0f)); //위에서 내려오기
+        StartCoroutine(MoveUIVerticallyUp(down, 100.0f)); //아래에서 올라오기
 
-        if (inputManager != null)
+        if (inputManager != null) //입력못받게하고
             inputManager.SetActive(false);
     }
 

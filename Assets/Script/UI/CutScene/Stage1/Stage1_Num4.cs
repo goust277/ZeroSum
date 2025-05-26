@@ -1,0 +1,97 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+
+
+public class Stage1_Num4 : CutSceneBase
+{
+    [SerializeField] public BoxCollider2D ev;
+
+    [Header("Fadeout Light")]
+    [SerializeField] private Light2D light2D;
+    [SerializeField] private float fadeDuration = 5f;
+    [SerializeField] private Transform move;
+
+    [Header("Before LastCutScene")]
+    [SerializeField] private GameObject missionUI;
+    [SerializeField] private MissionDoorManager tutorialMissionManager;
+    [SerializeField] private MissionDoorManager realMissionDoorManager;
+
+    [Header("Tutorial End")]
+    [SerializeField] private GameObject cutSceneTrigger;
+    private GameObject skipper;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        base.Start();
+        skipper = GameObject.Find("SkipDetect");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!hasPlayed && collision.CompareTag("Player"))
+        {
+            trigger.enabled = false;
+            ev.enabled = false;
+            hasPlayed = true;
+
+            StartCutScene();
+            StartCoroutine(Num4Scene());
+            StartCoroutine(GrowAndFade());
+        }
+    }
+    private IEnumerator Num4Scene()
+    {
+        StartCoroutine(MoveUIVerticallyUp(missionUI, 180.0f)); //ui창 올림
+        yield return new WaitForSeconds(0.5f);
+
+        MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f); //카메라고정
+        yield return MovePlayerTo(move, 2.0f); //플레이어움직임
+
+        yield return ShowDialog(0, 6.0f); //유저가 대사하고
+
+        dialogs[1].SetActive(true); //문 알림끄고
+        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 7.46f, 2.0f); //아래로
+        yield return new WaitForSeconds(2.5f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 7.46f, 4.5f); //위로
+        yield return new WaitForSeconds(4.7f);
+        MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 6.1f, 2.0f); //위로
+        yield return new WaitForSeconds(3.2f);
+
+        trigger.enabled = true;//엘베 콜라이더 이제 켜줌
+        StartCoroutine(MoveUIVerticallyDown(missionUI, 180.0f)); //ui창 올림
+        EndCutScene();
+        OnTutorialEnd();
+    }
+
+    public IEnumerator GrowAndFade()
+    {
+        float timer = 0f;
+        float startFalloff = 1f;
+        float endFalloff = 0.2f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / fadeDuration;
+
+            light2D.pointLightOuterRadius = Mathf.Lerp(0f, 10f, t);
+            light2D.falloffIntensity = Mathf.Lerp(startFalloff, endFalloff, t);
+            // intensity는 건드리지 않음
+            yield return null;
+        }
+
+        light2D.enabled = false;
+        tutorialMissionManager.enabled = false;
+        realMissionDoorManager.enabled = true;
+    }
+
+    private void OnTutorialEnd()
+    {
+        cutSceneTrigger.SetActive(false);
+        skipper.GetComponent<TutorialSkipper>().ConnectPause();
+        skipper.SetActive(false);
+    }
+}
