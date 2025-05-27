@@ -33960,7 +33960,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 1791890159}
   proCamera2D: {fileID: 1832262578}
   isPlayerInside: 0
-  FadeOutObj: {fileID: 0}
+  FadeOutObj: {fileID: 921329642}
 --- !u!61 &140241701
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47630,7 +47630,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 1791890159}
   proCamera2D: {fileID: 1832262578}
   isPlayerInside: 0
-  FadeOutObj: {fileID: 0}
+  FadeOutObj: {fileID: 921329642}
 --- !u!61 &518870360
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -51340,7 +51340,7 @@ RectTransform:
   - {fileID: 2146914063}
   - {fileID: 828706270}
   - {fileID: 921329641}
-  m_Father: {fileID: 1521326681}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -62693,7 +62693,6 @@ Transform:
   m_Children:
   - {fileID: 451513302}
   - {fileID: 1485651047}
-  - {fileID: 733607679}
   - {fileID: 1287899040}
   - {fileID: 208177573}
   m_Father: {fileID: 0}
@@ -89089,6 +89088,7 @@ SceneRoots:
   - {fileID: 669254822}
   - {fileID: 2019843927}
   - {fileID: 1641959312}
+  - {fileID: 733607679}
   - {fileID: 793667905}
   - {fileID: 1521326681}
   - {fileID: 2051064540}
