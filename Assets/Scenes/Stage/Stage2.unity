@@ -61245,6 +61245,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
+--- !u!114 &1451187534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2480140666995951682, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
+  m_PrefabInstance: {fileID: 1451187533}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec669f4d5a05c954bb83db20d169af0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1462163976
 GameObject:
   m_ObjectHideFlags: 0
@@ -81311,9 +81322,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/E[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1451187534}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
-        m_MethodName: OnOffPuase
+        m_MethodName: OnESC
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

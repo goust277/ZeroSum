@@ -15,8 +15,8 @@ public class Stage1_Num1 : CutSceneBase
     [SerializeField] private TextMeshProUGUI[] keyTexts;
     [SerializeField] private Transform movesTransform;
 
-    [Header("summoner")]
-    [SerializeField] private GameObject summoner;
+    [Header("Tutorial Monster")]
+    [SerializeField] private GameObject tm;
 
 
     private bool isComplete = false;
@@ -72,7 +72,7 @@ public class Stage1_Num1 : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f);
         yield return new WaitForSeconds(2.0f);
         //몹소환
-        summoner.SetActive(true);
+        tm.SetActive(true);
         //유저가 대사하고
         yield return ShowDialog(0, 2.0f); //2
         
@@ -153,7 +153,7 @@ public class Stage1_Num1 : CutSceneBase
 
             case 4:
                 isComplete = true;
-                summoner.GetComponent<Summoner>().DamageDie();
+                tm.GetComponent<Scout>().DamageDie();
                 break;
         }
     }

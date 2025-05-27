@@ -9,11 +9,9 @@ using UnityEngine.InputSystem;
 //using static UnityEditor.Progress;
 using System;
 using System.Reflection;
-using Unity.VisualScripting;
 using System.Xml;
 using TMPro.Examples;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
 
 
 public class Ver01_ConvManager : MonoBehaviour
@@ -41,8 +39,8 @@ public class Ver01_ConvManager : MonoBehaviour
     private Material tmpMaterial;
 
     [Header("Resource After Conversation")]
-    [SerializeField] private Transform[] movingSections = new Transform[2];
-    [SerializeField] private GameObject mapImage;
+    [SerializeField] private Transform[] movingSections = new Transform[4];
+    [SerializeField] private GameObject[] mapImages = new GameObject[2];
     [SerializeField] protected TextMeshProUGUI missionTXT;
     [SerializeField] private Image pressE;
     [SerializeField] private float duration = 1.0f; // 이동 시간
@@ -57,11 +55,8 @@ public class Ver01_ConvManager : MonoBehaviour
 
     private List<String> portraitPaths = new List<String>();
 
-
-    //[Header("Temp Flags")] //대화 넘기기관련 플래그들
+    private int currentStage = 0;
     private Coroutine currentCoroutine;
-    //[SerializeField] private bool isSkipLine = false;
-    //[SerializeField] private setNextDialog = false;
 
     [Header("Change Scene String")]
     [SerializeField] private String nextScene;
@@ -141,6 +136,9 @@ public class Ver01_ConvManager : MonoBehaviour
         
         //requiredSecneData = GetDialogBySecneID(GameStateManager.Instance.GetCurrentSceneID());
         NormalCommunication();
+
+        currentStage = GameStateManager.Instance.GetCurrentSceneID();
+        mapImages[currentStage].SetActive(true);
 
         pressE.gameObject.SetActive(false);
     }
@@ -333,18 +331,18 @@ public class Ver01_ConvManager : MonoBehaviour
     private IEnumerator MoveImageCoroutine()
     {
         float elapsedTime = 0f;
-        Vector3 startPos = movingSections[0].position;
-        Vector3 endPos = movingSections[1].position;
+        Vector3 startPos = movingSections[currentStage*2].position;
+        Vector3 endPos = movingSections[currentStage*2+ 1].position;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
-            mapImage.gameObject.GetComponent<RectTransform>().position = Vector3.Lerp(startPos, endPos, t);
+            mapImages[currentStage].gameObject.GetComponent<RectTransform>().position = Vector3.Lerp(startPos, endPos, t);
             yield return null;
         }
 
-        mapImage.gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
+        mapImages[currentStage].gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
 
         pressE.gameObject.SetActive(true);
         currentCoroutine = StartCoroutine(TransitionToSprite());
@@ -366,7 +364,7 @@ public class Ver01_ConvManager : MonoBehaviour
             yield return null;
         }
         StopAllCoroutines();  // 모든 코루틴 정리
-        GameStateManager.Instance.SetCurrenSceneID(GameStateManager.Instance.GetCurrentSceneID()+1);
+        GameStateManager.Instance.SetCurrenSceneID(currentStage + 1);
 
         SceneManager.LoadScene(requiredSecneData.afterConditions.nextScene);
     }

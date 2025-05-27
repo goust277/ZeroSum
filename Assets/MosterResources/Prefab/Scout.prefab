@@ -123,10 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c12da5efc748e4490f7316cbe00f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyePosition: {fileID: 6934382479044144126}
-  wall:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &3745384909409279649
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,8 +175,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 10
-  MaxDistance: 15
+  MinDistance: 5
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -600,8 +596,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 10
-  MaxDistance: 15
+  MinDistance: 3
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

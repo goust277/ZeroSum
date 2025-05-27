@@ -142,8 +142,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 10
+  MinDistance: 3
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -303,8 +303,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 10
+  MinDistance: 2
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -596,6 +596,7 @@ MonoBehaviour:
   dashRange: 3
   canAttack: 1
   mark: {fileID: 282753345118934299}
+  seeMark: 0
   isHit: 0
   isDie: 0
   rb: {fileID: 8968623416950252967}
