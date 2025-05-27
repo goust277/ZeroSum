@@ -26,6 +26,7 @@ public class GameOver : MonoBehaviour
 
     private Transform player;
     private GameObject camObj;
+    private GameObject playerInput;
     private Camera cam;
     private ProCamera2D proCamera2D;
     Vector2 upStartPos;
@@ -36,6 +37,14 @@ public class GameOver : MonoBehaviour
     {
         upStartPos = up.anchoredPosition;
         downStartPos = down.anchoredPosition;
+
+        playerInput = GameObject.Find("InputManager");
+        if (playerInput == null)
+        {
+            Debug.LogError("playerInput - playerInput 못찾음 ");
+            return;
+        }
+        playerInput.SetActive(false);
 
 
         camObj = GameObject.FindWithTag("MainCamera");
@@ -110,7 +119,7 @@ public class GameOver : MonoBehaviour
             yield return null;
         }
         gameOverUI.SetActive(true);
-        Time.timeScale = 1f;
+        Time.timeScale = 0.0f;
 
     }
 

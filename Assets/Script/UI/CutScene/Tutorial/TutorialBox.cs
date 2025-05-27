@@ -1,30 +1,14 @@
-using Cinemachine;
-using Com.LuisPedroFonseca.ProCamera2D;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class TutorialBox : MonoBehaviour
 {
-
-    [Header("CutsceneManager Resources")]
-    [SerializeField] private CutsceneManager cutsceneManager;
-    [SerializeField] private PlayableDirector director;
-
     private int dmg;
     [SerializeField] private Box box;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject Num4Obj;
-    //[SerializeField] private CutsceneManager cutsceneManager;
-    private Vector3 initialCameraPosition;
     private bool hasPlayed = false;
-
 
     void Update()
     {
-
         if (box == null)
         {
             box = GetComponent<Box>(); // 활성화되었을 때 한 번만 가져와
@@ -41,19 +25,6 @@ public class TutorialBox : MonoBehaviour
 
     private void BoxOpen()
     {
-        // 현재 카메라 위치와 회전값을 가져와서 버츄얼 카메라에 적용
-        Vector3 currentCameraPosition = Camera.main.transform.position;
-        Quaternion currentCameraRotation = Camera.main.transform.rotation;
-
-        // 버츄얼 카메라의 위치와 회전값을 현재 카메라 값으로 설정
-        virtualCamera.transform.position = currentCameraPosition;
-        virtualCamera.transform.rotation = currentCameraRotation;
-        //cutsceneManager.PlayCutscene(director);
-        if (director != null)
-        {
-            cutsceneManager.PlayCutscene(director);
-        }
         Num4Obj.SetActive(true);
     }
-
 }

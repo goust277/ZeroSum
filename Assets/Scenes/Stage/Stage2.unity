@@ -45522,6 +45522,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+--- !u!1 &434881831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+  m_PrefabInstance: {fileID: 434881830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &448022598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56960,11 +56965,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.89
+      value: -3.9
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.38
+      value: -6.38
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56998,31 +57003,96 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1780828399769740397, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
-      propertyPath: moveAudio
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: moveTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: painKiller
       value: 
-      objectReference: {fileID: 1920020653}
+      objectReference: {fileID: 434881831}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 1894624007}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1970744127}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: playerAnimation
+      value: 
+      objectReference: {fileID: 1202825062}
     - target: {fileID: 2281730580868451855, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: bulletParent
       value: 
       objectReference: {fileID: 1741102380}
-    - target: {fileID: 2367671761540038290, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
-      propertyPath: swordAudioSource
+    - target: {fileID: 2404833764619434691, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408311562112266732, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: animator
       value: 
-      objectReference: {fileID: 513277538}
+      objectReference: {fileID: 1791890159}
+    - target: {fileID: 4624567407954587440, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: gravityScale
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624567407954587440, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: initialjumpForce
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074386604064509266, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6748893214020954111, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6748893214020954111, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159731753982087231, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1791890160}
+    - targetCorrespondingSourceObject: {fileID: 7561414614577109943, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1791890166}
   m_SourcePrefab: {fileID: 100100000, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+--- !u!114 &1202825062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2009554393531965813, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+  m_PrefabInstance: {fileID: 1202825060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9fd0e8654445b419130df5a05a4564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1205400467
 GameObject:
   m_ObjectHideFlags: 0
@@ -65160,6 +65230,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Ev '
       objectReference: {fileID: 0}
+    - target: {fileID: 7596546351479732710, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5560982
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596546351479732710, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      propertyPath: m_Size.y
+      value: 0.55708313
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596546351479732710, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.030268312
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596546351479732710, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.5214586
+      objectReference: {fileID: 0}
     - target: {fileID: 8514509427432319683, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
       propertyPath: moveCount
       value: 1
@@ -65750,6 +65836,33 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1389383170650293230, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
   m_PrefabInstance: {fileID: 1202825060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1791890160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791890150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6ccbd80e21a0848bce05c6671b8cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordAudioSource: {fileID: 513277538}
+  swordAttackClip: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
+--- !u!114 &1791890166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791890150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87887c14110bef47af58e269d5cf5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAudio: {fileID: 1920020653}
 --- !u!1001 &1793421374
 PrefabInstance:
   m_ObjectHideFlags: 0

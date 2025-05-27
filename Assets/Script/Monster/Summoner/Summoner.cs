@@ -189,13 +189,18 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
-
         //HP 바 표기
         if (hpBar != null)
         {
             hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
         }
         VisualDamage(atk);
+    }
+
+    public void DamageDie()
+    {
+        health = -1;
+        stateMachine.ChangeState(new Summoner_Die(stateMachine, this));
     }
 
     void TakeDamage()

@@ -9,16 +9,20 @@ public class TutorialSkipper : MonoBehaviour
     [SerializeField] private GameObject skipUI;
     [SerializeField] private Pause ver01_Pause;  // TogglePause 들어 있는 외부 오브젝트
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private BeforeEvUp beforeEvUp;
+    [SerializeField] private Stage1_Num4 stage1_Num4;
     [SerializeField] private GameObject TutorialObj;
+    [SerializeField] private Transform playerTarget;
+    [SerializeField] private GameObject inputManager;
 
 
     [Header("UI")]
     [SerializeField] private GameObject MissionUI;
+    [SerializeField] private GameObject up;
     [SerializeField] private ProCamera2D proCamera2D;
 
     private bool isTutorialPhase = true;
     private bool isAwaitingSkipConfirm = false;
+    private float originOrthographic = 6.7f;
 
     void Start()
     {
@@ -81,7 +85,8 @@ public class TutorialSkipper : MonoBehaviour
                 director.Stop();
             }
         }
-        proCamera2D.Zoom(3.2f, 2.0f);
+
+        EndCutScene();
 
         skipUI.SetActive(false);
         Time.timeScale = 1f;
@@ -106,7 +111,7 @@ public class TutorialSkipper : MonoBehaviour
         RectTransform target = MissionUI.transform as RectTransform;
 
         Vector2 startPos = target.anchoredPosition;
-        Vector2 endPos = startPos + new Vector2(0f, -200f);
+        Vector2 endPos = startPos + new Vector2(0f, -180f);
         float duration = 1f;
         float elapsed = 0f;
 
@@ -121,12 +126,12 @@ public class TutorialSkipper : MonoBehaviour
         target.anchoredPosition = endPos;
     }
 
-    private IEnumerator MoveUIVerticallyUp()
+    private IEnumerator MoveUIVerticallyUp(GameObject targetObj, float distance)
     {
-        RectTransform target = MissionUI.transform as RectTransform;
+        RectTransform target = targetObj.transform as RectTransform;
 
         Vector2 startPos = target.anchoredPosition;
-        Vector2 endPos = startPos + new Vector2(0f, +200f);
+        Vector2 endPos = startPos + new Vector2(0f, distance);
         float duration = 1f;
         float elapsed = 0f;
 
@@ -144,11 +149,54 @@ public class TutorialSkipper : MonoBehaviour
 
     IEnumerator RunFadeThenDeactivate()
     {
-        yield return StartCoroutine(beforeEvUp.GrowAndFade());
-        beforeEvUp.ev.enabled = true;
+        yield return StartCoroutine(stage1_Num4.GrowAndFade());
+        stage1_Num4.ev.enabled = true;
 
         TutorialObj.SetActive(false);
         gameObject.SetActive(false);  // 코루틴 끝난 후 끄기
     }
 
+    private void EndCutScene()
+    {
+        float startZoom = Camera.main.orthographicSize;
+
+        proCamera2D.RemoveAllCameraTargets();
+        MoveAndZoomTo(new Vector2(playerTarget.position.x, playerTarget.position.y), originOrthographic, 2.0f);
+        proCamera2D.AddCameraTarget(playerTarget, 1f, 1f, 0f, new Vector2(0f, 2f));
+
+        //player.GetComponent<PlayerAnimation>().enabled = true;
+        up.SetActive(false);
+        StartCoroutine(MoveUIVerticallyUp(up, 100.0f));
+
+        if (inputManager != null)
+            inputManager.SetActive(true);
+    }
+
+    public void MoveAndZoomTo(Vector2 targetPosition, float targetZoom, float duration)
+    {
+        StartCoroutine(MoveCameraCoroutine(targetPosition, targetZoom, duration));
+    }
+
+    private IEnumerator MoveCameraCoroutine(Vector2 targetPosition, float targetZoom, float duration)
+    {
+        Vector3 startPos = proCamera2D.transform.position;
+        Vector3 endPos = new Vector3(targetPosition.x, targetPosition.y, startPos.z);
+
+        float startZoom = Camera.main.orthographicSize;
+        float elapsed = 0f;
+
+        proCamera2D.Zoom(targetZoom - startZoom, duration);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            proCamera2D.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            yield return null;
+        }
+
+        proCamera2D.transform.position = endPos;
+    }
 }
