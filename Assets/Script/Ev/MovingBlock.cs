@@ -24,8 +24,6 @@ public class MovingBlock : BaseEv
     private Vector3 firstPosition;
     private Vector3 lastPostion;
 
-    private bool isMoving = false;
-
 
     private void Start()
     {

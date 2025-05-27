@@ -9,7 +9,11 @@ public class NPCController : MonoBehaviour
         Walk,
         Run,
         Teleport,
+        Dead,
     }
+    [Header("NpcHp")]
+    [SerializeField] private NPC_Hp npcHp;
+    [SerializeField] private GameObject hpBar;
 
     [Header("Speed")]
     public float runSpeed;
@@ -33,9 +37,13 @@ public class NPCController : MonoBehaviour
     [SerializeField] private NPCRun _run;
     [SerializeField] private NPCWalk _walk;
     [SerializeField] private NPCTeleport _teleport;
+    [SerializeField] private NPCDead _dead;
     
     [Header("Animator")]
     public Animator animator;
+
+    [Header("Sprite")]
+    [SerializeField] private SpriteRenderer sprite;
 
     private bool moveLeft = true;
     private enum Direction
@@ -53,11 +61,13 @@ public class NPCController : MonoBehaviour
         IState<NPCController> Run = _run;
         IState<NPCController> Walk = _walk;
         IState<NPCController> Teleport = _teleport;
+        IState<NPCController> Dead = _dead;
 
         dicState.Add(NPCState.Idle, Idle);
         dicState.Add(NPCState.Run, Run);
         dicState.Add(NPCState.Walk, Walk);
         dicState.Add(NPCState.Teleport, Teleport);
+        dicState.Add(NPCState.Dead, Dead);
 
         sm = new StateMachine<NPCController>(this, dicState[NPCState.Idle]);
     }
@@ -65,38 +75,48 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceX = Mathf.Abs(transform.position.x - player.transform.position.x);
-        distanceY = Mathf.Abs(transform.position.y - player.transform.position.y);
-
-        moveDirection.x = player.transform.position.x - transform.position.x;
-
-        if (distanceX < walkDistance)
+        if (!npcHp.isDead)
         {
-            sm.SetState(dicState[NPCState.Idle]);
+            distanceX = Mathf.Abs(transform.position.x - player.transform.position.x);
+            distanceY = Mathf.Abs(transform.position.y - player.transform.position.y);
+
+            moveDirection.x = player.transform.position.x - transform.position.x;
+
+            if (distanceX < walkDistance)
+            {
+                sm.SetState(dicState[NPCState.Idle]);
+            }
+
+            else if (walkDistance <= distanceX && distanceX < runDistance)
+            {
+                sm.SetState(dicState[NPCState.Walk]);
+            }
+
+            else if (runDistance <= distanceX)
+            {
+                sm.SetState(dicState[NPCState.Run]);
+            }
+
+            if (moveDirection.x >= 0 && moveLeft)
+            {
+                Flip();
+            }
+            else if (moveDirection.x < 0 && !moveLeft)
+            {
+                Flip();
+            }
+
+            if (teleportDistance <= distanceY)
+            {
+                sm.SetState(dicState[NPCState.Teleport]);
+            }
+
+            
         }
-
-        else if (walkDistance <= distanceX && distanceX < runDistance)
+        
+        else if (npcHp.isDead) 
         {
-            sm.SetState(dicState[NPCState.Walk]);
-        }
-
-        else if (runDistance <= distanceX)
-        {
-            sm.SetState(dicState[NPCState.Run]);
-        }
-
-        if (moveDirection.x >= 0 && moveLeft)
-        {
-            Flip();
-        }
-        else if (moveDirection.x < 0 && !moveLeft)
-        {
-            Flip();
-        }
-
-        if (teleportDistance <= distanceY)
-        {
-            sm.SetState(dicState[NPCState.Teleport]);
+            sm.SetState(dicState[NPCState.Dead]);
         }
         sm.DoOperateUpdate();
     }
@@ -106,11 +126,20 @@ public class NPCController : MonoBehaviour
         Debug.Log("Filp");
 
         moveLeft = !moveLeft;
-        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        //gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+        sprite.flipX = true;
+        //hpBar.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 180, 0);
 
         if (!moveLeft)
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            sprite.flipX = false;
         }
+    }
+
+    private void OnEnable()
+    {
+        hpBar.SetActive(true);
     }
 }

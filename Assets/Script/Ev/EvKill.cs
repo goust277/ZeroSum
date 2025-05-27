@@ -10,7 +10,7 @@ public class EvKill : MonoBehaviour
     {
         if (!gameObject.CompareTag("MovingBlock"))
         {
-            if (movingBlock.isBottom)
+            if (movingBlock.isBottom && movingBlock.isMoving)
             {
                 IDamageAble damageAble = collision.GetComponent<IDamageAble>();
                 if (damageAble != null)

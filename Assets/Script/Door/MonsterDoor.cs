@@ -18,7 +18,7 @@ public class MonsterDoor : MonoBehaviour
     private float curSpawnTime = 0f;
 
     [SerializeField] private List<List<GameObject>> monsterPrefabs = new List<List<GameObject>>();
-    private List<GameObject> spawnedMonsters = new List<GameObject>();
+    public List<GameObject> spawnedMonsters = new List<GameObject>();
 
     private static List<Monster_Spawner> allSpawners = new List<Monster_Spawner>();
     private static float lastSpawnTime = 0f;
