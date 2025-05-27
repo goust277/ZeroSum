@@ -133,17 +133,20 @@ public class PlayerHP : MonoBehaviour
                     GameStateManager.Instance.UseReinforcement();
                     int reinforcement = GameStateManager.Instance.GetReinforcement();
                     HandleDeath(reinforcement);
+                    return;
                 }
 
                 if (hp > 0)
                 {
                     flash.TriggerFlash(invincibilityTime);
-                    playerAnimation.Hit();
                     Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
                     Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
 
                 }
             }
+
+            playerAnimation.Hit();
+
         }
 
        

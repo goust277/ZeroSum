@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.Playables;
 using Com.LuisPedroFonseca.ProCamera2D;
+using Unity.VisualScripting;
 
 public class TutorialSkipper : MonoBehaviour
 {
@@ -35,13 +36,12 @@ public class TutorialSkipper : MonoBehaviour
         if (GameStateManager.Instance.GetCurrentSceneEnterCount() > 1)
         {
             isTutorialPhase = false;
-            ConfirmSkip();
+            StartCoroutine(ConfirmSkip());
         }
     }
 
     void Update()
     {
-
         if (!isTutorialPhase) return;
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -58,7 +58,7 @@ public class TutorialSkipper : MonoBehaviour
 
         if (isAwaitingSkipConfirm && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            ConfirmSkip();
+            StartCoroutine(ConfirmSkip());
         }
     }
 
@@ -76,9 +76,9 @@ public class TutorialSkipper : MonoBehaviour
         isAwaitingSkipConfirm = false;
     }
 
-    void ConfirmSkip()
+    IEnumerator ConfirmSkip()
     {
-        StartCoroutine(MoveUIVerticallyDown());
+        yield return StartCoroutine(MoveUIVerticallyDown());
         GameStateManager.Instance.StartMoveUIDown();
 
         EndCutScene();
@@ -111,22 +111,25 @@ public class TutorialSkipper : MonoBehaviour
 
     private IEnumerator MoveUIVerticallyDown()
     {
-        RectTransform target = MissionUI.transform as RectTransform;
-
-        Vector2 startPos = target.anchoredPosition;
-        Vector2 endPos = startPos + new Vector2(0f, -180f);
-        float duration = 1f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
+        if (MissionUI.transform.position.y > 600)
         {
-            elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
-            float t = Mathf.Clamp01(elapsed / duration);
-            target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
-            yield return null;
-        }
+            RectTransform target = MissionUI.transform as RectTransform;
 
-        target.anchoredPosition = endPos;
+            Vector2 startPos = target.anchoredPosition;
+            Vector2 endPos = startPos + new Vector2(0f, -180f);
+            float duration = 1f;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
+                float t = Mathf.Clamp01(elapsed / duration);
+                target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+                yield return null;
+            }
+
+            target.anchoredPosition = endPos;
+        }
     }
 
     private IEnumerator MoveUIVerticallyUp(GameObject targetObj, float distance)
