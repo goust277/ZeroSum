@@ -126,7 +126,11 @@ public class ExitScene : MonoBehaviour
     IEnumerator fadeOut()
     {
         FadeOutObj.gameObject.SetActive(true);
+
         Color alpha = FadeOutObj.color;
+        alpha.a = 0f;
+        FadeOutObj.color = alpha;
+
         while (alpha.a < 1)
         {
             currentTime += Time.deltaTime / fadeTime;
