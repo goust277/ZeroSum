@@ -59919,6 +59919,10 @@ PrefabInstance:
       value: Ev  (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8514509427432319683, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514509427432319683, guid: 3261c56d11e98404594c8de93d5a6269, type: 3}
       propertyPath: moveCount
       value: 1
       objectReference: {fileID: 0}
@@ -59937,7 +59941,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1414749868}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b598bb7af4d41ee4daf2ea10406bae9f, type: 3}
   m_Name: 
