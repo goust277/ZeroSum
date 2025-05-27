@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class NPC_Hp : MonoBehaviour, IDamageAble
 {
+    [Header("Flash")]
+    [SerializeField] private DamageFlash flash;
+
     [Header("Hp_UI")]
     [SerializeField] private TextMeshProUGUI hpTxt;
     [SerializeField] private Image hpImg;
@@ -30,7 +33,12 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
     {
         if (!immunity && hp > 0)
         {
+            
             hp--;
+            if (hp != 0)
+            {
+                flash.TriggerFlash(immunityTime);
+            }
             hpTxt.text = hp.ToString() + " / " + maxHp.ToString();
             hpImg.fillAmount = hp / maxHp;
             immunity = true;

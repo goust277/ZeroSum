@@ -141,5 +141,6 @@ public class NPCController : MonoBehaviour
     private void OnEnable()
     {
         hpBar.SetActive(true);
+        npcHp.enabled = true;
     }
 }

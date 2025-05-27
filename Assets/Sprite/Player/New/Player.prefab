@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 2281730580868451855}
   - component: {fileID: 2259039916255098375}
   - component: {fileID: 5082396893887885394}
+  - component: {fileID: 1501343385020150346}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -843,11 +844,11 @@ MonoBehaviour:
   moveLeft: 0
   runMoveSpeed: 11
   isRun: 0
-  initialjumpForce: 35
+  initialjumpForce: 11.5
   maxJumpDuration: 0.15
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  gravityScale: 10
+  gravityScale: 9
   extraJump: 0
   coyoteTime: 0.3
   dashPower: 4
@@ -949,6 +950,7 @@ MonoBehaviour:
   playerAnimation: {fileID: 2009554393531965813}
   invincibilityTime: 1
   hp: 10
+  flash: {fileID: 1501343385020150346}
   playerInput: {fileID: 0}
   col: {fileID: 5074386604064509266}
   moveSpeed: 7
@@ -966,6 +968,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactables: []
+--- !u!114 &1501343385020150346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748893214020954111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04427b0a0539014a9030402edabc6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashCount: 4
+  sprite: {fileID: 8159731753982087231}
 --- !u!1 &6838313063021161064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1028,8 @@ GameObject:
   - component: {fileID: 4408311562112266732}
   - component: {fileID: 466851306121196646}
   - component: {fileID: 805266884531537448}
+  - component: {fileID: 2367671761540038290}
+  - component: {fileID: 1780828399769740397}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -1149,3 +1168,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 3229282421977074418}
+--- !u!114 &2367671761540038290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561414614577109943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6ccbd80e21a0848bce05c6671b8cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordAudioSource: {fileID: 0}
+  swordAttackClip: {fileID: 8300000, guid: 399a68cb132856446a62fd706f518348, type: 3}
+--- !u!114 &1780828399769740397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561414614577109943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87887c14110bef47af58e269d5cf5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAudio: {fileID: 0}

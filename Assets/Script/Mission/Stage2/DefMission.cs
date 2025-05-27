@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DefMission : MonoBehaviour
 {
-
+    [Header("Monsters")]
+    [SerializeField] private GameObject[] _monsters;
+    private bool isClearMonster = false;
 
     [SerializeField] private SceneLoadSetting missionSetting;
 
@@ -38,23 +40,38 @@ public class DefMission : MonoBehaviour
             curMissionTime += Time.deltaTime;
 
         }
+
+        if (missionSetting.isMissionClear && !isClearMonster)
+        {
+            isClearMonster = true;
+
+            DestroyAllMonster();
+            
+        }
     }
 
     private void DestroyAllMonster()
     {
+        foreach(var mon in _monsters)
+        {
+            mon.SetActive(false);
+        }
+
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+
         foreach (GameObject monster in monsters)
         {
             IDamageAble damageable = monster.GetComponent<IDamageAble>();
             if (damageable != null)
             {
-                damageable.Damage(1);
-                damageable.Damage(1);
-                damageable.Damage(1);
-                damageable.Damage(1);
-                damageable.Damage(1);
-                damageable.Damage(1);
+                damageable.Damage(100);
+                //damageable.Damage(1);
             }
+        }
+
+        foreach (var mon in _monsters)
+        {
+            mon.SetActive(true);
         }
     }
 }

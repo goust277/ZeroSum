@@ -182,7 +182,12 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
-
+        if (atk == 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+        }
         //HP ¹Ù Ç¥±â
         //if (hpBar != null)
         //{

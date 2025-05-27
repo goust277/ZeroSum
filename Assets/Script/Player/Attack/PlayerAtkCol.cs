@@ -10,9 +10,12 @@ public class PlayerAtkCol : MonoBehaviour
     {
         col[1].gameObject.SetActive(true);
     }
+
+    [System.Obsolete]
     public void OffDownAtk()
     {
-        col[1].gameObject.SetActive(false);
+        if (col[1].gameObject.active)
+            col[1].gameObject.SetActive(false);
     }
 
     public void OnStandAtk() 
