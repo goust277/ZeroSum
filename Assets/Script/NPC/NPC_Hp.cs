@@ -77,6 +77,7 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
         if (hp <= 0 && !isDead)
         {
             isDead = true;
+            Ver01_DungeonStatManager.Instance.GameOver();
         }
 
     }

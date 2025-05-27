@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,12 +23,32 @@ public class Stage2_Num1Scene : CutSceneBase
     [SerializeField] private TextMeshProUGUI error9txt;
 
     private Animator npcAnimator;
+    private bool isAnyBlockTriggered = false;
+
 
     private new void Start()
     {
         base.Start();
         npcAnimator = npc.GetComponent<Animator>();
         //npc.GetComponent<NPCController>().enabled = false;
+    }
+
+    private void Update()
+    {
+
+        if (isAnyBlockTriggered) return; // ì´ë¯¸ ê°ì§€í–ˆìœ¼ë©´ ë‹¤ì‹œ í™•ì¸í•˜ì§€ ì•ŠìŒ
+
+        foreach (var block in evs)
+        {
+            if (block != null && block.inPlayer)
+            {
+                Debug.Log("ğŸ’¡ í”Œë ˆì´ì–´ê°€ ë¸”ë¡ì— ë‹¿ìŒ!");
+                isAnyBlockTriggered = true;
+
+                OnBlockTriggered(); // ì›í•˜ëŠ” ë™ì‘ í˜¸ì¶œ
+                break; // í•˜ë‚˜ë§Œ ê°ì§€í•˜ë©´ ë¨
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,10 +58,26 @@ public class Stage2_Num1Scene : CutSceneBase
             trigger.enabled= false;
             evs[0].enabled = false;
             evs[1].enabled = false;
-            StartCutScene();
+
+            GameStateManager.Instance.StartMoveUIUp(); //UIì˜¬ë¼ê°€ê¸°
+            proCamera2D.RemoveAllCameraTargets();
+
             StartCoroutine(From1To3());
         }
     }
+
+    private void OnBlockTriggered()
+    {
+        
+        up.SetActive(true);
+        down.SetActive(true);
+        StartCoroutine(MoveUIVerticallyDown(up, 100.0f)); //ìœ„ì—ì„œ ë‚´ë ¤ì˜¤ê¸°
+        StartCoroutine(MoveUIVerticallyUp(down, 100.0f)); //ì•„ë˜ì—ì„œ ì˜¬ë¼ì˜¤ê¸°
+
+        if (inputManager != null) //ì…ë ¥ëª»ë°›ê²Œí•˜ê³ 
+            inputManager.SetActive(false);
+    }
+
 
     private void KillScout()
     {
@@ -52,6 +88,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
     private IEnumerator From1To3(){
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 4.0f, 2.0f);
+
         yield return MovePlayerTo(move, 2.0f);
 
         yield return ShowDialog(0, 6.5f);
@@ -79,19 +116,19 @@ public class Stage2_Num1Scene : CutSceneBase
         npc.transform.position = npcmove;
         yield return new WaitForSeconds(1.0f);
 
-        //NPC IDLE µÚÁı±â
+        //NPC IDLE ë’¤ì§‘ê¸°
         dialogs[3].SetActive(true);
         //7~8
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //¿ì
+        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //ìš°
         yield return new WaitForSeconds(2.0f);
-        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //ÁÂ
+        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //ì¢Œ
         yield return new WaitForSeconds(3.0f);
         dialogs[3].SetActive(false);
         dialogs[4].SetActive(true);
-        //µÎ¸®¹øµÎ¸®¹ø
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //¿ì
+        //ë‘ë¦¬ë²ˆë‘ë¦¬ë²ˆ
+        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //ìš°
         yield return new WaitForSeconds(1.0f);
-        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //ÁÂ
+        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //ì¢Œ
         yield return new WaitForSeconds(1.0f);
         dialogs[4].SetActive(false);
         npc.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -129,7 +166,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
         yield return ShowDialog(13, 2.0f);
 
-        //Á¤ÂûÀÚ  °É¾î¿Í¾ßÇÔ
+        //ì •ì°°ì  ê±¸ì–´ì™€ì•¼í•¨
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 5.12f, 2.0f);
         yield return new WaitForSeconds(1.8f);
         scout.SetActive(true);
@@ -138,17 +175,17 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(1.5f);
         dialogs[15].SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //¿ì
+        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //ìš°
         yield return new WaitForSeconds(1.0f);
         dialogs[14].SetActive(false);
         dialogs[15].SetActive(false);
 
-        //¼÷ÀÌ±â
+        //ìˆ™ì´ê¸°
         npcAnimator.SetBool("Down", true);
-        yield return new WaitForSeconds(0.49f); // ¿¹: 0.5ÃÊ
+        yield return new WaitForSeconds(0.49f); // ì˜ˆ: 0.5ì´ˆ
         npcAnimator.enabled = false;
         npcAnimator.StopPlayback();
-        //½î±â ¸ğ¼Ç
+        //ì˜ê¸° ëª¨ì…˜
         fade.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         battleAudio.PlayOneShot(battleAudio.clip);
@@ -162,7 +199,7 @@ public class Stage2_Num1Scene : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 4.0f, 1.0f);
         yield return new WaitForSeconds(1.0f);
         fade.SetActive(false);
-        //¼÷ÀÎ°Å ´Ù½Ã ÀÏ¾î¼­±â
+        //ìˆ™ì¸ê±° ë‹¤ì‹œ ì¼ì–´ì„œê¸°
         yield return new WaitForSeconds(0.5f);
         npcAnimator.enabled = true;
         npcAnimator.SetBool("Down", false);
@@ -213,7 +250,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
         while (true)
         {
-            // 1. from ¡æ to
+            // 1. from â†’ to
             float t = 0f;
             while (t < 1f)
             {
@@ -222,7 +259,7 @@ public class Stage2_Num1Scene : CutSceneBase
                 yield return null;
             }
 
-            // 2. to ¡æ from
+            // 2. to â†’ from
             t = 0f;
             while (t < 1f)
             {
