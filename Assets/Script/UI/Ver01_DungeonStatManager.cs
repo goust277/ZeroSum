@@ -37,7 +37,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
-    public const int maxHP = 10;
+    public const int maxHP = 5;
     [SerializeField] private int currentHP = 10;
 
     //[SerializeField] private int damage = 5;

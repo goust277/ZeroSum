@@ -16,14 +16,23 @@ public class PlayerHP : MonoBehaviour
 
     [Header("invincibility time")]
     public float invincibilityTime;
+    [SerializeField] private float curInvincibillityTime = 0f;
+    [SerializeField] private bool isInvincibility;
+
+    [Header("Hp")] 
     public int hp = 10;
+
     private bool isBlocked = false;
+
+    [Header("Flash")]
+    [SerializeField] private DamageFlash flash;
 
     [Header("Dying")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject col;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveTime;
+
 
     private float curMoveTime;
     private Rigidbody2D rb;
@@ -79,6 +88,15 @@ public class PlayerHP : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
+
+        if (curInvincibillityTime > 0f)
+        {
+            curInvincibillityTime -= Time.deltaTime;
+        }
+        else if (curInvincibillityTime <= 0f && isInvincibility)
+        {
+            isInvincibility = false;
+        }
     }
     public void InstantDeath()
     {
@@ -95,28 +113,36 @@ public class PlayerHP : MonoBehaviour
     //take Damage
     public void Damage()
     {
-        externalAudioSource.Play();
-
-        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
-
-        if (!isBlocked)
+        if (!isInvincibility)
         {
-            if (hp - 1 < 0)
+            isInvincibility = true;
+            curInvincibillityTime = invincibilityTime;
+
+            externalAudioSource.Play();
+
+            hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
+
+            if (!isBlocked)
             {
-                GameStateManager.Instance.UseReinforcement();
-                int reinforcement = GameStateManager.Instance.GetReinforcement();
-                HandleDeath(reinforcement);
-            }
-            else
-            {
-                playerAnimation.Hit();
-                Debug.Log("Hit");
-                hp--;
-                Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
-                Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
-                Debug.Log("Hit_");
+                if (hp - 1 < 0)
+                {
+                    Debug("Die");
+                    GameStateManager.Instance.UseReinforcement();
+                    int reinforcement = GameStateManager.Instance.GetReinforcement();
+                    HandleDeath(reinforcement);
+                }
+                else
+                {
+                    flash.TriggerFlash(invincibilityTime);
+                    playerAnimation.Hit();
+                    hp--;
+                    Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
+                    Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
+                }
             }
         }
+
+       
     }
 
     public void GetHPItem()
