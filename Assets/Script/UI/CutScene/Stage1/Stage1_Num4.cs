@@ -23,7 +23,7 @@ public class Stage1_Num4 : CutSceneBase
     private GameObject skipper;
 
     // Start is called before the first frame update
-    void Start()
+    private new void Start()
     {
         base.Start();
         skipper = GameObject.Find("SkipDetect");
@@ -37,7 +37,15 @@ public class Stage1_Num4 : CutSceneBase
             ev.enabled = false;
             hasPlayed = true;
 
-            StartCutScene();
+            // 플레이어 따라다니는 거 제거
+            proCamera2D.RemoveAllCameraTargets();
+
+            GameStateManager.Instance.StartMoveUIUp(); //UI올라가기
+            up.SetActive(true);
+            down.SetActive(true);
+            StartCoroutine(MoveUIVerticallyDown(up, 100.0f)); //위에서 내려오기
+            StartCoroutine(MoveUIVerticallyUp(down, 100.0f)); //아래에서 올라오기
+
             StartCoroutine(Num4Scene());
             StartCoroutine(GrowAndFade());
         }
@@ -46,7 +54,7 @@ public class Stage1_Num4 : CutSceneBase
     {
         StartCoroutine(MoveUIVerticallyUp(missionUI, 180.0f)); //ui창 올림
         yield return new WaitForSeconds(0.5f);
-
+        inputManager.SetActive(false);
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f); //카메라고정
         yield return MovePlayerTo(move, 2.0f); //플레이어움직임
 
@@ -62,7 +70,6 @@ public class Stage1_Num4 : CutSceneBase
 
         trigger.enabled = true;//엘베 콜라이더 이제 켜줌
         StartCoroutine(MoveUIVerticallyDown(missionUI, 180.0f)); //ui창 올림
-        EndCutScene();
         OnTutorialEnd();
     }
 
@@ -90,8 +97,9 @@ public class Stage1_Num4 : CutSceneBase
 
     private void OnTutorialEnd()
     {
-        cutSceneTrigger.SetActive(false);
         skipper.GetComponent<TutorialSkipper>().ConnectPause();
         skipper.SetActive(false);
+        EndCutScene();
+        cutSceneTrigger.SetActive(false);
     }
 }
