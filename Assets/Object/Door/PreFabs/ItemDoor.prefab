@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: -4310296105025181681}
   - component: {fileID: 710319837319610475}
   - component: {fileID: 2647390799721416009}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ItemDoor
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -303,13 +303,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteChanger: {fileID: 1941320110785893575}
   isUse: 0
-  externalAudioSource: {fileID: 0}
   dropItemList:
   - {fileID: 2575600703993014354, guid: b5b504078b79257408e5b5433e89f1b0, type: 3}
   - {fileID: 3845132708008523123, guid: 0cea8abd6e9e05a44973a8e08da7b300, type: 3}
   - {fileID: 1463685417718291716, guid: f17d5ce3063a4774c83c5c07441258a5, type: 3}
   - {fileID: 6146418187768039255, guid: 1c6a40181871704498b012a9f1ac5838, type: 3}
   animator: {fileID: 710319837319610475}
+  monsterDoor: {fileID: 0}
   invisibleObjs:
   - {fileID: 0}
   - {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8526701237561336014}
   - component: {fileID: 5178826639217098028}
   - component: {fileID: 1600036171352348211}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBottom: 0
+  isMoving: 0
   animator: {fileID: -7076821500209565482}
   moveSpeed: 2
   movePosition: {x: 0, y: 4, z: 0}
