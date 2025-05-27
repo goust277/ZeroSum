@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PipeManager : Mission
 {
+    [SerializeField] private Button[] btns;
     [SerializeField] private PipeRotate[] pipes;
     [SerializeField] private ChangeLink[] changeLinks;
     [SerializeField] private GameObject mission;
@@ -41,6 +42,11 @@ public class PipeManager : Mission
 
     private void ClearMission()
     {
+        foreach (var btn in btns)
+        {
+            btn.enabled = false;
+        }
+
         if(!isChange)
         {
             foreach (var change in changeLinks)

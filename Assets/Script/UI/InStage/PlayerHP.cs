@@ -76,7 +76,9 @@ public class PlayerHP : MonoBehaviour
 
     private void Update()
     {
-        if(OnDeath)
+
+
+        if (OnDeath)
         {
             curMoveTime += Time.deltaTime;
             if(curMoveTime < moveTime)
@@ -124,20 +126,23 @@ public class PlayerHP : MonoBehaviour
 
             if (!isBlocked)
             {
-                if (hp - 1 < 0)
+                hp--;
+
+                if (hp <= 0 && !OnDeath)
                 {
-                    Debug("Die");
+                    Debug.Log("Die");
                     GameStateManager.Instance.UseReinforcement();
                     int reinforcement = GameStateManager.Instance.GetReinforcement();
                     HandleDeath(reinforcement);
                 }
-                else
+
+                if (hp > 0)
                 {
                     flash.TriggerFlash(invincibilityTime);
                     playerAnimation.Hit();
-                    hp--;
                     Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
                     Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
+
                 }
             }
         }
