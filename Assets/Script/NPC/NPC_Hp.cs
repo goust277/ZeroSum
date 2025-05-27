@@ -16,7 +16,7 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
     [SerializeField] private float immunityTime;
     private float curImmunityTime = 0f;
 
-    private bool immunity = false;
+    public bool immunity = false;
     private float maxHp;
     public bool isDead = false;
 
@@ -28,7 +28,7 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
     }
     public void Damage(int atk)
     {
-        if (!immunity)
+        if (!immunity && hp > 0)
         {
             hp--;
             hpTxt.text = hp.ToString() + " / " + maxHp.ToString();

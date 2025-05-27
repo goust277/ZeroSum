@@ -48836,8 +48836,9 @@ GameObject:
   - component: {fileID: 638307751}
   - component: {fileID: 638307750}
   - component: {fileID: 638307755}
+  - component: {fileID: 638307757}
   - component: {fileID: 638307756}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: NPC
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -49045,7 +49046,7 @@ MonoBehaviour:
   _run: {fileID: 638307751}
   _walk: {fileID: 638307750}
   _teleport: {fileID: 638307755}
-  _dead: {fileID: 0}
+  _dead: {fileID: 638307757}
   animator: {fileID: 638307746}
   sprite: {fileID: 638307747}
 --- !u!50 &638307754
@@ -49103,8 +49104,22 @@ MonoBehaviour:
   hpTxt: {fileID: 548825150}
   hpImg: {fileID: 1205400469}
   hp: 5
-  immunityTime: 0
+  immunityTime: 0.5
+  immunity: 0
   isDead: 0
+--- !u!114 &638307757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638307745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf3e9c75b76f8646833a304f2c3a23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 638307753}
 --- !u!1 &643491775
 GameObject:
   m_ObjectHideFlags: 0
@@ -56950,11 +56965,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.66
+      value: -3.89
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.38
+      value: -7.38
       objectReference: {fileID: 0}
     - target: {fileID: 789079694324219129, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61961,7 +61976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1521326680
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class NPCDead : MonoBehaviour, IState<NPCController>
     public void OperateEnter(NPCController sender)
     {
         controller = sender;
+        controller.animator.SetTrigger("Die");
     }
 
     public void OperateExit(NPCController sender)

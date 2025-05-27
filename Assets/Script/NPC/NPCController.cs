@@ -61,11 +61,13 @@ public class NPCController : MonoBehaviour
         IState<NPCController> Run = _run;
         IState<NPCController> Walk = _walk;
         IState<NPCController> Teleport = _teleport;
+        IState<NPCController> Dead = _dead;
 
         dicState.Add(NPCState.Idle, Idle);
         dicState.Add(NPCState.Run, Run);
         dicState.Add(NPCState.Walk, Walk);
         dicState.Add(NPCState.Teleport, Teleport);
+        dicState.Add(NPCState.Dead, Dead);
 
         sm = new StateMachine<NPCController>(this, dicState[NPCState.Idle]);
     }
@@ -109,13 +111,14 @@ public class NPCController : MonoBehaviour
                 sm.SetState(dicState[NPCState.Teleport]);
             }
 
-            sm.DoOperateUpdate();
+            
         }
         
         else if (npcHp.isDead) 
         {
-
+            sm.SetState(dicState[NPCState.Dead]);
         }
+        sm.DoOperateUpdate();
     }
 
     private void Flip()
