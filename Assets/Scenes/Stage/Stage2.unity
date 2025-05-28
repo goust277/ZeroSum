@@ -57636,7 +57636,7 @@ PrefabInstance:
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerInput
       value: 
-      objectReference: {fileID: 1894624007}
+      objectReference: {fileID: 0}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerMovement
       value: 
@@ -61054,7 +61054,7 @@ PrefabInstance:
     - target: {fileID: 1805476059860415074, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: playerInput
       value: 
-      objectReference: {fileID: 1894624007}
+      objectReference: {fileID: 0}
     - target: {fileID: 2133023775983790941, guid: 4dbc0317ba9096e419d7a7951a701dd9, type: 3}
       propertyPath: m_Name
       value: Ver01_Pause
@@ -81187,7 +81187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1894624008}
-  - component: {fileID: 1894624007}
+  - component: {fileID: 1894624009}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -81195,7 +81195,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1894624007
+--- !u!4 &1894624008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894624006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894624009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81286,7 +81301,7 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Dash[/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2070057605}
         m_TargetAssemblyTypeName: PlayerInteract, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 1
@@ -81389,21 +81404,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!4 &1894624008
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894624006}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1899054965
 GameObject:
   m_ObjectHideFlags: 0
@@ -87245,6 +87245,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aaae20d72c273a4a9ac52994dae5051, type: 3}
+--- !u!114 &2070057605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2385971359740979015, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+  m_PrefabInstance: {fileID: 1202825060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a591df7fcce37f44b7a739fa10a3a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2076509377
 PrefabInstance:
   m_ObjectHideFlags: 0
