@@ -134,7 +134,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4885409558514337743, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6255f12ccf9381748871fc7601a5a43f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.73
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -142,8 +142,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 10
+  MinDistance: 3
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -295,7 +295,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4885409558514337743, guid: 830928e9bcb7733468d0018f4484b691, type: 2}
   m_audioClip: {fileID: 8300000, guid: 70662153e3245924da61c636d973b815, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.55
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -303,8 +303,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 10
+  MinDistance: 2
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -596,6 +596,7 @@ MonoBehaviour:
   dashRange: 3
   canAttack: 1
   mark: {fileID: 282753345118934299}
+  seeMark: 0
   isHit: 0
   isDie: 0
   rb: {fileID: 8968623416950252967}

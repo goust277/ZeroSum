@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stage1_Num3 : CutSceneBase
 {
     [Header("Direct Resources")]
     [SerializeField] private Mission mission;
-
+    [SerializeField] private Image missionCheck;
+ 
     private bool isClear;
 
     void Update()
@@ -16,6 +18,7 @@ public class Stage1_Num3 : CutSceneBase
             if (!isClear)
             {
                 isClear = true;
+                missionCheck.enabled = true;
                 dialogs[1].SetActive(false); //¹® ¾Ë¸²²ô°í
                 StartCoroutine(Num3Scene());
             }

@@ -38,7 +38,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int totalMagazine;
     private int reinforcement;
     public const int maxHP = 5;
-    [SerializeField] private int currentHP = 10;
+    [SerializeField] private int currentHP = 5;
 
     //[SerializeField] private int damage = 5;
 
@@ -180,6 +180,5 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
         hudUI.SetActive(false);
         Instantiate(gameOverPrefab);
-
     }
 }

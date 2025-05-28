@@ -201,6 +201,11 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
         stateMachine.ChangeState(new Scout_Die(stateMachine, this));
     }
 
+    public void DamageDie()
+    {
+        health = -1;
+        stateMachine.ChangeState(new Scout_Die(stateMachine, this));
+    }
 
     // 목표 반대로 변경
     public void FlipTarget()

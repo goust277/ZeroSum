@@ -73,7 +73,7 @@ public class Stage1_Num4 : CutSceneBase
         OnTutorialEnd();
     }
 
-    public IEnumerator GrowAndFade()
+    private IEnumerator GrowAndFade()
     {
         float timer = 0f;
         float startFalloff = 1f;
@@ -91,9 +91,15 @@ public class Stage1_Num4 : CutSceneBase
         }
 
         light2D.enabled = false;
+        SwapMissionUI();
+    }
+
+    public void SwapMissionUI()
+    {
         tutorialMissionManager.enabled = false;
         realMissionDoorManager.enabled = true;
     }
+
 
     private void OnTutorialEnd()
     {

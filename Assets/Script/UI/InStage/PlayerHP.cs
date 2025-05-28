@@ -20,9 +20,9 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private bool isInvincibility;
 
     [Header("Hp")] 
-    public int hp = 10;
+    public int hp = 5;
 
-    private bool isBlocked = false;
+    public bool isBlocked = false;
 
     [Header("Flash")]
     [SerializeField] private DamageFlash flash;
@@ -72,7 +72,6 @@ public class PlayerHP : MonoBehaviour
             externalAudioSource = itemChild.GetComponent<AudioSource>();
         }
     }
-
 
     private void Update()
     {
@@ -134,17 +133,20 @@ public class PlayerHP : MonoBehaviour
                     GameStateManager.Instance.UseReinforcement();
                     int reinforcement = GameStateManager.Instance.GetReinforcement();
                     HandleDeath(reinforcement);
+                    return;
                 }
 
                 if (hp > 0)
                 {
                     flash.TriggerFlash(invincibilityTime);
-                    playerAnimation.Hit();
                     Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
                     Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
 
                 }
             }
+
+            playerAnimation.Hit();
+
         }
 
        

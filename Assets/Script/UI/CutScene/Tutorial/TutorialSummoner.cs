@@ -18,7 +18,7 @@ public class TutorialSummoner : MonoBehaviour
 
     void Update()
     {
-        summoner = gameObject.GetComponent<Summoner>().health;
+        summoner = gameObject.GetComponent<Scout>().health;
         if (summoner <= 0)
         {
             BoxOn();

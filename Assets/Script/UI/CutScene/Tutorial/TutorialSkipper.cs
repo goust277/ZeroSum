@@ -3,17 +3,22 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.Playables;
 using Com.LuisPedroFonseca.ProCamera2D;
+using Unity.VisualScripting;
 
 public class TutorialSkipper : MonoBehaviour
 {
-    [SerializeField] private GameObject skipUI;
-    [SerializeField] private Pause ver01_Pause;  // TogglePause 들어 있는 외부 오브젝트
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private Stage1_Num4 stage1_Num4;
-    [SerializeField] private GameObject TutorialObj;
     [SerializeField] private Transform playerTarget;
-    [SerializeField] private GameObject inputManager;
 
+    [Header("ConnectPause")]
+    [SerializeField] private Pause ver01_Pause;  // TogglePause 들어 있는 외부 오브젝트
+    [SerializeField] private GameObject inputManager;
+    [SerializeField] private PlayerInput playerInput;
+
+    [Header("EndCutScene")]
+    [SerializeField] private GameObject skipUI;
+    [SerializeField] private GameObject TutorialObj;
+    [SerializeField] private Stage1_Num4 stage1_Num4;
+    [SerializeField] private PlayerHP playerHP;
 
     [Header("UI")]
     [SerializeField] private GameObject MissionUI;
@@ -27,17 +32,16 @@ public class TutorialSkipper : MonoBehaviour
     void Start()
     {
         GameStateManager.Instance.StartMoveUIUp();
-
+        playerHP.isBlocked = true;
         if (GameStateManager.Instance.GetCurrentSceneEnterCount() > 1)
         {
             isTutorialPhase = false;
-            ConfirmSkip();
+            StartCoroutine(ConfirmSkip());
         }
     }
 
     void Update()
     {
-
         if (!isTutorialPhase) return;
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -54,7 +58,7 @@ public class TutorialSkipper : MonoBehaviour
 
         if (isAwaitingSkipConfirm && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            ConfirmSkip();
+            StartCoroutine(ConfirmSkip());
         }
     }
 
@@ -72,28 +76,27 @@ public class TutorialSkipper : MonoBehaviour
         isAwaitingSkipConfirm = false;
     }
 
-    void ConfirmSkip()
+    IEnumerator ConfirmSkip()
     {
-        StartCoroutine(RunFadeThenDeactivate());
-        StartCoroutine(MoveUIVerticallyDown());
+        yield return StartCoroutine(MoveUIVerticallyDown());
         GameStateManager.Instance.StartMoveUIDown();
 
-        foreach (PlayableDirector director in FindObjectsOfType<PlayableDirector>())
-        {
-            if (director.state == PlayState.Playing)
-            {
-                director.Stop();
-            }
-        }
-
         EndCutScene();
-
+        ConnectPause();
         skipUI.SetActive(false);
         Time.timeScale = 1f;
+
+        
         isTutorialPhase = false;
         isAwaitingSkipConfirm = false;
 
-        Debug.Log("TutorialSkipper - 튜토리얼 스킵");
+        gameObject.SetActive(false);  // 코루틴 끝난 후 끄기
+    }
+
+
+    private void OnDisable()
+    {
+        playerHP.isBlocked = false;
     }
 
     public void ConnectPause()
@@ -108,22 +111,25 @@ public class TutorialSkipper : MonoBehaviour
 
     private IEnumerator MoveUIVerticallyDown()
     {
-        RectTransform target = MissionUI.transform as RectTransform;
-
-        Vector2 startPos = target.anchoredPosition;
-        Vector2 endPos = startPos + new Vector2(0f, -180f);
-        float duration = 1f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
+        if (MissionUI.transform.position.y > 600)
         {
-            elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
-            float t = Mathf.Clamp01(elapsed / duration);
-            target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
-            yield return null;
-        }
+            RectTransform target = MissionUI.transform as RectTransform;
 
-        target.anchoredPosition = endPos;
+            Vector2 startPos = target.anchoredPosition;
+            Vector2 endPos = startPos + new Vector2(0f, -180f);
+            float duration = 1f;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;  // TimeScale 영향 없이 실행
+                float t = Mathf.Clamp01(elapsed / duration);
+                target.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+                yield return null;
+            }
+
+            target.anchoredPosition = endPos;
+        }
     }
 
     private IEnumerator MoveUIVerticallyUp(GameObject targetObj, float distance)
@@ -146,19 +152,15 @@ public class TutorialSkipper : MonoBehaviour
         target.anchoredPosition = endPos;
     }
 
-
-    IEnumerator RunFadeThenDeactivate()
-    {
-        yield return StartCoroutine(stage1_Num4.GrowAndFade());
-        stage1_Num4.ev.enabled = true;
-
-        TutorialObj.SetActive(false);
-        gameObject.SetActive(false);  // 코루틴 끝난 후 끄기
-    }
-
     private void EndCutScene()
     {
         float startZoom = Camera.main.orthographicSize;
+
+        stage1_Num4.SwapMissionUI();
+        stage1_Num4.ev.enabled = true;
+        playerTarget.GetComponent<PlayerAnimation>().enabled = true;
+        TutorialObj.SetActive(false);
+        
 
         proCamera2D.RemoveAllCameraTargets();
         MoveAndZoomTo(new Vector2(playerTarget.position.x, playerTarget.position.y), originOrthographic, 2.0f);

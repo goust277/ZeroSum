@@ -8,7 +8,10 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject pauseUI; // ESC 누르면 활성화할 UI (자식 버튼 포함)
     [SerializeField] private GameObject settingsUI; // 설정창 UI
     private bool isPaused = false;
-    
+
+    public bool isEnableSkipStage = false;
+
+
     private GameObject playerInput;
     private void Start()
     {
@@ -25,6 +28,24 @@ public class Pause : MonoBehaviour
         TogglePause();
     }
 
+    void Update()
+    {
+        if (isEnableSkipStage)
+            return;
+
+        if (playerInput.activeInHierarchy)
+            return;
+
+        HandleSkipInput();
+    }
+
+    private void HandleSkipInput()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            TogglePause();
+        }
+    }
 
     private void TogglePause()
     {
