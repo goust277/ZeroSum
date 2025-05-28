@@ -14,7 +14,6 @@ public class M1_Attack : BaseState
     public override void Enter()
     {
         //m1.PlayAttackSound();
-        m1.attack.gameObject.SetActive(true);
         m1.anim.SetBool("isAttack", true);
         if (m1.transform.position.x >= m1.player.position.x)
         {
