@@ -8,9 +8,6 @@ public class Stage2_Num2 : CutSceneBase
     //[SerializeField] private Collider2D[] evs;
     [SerializeField] private GameObject npc;
 
-    [Header("mission")]
-    [SerializeField] private GameObject missionTimeDisplay;
-
     [SerializeField] private Transform[] npcmoves;
     [SerializeField] private MovingBlock[] evs;
 
@@ -142,7 +139,6 @@ public class Stage2_Num2 : CutSceneBase
         shutters[0].enabled = false;
         shutters[2].enabled = true;
         SceneLoadSetting.isMissionStart = true;
-        missionTimeDisplay.SetActive(true);
     }
 
     private IEnumerator MoveNpcTo(Transform targetPoint, string motionName)
