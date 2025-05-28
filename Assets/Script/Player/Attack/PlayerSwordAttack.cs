@@ -6,7 +6,8 @@ public class PlayerSwordAttack : PlayerAttackState
 {
     [SerializeField] private float delay;
     [SerializeField] private float atkCoolTime;
-    
+    [SerializeField] private PlayerMovement playerMovement;
+
     [HideInInspector] public bool isParryingReady;
 
     private bool isAtkReady;
@@ -45,7 +46,10 @@ public class PlayerSwordAttack : PlayerAttackState
     }
     public void OnAttack()
     {
-        Debug.Log("АјАн");
+        if (!playerMovement.isGrounded)
+        {
+            return;
+        }
         if (isAtkReady)
         {
             isAttack = true;
@@ -69,6 +73,10 @@ public class PlayerSwordAttack : PlayerAttackState
         isAtkReady = false;
     }
 
+    private void OnDisable()
+    {
+        isAttack = false;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactive") || collision.CompareTag("Monster"))

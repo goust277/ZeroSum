@@ -18,9 +18,11 @@ public class Scout_Chase : BaseState
         scout.PlayMoveSound(1.2f);
         //scout.anim.SetBool("isRun", true);
         scout.anim.SetBool("isIdle", true);
-        
         if(!scout.seeMark)
-        scout.mark.gameObject.SetActive(true);
+        {
+            scout.mark.gameObject.SetActive(true);
+            scout.seeMark = true;
+        }
         
         scout.moveSpeed = 2.5f;
     }

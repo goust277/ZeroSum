@@ -23,14 +23,12 @@ public class S_Attack : BaseState
         if (s.transform.position.x >= s.player.position.x)
         {
             s.sprite.flipX = true;
-            s.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
             dir = -1;
         }
 
         else if(s.transform.position.x < s.player.position.x)
         {
             s.sprite.flipX = false;
-            s.transform.rotation = Quaternion.Euler(0f, 0f, -45f);
             dir = 1;
         }
         s.rb.velocity = new Vector2(s.dashRange * dir, s.dashRange);
@@ -40,20 +38,14 @@ public class S_Attack : BaseState
     {
         timer += Time.deltaTime;
 
-        if(timer >= 0.65f)
+        if(timer >= 0.5f)
         {
-            stateMachine.ChangeState(new S_Chase(stateMachine, s));
-            return;
+            s.gameObject.SetActive(false);
         }
     }
 
     public override void Exit()
     {
-        s.attack.gameObject.SetActive(false);
-        s.canAttack = true;
-        s.attackCooldown = 3f;
-        s.anim.SetBool("isWalk", true);
-        s.anim.SetBool("isAttack", false);
-        s.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
     }
 }

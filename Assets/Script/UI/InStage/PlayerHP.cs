@@ -17,7 +17,7 @@ public class PlayerHP : MonoBehaviour
     [Header("invincibility time")]
     public float invincibilityTime;
     [SerializeField] private float curInvincibillityTime = 0f;
-    [SerializeField] private bool isInvincibility;
+    public bool isInvincibility;
 
     [Header("Hp")] 
     public int hp = 5;
@@ -94,7 +94,7 @@ public class PlayerHP : MonoBehaviour
         {
             curInvincibillityTime -= Time.deltaTime;
         }
-        else if (curInvincibillityTime <= 0f && isInvincibility)
+        else if (curInvincibillityTime <= 0f && isInvincibility && !playerMovement.isDashing)
         {
             isInvincibility = false;
         }

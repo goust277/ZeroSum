@@ -290,4 +290,9 @@ public class Scout : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
     }
+
+    private void chase_state()
+    {
+        stateMachine.ChangeState(new Scout_Chase(stateMachine, this));
+    }
 }

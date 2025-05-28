@@ -113,7 +113,6 @@ public class Stage1MonsterDoor : MonoBehaviour
             animator.SetBool("Open", false);
 
         List<GameObject> selectedTypeList = monsterPrefabs[spawnType];
-        spawnType++;
 
         for (int index = 0; index < selectedTypeList.Count; index++)
         {

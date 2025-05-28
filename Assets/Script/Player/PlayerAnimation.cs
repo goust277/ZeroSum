@@ -50,7 +50,7 @@ public class PlayerAnimation : MonoBehaviour
                 animator.SetBool("Run", false);
         }
 
-        if (rb.velocity.y != 0 && !playerMovement.isGrounded) // 떨어지는 모션 애니메이션
+        if (rb.velocity.y != 0 && !playerMovement.isGrounded && !playerMovement.isDashing) // 떨어지는 모션 애니메이션
             animator.SetBool("Fall", true);
         else
             animator.SetBool("Fall", false);
@@ -109,6 +109,7 @@ public class PlayerAnimation : MonoBehaviour
     private void DashAnimation() // 대쉬 애니메이션
     {
         animator.SetTrigger("Parrying");
+        
     }
 
     private void LandingAnimation()
@@ -143,6 +144,7 @@ public class PlayerAnimation : MonoBehaviour
     private void Dying()
     {
         animator.SetTrigger("Dying");
+        animator.SetBool("Dead", true);
     }
 
     public void Hit()

@@ -22,6 +22,11 @@ public class Summoner_Idle : BaseState
 
     public override void Execute()
     {
+        if(isFreeze())
+        {
+            return;
+        }
+        
         timer -= Time.deltaTime;
 
         if (summoner.isPlayerInRange)
@@ -38,5 +43,10 @@ public class Summoner_Idle : BaseState
     public override void Exit()
     {
         summoner.anim.SetBool("isIdle", false);
+    }
+
+    bool isFreeze()
+    {
+        return (summoner.rb.constraints & RigidbodyConstraints2D.FreezePositionX) == RigidbodyConstraints2D.FreezePositionX;
     }
 }
