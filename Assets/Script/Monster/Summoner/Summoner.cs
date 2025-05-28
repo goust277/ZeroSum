@@ -140,31 +140,31 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
     private void VisualDamage(int value)
     {
 
-        return;
-        Debug.Log("VisualDamage");
-        Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
-        Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
-        GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
-        //Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
+        //return;
+        //Debug.Log("VisualDamage");
+        //Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
+        //Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
+        //GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
+        ////Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
 
 
-        if (canvasTransform == null)
-        {
-            Debug.Log("Canvas Transform is not assigned!");
-            return;
-        }
+        //if (canvasTransform == null)
+        //{
+        //    Debug.Log("Canvas Transform is not assigned!");
+        //    return;
+        //}
 
-        newText.transform.SetParent(canvasTransform, false);
-        //Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
-        //TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
-        if (textComponent == null)
-        {
-            Debug.Log("TextMeshProUGUI component not found in prefab!");
-            return;
-        }
+        //newText.transform.SetParent(canvasTransform, false);
+        ////Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
+        ////TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
+        //TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
+        //if (textComponent == null)
+        //{
+        //    Debug.Log("TextMeshProUGUI component not found in prefab!");
+        //    return;
+        //}
 
-        textComponent.text = value.ToString();
+        //textComponent.text = value.ToString();
     }
 
     public void Damage(int atk)
@@ -258,6 +258,7 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
     }
+
 
     private void HitAnimationOverrides()
     {

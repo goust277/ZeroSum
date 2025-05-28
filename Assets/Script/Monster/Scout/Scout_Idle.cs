@@ -21,6 +21,11 @@ public class Scout_Idle : BaseState
 
     public override void Execute()
     {
+        if(isFreeze())
+        {
+            return;
+        }
+        
         timer -= Time.deltaTime;
 
         if (scout.isPlayerInRange)
@@ -37,5 +42,10 @@ public class Scout_Idle : BaseState
     public override void Exit()
     {
         scout.anim.SetBool("isIdle", false);
+    }
+
+    bool isFreeze()
+    {
+        return (scout.rb.constraints & RigidbodyConstraints2D.FreezePositionX) == RigidbodyConstraints2D.FreezePositionX;
     }
 }
