@@ -163,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
                     isDown = false;
                     isButtonReleased = false;
                 }
-
             }
 
         }

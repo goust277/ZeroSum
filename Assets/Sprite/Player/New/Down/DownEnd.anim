@@ -79,27 +79,6 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0
-    functionName: IsSwordAtkEnd
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: IsAtkEnd
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: e9e19083054601140ad293c5e9757b98, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: OffStandAtk
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: c47e66533e0c9e240831cd43de111c74, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 0.25
     functionName: OffDownAtk
     data: 

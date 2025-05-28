@@ -17,6 +17,12 @@ public class DamageFlash : MonoBehaviour
         originalColor = sprite.color;
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        sprite.color = originalColor;
+    }
+
     // Update is called once per frame
     public void TriggerFlash(float duration)
     {

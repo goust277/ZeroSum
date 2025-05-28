@@ -143,6 +143,7 @@ public class PlayerAnimation : MonoBehaviour
     private void Dying()
     {
         animator.SetTrigger("Dying");
+        animator.SetBool("Dead", true);
     }
 
     public void Hit()
