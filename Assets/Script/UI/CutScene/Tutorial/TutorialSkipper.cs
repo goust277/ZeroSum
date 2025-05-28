@@ -111,10 +111,9 @@ public class TutorialSkipper : MonoBehaviour
 
     private IEnumerator MoveUIVerticallyDown()
     {
-        if (MissionUI.transform.position.y > 600)
-        {
-            RectTransform target = MissionUI.transform as RectTransform;
-
+        RectTransform target = MissionUI.transform as RectTransform;
+        if (target.anchoredPosition.y > 600f)
+        { 
             Vector2 startPos = target.anchoredPosition;
             Vector2 endPos = startPos + new Vector2(0f, -180f);
             float duration = 1f;
