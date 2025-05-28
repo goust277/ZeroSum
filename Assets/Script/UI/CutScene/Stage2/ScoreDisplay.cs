@@ -5,9 +5,10 @@ public class ScoreDisplay : MonoBehaviour
 {
     [SerializeField] private DefMission defMission; // 외부 클래스 참조
     [SerializeField] private TextMeshProUGUI scoreText; // UI 텍스트
+    [SerializeField] private float maxTime = 30f; // 최대 시간 (30초)
 
     private bool isLocked = false;
-    private float elapsedTime = 30.0f;
+    private float elapsedTime = 0f;
     void Update()
     {
         if (isLocked) return;
@@ -21,8 +22,11 @@ public class ScoreDisplay : MonoBehaviour
 
         if (defMission != null && scoreText != null)
         {
-            elapsedTime = elapsedTime - defMission.curMissionTime;
-            scoreText.text = Mathf.RoundToInt(elapsedTime).ToString();
+            // defMission.curMissionTime이 누적 시간이라고 가정
+            float timeLeft = maxTime - defMission.curMissionTime;
+            timeLeft = Mathf.Clamp(timeLeft, 0f, maxTime); // 0보다 작아지지 않게
+
+            scoreText.text = Mathf.RoundToInt(timeLeft).ToString();
         }
     }
 }

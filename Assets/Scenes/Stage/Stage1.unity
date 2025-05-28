@@ -21387,7 +21387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62662,6 +62662,7 @@ MonoBehaviour:
   proCamera2D: {fileID: 1832262578}
   isPlayerInside: 0
   FadeOutObj: {fileID: 1075842201}
+  nextScene: Lobby
 --- !u!61 &1395018068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -78935,6 +78936,7 @@ MonoBehaviour:
   proCamera2D: {fileID: 1832262578}
   isPlayerInside: 0
   FadeOutObj: {fileID: 1075842201}
+  nextScene: Lobby
 --- !u!61 &1964383243
 BoxCollider2D:
   m_ObjectHideFlags: 0
