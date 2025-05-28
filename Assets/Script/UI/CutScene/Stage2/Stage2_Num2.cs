@@ -49,10 +49,16 @@ public class Stage2_Num2 : CutSceneBase
 
     private IEnumerator Num2Scene()
     {
+        SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
+
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 5.5f, 2.0f);
         yield return new WaitForSeconds(1.0f);
-
+        sr.flipX = false; //dㅜ
         npc.transform.position = new Vector3(npcmoves[0].position.x, npcmoves[0].position.y, npcmoves[0].position.z);
+
+        if (inputManager != null) //입력못받게하고
+            inputManager.SetActive(false);
+
         yield return MoveNpcTo(npcmoves[1], "Walk");
         yield return ShowDialog(0, 2.0f); //1
         StartCoroutine(MoveNpcTo(npcmoves[2], "Run"));
@@ -109,6 +115,7 @@ public class Stage2_Num2 : CutSceneBase
 
         shutters[1].enabled = false;
         shutters[0].enabled = false;
+        shutters[2].enabled = true;
         SceneLoadSetting.isMissionStart = true;
     }
 

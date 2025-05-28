@@ -50622,6 +50622,7 @@ MonoBehaviour:
   shutters:
   - {fileID: 784819117}
   - {fileID: 347752566}
+  - {fileID: 984043952}
   error9: {fileID: 451513298}
   error9img: {fileID: 608641339}
   error9txt: {fileID: 1537321892}
@@ -55148,6 +55149,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 572674235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &984043952 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3962425395185544046, guid: fdcc490826a6ea64f84e235ffef80aa1, type: 3}
+  m_PrefabInstance: {fileID: 1893017506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991171205
 GameObject:
   m_ObjectHideFlags: 0

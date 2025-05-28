@@ -129,22 +129,22 @@ public class Stage2_Num1Scene : CutSceneBase
         //NPC IDLE 뒤집기
         dialogs[3].SetActive(true);
         //7~8
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //우
+        sr.flipX = false; //dㅜ
         yield return new WaitForSeconds(2.0f);
-        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //좌
+        sr.flipX = true; //좌
         yield return new WaitForSeconds(3.0f);
         dialogs[3].SetActive(false);
         dialogs[4].SetActive(true);
         //두리번두리번
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //우
+        sr.flipX = false; //dㅜ
         yield return new WaitForSeconds(1.0f);
-        npc.transform.rotation = Quaternion.Euler(0, 180, 0); //좌
+        sr.flipX = true; //좌
         yield return new WaitForSeconds(1.0f);
         dialogs[4].SetActive(false);
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0);
+        sr.flipX = false; //dㅜ
         // 9
         yield return new WaitForSeconds(1.0f);
-        npc.transform.rotation = Quaternion.Euler(0, 180, 0);
+        sr.flipX = true; //좌
         StartCoroutine(ErrorBlink());
         // 10
         yield return ShowDialog(5, 3.0f);
@@ -185,7 +185,7 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(1.5f);
         dialogs[15].SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        npc.transform.rotation = Quaternion.Euler(0, 0, 0); //우
+        sr.flipX = false; //dㅜ
         yield return new WaitForSeconds(1.0f);
         dialogs[14].SetActive(false);
         dialogs[15].SetActive(false);
