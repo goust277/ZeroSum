@@ -24,6 +24,7 @@ public class Stage2_Num2 : CutSceneBase
 
     private Transform npcTarget;
     private Animator npcAnimator;
+    private Coroutine enforceCoroutine;
 
     private new void Start()
     {
@@ -32,7 +33,6 @@ public class Stage2_Num2 : CutSceneBase
         npcTarget = npc.transform;
         //npc.GetComponent<NPCController>().enabled = false;
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,7 +45,23 @@ public class Stage2_Num2 : CutSceneBase
             shutters[2].enabled = false;
             npc.GetComponent<NPCController>().enabled = false;
             StartCutScene();
+
+            if (enforceCoroutine == null)
+            {
+                enforceCoroutine = StartCoroutine(EnforceInputManagerDisabled());
+            }
             StartCoroutine(Num2Scene());
+        }
+    }
+
+    private IEnumerator EnforceInputManagerDisabled()
+    {
+        while (true)
+        {
+            if (inputManager.activeSelf)
+                inputManager.SetActive(false);
+
+            yield return null;
         }
     }
 
@@ -57,9 +73,6 @@ public class Stage2_Num2 : CutSceneBase
         yield return new WaitForSeconds(1.0f);
         sr.flipX = false; //dㅜ
         npc.transform.position = new Vector3(npcmoves[0].position.x, npcmoves[0].position.y, npcmoves[0].position.z);
-
-        if (inputManager != null) //입력못받게하고
-            inputManager.SetActive(false);
 
         yield return MoveNpcTo(npcmoves[1], "Walk");
         yield return ShowDialog(0, 2.0f); //1
@@ -99,6 +112,12 @@ public class Stage2_Num2 : CutSceneBase
         yield return ShowDialog(4, 2.0f); //7
         yield return ShowDialog(5, 1.5f); //8
         yield return ShowDialog(6, 2.0f); //7
+
+        if (enforceCoroutine != null)
+        {
+            StopCoroutine(enforceCoroutine);
+            enforceCoroutine = null;
+        }
 
         CustomeEneScene();
     }
