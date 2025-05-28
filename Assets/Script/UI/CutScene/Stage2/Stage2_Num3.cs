@@ -1,3 +1,4 @@
+using Com.LuisPedroFonseca.ProCamera2D.TopDownShooter;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Stage2_Num3 : CutSceneBase
     [SerializeField] private GameObject npc;
     [SerializeField] private Transform[] movesTransform;
     [SerializeField] private MovingBlock[] evs;
+    [SerializeField] private MonsterDoor[] mDoors;
     [SerializeField] private SceneLoadSetting sceneLoadSetting;
     private bool isPlay = false;
     private Animator npcAnimator;
@@ -50,6 +52,8 @@ public class Stage2_Num3 : CutSceneBase
 
     private IEnumerator Num3Scene()
     {
+        mDoors[0].enabled = false;
+        mDoors[1].enabled = false;
         error9.SetActive(false);
 
         evs[1].enabled = true;
