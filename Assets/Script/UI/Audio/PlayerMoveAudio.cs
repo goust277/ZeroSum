@@ -23,10 +23,21 @@ public class PlayerMoveAudio : MonoBehaviour
         if (!isMoving)
         {
             isMoving = true;
-            walkAudioSource.loop = true;
+            walkAudioSource.volume = 1.0f;
             walkAudioSource.Play();
         }
     }
+
+    public void PlayDownMoveAudio()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            walkAudioSource.volume = 0.5f;
+            walkAudioSource.Play();
+        }
+    }
+
 
     public void StopMoveAudio()
     {

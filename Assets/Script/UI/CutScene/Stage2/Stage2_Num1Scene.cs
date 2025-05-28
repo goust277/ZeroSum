@@ -35,7 +35,6 @@ public class Stage2_Num1Scene : CutSceneBase
 
     private void Update()
     {
-
         if (isAnyBlockTriggered) return; // 이미 감지했으면 다시 확인하지 않음
 
         foreach (var block in evs)
@@ -68,7 +67,6 @@ public class Stage2_Num1Scene : CutSceneBase
 
     private void OnBlockTriggered()
     {
-        
         up.SetActive(true);
         down.SetActive(true);
         StartCoroutine(MoveUIVerticallyDown(up, 100.0f)); //위에서 내려오기
@@ -90,6 +88,7 @@ public class Stage2_Num1Scene : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 4.0f, 2.0f);
 
         yield return MovePlayerTo(move, 2.0f);
+        evs[0].enabled = false;
 
         yield return ShowDialog(0, 6.5f);
 
@@ -220,8 +219,8 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(6.0f);
         scout_die.SetActive(true);
         EndCutScene();
-        evs[0].enabled = true;
-        evs[1].enabled = true;
+
+        evs[1].enabled = false;
 
         error9.SetActive(false);
     }

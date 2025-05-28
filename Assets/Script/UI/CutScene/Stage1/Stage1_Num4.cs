@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -20,6 +21,7 @@ public class Stage1_Num4 : CutSceneBase
 
     [Header("Tutorial End")]
     [SerializeField] private GameObject cutSceneTrigger;
+    [SerializeField] private Rigidbody2D[] monster;
     private GameObject skipper;
 
     // Start is called before the first frame update
@@ -100,11 +102,19 @@ public class Stage1_Num4 : CutSceneBase
         realMissionDoorManager.enabled = true;
     }
 
+    public void MonsterEnable()
+    {
+        monster[0].constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+        monster[1].constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+    }
 
     private void OnTutorialEnd()
     {
         skipper.GetComponent<TutorialSkipper>().ConnectPause();
         skipper.SetActive(false);
+
+        ev.enabled = true;
+        MonsterEnable();
         EndCutScene();
         cutSceneTrigger.SetActive(false);
     }
