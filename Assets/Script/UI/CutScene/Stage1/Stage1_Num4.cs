@@ -114,8 +114,8 @@ public class Stage1_Num4 : CutSceneBase
         skipper.SetActive(false);
 
         ev.enabled = true;
-        MonsterEnable();
         EndCutScene();
+        MonsterEnable();
         cutSceneTrigger.SetActive(false);
     }
 }

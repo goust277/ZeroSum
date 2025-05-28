@@ -39,8 +39,8 @@ public class Stage2_Num2 : CutSceneBase
         if (!hasPlayed && collision.CompareTag("Player"))
         {
             trigger.enabled = false;
-            
-            //evs[1].enabled = false;
+
+            shutters[2].enabled = false;
             npc.GetComponent<NPCController>().enabled = false;
             StartCutScene();
             StartCoroutine(Num2Scene());
