@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public event Action OnTrueChanged;
     public event Action OnStand;
 
+    [Header("Hp")]
+    [SerializeField] private PlayerHP playerHP;
 
     [Header("Sprite")]
     //[SerializeField] private SpriteRenderer sprite;
@@ -53,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("parring")]
+    [SerializeField] private GameObject barUI;
+    [SerializeField] private Image gaugeBar;
     [SerializeField] private float dashPower = 3f;
     [SerializeField] private float dashDuration = 0.3f;
     [SerializeField] private float dashCoolTime = 1f;
@@ -61,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashcurrentCoolTime;
     private float dashTime;
     private bool canDash;
-    [SerializeField] private bool isDashing;
+    public bool isDashing;
 
     [Header("GroundCheck")]
     [SerializeField] private LayerMask groundLayer;
@@ -167,6 +172,23 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        gaugeBar.fillAmount = (dashcurrentCoolTime / dashCoolTime);
+
+        if(gaugeBar.fillAmount == 1)
+        {
+            if (barUI.active == true)
+            {
+                barUI.SetActive(false);
+            }
+        }
+
+        else if (gaugeBar.fillAmount != 1)
+        {
+            if (barUI.active == false)
+            {
+                barUI.SetActive(true);
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -283,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
     {
         input = context.ReadValue<Vector2>();
 
-        if (!isDashing && input.y == 0 && input.x != 0)
+        if (input.y == 0 && input.x != 0)
         {
             isMove = true;
             moveDirection = new Vector2(input.x, 0);
@@ -344,7 +366,7 @@ public class PlayerMovement : MonoBehaviour
         //}
 
 
-        if (context.started )
+        if (context.started)
         {
             isButtonReleased = true;
             isDownBtn = true;
@@ -390,6 +412,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         canDash = false;
         isJumping = false;
+        playerHP.isInvincibility = true;
 
         dashTime = 0f;
         dashcurrentCoolTime = 0f;
@@ -398,11 +421,32 @@ public class PlayerMovement : MonoBehaviour
     private void Dashing() // �뽬 ��
     {
         dashTime += Time.deltaTime;
-        if(moveLeft)
-            rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, rb.velocity.y);
-        else
-            rb.velocity = new Vector2(transform.localScale.x * dashPower, rb.velocity.y);
-        rb.gravityScale = 0f;
+
+
+        if (isRun)
+        {
+            if (moveLeft)
+                rb.velocity = new Vector2(transform.localScale.x * dashPower * 1.7f * -1 , rb.velocity.y * 0.8f);
+            else
+                rb.velocity = new Vector2(transform.localScale.x * dashPower * 1.7f, rb.velocity.y * 0.8f);
+        }
+        else if(isMove && !isRun)
+        {
+            if (moveLeft)
+                rb.velocity = new Vector2(transform.localScale.x * dashPower * 1.3f * -1, rb.velocity.y * 0.7f);
+            else
+                rb.velocity = new Vector2(transform.localScale.x * dashPower * 1.3f, rb.velocity.y * 0.7f);
+        }
+        else if(!isMove && !isRun)
+        {
+            if (moveLeft)
+                rb.velocity = new Vector2(transform.localScale.x * dashPower * -1, rb.velocity.y * 0.6f);
+            else
+                rb.velocity = new Vector2(transform.localScale.x * dashPower, rb.velocity.y * 0.6f);
+        }
+
+
+        //rb.gravityScale = 0f transform.localScale.x;
 
         if (dashTime >= dashDuration)
         {
@@ -413,7 +457,8 @@ public class PlayerMovement : MonoBehaviour
     private void EndDash() // �뽬 ��
     {
         isDashing = false;
-        rb.velocity = new Vector2(0, 0);
+        playerHP.isInvincibility = false;
+        rb.velocity = new Vector3(0, 0, 0);
         rb.gravityScale = gravityScale;
 
         if (!isGrounded)
