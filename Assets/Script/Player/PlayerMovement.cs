@@ -83,6 +83,10 @@ public class PlayerMovement : MonoBehaviour
     private PlayerGunAttack playerGun;
 
 
+    private bool isButtonReleased = false; // 버튼 릴리스 상태 추적
+    private bool wasAttacking = false; // 이전 프레임 공격 상태
+
+    private bool isDownBtn = false;
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -143,6 +147,27 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+
+        if (!isAttack() && isButtonReleased)
+        {
+            if (isDownBtn)
+            {
+                isDown = true;
+                isButtonReleased = false;
+            }
+            else
+            {
+                if (isDown)
+                {
+                    OnStand?.Invoke();
+                    isDown = false;
+                    isButtonReleased = false;
+                }
+
+            }
+
+        }
+
     }
     private void FixedUpdate()
     {
@@ -190,6 +215,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Jump()// ����
     {
+        if (isAttack())
+        {
+            return;
+        }
         if (isJumping && jumpTimeCounter > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, initialjumpForce);
@@ -301,16 +330,30 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDown(InputAction.CallbackContext context)
     {
-        if(context.started)
+        //if (isAttack())
+        //{
+        //    return;
+        //}
+        //if (context.started)
+        //{
+        //    isDown = true;
+        //}
+        //if (context.canceled && isDown)
+        //{
+        //    OnStand?.Invoke();
+        //    isDown = false;
+        //}
+
+
+        if (context.started )
         {
-            Debug.Log("Press");
-            isDown = true;
+            isButtonReleased = true;
+            isDownBtn = true;
         }
-        if (context.canceled)
+        if (context.canceled && isDownBtn)
         {
-            Debug.Log("Release");
-            OnStand?.Invoke();
-            isDown = false;
+            isButtonReleased = true;
+            isDownBtn = false;
         }
     }
 
