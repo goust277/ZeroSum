@@ -112,6 +112,8 @@ public class Stage1_Num4 : CutSceneBase
     {
         skipper.GetComponent<TutorialSkipper>().ConnectPause();
         skipper.SetActive(false);
+
+        ev.enabled = true;
         MonsterEnable();
         EndCutScene();
         cutSceneTrigger.SetActive(false);

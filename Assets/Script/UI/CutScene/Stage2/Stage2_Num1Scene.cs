@@ -88,6 +88,7 @@ public class Stage2_Num1Scene : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 4.0f, 2.0f);
 
         yield return MovePlayerTo(move, 2.0f);
+        evs[0].enabled = false;
 
         yield return ShowDialog(0, 6.5f);
 
@@ -218,8 +219,8 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(6.0f);
         scout_die.SetActive(true);
         EndCutScene();
-        evs[0].enabled = true;
-        evs[1].enabled = true;
+
+        evs[1].enabled = false;
 
         error9.SetActive(false);
     }
