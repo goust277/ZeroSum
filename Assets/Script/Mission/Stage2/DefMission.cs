@@ -15,7 +15,7 @@ public class DefMission : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
     private bool isExe = false;
-    private float curMissionTime = 0f;
+    public float curMissionTime = 0f;
 
     // Update is called once per frame
     void Update()

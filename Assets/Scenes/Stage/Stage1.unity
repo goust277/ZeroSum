@@ -49292,6 +49292,11 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 3962425395185544046, guid: fdcc490826a6ea64f84e235ffef80aa1, type: 3}
   m_PrefabInstance: {fileID: 1388917111}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &862693893 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6423379198297085334, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+  m_PrefabInstance: {fileID: 1202825060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &865718833
 GameObject:
   m_ObjectHideFlags: 0
@@ -59372,6 +59377,10 @@ PrefabInstance:
       propertyPath: swordAudioSource
       value: 
       objectReference: {fileID: 3848255547963399310}
+    - target: {fileID: 4624567407954587440, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: barUI
+      value: 
+      objectReference: {fileID: 862693893}
     - target: {fileID: 4624567407954587440, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: gaugeBar
       value: 
