@@ -34547,6 +34547,7 @@ MonoBehaviour:
   - {fileID: 95887167}
   - {fileID: 2091867133}
   - {fileID: 340226626}
+  isClearMonster: 0
   missionSetting: {fileID: 1521326680}
   missionTime: 30
   animator: {fileID: 173057626}
@@ -45963,7 +45964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2436043520896886881, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: m_IsActive
@@ -50764,7 +50765,6 @@ MonoBehaviour:
   up: {fileID: 2146914059}
   down: {fileID: 828706266}
   npc: {fileID: 638307745}
-  missionTimeDisplay: {fileID: 42220558}
   npcmoves:
   - {fileID: 1153542523}
   - {fileID: 204219635}
@@ -52018,7 +52018,7 @@ PrefabInstance:
     - target: {fileID: 6690711291014429443, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: monsterPrefabsTypeB.Array.data[0]
       value: 
-      objectReference: {fileID: 985720569397386406, guid: 708757521b50eb648a25fa3ea05137c6, type: 3}
+      objectReference: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
     - target: {fileID: 6690711291014429443, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: monsterPrefabsTypeB.Array.data[1]
       value: 
@@ -52033,7 +52033,7 @@ PrefabInstance:
       objectReference: {fileID: 5363431067533381369, guid: 6305c0542d610824c872ec6504e1e4c2, type: 3}
     - target: {fileID: 6826775473947614254, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.88
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: 6826775473947614254, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: m_LocalPosition.y
@@ -87457,7 +87457,7 @@ PrefabInstance:
     - target: {fileID: 6690711291014429443, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: monsterPrefabsTypeB.Array.data[0]
       value: 
-      objectReference: {fileID: 985720569397386406, guid: 708757521b50eb648a25fa3ea05137c6, type: 3}
+      objectReference: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
     - target: {fileID: 6690711291014429443, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: monsterPrefabsTypeB.Array.data[1]
       value: 
@@ -87468,7 +87468,7 @@ PrefabInstance:
       objectReference: {fileID: 5492328334340015334, guid: 8bef4bdf418d6374dba55a3f3b711b53, type: 3}
     - target: {fileID: 6826775473947614254, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.02
+      value: -6.14
       objectReference: {fileID: 0}
     - target: {fileID: 6826775473947614254, guid: d87534dfb225d004781f8ecdae3e6c14, type: 3}
       propertyPath: m_LocalPosition.y

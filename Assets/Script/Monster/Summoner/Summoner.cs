@@ -189,6 +189,13 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
+        if (atk == 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new Summoner_Die(stateMachine, this));
+        }
+
         //HP ¹Ù Ç¥±â
         if (hpBar != null)
         {
