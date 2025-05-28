@@ -55,6 +55,7 @@ public class Stage2_Num3 : CutSceneBase
         evs[1].enabled = true;
         StartCoroutine(MoveUIVerticallyDown(down,130.0f));
         StartCoroutine(MoveUIVerticallyUp(up, 100.0f));
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(MovePlayerTo(movesTransform[0], 5.0f));
         yield return new WaitForSeconds(1.0f);
 

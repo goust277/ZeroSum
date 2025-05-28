@@ -31,6 +31,8 @@ public class ExitScene : MonoBehaviour
     [SerializeField] private Image FadeOutObj;
     float fadeTime = 3;  //페이드아웃이 진행될 시간
     float currentTime = 0;
+    [SerializeField] private string nextScene = "Lobby";
+
 
     void Start()
     {
@@ -138,6 +140,6 @@ public class ExitScene : MonoBehaviour
             FadeOutObj.color = alpha;
             yield return null;
         }
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene(nextScene);
     }
 }

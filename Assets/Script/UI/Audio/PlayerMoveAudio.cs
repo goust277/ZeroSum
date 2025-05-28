@@ -38,6 +38,11 @@ public class PlayerMoveAudio : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        StopMoveAudio();
+    }
+
 
     public void StopMoveAudio()
     {
