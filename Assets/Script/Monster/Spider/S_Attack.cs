@@ -16,19 +16,16 @@ public class S_Attack : BaseState
     public override void Enter()
     {
         int dir = 0;
-        timer = 0;
         s.PlayAttackSound();
         s.attack.gameObject.SetActive(true);
         s.anim.SetBool("isAttack", true);
         if (s.transform.position.x >= s.player.position.x)
         {
-            s.sprite.flipX = true;
             dir = -1;
         }
 
         else if(s.transform.position.x < s.player.position.x)
         {
-            s.sprite.flipX = false;
             dir = 1;
         }
         s.rb.velocity = new Vector2(s.dashRange * dir, s.dashRange);
@@ -38,7 +35,7 @@ public class S_Attack : BaseState
     {
         timer += Time.deltaTime;
 
-        if(timer >= 0.5f)
+        if(timer >= 0.3f)
         {
             s.gameObject.SetActive(false);
         }

@@ -14,6 +14,10 @@ public class PlayerSwordAttack : PlayerAttackState
     public bool canCombo = true;
     [HideInInspector] public bool isAtk2;
 
+    [Header("Attack Time")]
+    [SerializeField] private float atkTime;
+
+    private float curAtkTime;
     public event Action OnSwordAttack;
     public event Action OnSwordSecAttack;
 
@@ -42,6 +46,25 @@ public class PlayerSwordAttack : PlayerAttackState
             {
                 delay = 0f;
             }
+        }
+
+        if (isAttack)
+        {
+            if (curAtkTime >= atkTime)
+            {
+                curAtkTime = 0f;
+                isAttack = false;
+            }
+            else
+            {
+                curAtkTime += Time.deltaTime;
+            }
+        }
+
+        else
+        {
+            if (curAtkTime != 0)
+                curAtkTime = 0f;
         }
     }
     public void OnAttack()

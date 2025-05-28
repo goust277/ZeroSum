@@ -36,8 +36,10 @@ public class Stage2_Num2 : CutSceneBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("InTrigger");
         if (!hasPlayed && collision.CompareTag("Player"))
         {
+            Debug.Log("InPlayer");
             trigger.enabled = false;
 
             shutters[2].enabled = false;
