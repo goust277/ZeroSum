@@ -37,12 +37,12 @@ public class GameStateManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject); // ���� �ٲ� ����
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
@@ -99,7 +99,7 @@ public class GameStateManager : MonoBehaviour
     public int GetCurrentSceneEnterCount()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-
+        Debug.Log("sceneEnterCount[" + currentSceneName + "] = " + sceneEnterCount[currentSceneName]);
         if (sceneEnterCount.ContainsKey(currentSceneName))
         {
             return sceneEnterCount[currentSceneName];
