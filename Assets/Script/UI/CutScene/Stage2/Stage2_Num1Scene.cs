@@ -31,8 +31,18 @@ public class Stage2_Num1Scene : CutSceneBase
         base.Start();
         npcAnimator = npc.GetComponent<Animator>();
         //npc.GetComponent<NPCController>().enabled = false;
-    }
 
+        if (GameStateManager.Instance.GetCurrentSceneEnterCount() > 1)
+        {
+            isAnyBlockTriggered = true;
+            hasPlayed = true;
+            npc.GetComponent<NPCController>().enabled = true;
+
+            SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = 4;
+        }
+    }
+ 
     private void Update()
     {
         if (isAnyBlockTriggered) return; // 이미 감지했으면 다시 확인하지 않음
