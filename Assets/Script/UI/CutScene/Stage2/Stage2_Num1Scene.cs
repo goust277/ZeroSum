@@ -38,6 +38,7 @@ public class Stage2_Num1Scene : CutSceneBase
             hasPlayed = true;
             npc.GetComponent<NPCController>().enabled = true;
 
+            MoveAndZoomTo(new Vector2(playerTarget.position.x, playerTarget.position.y), originOrthographic, 1.0f);
             SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
             sr.sortingOrder = 4;
         }
