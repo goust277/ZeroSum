@@ -19,8 +19,8 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private float curInvincibillityTime = 0f;
     public bool isInvincibility;
 
-    [Header("Hp")] 
-    public int hp = 5;
+    [Header("Hp")]
+    public int hp = 10;
 
     public bool isBlocked = false;
 
