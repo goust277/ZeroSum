@@ -146,6 +146,13 @@ public class Melee1 : BaseAudioMonster, IDetectable, IDamageAble
                 stateMachine.ChangeState(new M1_Hit(stateMachine, this));
             }
         }
+
+        if (atk == 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new M1_Die(stateMachine, this));
+        }
     }
 
     // 목표 반대로 변경

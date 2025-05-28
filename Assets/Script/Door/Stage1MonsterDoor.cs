@@ -135,6 +135,10 @@ public class Stage1MonsterDoor : MonoBehaviour
         if (meleeComponent != null)
             meleeComponent.player = player;
 
+        Melee1 melee1Component = monster.GetComponent<Melee1>();
+        if (melee1Component != null)
+            melee1Component.player = player;
+
         Scout scoutComponent = monster.GetComponent<Scout>();
         if (scoutComponent != null)
             scoutComponent.player = player;
