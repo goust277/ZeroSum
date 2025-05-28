@@ -27,15 +27,15 @@ public class M1_Chase : BaseState
 
     public override void Execute()
     {
-        //if (m1.turn)
-        //{
-        //    stateMachine.ChangeState(new M1_Idle(stateMachine, m1));
-        //    m1.turn = false;
-        //    m1.wait_T = 1f;
-        //    m1.canAttack = true;
-        //    m1.attackCooldown = 1.5f;
-        //    return;
-        //}
+        if (m1.turn)
+        {
+            stateMachine.ChangeState(new M1_Idle(stateMachine, m1));
+            m1.turn = false;
+            m1.wait_T = 1f;
+            m1.canAttack = true;
+            m1.attackCooldown = 1.5f;
+            return;
+        }
 
         timer -= Time.deltaTime;
         
@@ -52,6 +52,12 @@ public class M1_Chase : BaseState
         if (m1.transform.position.x > m1.player.position.x)
         {
             m1.sprite.flipX = true;
+        }
+
+        if (Mathf.Abs(m1.player.transform.position.y - m1.transform.position.y) >= 2f)
+        {
+            stateMachine.ChangeState(new M1_Patrol(stateMachine, m1));
+            return;
         }
 
         if (m1.attackRange > Mathf.Abs(m1.player.position.x - m1.transform.position.x))
