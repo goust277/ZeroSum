@@ -178,7 +178,12 @@ public class Tanker : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
-
+        if (atk == 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new T_Die(stateMachine, this));
+        }
         //HP ¹Ù Ç¥±â
         //if (hpBar != null)
         //{

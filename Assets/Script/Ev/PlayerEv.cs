@@ -17,7 +17,6 @@ public class PlayerEv : MonoBehaviour
     void Start()
     {
         targetPostion = transform.position;
-        inputManager = GameObject.Find("InputManager");
         isMoving = false;
         isTop = false;
     }
@@ -25,7 +24,10 @@ public class PlayerEv : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if(inputManager == null)
+        {
+            inputManager = GameObject.Find("InputManager");
+        }    
     }
 
     private void FixedUpdate()
@@ -69,16 +71,18 @@ public class PlayerEv : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player") && collision.gameObject.GetComponent<PlayerHit>())
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-
+            if(collision.CompareTag("Player") && collision.gameObject.GetComponent<PlayerHit>())
+            {
+            //isMoving = true;
+            //inputManager.SetActive(false);
+            //Debug.Log("움직임 비활성화");
             if (gameObject.CompareTag("MovingBlock"))
             {
                 isMoving = true;
                 inputManager.SetActive(false);
             }
         }
-    }
+        }
 }
