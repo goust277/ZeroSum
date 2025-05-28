@@ -75,8 +75,6 @@ public class PlayerHP : MonoBehaviour
 
     private void Update()
     {
-
-
         if (OnDeath)
         {
             curMoveTime += Time.deltaTime;
@@ -141,14 +139,14 @@ public class PlayerHP : MonoBehaviour
                     flash.TriggerFlash(invincibilityTime);
                     Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
                     Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
-
                 }
             }
 
-            playerAnimation.Hit();
-
+            if(!isPainKillerRunning)
+            {
+                playerAnimation.Hit();
+            }
         }
-
        
     }
 

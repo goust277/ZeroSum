@@ -157,6 +157,7 @@ public class TutorialSkipper : MonoBehaviour
         float startZoom = Camera.main.orthographicSize;
 
         stage1_Num4.SwapMissionUI();
+        stage1_Num4.MonsterEnable();
         stage1_Num4.ev.enabled = true;
         playerTarget.GetComponent<PlayerAnimation>().enabled = true;
         TutorialObj.SetActive(false);

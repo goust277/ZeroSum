@@ -35,7 +35,6 @@ public class Stage2_Num1Scene : CutSceneBase
 
     private void Update()
     {
-
         if (isAnyBlockTriggered) return; // 이미 감지했으면 다시 확인하지 않음
 
         foreach (var block in evs)
@@ -68,7 +67,6 @@ public class Stage2_Num1Scene : CutSceneBase
 
     private void OnBlockTriggered()
     {
-        
         up.SetActive(true);
         down.SetActive(true);
         StartCoroutine(MoveUIVerticallyDown(up, 100.0f)); //위에서 내려오기

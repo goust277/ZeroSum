@@ -29,6 +29,7 @@ public class GameStartController : BaseUi
     protected override void Start()
     {
         base.Start();
+        Screen.SetResolution(1920, 1080, true);
         settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
 
         //Panel.gameObject.SetActive(false);
