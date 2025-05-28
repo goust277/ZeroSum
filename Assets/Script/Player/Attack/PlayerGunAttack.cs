@@ -31,6 +31,10 @@ public class PlayerGunAttack : PlayerAttackState
     [Header("ÃÑ¾Ë ºÎ¸ð")]
     [SerializeField] private Transform bulletParent;
 
+    [Header("Attack Time")]
+    [SerializeField] private float atkTime;
+    private float curAtkTime;
+
     private GameObject childBullet;
 
     private bool isAtkReady;
@@ -64,6 +68,25 @@ public class PlayerGunAttack : PlayerAttackState
             {
                 delay = 0f;
             }
+        }
+
+        if(isAttack)
+        {
+            if(curAtkTime >= atkTime)
+            {
+                curAtkTime = 0f;
+                isAttack = false;
+            }
+            else
+            {
+                curAtkTime += Time.deltaTime;
+            }
+        }
+
+        else
+        {
+            if (curAtkTime != 0)
+                curAtkTime = 0f;
         }
     }
 
@@ -125,6 +148,11 @@ public class PlayerGunAttack : PlayerAttackState
         }
     }
 
+    private void OnDisable()
+    {
+        if (isAttack)
+            isAttack = false;
+    }
     private GameObject GetBulletFromPool()
     {
         foreach (GameObject bullet in bulletPool)
