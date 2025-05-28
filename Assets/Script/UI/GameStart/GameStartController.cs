@@ -90,7 +90,7 @@ public class GameStartController : BaseUi
             Panel.color = alpha;
             yield return null;
         }
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Intro");
     }
 
     private IEnumerator LoadSceneCoroutine(string sceneName)

@@ -2,112 +2,143 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class IntroController : MonoBehaviour
 {
-    [Header("Resources Audio")]
-    [SerializeField] private AudioClip radioOn;
-    [SerializeField] private AudioClip radioOff;
 
     [Header("Resources Img")]
-    [SerializeField] private Transform[] movingSections;
-    [SerializeField] private float duration;
-    [SerializeField] private Image cityImg;
+    [SerializeField] private Sprite[] introImgs;
+    [SerializeField] private Image targetImage;
+    [SerializeField] private Image Panel;
+    private readonly float fadeoutTime = 2.0f;
+    float currentTime = 0.0f;
 
     [Header("Resources Text")]
     [SerializeField] protected TextMeshProUGUI nameTXT;
     [SerializeField] protected TextMeshProUGUI desTXT;
+    [SerializeField] protected TextMeshProUGUI nextText;
 
-    private readonly string[] npcNames = { "MC의 목소리", "전문가로 들리는 목소리" };
-    private readonly int[] num = { 0, 1, 1, 0, 1, 0 };
+    private readonly string[] npcNames = { "사회자로 보이는 로봇", "전문가로 보이는 로봇","" };
+    private readonly int[] num = { 0, 1, 1, 0, 1, 0,2,2 };
     private readonly string[] logs =
     {
-        "서기 2214년이었나요? 세계수님의 예언이 내려오기 시작한지요.",
-        "네, 그 예언을 계기로 저희는 살아남을 길을 찾아내기 시작했죠.",
-        "세계수님이 건재하는 한, 저희 도시는 영원합니다.",
-        "mc의 목소리 - 세계수님에게 문제가 생기면 어떡하죠?",
-        "하하, 걱정하지 않아도 괜찮습니다. 그 문제를 위해 저희 피안이 있는거니까요.",
-        "mc의 목소리 - 든든합니다! 그럼 지금까지, 피안사의 창립 30주년을 기념으로-"
+        "서기 2214년이었나요? \n 세계수님의 예언이 내려오기 시작한지요.",
+        "네, 그 예언을 계기로 \n 저희는 살아남을 길을 찾아내기 시작했습니다.",
+        "영화수님이 계시는 한, \n 도시는 건재합니다.",
+        "영화수님에게 문제가생기면 어떡하죠?",
+        "걱정하지 않아도 괜찮습니다. \n 모든 만일을 위해 저희 피안이 있는거니까요.",
+        "든든합니다! \n 그럼 지금까지, 피안사의 창립 30주년을 기념으로…",
+        "",
+        "...아버지"
     };
 
-    private Coroutine currentCoroutine;
+    private string line = "";
 
     // Start is called before the first frame update
     void Start()
     {
-        currentCoroutine = StartCoroutine(MoveImageCoroutine());
+        StartCoroutine(IntroCoroutine());
     }
 
-    private IEnumerator MoveImageCoroutine()
+    public void ChangeImagesToIndex(int index)
     {
-        float elapsedTime = 0f;
-        Vector3 startPos = movingSections[0].position;
-        Vector3 endPos = movingSections[1].position;
-
-        while (elapsedTime < duration)
+        if (index < 0 || index >= introImgs.Length)
         {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
-            cityImg.gameObject.GetComponent<RectTransform>().position = Vector3.Lerp(startPos, endPos, t);
-            yield return null;
+            Debug.LogWarning("인덱스 범위 초과");
+            return;
         }
 
-        cityImg.gameObject.GetComponent<RectTransform>().position = endPos; // 최종 위치 보정
-
+        targetImage.sprite = introImgs[index];
     }
+
     private IEnumerator TypeWriterLine(string line)
     {
         desTXT.text = "";  // 매번 출력 전에 텍스트 초기화
         for (int index = 0; index < line.Length; index++)
         {
             desTXT.text += line[index].ToString();
-            yield return new WaitForSeconds(0.05f); // 글자 한 글자씩 출력
+            yield return new WaitForSeconds(0.02f); // 글자 한 글자씩 출력
         }
     }
 
-    //IEnumerator TypeWriter()
-    //{
-    //    int i = 0;
-    //    bool setNextDialog = false;
+    IEnumerator IntroCoroutine()
+    {
+        ChangeImagesToIndex(0);
+        nextText.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;  // 매 프레임 기다리며 체크
+        }
+        nextText.enabled = false;
 
-    //    for(i =0; i< logs.Length; i++)
-    //    {
-    //        nameTXT.text = npcNames[num[i]];
+        ChangeImagesToIndex(1);
 
-    //        desTXT.text = "";
-    //        bool isSkipLine = false;
-    //        dialogCoroutine = StartCoroutine(TypeWriterLine(line));// 대사 출력 코루틴
+        nextText.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;  // 매 프레임 기다리며 체크
+        }
+        nextText.enabled = false;
 
-    //        //중간에 대사 스킵되도록 처리
-    //        while (!isSkipLine)
-    //        {
-    //            if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return))
-    //            {
-    //                isSkipLine = true;
-    //                StopCoroutine(dialogCoroutine); // 중지
-    //                desTXT.text = line; // 스킵 눌렀을 때 줄 전체 출력
-    //            }
-    //            yield return null; // 기다림
-    //        }
+        ChangeImagesToIndex(2);
+        yield return TypeWriter(0);
+        yield return TypeWriter(1);
 
-    //        // 대사 출력 후, 다음 대사로 넘어가기 위한 입력 대기
-    //        while (!setNextDialog)
-    //        {
-    //            if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return))
-    //            {
-    //                setNextDialog = true;
-    //            }
-    //            yield return null;
-    //        }
-    //        setNextDialog = false; // 한 번만 작동하도록 초기화
+        ChangeImagesToIndex(3);
+        yield return TypeWriter(2);
 
-    //        dialogCoroutine = null;
+        ChangeImagesToIndex(4);
+        yield return TypeWriter(3);
+        yield return TypeWriter(4);
 
-    //        i++;
-    //    }
+        ChangeImagesToIndex(5);
+        yield return TypeWriter(5);
 
-    //    EndConversation();
-    //}
+        ChangeImagesToIndex(6);
+        yield return TypeWriter(6);
 
+        ChangeImagesToIndex(7);
+        nextText.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;  // 매 프레임 기다리며 체크
+        }
+        nextText.enabled = false;
+        yield return TypeWriter(7);
+
+        StartCoroutine(fadeOut());
+    }
+
+    IEnumerator TypeWriter(int index)
+    {
+        nameTXT.text = npcNames[num[index]];
+        line = logs[index];
+
+        desTXT.text = "";
+        yield return StartCoroutine(TypeWriterLine(line));// 대사 출력 코루틴
+
+        nextText.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;  // 매 프레임 기다리며 체크
+        }
+        nextText.enabled = false;
+    }
+
+    private IEnumerator fadeOut()
+    {
+        Panel.gameObject.SetActive(true);
+        Color alpha = Panel.color;
+        while (alpha.a < 1)
+        {
+            currentTime += Time.deltaTime / fadeoutTime;
+            alpha.a = Mathf.Lerp(0, 1, currentTime);
+            Panel.color = alpha;
+            yield return null;
+        }
+        SceneManager.LoadScene("Lobby");
+    }
 }
