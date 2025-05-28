@@ -22,7 +22,6 @@ public class S_Patrol : BaseState
 
     public override void Execute()
     {
-
         if (s.isPlayerInRange)
         {
             stateMachine.ChangeState(new S_Chase(stateMachine, s));

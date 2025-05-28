@@ -19,12 +19,12 @@ public class S_Chase : BaseState
 
     public override void Execute()
     {
-        if (s.transform.position.x < s.currentTarget.x)
+        if (s.transform.position.x < s.player.position.x)
         {
             s.sprite.flipX = true;
         }
 
-        if (s.transform.position.x > s.currentTarget.x)
+        if (s.transform.position.x > s.player.position.x)
         {
             s.sprite.flipX = false;
         }
