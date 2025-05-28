@@ -24,6 +24,7 @@ public class Stage2_Num2 : CutSceneBase
 
     private Transform npcTarget;
     private Animator npcAnimator;
+    private Coroutine enforceCoroutine;
 
     private new void Start()
     {
@@ -32,7 +33,6 @@ public class Stage2_Num2 : CutSceneBase
         npcTarget = npc.transform;
         //npc.GetComponent<NPCController>().enabled = false;
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,16 +45,35 @@ public class Stage2_Num2 : CutSceneBase
             shutters[2].enabled = false;
             npc.GetComponent<NPCController>().enabled = false;
             StartCutScene();
+
+            if (enforceCoroutine == null)
+            {
+                enforceCoroutine = StartCoroutine(EnforceInputManagerDisabled());
+            }
             StartCoroutine(Num2Scene());
+        }
+    }
+
+    private IEnumerator EnforceInputManagerDisabled()
+    {
+        while (true)
+        {
+            if (inputManager.activeSelf)
+                inputManager.SetActive(false);
+
+            yield return null;
         }
     }
 
     private IEnumerator Num2Scene()
     {
+        SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
+
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 5.5f, 2.0f);
         yield return new WaitForSeconds(1.0f);
-
+        sr.flipX = false; //d¤Ì
         npc.transform.position = new Vector3(npcmoves[0].position.x, npcmoves[0].position.y, npcmoves[0].position.z);
+
         yield return MoveNpcTo(npcmoves[1], "Walk");
         yield return ShowDialog(0, 2.0f); //1
         StartCoroutine(MoveNpcTo(npcmoves[2], "Run"));
@@ -94,6 +113,12 @@ public class Stage2_Num2 : CutSceneBase
         yield return ShowDialog(5, 1.5f); //8
         yield return ShowDialog(6, 2.0f); //7
 
+        if (enforceCoroutine != null)
+        {
+            StopCoroutine(enforceCoroutine);
+            enforceCoroutine = null;
+        }
+
         CustomeEneScene();
     }
 
@@ -111,6 +136,7 @@ public class Stage2_Num2 : CutSceneBase
 
         shutters[1].enabled = false;
         shutters[0].enabled = false;
+        shutters[2].enabled = true;
         SceneLoadSetting.isMissionStart = true;
     }
 
