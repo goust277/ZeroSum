@@ -147,7 +147,7 @@ public class Melee1 : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
-        if (atk == 100)
+        if (atk >= 50)
         {
             health = 0;
             isDie = true;
