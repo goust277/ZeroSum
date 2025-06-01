@@ -52,7 +52,6 @@ public class Stage2_Num1Scene : CutSceneBase
         {
             if (block != null && block.inPlayer)
             {
-                Debug.Log("💡 플레이어가 블록에 닿음!");
                 isAnyBlockTriggered = true;
 
                 OnBlockTriggered(); // 원하는 동작 호출
@@ -96,6 +95,8 @@ public class Stage2_Num1Scene : CutSceneBase
     }
 
     private IEnumerator From1To3(){
+        SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
+
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 4.0f, 2.0f);
 
         yield return MovePlayerTo(move, 2.0f);
@@ -121,7 +122,6 @@ public class Stage2_Num1Scene : CutSceneBase
             yield return new WaitForSeconds(0.2f);
         }
 
-        SpriteRenderer sr = npc.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 4;
         npc.transform.position = npcmove;
         yield return new WaitForSeconds(1.0f);

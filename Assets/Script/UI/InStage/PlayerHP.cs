@@ -40,8 +40,8 @@ public class PlayerHP : MonoBehaviour
     private bool OnDeath;
     private Vector3 deathDir;
 
-    private bool isPainKillerRunning = false;
-    private Coroutine painKillerCoroutine = null;
+    private bool isPainKillerActive = false;
+    private float painKillerTimer = 0f;
 
     void Start()
     {
@@ -96,6 +96,20 @@ public class PlayerHP : MonoBehaviour
         {
             isInvincibility = false;
         }
+
+        if (isPainKillerActive)
+        {
+            painKillerTimer -= Time.deltaTime;
+
+            timeText.text = Mathf.CeilToInt(painKillerTimer).ToString();
+
+            if (painKillerTimer <= 0f)
+            {
+                isPainKillerActive = false;
+                isBlocked = false;
+                painKiller.SetActive(false);
+            }
+        }
     }
     public void InstantDeath()
     {
@@ -142,12 +156,11 @@ public class PlayerHP : MonoBehaviour
                 }
             }
 
-            if(!isPainKillerRunning)
+            if(!isPainKillerActive)
             {
                 playerAnimation.Hit();
             }
         }
-       
     }
 
     public void GetHPItem()
@@ -165,36 +178,12 @@ public class PlayerHP : MonoBehaviour
 
     public void GetPainKiller(float blockDuration)
     {
-        if (isPainKillerRunning)
-        {
-            StopCoroutine(painKillerCoroutine);
-        }
-
         Debug.Log("GetPainKiller 호출");
-
-        // 항상 새로 시작함
-        painKillerCoroutine = StartCoroutine(BlockFunctionTemporarily(blockDuration));
-    }
-
-    private IEnumerator BlockFunctionTemporarily(float duration)
-    {
-        isPainKillerRunning = true;
-
-        float time = duration;
 
         painKiller.SetActive(true);
         isBlocked = true;
-
-        while (time > 0.1f)
-        {
-            timeText.text = time.ToString("F0");  // 소수점 제거
-            time -= 1.0f;
-            yield return new WaitForSeconds(1.0f);
-        }
-
-        isBlocked = false;
-        painKiller.SetActive(false);
-        isPainKillerRunning = false;
+        isPainKillerActive = true;
+        painKillerTimer = blockDuration;
     }
 
     private void HandleDeath(int reinforcement)
