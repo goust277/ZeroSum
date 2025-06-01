@@ -20,7 +20,7 @@ public class ElvButtonGuide : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            guideUIObject.text = "엘리베이터 호출 ";
+            guideUIObject.text = "엘리베이터 호출\n ";
             guideUIObject.text += "[" + interactAction.bindings[0].ToDisplayString() + "]";
 
             guideUIObject.enabled = true;
