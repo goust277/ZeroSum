@@ -18,7 +18,6 @@ public class GameOver : MonoBehaviour
     [SerializeField] private Canvas gameOverCanvas;
 
     [Header("GameOverUI Resource")]
-    [SerializeField] GameObject gameOverUI;
     [SerializeField] RectTransform up;
     [SerializeField] RectTransform down;
     //[SerializeField] private float blackBarTargetY = 130f; // 이동할 거리
@@ -26,7 +25,6 @@ public class GameOver : MonoBehaviour
 
     private Transform player;
     private GameObject camObj;
-    private GameObject playerInput;
     private Camera cam;
     private ProCamera2D proCamera2D;
     Vector2 upStartPos;
@@ -37,14 +35,6 @@ public class GameOver : MonoBehaviour
     {
         upStartPos = up.anchoredPosition;
         downStartPos = down.anchoredPosition;
-
-        playerInput = GameObject.Find("InputManager");
-        if (playerInput == null)
-        {
-            Debug.LogError("playerInput - playerInput 못찾음 ");
-            return;
-        }
-        playerInput.SetActive(false);
 
 
         camObj = GameObject.FindWithTag("MainCamera");
@@ -118,7 +108,8 @@ public class GameOver : MonoBehaviour
             redImg.color = new Color(color.r, color.g, color.b, redAlpha);
             yield return null;
         }
-        gameOverUI.SetActive(true);
+
+        GameStateManager.Instance.StartMoveUIUp();
         Time.timeScale = 0.0f;
 
     }
@@ -128,8 +119,8 @@ public class GameOver : MonoBehaviour
         SpriteRenderer playerSr = player.GetComponentInChildren<SpriteRenderer>();
         if (playerSr == null || playerSr.sprite == null) return;
 
-        GameObject deadObj = Instantiate(deadBodyPrefab);
-        SpriteRenderer sr = deadObj.GetComponent<SpriteRenderer>();
+        //GameObject deadObj = Instantiate(deadBodyPrefab);
+        SpriteRenderer sr = deadBodyPrefab.GetComponent<SpriteRenderer>();
 
         sr.sprite = playerSr.sprite;
         sr.flipX = playerSr.flipX;
@@ -138,7 +129,7 @@ public class GameOver : MonoBehaviour
         sr.transform.rotation = player.transform.rotation;
 
         sr.sortingLayerName = "UI";
-        sr.sortingOrder = 20;
+        sr.sortingOrder = 35;
 
         // 처음엔 투명하게
         sr.color = new Color(1f, 1f, 1f, 0f);

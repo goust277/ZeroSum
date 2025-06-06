@@ -14,12 +14,20 @@ public class ElvButtonGuide : MonoBehaviour
     {
         playerInput = GameObject.Find("InputManager");
 
-        interactAction = playerInput.GetComponent<PlayerInput>().actions["F"];
+        if(playerInput != null)
+        {
+            interactAction = playerInput.GetComponent<PlayerInput>().actions["F"];
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            if(interactAction == null)
+            {
+                interactAction = playerInput.GetComponent<PlayerInput>().actions["F"];
+            }
+
             guideUIObject.text = "엘리베이터 호출\n ";
             guideUIObject.text += "[" + interactAction.bindings[0].ToDisplayString() + "]";
 

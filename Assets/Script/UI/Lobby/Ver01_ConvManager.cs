@@ -41,6 +41,7 @@ public class Ver01_ConvManager : MonoBehaviour
     [Header("Resource After Conversation")]
     [SerializeField] private Transform[] movingSections = new Transform[4];
     [SerializeField] private GameObject[] mapImages = new GameObject[2];
+    [SerializeField] private GameObject[] missionImages = new GameObject[2];
     [SerializeField] protected TextMeshProUGUI missionTXT;
     [SerializeField] private Image pressE;
     [SerializeField] private float duration = 1.0f; // 이동 시간
@@ -139,6 +140,7 @@ public class Ver01_ConvManager : MonoBehaviour
 
         currentStage = GameStateManager.Instance.GetCurrentSceneID();
         mapImages[currentStage].SetActive(true);
+        missionImages[currentStage].SetActive(true);
 
         pressE.gameObject.SetActive(false);
     }

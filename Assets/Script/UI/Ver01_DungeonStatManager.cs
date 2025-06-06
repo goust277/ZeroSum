@@ -37,7 +37,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
-    public const int maxHP = 10;
+    public int maxHP = 10;
     [SerializeField] private int currentHP = 10;
 
     //[SerializeField] private int damage = 5;
@@ -78,6 +78,11 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         return currentHP;
     }
 
+    public void SetMaxHp(int hp)
+    {
+        maxHP = hp;
+    }
+
 
     public GameObject GetPainKiller()
     {
@@ -99,10 +104,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     {
         //isRestarted = true;
         hudUI.SetActive(true);
-        GameStateManager.Instance.resetReinforcement();
-        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
-        UpdateHUD();
-        UpdateHPUI(10);
+        currentHP = 5;
+        UpdateHPUI(currentHP);
     }
 
     public int TakeReloadItem()

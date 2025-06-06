@@ -575,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6000813521739282889, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21224,6 +21224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21606,9 +21610,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
-      propertyPath: currentHP
-      value: 10
+      propertyPath: maxHP
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: currentHP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: gameOverPrefab
+      value: 
+      objectReference: {fileID: 1363974946156653465, guid: 092344b80cd35f94ba4a0b9ca5cf3577, type: 3}
     - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: m_Name
       value: Ver01_UI
@@ -59686,6 +59698,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3848255547963399308}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: hp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 1894624007}
@@ -63249,7 +63265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6000813521739282889, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63602,6 +63618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -63796,6 +63816,10 @@ PrefabInstance:
     - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
       propertyPath: m_Name
       value: Melee1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -69495,6 +69519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -73823,7 +73851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6000813521739282889, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74097,7 +74125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6000813521739282889, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -78823,6 +78851,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -80939,6 +80971,10 @@ PrefabInstance:
     - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
       propertyPath: m_Name
       value: Melee1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199563611298543260, guid: a13680e34faf04a49bf7d13ade397444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
