@@ -88,14 +88,11 @@ public class DefMission : MonoBehaviour
         // 4. 데미지 처리 (예외 처리 포함)
         foreach (GameObject monster in monsters.ToArray()) // 배열로 변환
         {
-            try
+            IDamageAble damageable = monster.GetComponent<IDamageAble>();
+
+            if (damageable != null)
             {
-                var damageable = monster?.GetComponent<IDamageAble>();
-                damageable?.Damage(100);
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"데미지 처리 오류: {e.Message}");
+                damageable.Damage(100);
             }
         }
 

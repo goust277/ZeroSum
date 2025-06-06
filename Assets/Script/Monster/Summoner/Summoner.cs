@@ -169,7 +169,7 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (!invincibility)
+        if (!invincibility && atk < 50)
         {
             if (isDie)
             {
