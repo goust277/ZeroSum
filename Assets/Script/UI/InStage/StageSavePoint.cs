@@ -12,7 +12,7 @@ public class StageSavePoint : MonoBehaviour
     {
         if (other.collider.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
         {
-            GameStateManager.Instance.SetStagePoint(stagePointID);
+            //GameStateManager.Instance.SetStagePoint(stagePointID);
             isCollision = true;
             Destroy(gameObject, 0.5f); // 1초 후 삭제
         

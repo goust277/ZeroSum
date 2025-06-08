@@ -12,13 +12,15 @@ public class GameStartController : BaseUi
 
     [Header("오디오")]
     [SerializeField] private AudioSource audioSource;
-
     [SerializeField] private Image Panel;
     float currentTime = 0.0f;  //���� �ð�
     private readonly float fadeoutTime = 2.0f;  //���̵�ƿ��� ����� �ð�
     //private bool isSettingOpen = false;
     private SettingsManager settingsManager;
     private readonly string savePath1 = Application.dataPath + "/Resources/Json/Ver00/SaveFile/User01.json";
+    [Header("난이도")]
+    [SerializeField] private GameObject difficultyObj;
+
 
     protected override void Awake()
     {
@@ -31,7 +33,7 @@ public class GameStartController : BaseUi
         base.Start();
         Screen.SetResolution(1920, 1080, true);
         settingsManager ??= FindObjectsOfType<SettingsManager>(true).FirstOrDefault();
-
+        difficultyObj.SetActive(false);
         //Panel.gameObject.SetActive(false);
     }
 
@@ -41,8 +43,8 @@ public class GameStartController : BaseUi
         switch (btnName)
         {
             case "NewStart":
-                Debug.Log("NewStart");
-                NewStart();
+                ClickSount();
+                difficultyObj.SetActive(true);
                 break;
             case "Continue":
                 Debug.Log("Continue");
@@ -56,6 +58,15 @@ public class GameStartController : BaseUi
                 Debug.Log("Exit");
                 GameQuit();
                 break;
+            case "EASYStart":
+                GameStateManager.Instance.SetEasy(true);
+                NewStart();
+                break;
+            case "NORMALStart":
+                GameStateManager.Instance.SetEasy(false);
+                NewStart();
+                break;
+
         }
     }
 

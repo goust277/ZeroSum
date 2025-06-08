@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Com.LuisPedroFonseca.ProCamera2D;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EasyContinue : MonoBehaviour
 {
+    [SerializeField] private ProCamera2D proCamera2D;
     [SerializeField] private float blockingDuration = 5.0f;
     public Image fadeCanvas;
     public float fadeDuration = 1f;
@@ -18,6 +20,16 @@ public class EasyContinue : MonoBehaviour
     {
         playerObj = GameObject.Find("Player");
         animator = GameObject.Find("Sprite").GetComponent<Animator>();
+
+        if (proCamera2D == null)
+        {
+            proCamera2D = Camera.main.GetComponent<ProCamera2D>();
+            if (proCamera2D == null)
+            {
+                Debug.LogWarning("Main Camera에 ProCamera2D가 없습니다!");
+            }
+        }
+
     }
 
     public void OnClickContinue()
@@ -56,8 +68,13 @@ public class EasyContinue : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.5f);
+
+        float startZoom = Camera.main.orthographicSize;
+        proCamera2D.Zoom(6.7f - startZoom, 1.0f);
+
+        yield return new WaitForSeconds(1.0f);
         animator.SetBool("Dead", false);
+        animator.Play("Idle");
 
         while (timer < fadeDuration)
         {

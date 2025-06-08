@@ -355,6 +355,12 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         float elapsedTime = 0f;
         float fadeoutTime = 1.0f;
+        
+        //난이도가 쉬움이면
+        if (GameStateManager.Instance.GetEasy())
+        {
+            nextScene = requiredSecneData.afterConditions.nextScene + "Easy";
+        }
 
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
@@ -368,7 +374,7 @@ public class Ver01_ConvManager : MonoBehaviour
         StopAllCoroutines();  // 모든 코루틴 정리
         GameStateManager.Instance.SetCurrenSceneID(currentStage + 1);
 
-        SceneManager.LoadScene(requiredSecneData.afterConditions.nextScene);
+        SceneManager.LoadScene(nextScene);
     }
 
     //씬넘김

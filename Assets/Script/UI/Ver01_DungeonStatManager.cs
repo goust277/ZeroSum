@@ -30,7 +30,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
     [Header("Game Over")]
-    [SerializeField] private GameObject gameOverPrefab;
+    [SerializeField] private GameObject[] gameOverPrefab = new GameObject[2];
     [SerializeField] private GameObject hudUI;
 
     //private bool isRestarted = false;
@@ -182,6 +182,14 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
 
         hudUI.SetActive(false);
-        Instantiate(gameOverPrefab);
+
+        if (GameStateManager.Instance.GetEasy()) //쉬움이면
+        {
+            Instantiate(gameOverPrefab[1]);
+        }
+        else
+        {
+            Instantiate(gameOverPrefab[0]);
+        }
     }
 }
