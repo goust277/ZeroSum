@@ -59,6 +59,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"새로운 씬 : {scene.name}");
+        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         ReadyHPHud();
         ResetDungeonState();
         //isRestarted = false;
