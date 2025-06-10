@@ -227,6 +227,8 @@ public class PlayerHP : MonoBehaviour
         isPainKillerActive = true;
         isBlocked = true;
         painKillerTimer = blockDuration;
+        flash.TriggerFlash(blockDuration);
+
         hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
     } 
 }
