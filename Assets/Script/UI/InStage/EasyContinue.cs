@@ -1,7 +1,5 @@
 ﻿using Com.LuisPedroFonseca.ProCamera2D;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UnityLinker;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,21 +9,19 @@ public class EasyContinue : MonoBehaviour
     [SerializeField] private float blockingDuration = 5.0f;
 
     [Header("Camera Resource")]
-    [SerializeField] private readonly float targetSize = 4.5f;
-    [SerializeField] private readonly float duration = 1.0f;
+    [SerializeField] private readonly float zoomSize = 2.0f;
+    [SerializeField] private readonly float duration = 2.0f;
 
     [Header("BackGround Resource")]
     [SerializeField] Image redImg;
     [SerializeField] Image blackImg;
 
     private GameObject playerObj;
-    private Animator animator;
     private Camera cam;
 
     private void Start()
     {
         playerObj = GameObject.Find("Player");
-        animator = GameObject.Find("Sprite").GetComponent<Animator>();
 
         cam = Camera.main;
         if (proCamera2D == null)
@@ -43,26 +39,28 @@ public class EasyContinue : MonoBehaviour
     {
 
         yield return StartCoroutine(HandleGameOverSequence()); // 느려지면서 줌인 + 알파
-        yield return new WaitForSecondsRealtime(0.3f); // 약간의 텀 (옵션)
+        yield return new WaitForSecondsRealtime(0.3f);
 
-        Time.timeScale = 1; // 게임 재개
+        //Time.timeScale = 1; // 게임 재개
         
         float timer = 0f;
-        float startZoom = Camera.main.orthographicSize;
-        proCamera2D.Zoom(6.7f - startZoom, 1.0f);
 
-        animator.SetBool("Dead", false);
-        animator.Play("Idle");
         Ver01_DungeonStatManager.Instance.ResetDungeonState();
+        Color color = redImg.color;
+
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            float alphaValue = duration / timer;
+
+            // 알파값을 0.8에서 0으로 점차적으로 감소
+            float alphaValue = Mathf.Lerp(0.8f, 0f, timer / duration);
 
             // 검은 화면 점점 밝게 설정
-            blackImg.color = new Color(blackImg.color.r, blackImg.color.g, blackImg.color.b, alphaValue);
+            redImg.color = new Color(color.r, color.g, color.b, alphaValue);
+            blackImg.color = new Color(color.r, color.g, color.b, alphaValue);
             yield return null;
         }
+        proCamera2D.Zoom(zoomSize, 1.0f);
 
         if (playerObj != null)
         {
@@ -81,26 +79,25 @@ public class EasyContinue : MonoBehaviour
     {
         Color color = redImg.color;
 
-        float startSize = cam.orthographicSize;
         float time = 0f;
 
         Time.timeScale = 0.5f;
+
+        proCamera2D.Zoom(zoomSize * -1.0f, 1.0f);
+
         while (time < duration)
         {
             time += Time.unscaledDeltaTime; // timeScale 영향을 안 받게
-            float easedT = Mathf.SmoothStep(0f, 1f, time / duration);
-            float alpha = Mathf.Lerp(0.0f, 1.0f, time / duration);
-            float redAlpha = Mathf.Lerp(0f, 1.0f, time / duration);
+            float alpha = Mathf.Lerp(0.0f, 0.8f, time / duration);
 
-            redImg.color = new Color(color.r, color.g, color.b, redAlpha);
+            redImg.color = new Color(color.r, color.g, color.b, alpha);
             blackImg.color = new Color(color.r, color.g, color.b, alpha);
-            cam.orthographicSize = Mathf.Lerp(startSize, targetSize, time / duration);
-
             yield return null;
         }
 
+        Time.timeScale = 1.0f;
         //GameStateManager.Instance.StartMoveUIUp();
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
     }
 
 }

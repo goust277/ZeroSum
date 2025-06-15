@@ -167,7 +167,7 @@ public class PlayerHP : MonoBehaviour
     public void GetHPItem()
     {
         Debug.Log("GetHPItem 호출");
-
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
         hp++;
         if (hp > maxHp)
         {
@@ -229,6 +229,7 @@ public class PlayerHP : MonoBehaviour
         painKillerTimer = blockDuration;
         flash.TriggerFlash(blockDuration);
 
+        playerAnimation.Resurrection();
         hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
     } 
 }
