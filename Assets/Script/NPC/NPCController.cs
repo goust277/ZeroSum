@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 
 public class NPCController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class NPCController : MonoBehaviour
         Run,
         Teleport,
         Dead,
+        Down,
     }
     [Header("NpcHp")]
     [SerializeField] private NPC_Hp npcHp;
@@ -38,7 +41,10 @@ public class NPCController : MonoBehaviour
     [SerializeField] private NPCWalk _walk;
     [SerializeField] private NPCTeleport _teleport;
     [SerializeField] private NPCDead _dead;
-    
+    [SerializeField] private NPCDown _down;
+
+    public bool isDown;
+    public bool isDowned = false;
     [Header("Animator")]
     public Animator animator;
 
@@ -62,12 +68,14 @@ public class NPCController : MonoBehaviour
         IState<NPCController> Walk = _walk;
         IState<NPCController> Teleport = _teleport;
         IState<NPCController> Dead = _dead;
+        IState<NPCController> Down = _down;
 
         dicState.Add(NPCState.Idle, Idle);
         dicState.Add(NPCState.Run, Run);
         dicState.Add(NPCState.Walk, Walk);
         dicState.Add(NPCState.Teleport, Teleport);
         dicState.Add(NPCState.Dead, Dead);
+        dicState.Add(NPCState.Down, Down);
 
         sm = new StateMachine<NPCController>(this, dicState[NPCState.Idle]);
     }
@@ -82,19 +90,28 @@ public class NPCController : MonoBehaviour
 
             moveDirection.x = player.transform.position.x - transform.position.x;
 
-            if (distanceX < walkDistance)
+            if(isDown && !isDowned)
+            {
+                sm.SetState(dicState[NPCState.Down]);
+                isDowned = true;
+            }
+
+            if (distanceX < walkDistance && !isDown)
             {
                 sm.SetState(dicState[NPCState.Idle]);
+                isDowned = false;
             }
 
             else if (walkDistance <= distanceX && distanceX < runDistance)
             {
                 sm.SetState(dicState[NPCState.Walk]);
+                isDowned = false;
             }
 
             else if (runDistance <= distanceX)
             {
                 sm.SetState(dicState[NPCState.Run]);
+                isDowned = false;
             }
 
             if (moveDirection.x >= 0 && moveLeft)
@@ -109,6 +126,7 @@ public class NPCController : MonoBehaviour
             if (teleportDistance <= distanceY)
             {
                 sm.SetState(dicState[NPCState.Teleport]);
+                isDowned = false;
             }
 
             
@@ -142,5 +160,17 @@ public class NPCController : MonoBehaviour
     {
         hpBar.SetActive(true);
         npcHp.enabled = true;
+    }
+
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            isDown = true;
+        }
+        if (context.canceled && isDown)
+        {
+            isDown = false;
+        }
     }
 }
