@@ -204,7 +204,7 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(1.0f);
 
         //숙이기
-        npcAnimator.SetBool("Down", true);
+        npcAnimator.SetBool("Down2", true);
         yield return new WaitForSeconds(0.49f);
         npcAnimator.enabled = false;
         npcAnimator.StopPlayback();
@@ -225,10 +225,8 @@ public class Stage2_Num1Scene : CutSceneBase
         //숙인거 다시 일어서기
         yield return new WaitForSeconds(0.5f);
         npcAnimator.enabled = true;
-        npcAnimator.SetBool("Down", false);
-        npcAnimator.SetBool("Up", true);
+        npcAnimator.SetBool("Down2", false);
         yield return new WaitForSeconds(0.5f);
-        npcAnimator.SetBool("Up", false);
 
         //21
         yield return ShowDialog(19, 3.0f);

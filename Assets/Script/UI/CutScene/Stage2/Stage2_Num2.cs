@@ -88,7 +88,7 @@ public class Stage2_Num2 : CutSceneBase
         yield return new WaitForSeconds(1.0f);
         npcAnimator.SetBool("Mission", true);
         //터치나 타자 효과음 > 잠시잠잠했다가 오류뜨는게 나아보이는데
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(6.0f);
         dialogs[1].SetActive(false);
 
         //잠깐만, 이럴리가 없는데?
