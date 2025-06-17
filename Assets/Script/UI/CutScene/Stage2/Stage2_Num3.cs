@@ -91,6 +91,8 @@ public class Stage2_Num3 : CutSceneBase
         yield return new WaitForSeconds(2.0f);
         //엘리베이터 가서 서기
         StartCoroutine(MovePlayerTo(movesTransform[1], 3.0f));
+        MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 3.6f, 2.0f);
+
         yield return new WaitForSeconds(3.0f);
         dialogs[6].SetActive(false);
 
@@ -114,6 +116,7 @@ public class Stage2_Num3 : CutSceneBase
         evs[0].enabled= true;
         trigger.enabled = true;
 
+        MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 3.0f, 1.0f);
         yield return ShowDialog(9, 3.0f); //7
 
 

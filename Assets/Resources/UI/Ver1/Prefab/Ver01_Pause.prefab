@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 7115543507895149798}
   - component: {fileID: 8134194636774194689}
   - component: {fileID: 8907830652806396169}
-  - component: {fileID: 1182815614937936050}
+  - component: {fileID: 5055595561900411824}
   - component: {fileID: 198750037459567951}
   m_Layer: 5
   m_Name: Quit
@@ -270,9 +270,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1182815614937936050}
-        m_TargetAssemblyTypeName: Exit, Assembly-CSharp
-        m_MethodName: GameExit
+      - m_Target: {fileID: 5055595561900411824}
+        m_TargetAssemblyTypeName: QuitGame, Assembly-CSharp
+        m_MethodName: OnClickQuit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -282,7 +282,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1182815614937936050
+--- !u!114 &5055595561900411824
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2132986652243828473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07cc056b6cb132045a973baa73a8a9f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 01436f247b9f15e4b990a96c9bcf5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &198750037459567951
@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 3629678373529940862}
   - component: {fileID: 4353597343442726339}
   - component: {fileID: 7332357098692279467}
-  - component: {fileID: 3278495780941659155}
+  - component: {fileID: 1700832279544297799}
   - component: {fileID: 7745623648176978569}
   m_Layer: 5
   m_Name: Retry
@@ -737,9 +737,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3278495780941659155}
-        m_TargetAssemblyTypeName: ReTry, Assembly-CSharp
-        m_MethodName: OnClickRestart
+      - m_Target: {fileID: 1700832279544297799}
+        m_TargetAssemblyTypeName: Retry, Assembly-CSharp
+        m_MethodName: RetryFromButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -749,7 +749,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3278495780941659155
+--- !u!114 &1700832279544297799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7002478443648395771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6def34ef4cab5fe4e975f47c87a1f361, type: 3}
+  m_Script: {fileID: 11500000, guid: 1652a378322cd5742900fbf0b25c9b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7745623648176978569
@@ -822,6 +822,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7795762095587386729}
     m_Modifications:
+    - target: {fileID: 3183387765203036776, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183387765203036776, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183387765203036776, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4585374985237991449, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -880,6 +892,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7926898685642554689, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835744122413026953, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835744122413026953, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176862940377561702, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176862940377561702, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176862940377561702, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -2,18 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuitGame : BaseUi
+public class QuitGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    protected override void Awake()
+    public void OnClickQuit()
     {
-        base.Awake();
-    }
-
-    // Update is called once per frame
-    protected override void ButtonFuncion(string btnName)
-    {
-        base.ButtonFuncion(btnName);
         Application.Quit();
     }
 }

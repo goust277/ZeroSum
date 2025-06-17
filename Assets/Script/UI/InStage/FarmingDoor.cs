@@ -11,7 +11,7 @@ public class FarmingDoor : BaseInteractable
 
     [Header("Auto Independent Resources")]
     [SerializeField] private GameObject[] dropItemList;
-
+    [SerializeField] private GameObject guide;
     [SerializeField] private Animator animator; // Animator 컴포넌트 참조
 
     [Header("Monster Door")]
@@ -92,6 +92,7 @@ public class FarmingDoor : BaseInteractable
             Invoke("OpenDoor", 2.0f);
             animator.SetTrigger("Open");
             spriteChanger.SetActive(true); // 활성화하면 자동으로 코루틴 실행됨
+            guide.SetActive(false);
             doorCollider.enabled = false;
             isUse = true;
 
