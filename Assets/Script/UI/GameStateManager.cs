@@ -14,10 +14,9 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager Instance { get; private set; }
     public Dictionary<string, bool> currentEventFlags;  
     [SerializeField] private int currentSceneID = 0;
-    [SerializeField] private int currentStagePoint = 0;
-    [SerializeField] private int chapterNum = 0;         
-    //private int Gold = 0;
-    //private int hp = 5;
+    [SerializeField] private int chapterNum = 0;
+    [SerializeField] private bool isEasy = false;
+    
     private EventRoot eventRoot;
     private Dictionary<string, int> sceneEnterCount = new();
 
@@ -133,15 +132,25 @@ public class GameStateManager : MonoBehaviour
         return chapterNum;
     }
 
-    public int GetStagePoint()
+    public void SetEasy(bool easy)
     {
-        return currentStagePoint;
+        isEasy = easy;
     }
 
-    public void SetStagePoint(int stagePointID)
+    public bool GetEasy()
     {
-        currentStagePoint = stagePointID;
+        return isEasy;
     }
+
+    //public int GetStagePoint()
+    //{
+    //    return currentStagePoint;
+    //}
+
+    //public void SetStagePoint(int stagePointID)
+    //{
+    //    currentStagePoint = stagePointID;
+    //}
 
     private void SetchapterNum(int chapNum)
     {

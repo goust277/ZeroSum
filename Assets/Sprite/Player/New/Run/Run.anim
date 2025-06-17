@@ -29,7 +29,7 @@ AnimationClip:
     - time: 0.25
       value: {fileID: -1875886070, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - time: 0.33333334
-      value: {fileID: -931773670, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
+      value: {fileID: 307776385, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - time: 0.41666666
       value: {fileID: -373183728, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - time: 0.5
@@ -66,7 +66,7 @@ AnimationClip:
     - {fileID: -267442906, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - {fileID: 87218893, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - {fileID: -1875886070, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
-    - {fileID: -931773670, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
+    - {fileID: 307776385, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - {fileID: -373183728, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - {fileID: 115410292, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
     - {fileID: 570296067, guid: b8ab437abc6c8e14ea574317151d860f, type: 3}
@@ -101,6 +101,20 @@ AnimationClip:
     functionName: OnDust
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: edb5470c3acd49d4fa563d782561e06c, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: PlayMoveAudio
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.75
+    functionName: PlayMoveAudio
+    data: 
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

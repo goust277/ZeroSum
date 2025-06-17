@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,7 @@ public class PlayerHP : MonoBehaviour
 
     [Header("Hp")]
     public int hp = 10;
+    private int maxHp;
 
     public bool isBlocked = false;
 
@@ -40,8 +42,8 @@ public class PlayerHP : MonoBehaviour
     private bool OnDeath;
     private Vector3 deathDir;
 
-    private bool isPainKillerRunning = false;
-    private Coroutine painKillerCoroutine = null;
+    private bool isPainKillerActive = false;
+    private float painKillerTimer = 0f;
 
     void Start()
     {
@@ -54,8 +56,10 @@ public class PlayerHP : MonoBehaviour
         OnDeath = false;
         rb = GetComponent<Rigidbody2D>();
 
-        hp = Ver01_DungeonStatManager.maxHP;
-        Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
+        maxHp = Ver01_DungeonStatManager.Instance.GetMaxHP();
+        Ver01_DungeonStatManager.Instance.UpdateHPUI(maxHp);
+        Ver01_DungeonStatManager.Instance.SetCurrentHP(maxHp);
+        hp = maxHp;
 
         curMoveTime = 0f;
 
@@ -96,6 +100,20 @@ public class PlayerHP : MonoBehaviour
         {
             isInvincibility = false;
         }
+
+        if (isPainKillerActive)
+        {
+            painKillerTimer -= Time.deltaTime;
+
+            timeText.text = Mathf.CeilToInt(painKillerTimer).ToString();
+
+            if (painKillerTimer <= 0f)
+            {
+                isPainKillerActive = false;
+                isBlocked = false;
+                painKiller.SetActive(false);
+            }
+        }
     }
     public void InstantDeath()
     {
@@ -118,9 +136,6 @@ public class PlayerHP : MonoBehaviour
             curInvincibillityTime = invincibilityTime;
 
             externalAudioSource.Play();
-
-            hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
-
             if (!isBlocked)
             {
                 hp--;
@@ -142,22 +157,21 @@ public class PlayerHP : MonoBehaviour
                 }
             }
 
-            if(!isPainKillerRunning)
+            if(!isPainKillerActive)
             {
                 playerAnimation.Hit();
             }
         }
-       
     }
 
     public void GetHPItem()
     {
         Debug.Log("GetHPItem 호출");
-
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
         hp++;
-        if (hp > Ver01_DungeonStatManager.maxHP)
+        if (hp > maxHp)
         {
-            hp = Ver01_DungeonStatManager.maxHP;
+            hp = maxHp;
         }
         Ver01_DungeonStatManager.Instance.SetCurrentHP(hp);
         Ver01_DungeonStatManager.Instance.UpdateHPUI(hp);
@@ -165,71 +179,57 @@ public class PlayerHP : MonoBehaviour
 
     public void GetPainKiller(float blockDuration)
     {
-        if (isPainKillerRunning)
-        {
-            StopCoroutine(painKillerCoroutine);
-        }
-
         Debug.Log("GetPainKiller 호출");
-
-        // 항상 새로 시작함
-        painKillerCoroutine = StartCoroutine(BlockFunctionTemporarily(blockDuration));
-    }
-
-    private IEnumerator BlockFunctionTemporarily(float duration)
-    {
-        isPainKillerRunning = true;
-
-        float time = duration;
 
         painKiller.SetActive(true);
         isBlocked = true;
-
-        while (time > 0.1f)
-        {
-            timeText.text = time.ToString("F0");  // 소수점 제거
-            time -= 1.0f;
-            yield return new WaitForSeconds(1.0f);
-        }
-
-        isBlocked = false;
-        painKiller.SetActive(false);
-        isPainKillerRunning = false;
+        isPainKillerActive = true;
+        painKillerTimer = blockDuration;
     }
 
     private void HandleDeath(int reinforcement)
     {
-        if (reinforcement > 0)
-        {
-            return;
-        }
-        else // die
-        {
-            Debug.Log("Game Over");
-            playerInput.enabled = false;
-            col.SetActive(false);
-            OnDeath = true;
-            OnDying?.Invoke();
-            rb.bodyType = RigidbodyType2D.Kinematic;
+        //if (reinforcement > 0)
+        //{
+        //    return;
+        //}
+        //else // die
+        //{
+        Debug.Log("Game Over");
+        playerInput.enabled = false;
+        col.SetActive(false);
+        OnDeath = true;
+        OnDying?.Invoke();
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
-            if(playerMovement.moveLeft)
-            {
-                deathDir = new Vector3(1f, 0f, 0f);
-            }
-            else
-            {
-                deathDir = new Vector3(-1f, 0f, 0f);
-            }
-            Ver01_DungeonStatManager.Instance.GameOver();
+        if(playerMovement.moveLeft)
+        {
+            deathDir = new Vector3(1f, 0f, 0f);
         }
+        else
+        {
+            deathDir = new Vector3(-1f, 0f, 0f);
+        }
+        Ver01_DungeonStatManager.Instance.GameOver();
+        //}
     }
 
-    public void HitCeiling()
+    public void ContinueProcessing(float blockDuration)
     {
-        //rb.velocity = new Vector2(rb.velocity.x, -100f); // 강하게 아래로 밀기
+        Debug.Log("PlayerHP - ContinueProcessing 실행중");
 
-        Vector3 downPos = transform.position;
-        downPos.y -= 1f; // 바닥 아래로 2만큼 이동 (필요에 따라 조정)
-        transform.position = downPos;
-    }
+        playerInput.enabled = true;
+        col.SetActive(true);
+        OnDeath = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        // blockDuration 만큼 무적
+        isPainKillerActive = true;
+        isBlocked = true;
+        painKillerTimer = blockDuration;
+        flash.TriggerFlash(blockDuration);
+
+        playerAnimation.Resurrection();
+        hp = Ver01_DungeonStatManager.Instance.GetCurrentHP();
+    } 
 }

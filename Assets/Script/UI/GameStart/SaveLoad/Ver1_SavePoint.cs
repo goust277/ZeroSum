@@ -90,8 +90,8 @@ public class Ver1_SavePoint : MonoBehaviour
                 version = 0,
                 chapter = currentChapNum,
                 scene = SceneManager.GetActiveScene().buildIndex,
-                currentSceneID = GameStateManager.Instance.GetCurrentSceneID(),
-                currentStagePoint = GameStateManager.Instance.GetStagePoint()
+                currentSceneID = GameStateManager.Instance.GetCurrentSceneID()
+                //currentStagePoint = GameStateManager.Instance.GetStagePoint()
             },
             position = new Position
             {

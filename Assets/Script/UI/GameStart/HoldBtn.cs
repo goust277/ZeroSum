@@ -44,4 +44,16 @@ public class HoldBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             isSelected = false;
         }
     }
+
+    public void OnClicked()
+    {
+        if (isSelected)
+        {
+            image.sprite = defaultSSlotprite;
+            image.color = newColor;
+            // 마우스가 오브젝트를 떠날 때 스케일 원래대로 복원
+            transform.localScale = originalScale;
+            isSelected = false;
+        }
+    }
 }

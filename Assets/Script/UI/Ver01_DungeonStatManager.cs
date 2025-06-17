@@ -30,14 +30,14 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI reinforcementText;
 
     [Header("Game Over")]
-    [SerializeField] private GameObject gameOverPrefab;
+    [SerializeField] private GameObject[] gameOverPrefab = new GameObject[2];
     [SerializeField] private GameObject hudUI;
 
     //private bool isRestarted = false;
     private int currentMagazine;
     private int totalMagazine;
     private int reinforcement;
-    public const int maxHP = 10;
+    public int maxHP = 10;
     [SerializeField] private int currentHP = 10;
 
     //[SerializeField] private int damage = 5;
@@ -59,6 +59,7 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"새로운 씬 : {scene.name}");
+        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         ReadyHPHud();
         ResetDungeonState();
         //isRestarted = false;
@@ -76,6 +77,11 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public int GetCurrentHP()
     {
         return currentHP;
+    }
+
+    public void SetMaxHp(int hp)
+    {
+        maxHP = hp;
     }
 
 
@@ -99,10 +105,8 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     {
         //isRestarted = true;
         hudUI.SetActive(true);
-        GameStateManager.Instance.resetReinforcement();
-        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
-        UpdateHUD();
-        UpdateHPUI(10);
+        currentHP = 5;
+        UpdateHPUI(currentHP);
     }
 
     public int TakeReloadItem()
@@ -179,6 +183,14 @@ public class Ver01_DungeonStatManager : MonoBehaviour
         }
 
         hudUI.SetActive(false);
-        Instantiate(gameOverPrefab);
+
+        if (GameStateManager.Instance.GetEasy()) //쉬움이면
+        {
+            Instantiate(gameOverPrefab[1]);
+        }
+        else
+        {
+            Instantiate(gameOverPrefab[0]);
+        }
     }
 }

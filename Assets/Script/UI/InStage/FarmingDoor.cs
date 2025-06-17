@@ -45,7 +45,7 @@ public class FarmingDoor : BaseInteractable
 
     private void OpenDoor()
     {
-        animator.SetTrigger("Open");
+        
         Invoke("ReopenDoor", 1.0f);
     }
 
@@ -90,6 +90,7 @@ public class FarmingDoor : BaseInteractable
         if(!isUse)
         {
             Invoke("OpenDoor", 2.0f);
+            animator.SetTrigger("Open");
             spriteChanger.SetActive(true); // 활성화하면 자동으로 코루틴 실행됨
             doorCollider.enabled = false;
             isUse = true;

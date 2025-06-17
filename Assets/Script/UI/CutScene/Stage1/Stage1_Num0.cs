@@ -51,7 +51,7 @@ public class Stage1_Num0 : CutSceneBase
 
 
         yield return new WaitForSeconds(1.0f);
-        yield return ShowDialog(0, 6.0f); //2
+        yield return ShowDialog(0, 4.0f); //2
 
         movingImg.SetActive(true);
         inputManager.SetActive(true);

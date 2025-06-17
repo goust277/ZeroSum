@@ -5,6 +5,7 @@ using UnityEngine;
 public class Painkiller : BaseItem
 {
     private bool isCollision = false;
+    [SerializeField] private float duration = 20.0f;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -29,7 +30,7 @@ public class Painkiller : BaseItem
                 PlayerHP playerHP = playerObj.GetComponent<PlayerHP>();
                 if (playerHP != null)
                 {
-                    playerHP.GetPainKiller(30.0f);
+                    playerHP.GetPainKiller(duration);
                 }
             }
             Destroy(gameObject, 0.5f); // 0.5초 후 삭제

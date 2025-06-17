@@ -168,7 +168,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.049004555, y: -0.32377827}
+  m_Offset: {x: 0.049004555, y: -0.14032495}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -179,7 +179,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9019909, y: 1.8098998}
+  m_Size: {x: 0.9019909, y: 1.4429932}
   m_EdgeRadius: 0
 --- !u!114 &147795243683932641
 MonoBehaviour:
@@ -194,6 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guideUIObject: {fileID: 5026347395442997938}
+  guideText: "\uC5D8\uB9AC\uBCA0\uC774\uD130 \uD638\uCD9C\\n [F]"
+  canvas: {fileID: 2125384339145010368}
 --- !u!1 &8623633049623306013
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8623633049623306013}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -259,7 +261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC5D8\uB9AC\uBCA0\uC774\uD130 \uD638\uCD9C [F]"
+  m_text: "\uC5D8\uB9AC\uBCA0\uC774\uD130 \uD638\uCD9C\n [F]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
   m_sharedMaterial: {fileID: -5111223536402474025, guid: ca10a9ccc5836344c93c066055010f50, type: 2}

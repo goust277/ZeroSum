@@ -20,22 +20,14 @@ public class PlayerMoveAudio : MonoBehaviour
 
     public void PlayMoveAudio()
     {
-        if (!isMoving)
-        {
-            isMoving = true;
-            walkAudioSource.volume = 1.0f;
-            walkAudioSource.Play();
-        }
+        walkAudioSource.volume = 1.0f;
+        walkAudioSource.PlayOneShot(walkAudioSource.clip);
     }
 
     public void PlayDownMoveAudio()
     {
-        if (!isMoving)
-        {
-            isMoving = true;
-            walkAudioSource.volume = 0.5f;
-            walkAudioSource.Play();
-        }
+        walkAudioSource.volume = 0.5f;
+        walkAudioSource.PlayOneShot(walkAudioSource.clip);
     }
 
     private void OnDisable()

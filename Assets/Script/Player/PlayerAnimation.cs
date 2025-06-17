@@ -151,4 +151,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetTrigger("Hit");
     }
+
+    public void Resurrection()
+    {
+        animator.SetBool("Dead", false);
+        animator.SetTrigger("Resurrection");
+    }
 }

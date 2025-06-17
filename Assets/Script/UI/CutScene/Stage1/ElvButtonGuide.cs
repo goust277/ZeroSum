@@ -5,25 +5,25 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 
-public class ElvButtonGuide : MonoBehaviour
+public class ButtonGuide : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI guideUIObject;
+    [SerializeField] private string guideText;
+    [SerializeField] private GameObject canvas;
     private InputAction interactAction; //0
     private GameObject playerInput;
     private void Start()
     {
-        playerInput = GameObject.Find("InputManager");
 
-        interactAction = playerInput.GetComponent<PlayerInput>().actions["F"];
+        guideUIObject.text = guideText;
+        canvas.SetActive(false);
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            guideUIObject.text = "엘리베이터 호출 ";
-            guideUIObject.text += "[" + interactAction.bindings[0].ToDisplayString() + "]";
-
-            guideUIObject.enabled = true;
+            canvas.SetActive(true);
         }
     }
 
@@ -31,7 +31,7 @@ public class ElvButtonGuide : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            guideUIObject.enabled = false;
+            canvas.SetActive(false);
         }
     }
 }

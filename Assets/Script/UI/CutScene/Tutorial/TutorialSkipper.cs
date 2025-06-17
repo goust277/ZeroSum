@@ -19,6 +19,7 @@ public class TutorialSkipper : MonoBehaviour
     [SerializeField] private GameObject TutorialObj;
     [SerializeField] private Stage1_Num4 stage1_Num4;
     [SerializeField] private PlayerHP playerHP;
+    [SerializeField] private GameObject tutorialMission;
 
     [Header("UI")]
     [SerializeField] private GameObject MissionUI;
@@ -84,6 +85,7 @@ public class TutorialSkipper : MonoBehaviour
         EndCutScene();
         ConnectPause();
         skipUI.SetActive(false);
+        tutorialMission.SetActive(false);
         Time.timeScale = 1f;
 
         

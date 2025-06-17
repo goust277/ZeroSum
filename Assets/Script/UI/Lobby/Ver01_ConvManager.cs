@@ -41,6 +41,7 @@ public class Ver01_ConvManager : MonoBehaviour
     [Header("Resource After Conversation")]
     [SerializeField] private Transform[] movingSections = new Transform[4];
     [SerializeField] private GameObject[] mapImages = new GameObject[2];
+    [SerializeField] private GameObject[] missionImages = new GameObject[2];
     [SerializeField] protected TextMeshProUGUI missionTXT;
     [SerializeField] private Image pressE;
     [SerializeField] private float duration = 1.0f; // 이동 시간
@@ -139,6 +140,7 @@ public class Ver01_ConvManager : MonoBehaviour
 
         currentStage = GameStateManager.Instance.GetCurrentSceneID();
         mapImages[currentStage].SetActive(true);
+        missionImages[currentStage].SetActive(true);
 
         pressE.gameObject.SetActive(false);
     }
@@ -353,6 +355,12 @@ public class Ver01_ConvManager : MonoBehaviour
     {
         float elapsedTime = 0f;
         float fadeoutTime = 1.0f;
+        
+        //난이도가 쉬움이면
+        if (GameStateManager.Instance.GetEasy())
+        {
+            nextScene = requiredSecneData.afterConditions.nextScene + "Easy";
+        }
 
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
@@ -366,7 +374,7 @@ public class Ver01_ConvManager : MonoBehaviour
         StopAllCoroutines();  // 모든 코루틴 정리
         GameStateManager.Instance.SetCurrenSceneID(currentStage + 1);
 
-        SceneManager.LoadScene(requiredSecneData.afterConditions.nextScene);
+        SceneManager.LoadScene(nextScene);
     }
 
     //씬넘김

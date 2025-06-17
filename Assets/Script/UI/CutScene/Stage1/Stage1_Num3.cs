@@ -8,8 +8,8 @@ public class Stage1_Num3 : CutSceneBase
     [Header("Direct Resources")]
     [SerializeField] private Mission mission;
     [SerializeField] private Image missionCheck;
- 
-    private bool isClear;
+
+    [SerializeField] private bool isClear = false;
 
     void Update()
     {

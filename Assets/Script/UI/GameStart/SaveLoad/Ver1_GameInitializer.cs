@@ -50,7 +50,7 @@ public class Ver1_GameInitializer : MonoBehaviour
         }
 
         GameStateManager.Instance.SetCurrenSceneID(playerState.Version.currentSceneID);
-        GameStateManager.Instance.SetStagePoint(playerState.Version.currentStagePoint);
+        //GameStateManager.Instance.SetStagePoint(playerState.Version.currentStagePoint);
         Debug.Log("���� �̾��ϱ� �غ� �Ϸ�");
     }
 
