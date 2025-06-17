@@ -118,10 +118,6 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        if (rb.velocity == Vector2.zero)
-        {
-            //isRun = false;
-        }
 
         bool isCurGround = isGrounded;
 
@@ -277,31 +273,19 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
-        //float currentPosition = sprite.transform.localPosition.x; // ���� ��ġ ��������
-        //currentPosition *= -1; // x�� �� ����
-        //sprite.transform.localPosition = new Vector3(currentPosition, 0, 0);
-        ////////////////////////////////////////////////////////////////////////////
-        //Vector2 currentScale = transform.localScale;
-        //currentScale.x *= -1;
-        //transform.localScale = currentScale;
     }
 
     public void Mo(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            isMove = true;
-        }
-        if (context.canceled)
-        {
-            isMove = false;
-            //isRun = false;
-        }
+
     }
     public void OnMove(InputAction.CallbackContext context) 
     {
         input = context.ReadValue<Vector2>();
-
+        if (context.canceled)
+        {
+            isMove = false;
+        }
         if (input.y == 0 && input.x != 0)
         {
             isMove = true;

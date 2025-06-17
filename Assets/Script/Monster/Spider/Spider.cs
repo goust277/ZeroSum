@@ -15,6 +15,7 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
     public float patrolRange = 10f;
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
+    public Vector3 currentPosition;
     public Vector3 currentTarget;
     public bool turn;
 

@@ -19,6 +19,7 @@ public class QTESysManager : Mission
         {
             player.SetActive(true);
             input.SetActive(true);
+            isFailed = true;
         }
     }
 
@@ -29,6 +30,8 @@ public class QTESysManager : Mission
     }
     public override void OnMission()
     {
+        if (isFailed) return;
+
         QTEMission.SetActive(true);
         player.SetActive(false);
         input.SetActive(false);

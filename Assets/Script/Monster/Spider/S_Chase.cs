@@ -29,6 +29,12 @@ public class S_Chase : BaseState
             s.sprite.flipX = false;
         }
 
+        if (Mathf.Abs(s.player.transform.position.y - s.transform.position.y) >= 2f)
+        {
+            stateMachine.ChangeState(new S_Patrol(stateMachine, s));
+            return;
+        }
+
         if (s.attackRange > Mathf.Abs(s.player.position.x - s.transform.position.x))
         {
             if (s.CanEnterAttackState())

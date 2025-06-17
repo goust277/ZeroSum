@@ -43,4 +43,13 @@ public class PlayerHit : MonoBehaviour , IDamageAble
             player.InstantDeath();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ceiling") && playerMovement.isGrounded)
+        {
+            player.Damage();
+            player.HitCeiling();
+        }
+    }
 }
