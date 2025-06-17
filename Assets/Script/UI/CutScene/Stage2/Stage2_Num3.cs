@@ -63,6 +63,8 @@ public class Stage2_Num3 : CutSceneBase
         StartCoroutine(MoveUIVerticallyDown(down,130.0f));
         StartCoroutine(MoveUIVerticallyUp(up, 100.0f));
         yield return new WaitForSeconds(0.5f);
+
+        npc.GetComponent<NPC_Hp>().enabled = false;
         StartCoroutine(MovePlayerTo(movesTransform[0], 5.0f));
         yield return new WaitForSeconds(1.0f);
 
@@ -88,7 +90,7 @@ public class Stage2_Num3 : CutSceneBase
         npcAnimator.SetBool("Down2", true);
         yield return new WaitForSeconds(1.0f);
         dialogs[6].SetActive(true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(5.0f);
         //엘리베이터 가서 서기
         StartCoroutine(MovePlayerTo(movesTransform[1], 3.0f));
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 3.6f, 2.0f);

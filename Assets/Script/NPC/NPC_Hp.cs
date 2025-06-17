@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using TMPro;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,6 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
     public bool immunity = false;
     private float maxHp;
     public bool isDead = false;
-
 
     private void Start()
     {
@@ -89,4 +89,11 @@ public class NPC_Hp : MonoBehaviour, IDamageAble
         }
 
     }
+    public void SetHp(int hpAmount)
+    {
+        hp = hpAmount;
+        hpTxt.text = hp.ToString() + " / " + maxHp.ToString();
+        hpImg.fillAmount = hp / maxHp;
+    }
+
 }

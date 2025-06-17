@@ -59,7 +59,6 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"새로운 씬 : {scene.name}");
-        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
         ReadyHPHud();
         ResetDungeonState();
         //isRestarted = false;
@@ -103,9 +102,11 @@ public class Ver01_DungeonStatManager : MonoBehaviour
 
     public void ResetDungeonState()
     {
-        //isRestarted = true;
+        //isRestarted = true
         hudUI.SetActive(true);
-        currentHP = 5;
+        currentHP = maxHP;
+        currentMagazine = GameStateManager.Instance.GetTotalMagazine();
+        UpdateHUD();
         UpdateHPUI(currentHP);
     }
 

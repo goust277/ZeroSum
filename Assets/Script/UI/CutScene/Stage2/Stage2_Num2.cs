@@ -125,6 +125,7 @@ public class Stage2_Num2 : CutSceneBase
             StopCoroutine(enforceCoroutine);
             enforceCoroutine = null;
         }
+        npc.GetComponent<NPC_Hp>().SetHp(5);
 
         CustomeEneScene();
     }

@@ -20,13 +20,13 @@ public class PlayerMoveAudio : MonoBehaviour
 
     public void PlayMoveAudio()
     {
-        walkAudioSource.volume = 1.0f;
+        walkAudioSource.volume = 0.35f;
         walkAudioSource.PlayOneShot(walkAudioSource.clip);
     }
 
     public void PlayDownMoveAudio()
     {
-        walkAudioSource.volume = 0.5f;
+        walkAudioSource.volume = 0.1f;
         walkAudioSource.PlayOneShot(walkAudioSource.clip);
     }
 
