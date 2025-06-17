@@ -47,11 +47,14 @@ public class Stage2_Num3 : CutSceneBase
             inputManager.SetActive(false);
 
         GameStateManager.Instance.StartMoveUIUp();
+        
         StartCoroutine(Num3Scene());
     }
 
     private IEnumerator Num3Scene()
     {
+        Quaternion originalRotation = playerTarget.rotation;
+
         mDoors[0].enabled = false;
         mDoors[1].enabled = false;
         shutters[0].GetComponent<Collider2D>().enabled = true;
@@ -121,7 +124,7 @@ public class Stage2_Num3 : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 3.0f, 1.0f);
         yield return ShowDialog(9, 3.0f); //7
 
-
+        playerTarget.rotation = originalRotation;
         //ÁÜ¾Æ¿ô
         EndCutScene();
     }

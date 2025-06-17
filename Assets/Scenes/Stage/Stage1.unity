@@ -52768,7 +52768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '>'
+  m_text: D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
   m_sharedMaterial: {fileID: -5111223536402474025, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
@@ -63307,6 +63307,10 @@ PrefabInstance:
       propertyPath: moveAudio
       value: 
       objectReference: {fileID: 3848255547963399308}
+    - target: {fileID: 2084547523251236031, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
+      propertyPath: m_Name
+      value: StandHitCollider
+      objectReference: {fileID: 0}
     - target: {fileID: 2259039916255098375, guid: 4ada8c50ce41a2149b04a3a359771c50, type: 3}
       propertyPath: playerInput
       value: 
@@ -86257,7 +86261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <
+  m_text: A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
   m_sharedMaterial: {fileID: -5111223536402474025, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
