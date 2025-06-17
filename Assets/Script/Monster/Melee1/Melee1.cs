@@ -147,7 +147,7 @@ public class Melee1 : BaseAudioMonster, IDetectable, IDamageAble
             }
         }
 
-        if (atk == 100)
+        if (atk >= 50)
         {
             health = 0;
             isDie = true;
@@ -166,5 +166,10 @@ public class Melee1 : BaseAudioMonster, IDetectable, IDamageAble
 
         // 현재 위치를 강제로 재설정하여 즉시 반영
         transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
+    }
+
+    private void attack_col()
+    {
+        attack.gameObject.SetActive(true);
     }
 }

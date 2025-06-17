@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5064595786034138903}
   - component: {fileID: 553424698749569635}
   - component: {fileID: 6690711291014429443}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MonsterDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c89d226509f1f47890a2b02f842457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefabs:
-  - {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
+  monsterPrefabsTypeA: []
+  monsterPrefabsTypeB: []
+  monsterPrefabsTypeC: []
   player: {fileID: 0}
+  spawnCoolTime: 0
+  curCoolTime: 0
+  spawnTime: 0
+  spawnedMonsters: []
+  isSpawnReady: 0

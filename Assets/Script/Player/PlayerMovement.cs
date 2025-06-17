@@ -1,8 +1,5 @@
 
 using System;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -73,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundBoxOffset = 0f;
     [SerializeField] private Vector2 groundBox = Vector2.zero;
     [SerializeField] private float groundCheckDistance = 0.5f;
-    [HideInInspector] public bool isGrounded; 
+    public bool isGrounded; 
     private bool wasGrounded;
 
     [HideInInspector] public bool isDown;

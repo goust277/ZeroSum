@@ -157,7 +157,13 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
                 stateMachine.ChangeState(new S_Hit(stateMachine, this));
             }
         }
-
+        
+        if(atk== 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new S_Die(stateMachine, this));
+        }
 
         //HP ¹Ù Ç¥±â
         if (hpBar != null)

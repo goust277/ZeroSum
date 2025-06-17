@@ -243,6 +243,9 @@ public class Tanker : BaseAudioMonster, IDetectable, IDamageAble
 
         GameObject bullet = Instantiate(BulletPrefab, fPoint.position, Quaternion.identity);
 
+        if (fPoint == rightFirePoint)
+            bullet.GetComponent<SpriteRenderer>().flipX = true;
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {

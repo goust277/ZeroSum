@@ -169,7 +169,7 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
 
     public void Damage(int atk)
     {
-        if (!invincibility)
+        if (!invincibility && atk < 50)
         {
             if (isDie)
             {
@@ -187,6 +187,13 @@ public class Summoner : BaseAudioMonster, IDetectable, IDamageAble
                 HitAnimationOverrides();
                 stateMachine.ChangeState(new Summoner_Hit(stateMachine, this));
             }
+        }
+
+        if (atk == 100)
+        {
+            health = 0;
+            isDie = true;
+            stateMachine.ChangeState(new Summoner_Die(stateMachine, this));
         }
 
         //HP ¹Ù Ç¥±â

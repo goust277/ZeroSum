@@ -8,6 +8,8 @@ public class Stage2_Num2 : CutSceneBase
     //[SerializeField] private Collider2D[] evs;
     [SerializeField] private GameObject npc;
 
+    [Header("mission")]
+
     [SerializeField] private Transform[] npcmoves;
     [SerializeField] private MovingBlock[] evs;
 
