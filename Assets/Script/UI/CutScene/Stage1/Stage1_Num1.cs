@@ -33,17 +33,17 @@ public class Stage1_Num1 : CutSceneBase
     {
         base.Start();
 
-        PlayerInput playerInput = inputManager.GetComponent<PlayerInput>();
+        //PlayerInput playerInput = inputManager.GetComponent<PlayerInput>();
 
-        parringAction = playerInput.actions["Dash"];
-        downAction = playerInput.actions["Down"];
-        gunAction = playerInput.actions["GunAttack"];
-        swordAtkAction = playerInput.actions["SwordAttack"];
+        //parringAction = playerInput.actions["Dash"];
+        //downAction = playerInput.actions["Down"];
+        //gunAction = playerInput.actions["GunAttack"];
+        //swordAtkAction = playerInput.actions["SwordAttack"];
 
-        keyTexts[0].text = parringAction.bindings[0].ToDisplayString();
-        keyTexts[1].text = downAction.bindings[0].ToDisplayString();
-        keyTexts[2].text = gunAction.bindings[0].ToDisplayString();
-        keyTexts[3].text = swordAtkAction.bindings[0].ToDisplayString();
+        keyTexts[0].text = "L Shift";
+        keyTexts[1].text = "S";
+        keyTexts[2].text = "좌클릭";
+        keyTexts[3].text = "우클릭";
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
