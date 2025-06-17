@@ -65070,6 +65070,9 @@ MonoBehaviour:
   - {fileID: 942043711}
   movesTransform: {fileID: 119369580}
   tm: {fileID: 52795086}
+  isComplete: 0
+  isAdvancing: 0
+  completeCnt: 0
 --- !u!1 &1474478825
 GameObject:
   m_ObjectHideFlags: 0
@@ -73851,6 +73854,7 @@ MonoBehaviour:
   down: {fileID: 316727041}
   mission: {fileID: 290667948}
   missionCheck: {fileID: 799763792}
+  isClear: 0
 --- !u!1001 &1762981367
 PrefabInstance:
   m_ObjectHideFlags: 0
