@@ -102,14 +102,14 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return MovePlayerTo(move, 2.0f); //이동
         evs[0].enabled = false;
 
-        yield return ShowDialog(0, 10.0f); // 0~3
+        yield return ShowDialog(0, 13.0f); // 0~3
 
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
         yield return new WaitForSeconds(3.0f);
         playerTarget.rotation = Quaternion.Euler(0, 0, 0);
 
         dialogs[1].SetActive(true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.5f);
         //6
         dialogs[2].SetActive(true);
         yield return new WaitForSeconds(3.0f);
@@ -147,54 +147,65 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(1.0f);
         sr.flipX = true; //좌
         StartCoroutine(ErrorBlink());
-        // 10
-        dialogs[6].SetActive(true);
+        // 10 치 침입자?
+        dialogs[5].SetActive(true);
         yield return new WaitForSeconds(3.0f);
 
-        // 11
+        // 11 꼬맹이
         dialogs[6].SetActive(true);
-        yield return new WaitForSeconds(2.5f);
-        dialogs[7].SetActive(true); //12
-        yield return new WaitForSeconds(2.0f);
-        dialogs[7].SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        dialogs[5].SetActive(false);
         dialogs[6].SetActive(false);
 
-        //13
+        // 누구더러 꼬맹이래!!!!
+        yield return ShowDialog(7, 3.0f);
+
+        //13 잠깐. 설마 침입자라는게…
         yield return ShowDialog(8, 2.0f);
 
-        //14
-        yield return ShowDialog(9, 4.0f);
+        //14 역시 그 그믐과는 다른 인물인가.
+        yield return ShowDialog(9, 3.0f);
 
-        //15
+        //15 호, 혹시 내가 남긴 퍼즐을 해독한거야?
         yield return ShowDialog(10, 2.0f);
 
-        //16
+        // ... 
         dialogs[11].SetActive(true);
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(0.5f);
         dialogs[12].SetActive(true);
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(2.0f);
         dialogs[11].SetActive(false);
         dialogs[12].SetActive(false);
 
-        yield return ShowDialog(13, 2.0f);
+        //17
+        yield return ShowDialog(13, 4.0f);
 
+        //그런 걸 갑자기 물어봐봤자…
+        yield return ShowDialog(14, 2.0f);
+
+        //그럼 두고 가야지 뭐.
+        yield return ShowDialog(15, 2.0f);
+
+
+        dialogs[16].SetActive(true);
+        yield return new WaitForSeconds(3.0f);
         //정찰자  걸어와야함
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 5.12f, 2.0f);
         yield return new WaitForSeconds(1.8f);
         scout.SetActive(true);
 
-        dialogs[14].SetActive(true);
+        //숙여
+        dialogs[17].SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        dialogs[15].SetActive(true);
+        dialogs[16].SetActive(false);
+        dialogs[18].SetActive(true);
         yield return new WaitForSeconds(0.5f);
         sr.flipX = false; //dㅜ
         yield return new WaitForSeconds(1.0f);
-        dialogs[14].SetActive(false);
-        dialogs[15].SetActive(false);
 
         //숙이기
-        npcAnimator.SetBool("Down", true);
-        yield return new WaitForSeconds(0.49f); // 예: 0.5초
+        npcAnimator.SetBool("Down2", true);
+        yield return new WaitForSeconds(0.49f);
         npcAnimator.enabled = false;
         npcAnimator.StopPlayback();
         //쏘기 모션
@@ -214,15 +225,13 @@ public class Stage2_Num1Scene : CutSceneBase
         //숙인거 다시 일어서기
         yield return new WaitForSeconds(0.5f);
         npcAnimator.enabled = true;
-        npcAnimator.SetBool("Down", false);
-        npcAnimator.SetBool("Up", true);
+        npcAnimator.SetBool("Down2", false);
         yield return new WaitForSeconds(0.5f);
-        npcAnimator.SetBool("Up", false);
 
         //21
-        yield return ShowDialog(16, 3.0f);
+        yield return ShowDialog(19, 3.0f);
         yield return new WaitForSeconds(1.0f);
-        yield return ShowDialog(17, 3.0f);
+        yield return ShowDialog(20, 7.0f);
 
         npc.GetComponent<NPCController>().enabled = true;
         yield return new WaitForSeconds(1.0f);

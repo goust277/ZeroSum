@@ -84,10 +84,14 @@ public class Stage2_Num2 : CutSceneBase
         StartCoroutine(MovePlayerTo(npcmoves[3], 7.0f));
         yield return new WaitForSeconds(5.0f);
         //2,3
-        yield return ShowDialog(1, 4.0f);
+        dialogs[1].SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        npcAnimator.SetBool("Mission", true);
         //터치나 타자 효과음 > 잠시잠잠했다가 오류뜨는게 나아보이는데
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(6.0f);
+        dialogs[1].SetActive(false);
 
+        //잠깐만, 이럴리가 없는데?
         yield return ShowDialog(2, 2.0f); //4
         //5
         StartCoroutine(ErrorBlink());
@@ -111,7 +115,7 @@ public class Stage2_Num2 : CutSceneBase
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f); //제자리
         yield return new WaitForSeconds(3.0f);
 
-        yield return ShowDialog(3, 3.0f); //6
+        yield return ShowDialog(3, 5.0f); //6
         yield return ShowDialog(4, 2.0f); //7
         yield return ShowDialog(5, 1.5f); //8
         yield return ShowDialog(6, 2.0f); //7
@@ -204,7 +208,7 @@ public class Stage2_Num2 : CutSceneBase
 
         error9.SetActive(true);
 
-        error9txt.text = "보안 등급 2단계. 보안 등급 2단계. \n 침입자를 저지하세요.";
+        error9txt.text = "보안 등급 2단계. 보안 등급 2단계. \n 침입자를 저지하세요. \n 모든 것은 영화수님의 뜻대로.";
         float endAlpha = 70f / 255f;
         error9img.color = new Color(toColor.r, toColor.g, toColor.b, 10f);
         Color originalColor = error9img.color;

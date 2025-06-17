@@ -310,6 +310,7 @@ MonoBehaviour:
   - {fileID: 3845132708008523123, guid: 0cea8abd6e9e05a44973a8e08da7b300, type: 3}
   - {fileID: 1463685417718291716, guid: f17d5ce3063a4774c83c5c07441258a5, type: 3}
   - {fileID: 6146418187768039255, guid: 1c6a40181871704498b012a9f1ac5838, type: 3}
+  guide: {fileID: 80305048596371724}
   animator: {fileID: 710319837319610475}
   monsterDoor: {fileID: 0}
   invisibleObjs:
@@ -530,6 +531,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ce12feaa03d943409b5a5508ecf42e4, type: 3}
+--- !u!1 &80305048596371724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5004175162046830365, guid: 0ce12feaa03d943409b5a5508ecf42e4, type: 3}
+  m_PrefabInstance: {fileID: 4931208288422563345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3419269376918677631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7718189744575243886, guid: 0ce12feaa03d943409b5a5508ecf42e4, type: 3}

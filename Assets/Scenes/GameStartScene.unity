@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 510302987}
   - component: {fileID: 510302986}
   - component: {fileID: 510302985}
+  - component: {fileID: 510302989}
   - component: {fileID: 510302988}
   m_Layer: 5
   m_Name: Exit
@@ -719,7 +720,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510302986}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510302989}
+        m_TargetAssemblyTypeName: QuitGame, Assembly-CSharp
+        m_MethodName: OnClickQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &510302986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +786,18 @@ MonoBehaviour:
   selectedSlotSprite: {fileID: 21300000, guid: aa6724e677b32db49af7aa6bac048078, type: 3}
   defaultSSlotprite: {fileID: 21300000, guid: 9b1c74846148f90498afd5cde663926e, type: 3}
   hoverScale: {x: 1.1, y: 1.1, z: 1}
+--- !u!114 &510302989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510302983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01436f247b9f15e4b990a96c9bcf5ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &601243184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,7 +2844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6768520189864982420, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7182692892818131983, guid: b6f1a8831e9f41c4f87d27a11f93ff1e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3468,7 +3493,6 @@ MonoBehaviour:
   - {fileID: 1555030532}
   - {fileID: 601243187}
   - {fileID: 1252124760}
-  - {fileID: 510302985}
   - {fileID: 1863142537}
   audioSource: {fileID: 342053134}
   Panel: {fileID: 2051746012}
