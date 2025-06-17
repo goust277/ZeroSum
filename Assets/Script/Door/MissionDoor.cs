@@ -15,6 +15,8 @@ public class MissionDoor : BaseInteractable
     [SerializeField] private Animator animator;
     private bool isClear;
 
+    private bool isCount = false;
+
     public override void Exe()
     {
         animator.SetTrigger("Open");
@@ -46,7 +48,12 @@ public class MissionDoor : BaseInteractable
         {
             animator.SetTrigger("Clear");
 
-            doorManager.clearMission++;
+            if (!isCount)
+            {
+                doorManager.clearMission++;
+                isCount = true;
+            }
+            
         }
     }
 
