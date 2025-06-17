@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,175 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 432
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6fba6cadcf019042beb1d694bb98ef7
-      internalID: -2088869449
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 432
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9610b739e6aebe640b0609a4b1ca861e
-      internalID: 155842712
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 288
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a06ead40111e0c41b0104ad2f8785d2
-      internalID: 100235188
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_3
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 288
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5de463a1e59005740b81c8dfef0139da
-      internalID: 69708841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 144
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 702ea7bcea162a141bb51e9a824fa108
-      internalID: 980231912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_5
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 144
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f1375d041b8cf84cb487e90b433a59a
-      internalID: 267874600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b240441bd85032348a7aef1bef2fb734
-      internalID: -1073568492
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Z_flat1_v0.1_250402_7
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09a82d960d2550841ac352b54efc3ab8
-      internalID: -507285559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -274,15 +106,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Z_flat1_v0.1_250402_0: -2088869449
-      Z_flat1_v0.1_250402_1: 155842712
-      Z_flat1_v0.1_250402_2: 100235188
-      Z_flat1_v0.1_250402_3: 69708841
-      Z_flat1_v0.1_250402_4: 980231912
-      Z_flat1_v0.1_250402_5: 267874600
-      Z_flat1_v0.1_250402_6: -1073568492
-      Z_flat1_v0.1_250402_7: -507285559
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

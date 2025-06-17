@@ -223,4 +223,13 @@ public class PlayerHP : MonoBehaviour
             Ver01_DungeonStatManager.Instance.GameOver();
         }
     }
+
+    public void HitCeiling()
+    {
+        //rb.velocity = new Vector2(rb.velocity.x, -100f); // 강하게 아래로 밀기
+
+        Vector3 downPos = transform.position;
+        downPos.y -= 1f; // 바닥 아래로 2만큼 이동 (필요에 따라 조정)
+        transform.position = downPos;
+    }
 }

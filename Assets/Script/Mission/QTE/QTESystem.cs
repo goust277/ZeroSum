@@ -34,7 +34,7 @@ public class QTESystem : MonoBehaviour
     public bool isClear;
     private bool isDone;
     public bool isFail;
-    private bool isFailed;
+    public bool isFailed;
 
     private void Update()
     {
@@ -118,6 +118,7 @@ public class QTESystem : MonoBehaviour
         GenerateQTESequence();
         CreateSequenceUI();
         curTime = maxTime;
+        isFail = false;
         isDone = false;
         _curTime = 0f;
     }

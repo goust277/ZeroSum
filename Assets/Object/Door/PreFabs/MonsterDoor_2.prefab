@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -192996786, guid: 77dae1c939d930d4c8f4346376cb95a4, type: 3}
+  m_Sprite: {fileID: -219649085, guid: c08e367fa8bec504a9db3ff67b6950ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,10 +122,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabsTypeA: []
   monsterPrefabsTypeB: []
+  monsterPrefabsTypeC: []
   player: {fileID: 0}
   spawnCoolTime: 0
   curCoolTime: 0
+  spawnTime: 0
   spawnedMonsters: []
+  isSpawnReady: 0
 --- !u!61 &5575168530341698922
 BoxCollider2D:
   m_ObjectHideFlags: 0
