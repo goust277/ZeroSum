@@ -99,10 +99,10 @@ public class Stage2_Num1Scene : CutSceneBase
 
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 4.0f, 2.0f);
 
-        yield return MovePlayerTo(move, 2.0f);
+        yield return MovePlayerTo(move, 2.0f); //이동
         evs[0].enabled = false;
 
-        yield return ShowDialog(0, 6.5f);
+        yield return ShowDialog(0, 10.0f); // 0~3
 
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
         yield return new WaitForSeconds(3.0f);
@@ -112,7 +112,7 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(2.0f);
         //6
         dialogs[2].SetActive(true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         dialogs[1].SetActive(false);
         dialogs[2].SetActive(false);
 
@@ -124,6 +124,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
         sr.sortingOrder = 4;
         npc.transform.position = npcmove;
+        sr.flipX = true; //좌
         yield return new WaitForSeconds(1.0f);
 
         //NPC IDLE 뒤집기
@@ -137,9 +138,9 @@ public class Stage2_Num1Scene : CutSceneBase
         dialogs[4].SetActive(true);
         //두리번두리번
         sr.flipX = false; //dㅜ
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
         sr.flipX = true; //좌
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
         dialogs[4].SetActive(false);
         sr.flipX = false; //dㅜ
         // 9
@@ -147,7 +148,8 @@ public class Stage2_Num1Scene : CutSceneBase
         sr.flipX = true; //좌
         StartCoroutine(ErrorBlink());
         // 10
-        yield return ShowDialog(5, 3.0f);
+        dialogs[6].SetActive(true);
+        yield return new WaitForSeconds(3.0f);
 
         // 11
         dialogs[6].SetActive(true);

@@ -361,6 +361,10 @@ public class Ver01_ConvManager : MonoBehaviour
         {
             nextScene = requiredSecneData.afterConditions.nextScene + "Easy";
         }
+        else
+        {
+            nextScene = requiredSecneData.afterConditions.nextScene;
+        }
 
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;

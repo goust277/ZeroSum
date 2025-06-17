@@ -37,6 +37,7 @@ public class Stage1_Num2_1 : CutSceneBase
     private IEnumerator Num2_1Scene()
     {
         yield return new WaitForSeconds(0.5f);
+
         yield return ShowDialog(0, 5.0f); //유저가 대사하고
 
         inputManager.SetActive(true);

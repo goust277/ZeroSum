@@ -36,31 +36,62 @@ public class TestCutScneDialogue : MonoBehaviour
 
         foreach (var dialog in texts)
         {
-            //Debug.Log(dialog);
-            //foreach (var line in dialog)
-            //{   //desTXT.text = line;
             dialogueText.text = "";
+            string currentText = "";
+            bool insideTag = false;
+            string tagBuffer = "";
+
             for (int index = 0; index < dialog.Length; index++)
             {
-                dialogueText.text += dialog[index].ToString();
+                char c = dialog[index];
 
-                // 텍스트 추가 후 강제로 레이아웃 갱신
-                //LayoutRebuilder.ForceRebuildLayoutImmediate(dialogueText.rectTransform);
-                yield return new WaitForSeconds(0.05f); //
+                if (c == '<')  // 태그 시작
+                {
+                    insideTag = true;
+                    tagBuffer += c;
+                    continue;
+                }
+
+                if (insideTag)
+                {
+                    tagBuffer += c;
+                    if (c == '>')  // 태그 끝
+                    {
+                        insideTag = false;
+                        currentText += tagBuffer;  // 태그 통째로 추가
+                        tagBuffer = "";
+                    }
+                    continue;  // 태그 다 붙을 때까지 기다림
+                }
+
+                currentText += c;
+                dialogueText.text = currentText;
+
+                yield return new WaitForSeconds(0.05f);
                 time += 0.05f;
             }
-            dialogueText.text += "\n";
-            yield return new WaitForSeconds(1.0f);
-            time += 1.0f;
-        }
-        yield return new WaitForSeconds(1.0f);
-        time += 1.0f;
 
-        if ( textBox != null)
+            dialogueText.text += "\n";
+            // 대기 시간 설정
+            float waitTime = 1.0f;
+            if (dialog.Length >= 20) waitTime = 3.0f;
+            else if (dialog.Length >= 10) waitTime = 2.0f;
+            else waitTime = 1.0f;
+
+            // 해당 대사 출력 후 대기
+            yield return new WaitForSeconds(waitTime);
+            time += waitTime;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        time += 2.0f;
+
+        if (textBox != null)
         {
-            textBox.enabled = false; // 대사창 비활성화
+            textBox.enabled = false;
         }
 
         Debug.Log($"CutSceneTextWriter 총 소요 시간: {time}초");
     }
+
 }
