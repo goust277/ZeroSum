@@ -340,8 +340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSceneID: 0
-  currentStagePoint: 0
   chapterNum: 0
+  isEasy: 0
   hudUI: {fileID: 5633248632145704218}
   totalMagazineText: {fileID: 6898766615305544671}
   reinforcementText: {fileID: 2979065811239933305}
@@ -365,8 +365,12 @@ MonoBehaviour:
   painKiller: {fileID: 6029577008231697875}
   totalMagazineText: {fileID: 6898766615305544671}
   reinforcementText: {fileID: 2979065811239933305}
-  gameOverPrefab: {fileID: 1363974946156653465, guid: 44a27626e4ef3544da101cd44052556a, type: 3}
+  gameOverPrefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   hudUI: {fileID: 5633248632145704218}
+  maxHP: 10
   currentHP: 5
 --- !u!1 &2836203730706094083
 GameObject:
@@ -2055,8 +2059,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2275763743121230018}
-  - {fileID: 1018157070209956899}
   - {fileID: 8160828471396627696}
+  - {fileID: 1018157070209956899}
   m_Father: {fileID: 370810544647702377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

@@ -24246,7 +24246,7 @@ MonoBehaviour:
   textBox: {fileID: 175914754}
   dialogueText: {fileID: 366476228}
   texts:
-  - "\uADF8\uBBD0 \uAC70\uAE30 \uC788\uB294 \uAC78 \uC54C\uACE0 \uC788\uB2E4!"
+  - "\uADF8\uBBD0! \uAC70\uAE30 \uC788\uB294 \uAC78 \uC54C\uACE0 \uC788\uB2E4!"
   - "\uB2F9\uC7A5 \uB098\uC624\u2026"
   movingOffset: {x: 0.5, y: 2.3, z: 0}
   trackingTransform: {fileID: 1970744125}
@@ -27396,7 +27396,7 @@ MonoBehaviour:
   textBox: {fileID: 367655622}
   dialogueText: {fileID: 2114520643}
   texts:
-  - "\uD638, \uD639\uC2DC \uB0B4\uAC00 \uB0A8\uAE34 \uD37C\uC990\uC744 \uD574\uB3C5\uD55C\uAC70\uC57C?"
+  - "\uD638, \uD639\uC2DC \uB0B4\uAC00 \uB0A8\uAE34 \uBB38\uC11C\uB97C \uBC1C\uACAC\uD55C\uAC70\uC57C?"
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &367655620
@@ -36215,8 +36215,8 @@ MonoBehaviour:
   textBox: {fileID: 424336366}
   dialogueText: {fileID: 812984829}
   texts:
-  - "\uC774\uB807\uAC8C \uD68C\uC0AC \uD55C\uBCF5\uD310\uC5D0\uC11C \uC774\uB984\uC744
-    \uC678\uCCD0\uB300\uBA74!!"
+  - "\uC774\uB807\uAC8C \uBCF5\uB3C4 \uD55C\uBCF5\uD310\uC5D0\uC11C \uC774\uB984\uC744
+    \uC678\uCCD0\uB300\uBA74!!!"
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &424336364
@@ -38626,6 +38626,17 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 2034328289871035373, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
   m_PrefabInstance: {fileID: 513277537}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &513277540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8495527512984579100, guid: 4da0df1de4cb4f54b994c45c76c1f5fc, type: 3}
+  m_PrefabInstance: {fileID: 513277537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799b0981964980e4aa228dd6cf943332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &518870357
 GameObject:
   m_ObjectHideFlags: 0
@@ -40040,6 +40051,22 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1970744125}
+    - target: {fileID: 3701644994597039663, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701644994597039663, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701644994597039663, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701644994597039663, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4041595027958376712, guid: 051faa4c3ed24a44f9f736dadcb818d5, type: 3}
       propertyPath: m_Name
       value: Scout
@@ -43479,8 +43506,8 @@ MonoBehaviour:
   dialogueText: {fileID: 1515263342}
   texts:
   - "\uB098?"
-  - "\uB09C \uC5EC\uAE30 \uC228\uC5B4\uC788\uC744\uAC70\uC57C, \uC77C \uB2E4 \uB05D\uB0B4\uACE0
-    \uAD6C\uD558\uB7EC \uC640!"
+  - "\uB09C \uC5EC\uAE30 \uC228\uC5B4\uC788\uC744\uAC70\uC57C."
+  - "\uC77C \uB2E4 \uB05D\uB0B4\uACE0 \uAD6C\uD558\uB7EC \uC640!"
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &765043191
@@ -43614,8 +43641,8 @@ MonoBehaviour:
   dialogueText: {fileID: 1911292805}
   texts:
   - "\uC7A0\uAE50\uC7A0\uAE50\uC7A0\uAE50. \uB204\uAC00 \uBAA8\uB978\uB300?"
-  - "\uC0DD\uAC01\uC774\uB780\uAC78 \uD574\uC57C \uD560 \uAC70 \uC544\uB2C8\uC57C!
-    \uC778\uAC04 \uB1CC\uAC00 \uC5F0\uC0B0\uC7A5\uCE58\uB3C4 \uC544\uB2C8\uACE0."
+  - "\uC0DD\uAC01\uC774\uB780\uAC78 \uD574\uC57C \uD560 \uAC70 \uC544\uB2C8\uC57C! "
+  - "\uC778\uAC04 \uB1CC\uAC00 \uC5F0\uC0B0\uC7A5\uCE58\uB3C4 \uC544\uB2C8\uACE0."
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &771781798
@@ -46636,10 +46663,11 @@ MonoBehaviour:
   textBox: {fileID: 957677223}
   dialogueText: {fileID: 688212351}
   texts:
-  - "\uAE30\uBB18\uD560 \uB9CC\uCE58 \uC0AC\uB78C\uC774 \uC5C6\uAD70."
+  - "\uAE30\uBB18\uD560 \uC815\uB3C4\uB85C \uC0AC\uB78C\uC774 \uC5C6\uAD70."
   - "\uB098\uB984 \uAE30\uC5C5\uC774\uB77C\uACE0 \uB300\uD53C\uB77C\uB3C4 \uC2DC\uD0A8\uAC74\uAC00,"
-  - "\uC5B4\uCA4C\uBA74 \uC815\uBCF4\uB97C \uC228\uAE30\uB290\uB77C \uAE09\uAE09\uD55C
-    \uAC78\uC9C0\uB3C4 \uBAA8\uB974\uC9C0..."
+  - "\uC5B4\uCA4C\uBA74... "
+  - "\uC815\uBCF4\uB97C \uC228\uAE30\uB290\uB77C \uAE09\uD55C \uAC78\uC9C0\uB3C4
+    \uBAA8\uB974\uC9C0."
   - "\uB2F9\uC7A5\uC740 \uAC78\uB9AC\uC801\uAC70\uB9AC\uB294 \uAC8C \uC5C6\uC73C\uB2C8
     \uD3B8\uD558\uAE34 \uD558\uAD70."
   movingOffset: {x: 0.5, y: 2.3, z: 0}
@@ -48092,7 +48120,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1619190766, guid: 62ada59eabda6f9468eebecaf453508e, type: 3}
+  m_Sprite: {fileID: -1050142780, guid: f63ed9b1d8c03084da5fa05b8ef3f1c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -48112,7 +48140,7 @@ Transform:
   m_GameObject: {fileID: 1092452878}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.59, y: 2.015, z: 0}
+  m_LocalPosition: {x: 8.59, y: 2.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57075,8 +57103,9 @@ MonoBehaviour:
   textBox: {fileID: 1615231206}
   dialogueText: {fileID: 2112741683}
   texts:
-  - "\uC2DC\uAC04\uC774 \uC5C6\uC5B4. \uBAA9\uC801\uC740 <size=120%>\uCD5C\uC0C1\uCE35</size>\uC758
-    <size=120%>\uC601\uD654\uC218</size>. \uC544\uB294 \uAC8C \uC788\uB098?"
+  - "\uC2DC\uAC04\uC774 \uC5C6\uC5B4. "
+  - "\uBAA9\uC801\uC740 <size=120%>\uCD5C\uC0C1\uCE35</size>\uC758 <size=120%>\uC601\uD654\uC218</size>."
+  - "\uC544\uB294 \uAC8C \uC788\uB098?"
   movingOffset: {x: 0.5, y: 2.3, z: 0}
   trackingTransform: {fileID: 1970744125}
 --- !u!114 &1615231204
@@ -60458,7 +60487,7 @@ RectTransform:
   m_GameObject: {fileID: 1803696701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1537321894}
@@ -60466,7 +60495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250}
+  m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 1920, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803696703
@@ -74818,6 +74847,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 513277540}
+        m_TargetAssemblyTypeName: BattleAudioManager, Assembly-CSharp
+        m_MethodName: OnGunAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f4ed61e1-8e4b-4ae0-b90b-1db44593e274
     m_ActionName: PlayerMovement/Attack[/Keyboard/z]
   - m_PersistentCalls:
@@ -75908,7 +75949,9 @@ MonoBehaviour:
   textBox: {fileID: 1979327845}
   dialogueText: {fileID: 757729413}
   texts:
-  - "\uC5EC, \uC5ED\uC2DC \uC228\uC5B4\uC788\uB294\uAC8C \uB0AB\uACA0\uB2E4!"
+  - ...
+  - "\uC544\uB2C8\uC57C, \uC5ED\uC2DC \uD53C\uC548\uC740 \uC9C0\uAE0B\uC9C0\uAE0B\uD574..."
+  - "\uC228\uC5B4\uC788\uC744\uB798."
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &1979327843
@@ -82486,9 +82529,7 @@ MonoBehaviour:
     \uC0C1\uB300\uD558\uBA74 \uB41C\uB2E4\uB294 \uAC70\uC9C0."
   - "\uC774 <size=130%>\uCC9C\uC7AC \uD574\uCEE4\uB2D8</size> \uB355\uC5D0! \uC544\uC8FC
     \uACE0\uB9D9\uC9C0?"
-  - "\uC704\uB85C\uB294 \uBCF4\uC548\uCE35\uACFC \uC5F0\uAD6C \uC13C\uD130\uAC00
-    \uC788\uC5B4. \uC5F0\uAD6C \uC13C\uD130\uB294 \uB098\uB3C4 \uAC00\uBCF8 \uC801
-    \uC5C6\uC9C0\uB9CC..."
+  - "\uC704\uB85C\uB294\uBCF4\uC548\uCE35\uACFC\uC5F0\uAD6C\uC13C\uD130\uAC00\uC788\uC5B4\uC5F0\uAD6C\uC13C\uD130\uB294\uB098\uB3C4\uAC00\uBCF8\uC801\uC5C6\uC9C0\uB9CC\uAD81\uAE08\uD558\uAE30\uB3C4\uD558\uACE0..."
   movingOffset: {x: 0.2, y: 2, z: 0}
   trackingTransform: {fileID: 638307748}
 --- !u!114 &2128153045

@@ -102,7 +102,7 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return MovePlayerTo(move, 2.0f); //이동
         evs[0].enabled = false;
 
-        yield return ShowDialog(0, 13.0f); // 0~3
+        yield return ShowDialog(0, 16.0f); // 0~3
 
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 4.0f, 2.0f);
         yield return new WaitForSeconds(3.0f);
@@ -147,6 +147,8 @@ public class Stage2_Num1Scene : CutSceneBase
         yield return new WaitForSeconds(1.0f);
         sr.flipX = true; //좌
         StartCoroutine(ErrorBlink());
+        yield return new WaitForSeconds(4.0f);
+
         // 10 치 침입자?
         dialogs[5].SetActive(true);
         yield return new WaitForSeconds(3.0f);
@@ -178,7 +180,7 @@ public class Stage2_Num1Scene : CutSceneBase
         dialogs[12].SetActive(false);
 
         //17
-        yield return ShowDialog(13, 4.0f);
+        yield return ShowDialog(13, 9.0f);
 
         //그런 걸 갑자기 물어봐봤자…
         yield return ShowDialog(14, 2.0f);
@@ -188,7 +190,7 @@ public class Stage2_Num1Scene : CutSceneBase
 
 
         dialogs[16].SetActive(true);
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         //정찰자  걸어와야함
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 5.12f, 2.0f);
         yield return new WaitForSeconds(1.8f);
