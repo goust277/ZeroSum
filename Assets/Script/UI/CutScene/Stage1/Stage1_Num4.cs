@@ -59,16 +59,17 @@ public class Stage1_Num4 : CutSceneBase
         inputManager.SetActive(false);
         MoveAndZoomTo((Vector2)cutsceneTarget[0].position, 3.5f, 2.0f); //카메라고정
         yield return MovePlayerTo(move, 2.0f); //플레이어움직임
+        dialogs[1].SetActive(false); //문 알림끄고
+        yield return ShowDialog(0, 10.0f); //유저가 대사하고
 
-        yield return ShowDialog(0, 6.0f); //유저가 대사하고
-
-        dialogs[1].SetActive(true); //문 알림끄고
+        
         MoveAndZoomTo((Vector2)cutsceneTarget[1].position, 7.46f, 2.0f); //아래로
         yield return new WaitForSeconds(2.5f);
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 7.46f, 4.5f); //위로
         yield return new WaitForSeconds(4.7f);
         MoveAndZoomTo((Vector2)cutsceneTarget[3].position, 6.1f, 2.0f); //위로
-        yield return new WaitForSeconds(3.2f);
+        yield return new WaitForSeconds(2.0f);
+        //yield return new WaitForSeconds(3.2f);
 
         trigger.enabled = true;//엘베 콜라이더 이제 켜줌
         StartCoroutine(MoveUIVerticallyDown(missionUI, 180.0f)); //ui창 올림

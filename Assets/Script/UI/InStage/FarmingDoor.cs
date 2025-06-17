@@ -39,7 +39,7 @@ public class FarmingDoor : BaseInteractable
         }
 
         invisibleObjs[0] = GameObject.Find("InputManager");
-        invisibleObjs[1] = player.transform.Find("StandHitCollider ")?.gameObject;
+        invisibleObjs[1] = player.transform.Find("StandHitCollider")?.gameObject;
         invisibleObjs[2] = player.transform.Find("Sprite")?.gameObject;
     }
 

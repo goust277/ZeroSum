@@ -232,7 +232,6 @@ MonoBehaviour:
   blackImg: {fileID: 4724185252670492761}
   deadBodyPrefab: {fileID: 4990336917082212108}
   gameOverCanvas: {fileID: 3404836929475070342}
-  gameOverUI: {fileID: 2670364718542926048}
   up: {fileID: 4378675108170443807}
   down: {fileID: 1195278236867171129}
 --- !u!1 &1605361269330866915
@@ -778,7 +777,7 @@ GameObject:
   - component: {fileID: 4918213722644781620}
   - component: {fileID: 87862199158576933}
   - component: {fileID: 3319084373554798184}
-  - component: {fileID: 5260504477413316553}
+  - component: {fileID: 443922557103506677}
   m_Layer: 5
   m_Name: Quit (1)
   m_TagString: Untagged
@@ -889,9 +888,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5260504477413316553}
-        m_TargetAssemblyTypeName: Exit, Assembly-CSharp
-        m_MethodName: GameExit
+      - m_Target: {fileID: 443922557103506677}
+        m_TargetAssemblyTypeName: QuitGame, Assembly-CSharp
+        m_MethodName: OnClickQuit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -901,7 +900,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5260504477413316553
+--- !u!114 &443922557103506677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -910,7 +909,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4464913830639344738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07cc056b6cb132045a973baa73a8a9f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 01436f247b9f15e4b990a96c9bcf5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5200566257480846624
@@ -925,7 +924,7 @@ GameObject:
   - component: {fileID: 6395609298286537904}
   - component: {fileID: 4783328224325834699}
   - component: {fileID: 1277777659967181544}
-  - component: {fileID: 5203501924595400556}
+  - component: {fileID: 5478160679242890866}
   m_Layer: 5
   m_Name: Retry (1)
   m_TagString: Untagged
@@ -1036,9 +1035,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5203501924595400556}
-        m_TargetAssemblyTypeName: ReTry, Assembly-CSharp
-        m_MethodName: OnClickRestart
+      - m_Target: {fileID: 5478160679242890866}
+        m_TargetAssemblyTypeName: Retry, Assembly-CSharp
+        m_MethodName: RetryFromButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1048,7 +1047,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5203501924595400556
+--- !u!114 &5478160679242890866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1057,7 +1056,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5200566257480846624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6def34ef4cab5fe4e975f47c87a1f361, type: 3}
+  m_Script: {fileID: 11500000, guid: 1652a378322cd5742900fbf0b25c9b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5599464805710002724

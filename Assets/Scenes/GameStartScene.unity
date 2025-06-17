@@ -314,7 +314,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC804\uD22C\uBD88\uAC00 \uC0C1\uD0DC \uC2DC \n\uADF8 \uC790\uB9AC\uC5D0\uC11C
-    \n\uC77C\uC5B4\uB0A9\uB2C8\uB2E4. \n\n\uB9F5\uC758 \uAD6C\uC870\uAC00 \n\uAC04\uB2E8\uD574\uC9D1\uB2C8\uB2E4."
+    \n\uC77C\uC5B4\uB0A9\uB2C8\uB2E4. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
   m_sharedMaterial: {fileID: -5111223536402474025, guid: ca10a9ccc5836344c93c066055010f50, type: 2}
@@ -1025,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: maxHP
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: gameOverPrefab.Array.size
