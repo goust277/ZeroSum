@@ -52,7 +52,7 @@ public class S_Patrol : BaseState
     }
 
     private void SetNextTarget()
-    {
+    { 
         s.currentTarget = (s.transform.position.x < s.spawnPoint.x)
             ? new Vector3(s.spawnPoint.x + s.patrolRange, s.transform.position.y, s.transform.position.z)
             : new Vector3(s.spawnPoint.x - s.patrolRange, s.transform.position.y, s.transform.position.z);

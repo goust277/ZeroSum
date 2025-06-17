@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngineInternal;
 using TMPro;
 
-public class Spider : BaseAudioMonster, IDetectable, IDamageAble
+public class Mission_melee : BaseAudioMonster, IDetectable, IDamageAble
 {
     [Header("Animation")]
     public Animator anim;
@@ -15,7 +15,6 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
     public float patrolRange = 10f;
     public float moveSpeed = 2f;
     private Vector3 spawnPosition;
-    public Vector3 currentPosition;
     public Vector3 currentTarget;
     public bool turn;
 
@@ -25,13 +24,13 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
     public Transform player;
     public bool isPlayerInRange;
     public GameObject detect;
+    public float wait_T;
 
     [Header("Combat Settings")]
-    public int health = 100;
+    public int health = 2;
     public int attackDamage = 1;
     public float attackRange = 1.5f;
     public float attackCooldown = 1f;
-    public float dashRange = 3f;
     public bool canAttack = true;
     public GameObject mark;
     public bool seeMark;
@@ -42,27 +41,27 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
     public GameObject attack;
     private StateMachine stateMachine;
 
-    [Header("HP바 UI")]
-    [SerializeField] private Image hpBar;
-    [SerializeField] private GameObject DamageValuePrefab;
-    [SerializeField] private Transform canvasTransform;
-
     void Start()
     {
+        if (player == null)
+        {
+            GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
+            if (foundPlayer != null)
+                player = foundPlayer.transform;
+        }
+
         spawnPosition = transform.position;
         stateMachine = new StateMachine();
 
         // 필요한 상태 생성 시 컴포넌트를 전달
-        var idleState = new S_Idle(stateMachine, this);
-        var readyStade = new S_Ready(stateMachine, this);
-        var attackState = new S_Attack(stateMachine, this);
-        var patrolState = new S_Patrol(stateMachine, this);
-        var chaseState = new S_Chase(stateMachine, this);
-        var hitState = new S_Hit(stateMachine, this);
-        var dieState = new S_Die(stateMachine, this);
+        var idleState = new MM_Idle(stateMachine, this);
+        var attackState = new MM_Attack(stateMachine, this);
+        var chaseState = new MM_Chase(stateMachine, this);
+        var hitState = new MM_Hit(stateMachine, this);
+        var dieState = new MM_Die(stateMachine, this);
 
         //상태 초기화
-        stateMachine.Initialize(idleState);
+        stateMachine.Initialize(chaseState);
     }
 
     void Update()
@@ -77,6 +76,11 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
                 isCooldownComplete = true;
                 canAttack = false;
             }
+        }
+
+        if (wait_T >= 0)
+        {
+            wait_T -= Time.deltaTime;
         }
     }
 
@@ -102,33 +106,30 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
         {
             turn = true;
         }
+
+        if (other.collider.CompareTag("MovingBlock"))
+        {
+            TakeDamage();
+        }
     }
-    private void VisualDamage(int value)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("VisualDamage");
-        Vector3 offsetFix = new Vector3(-1.0f, -1.0f, 0.0f);
-        Vector3 offset = gameObject.transform.position; // z축을 -0.1로 설정
-        GameObject newText = Instantiate(DamageValuePrefab, offset + offsetFix, Quaternion.identity);
-        //Debug.Log($"★★★★★ New Damage Text instantiated at: {newText.transform.position}");
-
-
-        if (canvasTransform == null)
+        if (other.CompareTag("Player") && this.CompareTag("MonsterAtk"))
         {
-            Debug.LogError("Canvas Transform is not assigned!");
-            return;
+            IDamageAble damageable = other.GetComponent<IDamageAble>();
+            damageable?.Damage(attackDamage);
         }
 
-        newText.transform.SetParent(canvasTransform, false);
-        //Debug.Log($"★ ★Parent set to: {newText.transform.parent.name}");
-        //TextMeshProUGUI textComponent = newText.GetComponentInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
-        if (textComponent == null)
+        if (this.CompareTag("Monster") && (other.CompareTag("MovingBlock") || other.CompareTag("Ev")))
         {
-            Debug.LogError("TextMeshProUGUI component not found in prefab!");
-            return;
+            turn = true;
         }
+    }
 
-        textComponent.text = value.ToString();
+    void TakeDamage()
+    {
+        stateMachine.ChangeState(new MM_Die(stateMachine, this));
     }
 
     public void Damage(int atk)
@@ -140,32 +141,17 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
                 return;
             }
 
-            if(atk != 10)
-            health--;
-
-            else
-            {
-                stateMachine.ChangeState(new S_Die(stateMachine, this));
-                return;
-            }
+             health--;
 
             if (health <= 0)
             {
-                stateMachine.ChangeState(new S_Die(stateMachine, this));
+                stateMachine.ChangeState(new MM_Die(stateMachine, this));
             }
             else
             {
-                stateMachine.ChangeState(new S_Hit(stateMachine, this));
+                stateMachine.ChangeState(new MM_Hit(stateMachine, this));
             }
         }
-
-
-        //HP 바 표기
-        if (hpBar != null)
-        {
-            hpBar.fillAmount = Mathf.Clamp(health, 0, 100) / 100f; //0~1 사이로 클램프
-        }
-        //VisualDamage(atk);
     }
 
     // 목표 반대로 변경
@@ -179,5 +165,10 @@ public class Spider : BaseAudioMonster, IDetectable, IDamageAble
 
         // 현재 위치를 강제로 재설정하여 즉시 반영
         transform.position += new Vector3(moveDirection * -0.1f, 0, 0);
+    }
+
+    private void attack_col()
+    {
+        attack.gameObject.SetActive(true);
     }
 }
