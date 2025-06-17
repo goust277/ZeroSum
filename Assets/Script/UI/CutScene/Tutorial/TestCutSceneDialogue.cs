@@ -53,8 +53,8 @@ public class TestCutScneDialogue : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             time += 1.0f;
         }
-        yield return new WaitForSeconds(0.5f);
-        time += 0.5f;
+        yield return new WaitForSeconds(1.0f);
+        time += 1.0f;
 
         if ( textBox != null)
         {

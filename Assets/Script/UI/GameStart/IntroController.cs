@@ -1,17 +1,38 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+
+[System.Serializable]
+public class DialogueLine
+{
+    public string speaker;
+    public string line;
+
+    public DialogueLine(string speaker, string line)
+    {
+        this.speaker = speaker;
+        this.line = line;
+    }
+}
 
 public class IntroController : MonoBehaviour
 {
-
     [Header("Resources Img")]
-    [SerializeField] private Sprite[] introImgs;
-    [SerializeField] private Image targetImage;
+    [SerializeField] private Animator animator;
+    [SerializeField] private int currentIndex = 0;
+    [SerializeField] private int currentLineIndex = 0;
+
+    [Header("Status Check")]
+    [SerializeField] private bool isTyping = false;
+    [SerializeField] private bool typingSkipped = false;
+    [SerializeField] private bool isWaitingForNextLine = false;
+    [SerializeField] private bool isFKeyBuffered = false;
+
+    private Coroutine typingCoroutine;
+
     [SerializeField] private Image Panel;
     private readonly float fadeoutTime = 2.0f;
     float currentTime = 0.0f;
@@ -21,111 +42,174 @@ public class IntroController : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI desTXT;
     [SerializeField] protected TextMeshProUGUI nextText;
 
-    private readonly string[] npcNames = { "»çÈ¸ÀÚ·Î º¸ÀÌ´Â ·Îº¿", "Àü¹®°¡·Î º¸ÀÌ´Â ·Îº¿","" };
-    private readonly int[] num = { 0, 1, 1, 0, 1, 0,2,2 };
-    private readonly string[] logs =
+    private readonly string[] npcNames = { "ì‚¬íšŒìë¡œ ë³´ì´ëŠ” ë¡œë´‡", "ì „ë¬¸ê°€ë¡œ ë³´ì´ëŠ” ë¡œë´‡", "ì •ì²´ë¶ˆëª…ì˜ ë‚¨ì„±", "ì „ê´‘íŒì—ì„œ ë“¤ë ¤ì˜¤ëŠ” ëª©ì†Œë¦¬", "ì‚­" };
+    private readonly int[] num = {
+        0, 1,
+        1, 1,
+        0, 1,
+        1, 0, 0,
+        2, 2, 2,
+        3, 3,
+        4, 4, 4
+    };
+    private readonly string[] dialogues =
     {
-        "¼­±â 2214³âÀÌ¾ú³ª¿ä? \n ¼¼°è¼ö´ÔÀÇ ¿¹¾ğÀÌ ³»·Á¿À±â ½ÃÀÛÇÑÁö¿ä.",
-        "³×, ±× ¿¹¾ğÀ» °è±â·Î \n ÀúÈñ´Â »ì¾Æ³²À» ±æÀ» Ã£¾Æ³»±â ½ÃÀÛÇß½À´Ï´Ù.",
-        "¿µÈ­¼ö´ÔÀÌ °è½Ã´Â ÇÑ, \n µµ½Ã´Â °ÇÀçÇÕ´Ï´Ù.",
-        "¿µÈ­¼ö´Ô¿¡°Ô ¹®Á¦°¡»ı±â¸é ¾î¶±ÇÏÁÒ?",
-        "°ÆÁ¤ÇÏÁö ¾Ê¾Æµµ ±¦Âú½À´Ï´Ù. \n ¸ğµç ¸¸ÀÏÀ» À§ÇØ ÀúÈñ ÇÇ¾ÈÀÌ ÀÖ´Â°Å´Ï±î¿ä.",
-        "µçµçÇÕ´Ï´Ù! \n ±×·³ Áö±İ±îÁö, ÇÇ¾È»çÀÇ Ã¢¸³ 30ÁÖ³âÀ» ±â³äÀ¸·Î¡¦",
-        "",
-        "...¾Æ¹öÁö"
+        "ì˜í™”ìˆ˜ë‹˜ì˜ ì˜ˆì–¸ì´ ì²˜ìŒìœ¼ë¡œ ë‚´ë ¤ì˜¨ ê²Œ \n 2146ë…„ì´ì—ˆì£ .",
+        "ë„¤, ê·¸ ì˜ˆì–¸ì„ ê³„ê¸°ë¡œ ì €í¬ëŠ” \n ì‚´ì•„ë‚¨ì„ ê¸¸ì„ ì°¾ì•„ë‚´ê¸° ì‹œì‘í–ˆìŠµë‹ˆë‹¤.",
+        "ë¹„ë¡œì†Œ ì˜í™”ìˆ˜ë‹˜ì€ ì €í¬ì˜ ì¤‘ì‹¬ì´ ë˜ì…¨ì£ .",
+        "ì˜í™”ìˆ˜ë‹˜ì´ ê³„ì‹œëŠ” í•œ, ë„ì‹œëŠ” ê±´ì¬í•©ë‹ˆë‹¤.",
+        "í•˜ì§€ë§Œ, ì˜í™”ìˆ˜ë‹˜ì—ê²Œ ë¬¸ì œê°€ ìƒê¸°ë©´ ì–´ë–¡í•˜ì£ ?",
+        "ì˜¤, ìƒë‹¹íˆ ìœ„í—˜í•œ ë§ì”€ì„ í•˜ì‹œëŠ”êµ°ìš”.",
+        "ê±±ì •í•˜ì§€ ì•Šì•„ë„ ê´œì°®ìŠµë‹ˆë‹¤. \n ëª¨ë“  ë§Œì¼ì„ ìœ„í•´ ì €í¬ í”¼ì•ˆì´ ìˆëŠ” ê±°ë‹ˆê¹Œìš”.",
+        "íœ´! \n ì‹¤ì€ ëª¨ë“  ë¶„ì´ ì•Œê³  ê³„ì‹œê² ì§€ë§Œ, \n ë‹¤ì‹œ í•œë²ˆ ì—¬ì­¤ë´¤ìŠµë‹ˆë‹¤.",
+        "ê·¸ê²Œ ì œ ì¼ì´ë‹ˆê¹Œìš”! í•˜í•˜.",
+        "ê·¸ë˜, ê·¸ë ‡ê²Œë§Œ í•˜ë¼ê³ â€¦",
+        "ì§„ì§œ ì„¸ìƒì´ ë‹¤ê°€ì˜¤ë©´â€¦",
+        "ë„ˆë„ ë‚  ì´í•´í•  ìˆ˜ë°–ì— ì—†ê² ì§€.",
+        "ë„¤, ì§€ê¸ˆê¹Œì§€ í”¼ì•ˆì—ì„œ ëª¨ì‹  ë°•ì‚¬ë‹˜ì´ì…¨ìŠµë‹ˆë‹¤.",
+        "ì‡¼ëŠ” ë‹¤ìŒ ì´ ì‹œê°„ì—ë„...",
+        "...",
+        "ë‹¹ì‹ ì€ ë­˜ ë°”ë¼ë³´ê³  ìˆëŠ”ê±°ì§€?",
+        "ì•„ë²„ì§€..."
+
     };
 
-    private string line = "";
+    private readonly int[] linesPerClip = {
+        0, 0,       // Intro_0 ~ Intro_1
+        2, 2, 2,    // Intro_2 ~ Intro_4
+        3, 3, 2,    // Intro_5 ~ Intro_7
+        3           // Intro_8
+    };
 
-    // Start is called before the first frame update
+    private List<List<DialogueLine>> groupedDialogues = new List<List<DialogueLine>>();
+
     void Start()
     {
-        StartCoroutine(IntroCoroutine());
+        int dialogueCursor = 0;
+
+        foreach (int count in linesPerClip)
+        {
+            var clipLines = new List<DialogueLine>();
+            for (int i = 0; i < count; i++)
+            {
+                var speaker = npcNames[num[dialogueCursor]];
+                var text = dialogues[dialogueCursor];
+                clipLines.Add(new DialogueLine(speaker, text));
+                dialogueCursor++;
+            }
+            groupedDialogues.Add(clipLines);
+        }
+
+        PlayCurrent();
     }
 
-    public void ChangeImagesToIndex(int index)
+    void Update()
     {
-        if (index < 0 || index >= introImgs.Length)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.LogWarning("ÀÎµ¦½º ¹üÀ§ ÃÊ°ú");
+            if (isFKeyBuffered) return; // ì—°íƒ€ ë°©ì§€
+            isFKeyBuffered = true;
+
+            var lines = groupedDialogues[currentIndex];
+
+            if (isTyping)
+            {
+                typingSkipped = true;
+            }
+            else if (isWaitingForNextLine)
+            {
+                currentLineIndex++;
+                StartNextLine();
+            }
+            else if (lines.Count == 0)
+            {
+                currentIndex++;
+                if (currentIndex >= groupedDialogues.Count)
+                {
+                    StartCoroutine(fadeOut());
+                    return;
+                }
+                PlayCurrent();
+            }
+            else
+            {
+                currentIndex++;
+                if (currentIndex >= groupedDialogues.Count)
+                {
+                    StartCoroutine(fadeOut());
+                    return;
+                }
+                PlayCurrent();
+            }
+        }
+
+        // F í‚¤ì—ì„œ ì† ë—ì„ ë•Œë§Œ ë‹¤ì‹œ ì…ë ¥ í—ˆìš©
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            isFKeyBuffered = false;
+        }
+    }
+
+
+    void PlayCurrent()
+    {
+        animator.Play($"Intro_{currentIndex+1}");
+        currentLineIndex = 0;
+        var lines = groupedDialogues[currentIndex];
+
+        if (lines.Count == 0)
+        {
+            isTyping = false;
+            isWaitingForNextLine = false;
             return;
         }
 
-        targetImage.sprite = introImgs[index];
+        StartNextLine();
+    }
+
+    void StartNextLine()
+    {
+        var lines = groupedDialogues[currentIndex];
+
+        if (currentLineIndex >= lines.Count)
+        {
+            isTyping = false;
+            isWaitingForNextLine = false;
+            return;
+        }
+
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        DialogueLine lineData = lines[currentLineIndex];
+        nameTXT.text = lineData.speaker;
+        typingCoroutine = StartCoroutine(TypeWriterLine(lineData.line));
     }
 
     private IEnumerator TypeWriterLine(string line)
     {
-        desTXT.text = "";  // ¸Å¹ø Ãâ·Â Àü¿¡ ÅØ½ºÆ® ÃÊ±âÈ­
-        for (int index = 0; index < line.Length; index++)
-        {
-            desTXT.text += line[index].ToString();
-            yield return new WaitForSeconds(0.02f); // ±ÛÀÚ ÇÑ ±ÛÀÚ¾¿ Ãâ·Â
-        }
-    }
-
-    IEnumerator IntroCoroutine()
-    {
-        ChangeImagesToIndex(0);
-        nextText.enabled = true;
-        while (!Input.GetKeyDown(KeyCode.F))
-        {
-            yield return null;  // ¸Å ÇÁ·¹ÀÓ ±â´Ù¸®¸ç Ã¼Å©
-        }
-        nextText.enabled = false;
-
-        ChangeImagesToIndex(1);
-
-        nextText.enabled = true;
-        while (!Input.GetKeyDown(KeyCode.F))
-        {
-            yield return null;  // ¸Å ÇÁ·¹ÀÓ ±â´Ù¸®¸ç Ã¼Å©
-        }
-        nextText.enabled = false;
-
-        ChangeImagesToIndex(2);
-        yield return TypeWriter(0);
-        yield return TypeWriter(1);
-
-        ChangeImagesToIndex(3);
-        yield return TypeWriter(2);
-
-        ChangeImagesToIndex(4);
-        yield return TypeWriter(3);
-        yield return TypeWriter(4);
-
-        ChangeImagesToIndex(5);
-        yield return TypeWriter(5);
-
-        ChangeImagesToIndex(6);
-        yield return TypeWriter(6);
-
-        ChangeImagesToIndex(7);
-        nextText.enabled = true;
-        while (!Input.GetKeyDown(KeyCode.F))
-        {
-            yield return null;  // ¸Å ÇÁ·¹ÀÓ ±â´Ù¸®¸ç Ã¼Å©
-        }
-        nextText.enabled = false;
-        yield return TypeWriter(7);
-
-        StartCoroutine(fadeOut());
-    }
-
-    IEnumerator TypeWriter(int index)
-    {
-        nameTXT.text = npcNames[num[index]];
-        line = logs[index];
-
+        isTyping = true;
+        typingSkipped = false;
+        isWaitingForNextLine = false;
         desTXT.text = "";
-        yield return StartCoroutine(TypeWriterLine(line));// ´ë»ç Ãâ·Â ÄÚ·çÆ¾
 
-        nextText.enabled = true;
-        while (!Input.GetKeyDown(KeyCode.F))
+        for (int i = 0; i < line.Length; i++)
         {
-            yield return null;  // ¸Å ÇÁ·¹ÀÓ ±â´Ù¸®¸ç Ã¼Å©
+            if (typingSkipped)
+            {
+                desTXT.text = line;
+                break;
+            }
+            desTXT.text += line[i];
+            yield return new WaitForSeconds(0.05f);
         }
-        nextText.enabled = false;
+
+        isTyping = false;
+        typingCoroutine = null;
+        isWaitingForNextLine = true;
     }
 
     private IEnumerator fadeOut()

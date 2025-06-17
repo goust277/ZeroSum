@@ -18,11 +18,11 @@ public class Stage1_Num1 : CutSceneBase
     [Header("Tutorial Monster")]
     [SerializeField] private GameObject tm;
 
+    [Header("Tutorial Processing")]
+    [SerializeField] private bool isComplete = false;
+    [SerializeField] private bool isAdvancing = false;
 
-    private bool isComplete = false;
-    private bool isAdvancing = false;
-
-    private int completeCnt = 0;
+    [SerializeField] private int completeCnt = 0;
 
     private InputAction parringAction; //0
     private InputAction downAction; //1

@@ -479,6 +479,8 @@ GameObject:
   - component: {fileID: 1135742468}
   - component: {fileID: 1135742470}
   - component: {fileID: 1135742469}
+  - component: {fileID: 1135742472}
+  - component: {fileID: 1135742471}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -543,6 +545,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135742467}
   m_CullTransparentMesh: 1
+--- !u!95 &1135742471
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135742467}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 894967db0c92ade4887ffaf0b51af118, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &1135742472
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135742467}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1163670242
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163670242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1364,16 +1402,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5646bea1ca40ae04e9464f5273ab7f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introImgs:
-  - {fileID: 21300000, guid: a08fe35dad556a94b97f3bb84aea814b, type: 3}
-  - {fileID: 21300000, guid: 3cd1e752ada73d44f8a5df2f5e152b30, type: 3}
-  - {fileID: 21300000, guid: 39db721b36de5ab479e59883ca823639, type: 3}
-  - {fileID: 21300000, guid: bad816c645c00a94db7359ea25e010dd, type: 3}
-  - {fileID: 21300000, guid: ffef27cb50acfac4f907edff01a58125, type: 3}
-  - {fileID: 21300000, guid: 8b953c7ad665981418d744cc82e7be85, type: 3}
-  - {fileID: 21300000, guid: a723dc3fc012c2a49871e61dbea5e19d, type: 3}
-  - {fileID: 21300000, guid: 00a57e20a4ab3114b92d06ed9a522a97, type: 3}
-  targetImage: {fileID: 1135742469}
+  animator: {fileID: 1135742471}
+  currentIndex: 0
+  currentLineIndex: 0
+  isTyping: 0
+  typingSkipped: 0
+  isWaitingForNextLine: 1
+  isFKeyBuffered: 0
   Panel: {fileID: 1792977613}
   nameTXT: {fileID: 1971533265}
   desTXT: {fileID: 1880265561}
