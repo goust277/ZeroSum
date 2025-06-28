@@ -366,12 +366,11 @@ MonoBehaviour:
   totalMagazineText: {fileID: 6898766615305544671}
   reinforcementText: {fileID: 2979065811239933305}
   gameOverPrefab:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1363974946156653465, guid: 44a27626e4ef3544da101cd44052556a, type: 3}
+  - {fileID: 1363974946156653465, guid: 092344b80cd35f94ba4a0b9ca5cf3577, type: 3}
   hudUI: {fileID: 5633248632145704218}
   maxHP: 10
-  currentHP: 5
+  currentHP: 10
 --- !u!1 &2836203730706094083
 GameObject:
   m_ObjectHideFlags: 0
