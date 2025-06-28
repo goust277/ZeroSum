@@ -9,7 +9,7 @@ using TMPro;
 using TMPro.Examples;
 using UnityEngine.SceneManagement;
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour, ISingleton
 {
     public static GameStateManager Instance { get; private set; }
     public Dictionary<string, bool> currentEventFlags;  
@@ -321,6 +321,10 @@ public class GameStateManager : MonoBehaviour
         reinforcementText.text = reinforcement.ToString();
         totalMagazineText.text = totalMagazine.ToString();
     }
-
+    public void OnSingletonDestroy()
+    {
+        Instance = null;     // 인스턴스 참조도 초기화
+        Destroy(gameObject); // 또는 DestroyImmediate(gameObject);
+    }
 }
 

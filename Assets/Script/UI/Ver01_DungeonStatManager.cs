@@ -10,7 +10,7 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Ver01_DungeonStatManager : MonoBehaviour
+public class Ver01_DungeonStatManager : MonoBehaviour, ISingleton
 {
     public static Ver01_DungeonStatManager Instance { get; private set; }
 
@@ -173,6 +173,12 @@ public class Ver01_DungeonStatManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 해제
+    }
+
+    public void OnSingletonDestroy()
+    {
+        Instance = null;     // 인스턴스 참조도 초기화
+        Destroy(gameObject); // 또는 DestroyImmediate(gameObject);
     }
 
     public void GameOver()
