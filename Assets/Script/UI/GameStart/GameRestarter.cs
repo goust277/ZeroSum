@@ -7,7 +7,20 @@ public class GameRestarter : MonoBehaviour
 {
     public void RestartGame()
     {
-        SingletonDestroyer.DestroyAllSingletons();
+        DestroyAllSingletons();  // 굳이 SingletonDestroyer 안 써도 됨
         SceneManager.LoadScene("GameStartScene");
+    }
+
+    private void DestroyAllSingletons()
+    {
+        var allObjects = FindObjectsOfType<MonoBehaviour>(true); // 비활성 포함
+
+        foreach (var obj in allObjects)
+        {
+            if (obj is ISingleton singleton)
+            {
+                singleton.OnSingletonDestroy();
+            }
+        }
     }
 }

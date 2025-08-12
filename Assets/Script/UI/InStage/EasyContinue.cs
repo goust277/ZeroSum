@@ -16,6 +16,9 @@ public class EasyContinue : MonoBehaviour
     [SerializeField] Image redImg;
     [SerializeField] Image blackImg;
 
+    [Header("ResurrectingNPC")]
+    public GameObject npcObj;
+
     private GameObject playerObj;
     private Camera cam;
 
@@ -29,23 +32,44 @@ public class EasyContinue : MonoBehaviour
             proCamera2D = cam.GetComponent<ProCamera2D>();
             if (proCamera2D == null)
             {
-                Debug.LogWarning("Main Camera에 ProCamera2D가 없습니다!");
+                Debug.LogError("Main Camera에 ProCamera2D가 없습니다!");
             }
         }
+
+        npcObj = GameObject.Find("NPC");
+
+        if (npcObj == null)
+        {
+            Debug.LogError("NPC 오브젝트 못찾음");
+        }
+
         StartCoroutine(FadeOutandIn());
+    }
+
+    private void ResettingStats()
+    {
+        NPC_Hp nPC_Hp = npcObj.GetComponent<NPC_Hp>();
+
+        npcObj.GetComponent<NPCController>().animator.Play("NPC_Idle");
+
+        nPC_Hp.isDead = false;
+        nPC_Hp.Damage(0);
+        nPC_Hp.SetHp(5);
+        Ver01_DungeonStatManager.Instance.ResetDungeonState();
+
     }
 
     private IEnumerator FadeOutandIn()
     {
 
         yield return StartCoroutine(HandleGameOverSequence()); // 느려지면서 줌인 + 알파
+        
         yield return new WaitForSecondsRealtime(0.3f);
 
         //Time.timeScale = 1; // 게임 재개
         
         float timer = 0f;
-
-        Ver01_DungeonStatManager.Instance.ResetDungeonState();
+        ResettingStats();
         Color color = redImg.color;
 
         while (timer < duration)

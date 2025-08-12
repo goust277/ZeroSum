@@ -1503,6 +1503,18 @@ PrefabInstance:
       propertyPath: currentHP
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: gameOverPrefab.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: gameOverPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 1363974946156653465, guid: 44a27626e4ef3544da101cd44052556a, type: 3}
+    - target: {fileID: 1728705131909676674, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
+      propertyPath: gameOverPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 1363974946156653465, guid: 092344b80cd35f94ba4a0b9ca5cf3577, type: 3}
     - target: {fileID: 2279480343155928515, guid: 8ccef512cdf7e0d4cafe2cabf6925f4f, type: 3}
       propertyPath: m_Name
       value: Ver01_UI

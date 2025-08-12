@@ -27,10 +27,10 @@ public class TutorialSummoner : MonoBehaviour
 
     private void BoxOn()
     {
-        InputAction action = playerInput.actions["SwordAttack"];
-        string key = action.bindings[0].ToDisplayString();
+        //InputAction action = playerInput.actions["SwordAttack"];
+        //string key = action.bindings[0].ToDisplayString();
 
-        boxText.text = key + "를 눌러 보급 상자 파괴";
+        boxText.text = "좌클릭을 눌러 보급 상자 파괴";
 
         box.SetActive(true);
     }
