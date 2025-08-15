@@ -89,6 +89,7 @@ public class GameStateManager : MonoBehaviour, ISingleton
         else
             sceneEnterCount[sceneName] = 1;
 
+        resetReinforcement();
         Debug.Log($"[씬 입장] {sceneName} 입장 {sceneEnterCount[sceneName]}회");
     }
 
@@ -105,9 +106,6 @@ public class GameStateManager : MonoBehaviour, ISingleton
         {
             return sceneEnterCount[currentSceneName];
         }
-
-        resetReinforcement();
-
         return 0; // 아직 한 번도 안 들어온 경우
     }
 
