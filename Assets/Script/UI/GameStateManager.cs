@@ -28,6 +28,8 @@ public class GameStateManager : MonoBehaviour, ISingleton
 
     [Header("Battle Resource")]
     [SerializeField] private int totalMagazine = 5;
+    private int[] manazineList = { 5, 8, 12, 16, 20, 30 };
+    private int easyPlusMag = 5;
     private int reinforcement;
 
 
@@ -103,6 +105,8 @@ public class GameStateManager : MonoBehaviour, ISingleton
         {
             return sceneEnterCount[currentSceneName];
         }
+
+        resetReinforcement();
 
         return 0; // 아직 한 번도 안 들어온 경우
     }
@@ -183,7 +187,9 @@ public class GameStateManager : MonoBehaviour, ISingleton
     public void resetReinforcement()
     {
         reinforcement = 0;
-        totalMagazine = 5;
+        totalMagazine = isEasy
+            ? manazineList[reinforcement] + easyPlusMag
+            : manazineList[reinforcement];
         UpdateReinforcementHUD();
     }
 
@@ -281,39 +287,44 @@ public class GameStateManager : MonoBehaviour, ISingleton
     //탄창수
     private void UpdateReinforcementHUD()
     {
-        if (reinforcement == 0)
-        {
-            //이펙트 x, 연사력 x
-            totalMagazine = 5;
-        }
-        else if (reinforcement == 1)
-        {
-            //이펙트 강화, 연사력 강화
-            totalMagazine = 8;
-        }
-        else if(reinforcement == 2)
-        {
-            //이펙트, 외형강화
-            
-            totalMagazine = 12;
-        }
-        else if(reinforcement == 3)
-        {
-            //이펙트 강화, 공격력 5
-            
-            totalMagazine = 16;
+        totalMagazine = isEasy
+            ? manazineList[reinforcement] + easyPlusMag
+            : manazineList[reinforcement];
 
-        }
-        else if(reinforcement == 4)
-        {
-            //이펙트 강화, 외형 강화
-            totalMagazine = 20;
-        }
-        else if(reinforcement == 5)
-        {
-            totalMagazine = 30;
-        }
-        else if(reinforcement == 6)
+        //if (reinforcement == 0)
+        //{
+        //    //이펙트 x, 연사력 x
+        //    totalMagazine = 5;
+        //}
+        //else if (reinforcement == 1)
+        //{
+        //    //이펙트 강화, 연사력 강화
+        //    totalMagazine = 8;
+        //}
+        //else if(reinforcement == 2)
+        //{
+        //    //이펙트, 외형강화
+
+        //    totalMagazine = 12;
+        //}
+        //else if(reinforcement == 3)
+        //{
+        //    //이펙트 강화, 공격력 5
+
+        //    totalMagazine = 16;
+
+        //}
+        //else if(reinforcement == 4)
+        //{
+        //    //이펙트 강화, 외형 강화
+        //    totalMagazine = 20;
+        //}
+        //else if(reinforcement == 5)
+        //{
+        //    totalMagazine = 30;
+        //}
+        //else 
+        if (reinforcement == 6)
         {
             reinforcement--;
             Debug.Log("GameStateManager - GetReinforcementItem // Already reinforcement is max");

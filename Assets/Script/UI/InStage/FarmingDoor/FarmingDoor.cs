@@ -21,7 +21,8 @@ public class FarmingDoor : BaseInteractable
     private SpriteChanger spriteChangerScript; // SpriteChanger 스크립트 참조
     private Collider2D doorCollider;
 
-    [SerializeField] private GameObject[] invisibleObjs = new GameObject[3];
+    [Header("FarmingDoorInteract")]
+    [SerializeField] private FarmingDoorInteract doorInteract;
 
 
     void Start()
@@ -38,9 +39,11 @@ public class FarmingDoor : BaseInteractable
             Debug.Log("Player not found");
         }
 
-        invisibleObjs[0] = GameObject.Find("InputManager");
-        invisibleObjs[1] = player.transform.Find("StandHitCollider")?.gameObject;
-        invisibleObjs[2] = player.transform.Find("Sprite")?.gameObject;
+        doorInteract = FindObjectOfType<FarmingDoorInteract>();
+        if (doorInteract == null)
+        {
+            Debug.LogError("FarmingDoorInteract not found");
+        }
     }
 
     private void OpenDoor()
@@ -60,14 +63,7 @@ public class FarmingDoor : BaseInteractable
 
     private void ReopenDoor()
     {
-        foreach (GameObject obj in invisibleObjs)
-        {
-            if (obj != null) // 🔹 null 체크
-            {
-                obj.SetActive(true);
-            }
-        }
-        
+        doorInteract?.SetInvisible(true);
     }
 
     public void ReceiveDropIndex(int dropIndex)
@@ -75,15 +71,6 @@ public class FarmingDoor : BaseInteractable
         Instantiate(dropItemList[dropIndex], transform.position, Quaternion.identity);
        //DoorChang();
     }
-
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player") && !isUse)
-    //    {
-    //        Exe();
-    //    }
-    //}
 
     public override void Exe()
     {
@@ -96,13 +83,7 @@ public class FarmingDoor : BaseInteractable
             doorCollider.enabled = false;
             isUse = true;
 
-            foreach (GameObject obj in invisibleObjs)
-            {
-                if (obj != null) // 🔹 null 체크
-                {
-                    obj.SetActive(false);
-                }
-            }
+            doorInteract?.SetInvisible(false);
 
         }
 

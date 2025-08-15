@@ -132,6 +132,11 @@ public class EasyContinue : MonoBehaviour
 
     private void ResettingStats()
     {
+        //던전 스탯 초기화
+        if (Ver01_DungeonStatManager.Instance != null)
+            Ver01_DungeonStatManager.Instance.ResetDungeonState();
+
+        //이 밑은 엔피씨 설정 초기화 (1스테이지에서는 바로 리턴해버리게)
         if (npcObj == null) return;
 
         NPC_Hp nPC_Hp = npcObj.GetComponent<NPC_Hp>();
@@ -146,8 +151,5 @@ public class EasyContinue : MonoBehaviour
             nPC_Hp.Damage(0);
             nPC_Hp.SetHp(5);
         }
-
-        if (Ver01_DungeonStatManager.Instance != null)
-            Ver01_DungeonStatManager.Instance.ResetDungeonState();
     }
 }
