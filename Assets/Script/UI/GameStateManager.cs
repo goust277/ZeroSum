@@ -30,7 +30,7 @@ public class GameStateManager : MonoBehaviour, ISingleton
     [SerializeField] private int totalMagazine = 5;
     private int[] manazineList = { 5, 8, 12, 16, 20, 30 };
     private int easyPlusMag = 5;
-    private int reinforcement;
+    private int reinforcement=0;
 
 
     private void Awake()
@@ -193,12 +193,7 @@ public class GameStateManager : MonoBehaviour, ISingleton
 
     public void TakeReinforcementItem()
     {
-        reinforcement++;
-        UpdateReinforcementHUD();
-    }
-
-    public void ReinforcementItem()
-    {
+        Debug.Log("TakeReinforcementItem 호출");
         reinforcement++;
         UpdateReinforcementHUD();
     }
