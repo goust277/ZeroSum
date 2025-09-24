@@ -21,16 +21,6 @@ public class Box : MonoBehaviour, IDamageAble
         isOpen = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (hitCount == 2)
-        {
-            if (!isOpen)
-                isOpen = true;
-        }
-    }
-
     public void Damage(int value)
     {
         if(!isOpen)
@@ -40,6 +30,10 @@ public class Box : MonoBehaviour, IDamageAble
             animator.SetTrigger("IsHit");
         }
 
+        if (hitCount == 2)
+        {
+            isOpen = true;
+        }
     }
 
     public void OpenBox()
