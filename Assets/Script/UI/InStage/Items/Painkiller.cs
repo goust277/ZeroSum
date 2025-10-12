@@ -7,33 +7,37 @@ public class Painkiller : BaseItem
     private bool isCollision = false;
     [SerializeField] private float duration = 20.0f;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other) => TryPickup(other);
+    private void OnCollisionStay2D(Collision2D other) => TryPickup(other);
+
+    private void TryPickup(Collision2D other)
     {
-        //Debug.Log(other.collider.CompareTag("Player") + "부딪힘");
-
-        if (other.transform.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
+        if (!isCollision)
         {
-            isCollision = true;
-            Collider2D objCollider = GetComponent<Collider2D>();  // 
-            objCollider.enabled = false;
-
-            PlaySound();
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
-
-            rb.isKinematic = true;    //중력 & 물리적 반응 제거
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-
-            GameObject playerObj = GameObject.Find("Player");
-            if (playerObj != null)
+            if (other.transform.CompareTag("FeetCollider") || other.transform.root.CompareTag("Player")) // 충돌한 오브젝트의 Collider 비교
             {
-                PlayerHP playerHP = playerObj.GetComponent<PlayerHP>();
-                if (playerHP != null)
+                isCollision = true;
+                Collider2D objCollider = GetComponent<Collider2D>();  // 
+                objCollider.enabled = false;
+
+                PlaySound();
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 참조
+
+                rb.isKinematic = true;    //중력 & 물리적 반응 제거
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+
+                GameObject playerObj = GameObject.Find("Player");
+                if (playerObj != null)
                 {
-                    playerHP.GetPainKiller(duration);
+                    PlayerHP playerHP = playerObj.GetComponent<PlayerHP>();
+                    if (playerHP != null)
+                    {
+                        playerHP.GetPainKiller(duration);
+                    }
                 }
+                Destroy(gameObject, 0.5f); // 0.5초 후 삭제
             }
-            Destroy(gameObject, 0.5f); // 0.5초 후 삭제
         }
     }
 }
