@@ -9,8 +9,8 @@ public class PlayerMoveAudio : MonoBehaviour
     private AudioSource walkAudioSource;
     private AudioSource runAudioSource;
 
-    private bool isMoving = false;
-    private bool isRunning = false;
+    [SerializeField] private bool isMoving = false;
+    [SerializeField] private bool isRunning = false;
 
     private void Start()
     {
@@ -30,18 +30,25 @@ public class PlayerMoveAudio : MonoBehaviour
         walkAudioSource.PlayOneShot(walkAudioSource.clip);
     }
 
+    public void PlayRunAudio()
+    {
+        runAudioSource.volume = 0.35f;
+        runAudioSource.PlayOneShot(runAudioSource.clip);
+    }
+
     private void OnDisable()
     {
         StopMoveAudio();
     }
-
 
     public void StopMoveAudio()
     {
         if (isMoving)
         {
             isMoving = false;
+            isRunning = false;
             walkAudioSource.Stop();
+            runAudioSource.Stop();
         }
     }
 }

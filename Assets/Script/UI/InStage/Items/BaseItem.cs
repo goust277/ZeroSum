@@ -4,9 +4,12 @@ using UnityEngine;
 public abstract class BaseItem : MonoBehaviour
 {
     protected AudioSource externalAudioSource;
+    protected int feetLayer;
 
     protected virtual void Awake()
     {
+        feetLayer = LayerMask.NameToLayer("FeetCollider");
+
         if (externalAudioSource == null)
         {
             GameObject audioManager = GameObject.Find("AudioManager");
