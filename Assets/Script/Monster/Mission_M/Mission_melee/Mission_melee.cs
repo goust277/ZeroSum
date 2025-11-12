@@ -141,7 +141,13 @@ public class Mission_melee : BaseAudioMonster, IDetectable, IDamageAble
                 return;
             }
 
-             health--;
+            if (atk == 10)
+            {
+                stateMachine.ChangeState(new MM_Die(stateMachine, this));
+                return;
+            }
+
+            health--;
 
             if (health <= 0)
             {

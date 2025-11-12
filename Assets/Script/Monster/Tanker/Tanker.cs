@@ -166,6 +166,12 @@ public class Tanker : BaseAudioMonster, IDetectable, IDamageAble
                 return;
             }
 
+            if (atk == 10)
+            {
+                stateMachine.ChangeState(new T_Die(stateMachine, this));
+                return;
+            }
+
             health--;
 
             if (health <= 0)
