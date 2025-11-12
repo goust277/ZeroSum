@@ -32,13 +32,6 @@ public class FarmingDoor : BaseInteractable
         doorCollider = GetComponent<Collider2D>(); // 콜라이더 참조
         animator = GetComponent<Animator>();
 
-        GameObject player = GameObject.Find("Player");
-
-        if (player == null)
-        {
-            Debug.Log("Player not found");
-        }
-
         doorInteract = FindObjectOfType<FarmingDoorInteract>();
         if (doorInteract == null)
         {
@@ -86,6 +79,5 @@ public class FarmingDoor : BaseInteractable
             doorInteract?.SetInvisible(false);
 
         }
-
     }
 }

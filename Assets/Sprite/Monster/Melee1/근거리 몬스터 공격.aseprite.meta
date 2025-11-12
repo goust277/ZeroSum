@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -123,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_0"
     originalName: 
-    pivot: {x: 0.6727273, y: 0.5}
+    pivot: {x: 0.6727273, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -140,10 +141,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 652, y: 276}
+    uvTransform: {x: 776, y: 276}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_1"
     originalName: 
-    pivot: {x: 0.6896551, y: 0.5}
+    pivot: {x: 0.6896551, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -163,7 +164,7 @@ ScriptedImporter:
     uvTransform: {x: 240, y: 276}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_2"
     originalName: 
-    pivot: {x: 0.74999994, y: 0.5}
+    pivot: {x: 0.74999994, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -183,7 +184,7 @@ ScriptedImporter:
     uvTransform: {x: 480, y: 276}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_3"
     originalName: 
-    pivot: {x: 0.3508772, y: 0.5}
+    pivot: {x: 0.3508772, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -203,7 +204,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 276}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_4"
     originalName: 
-    pivot: {x: 0.37254903, y: 0.5}
+    pivot: {x: 0.37254903, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -223,7 +224,7 @@ ScriptedImporter:
     uvTransform: {x: 236, y: 580}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_5"
     originalName: 
-    pivot: {x: 0.3392857, y: 0.5}
+    pivot: {x: 0.3392857, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -243,7 +244,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 580}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_6"
     originalName: 
-    pivot: {x: 0.5376344, y: 0.5}
+    pivot: {x: 0.5376344, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -263,7 +264,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_7"
     originalName: 
-    pivot: {x: 0.67567563, y: 0.5}
+    pivot: {x: 0.67567563, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -284,22 +285,27 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1373262012
+    uuid:
+      value0: 2755273044
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -1539694252
     name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9"
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_0"
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: -32
+        x: 92
         y: 0
-        width: 344
+        width: 220
         height: 284
       spriteId: afd2d8600d6408b4da4303ad552c04ef
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_1"
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -308,7 +314,7 @@ ScriptedImporter:
         width: 232
         height: 276
       spriteId: 86cbfd54e5d747446bf2e1319ebc3a90
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_2"
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -317,7 +323,7 @@ ScriptedImporter:
         width: 288
         height: 220
       spriteId: 28cf838b89afe5345b2d8c712b87831f
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_3"
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -326,7 +332,7 @@ ScriptedImporter:
         width: 228
         height: 296
       spriteId: 2c2b35ad001f755469a31042cfae9c42
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_4"
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -335,7 +341,7 @@ ScriptedImporter:
         width: 204
         height: 284
       spriteId: dce5a91cfb6c37d4eb808dacee0f70fa
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_5"
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -344,7 +350,7 @@ ScriptedImporter:
         width: 224
         height: 300
       spriteId: 2280c2c424900684fb8fecd38409350d
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_6"
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -353,7 +359,7 @@ ScriptedImporter:
         width: 372
         height: 264
       spriteId: 95865e79bb002f148b775fd7ccda3b19
-    - name: "\uADFC\uAC70\uB9AC \uBAAC\uC2A4\uD130 \uACF5\uACA9_Frame_7"
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -369,3 +375,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 480, y: 312}
+  previousTextureSize: {x: 1024, y: 1024}
