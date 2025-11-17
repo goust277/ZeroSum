@@ -85,11 +85,16 @@ public class GameStateManager : MonoBehaviour, ISingleton
     {
         string sceneName = scene.name;
         if (sceneEnterCount.ContainsKey(sceneName))
+        {
             sceneEnterCount[sceneName]++;
+        }
         else
+        {
             sceneEnterCount[sceneName] = 1;
+            ResetReinforcement();
+        }
 
-        resetReinforcement();
+       
         Debug.Log($"[씬 입장] {sceneName} 입장 {sceneEnterCount[sceneName]}회");
     }
 
@@ -182,7 +187,7 @@ public class GameStateManager : MonoBehaviour, ISingleton
         return totalMagazine;
     }
 
-    public void resetReinforcement()
+    public void ResetReinforcement()
     {
         reinforcement = 0;
         totalMagazine = isEasy

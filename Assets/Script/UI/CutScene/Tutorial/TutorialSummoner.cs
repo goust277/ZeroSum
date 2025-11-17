@@ -33,6 +33,8 @@ public class TutorialSummoner : MonoBehaviour
         boxText.text = "좌클릭을 눌러 보급 상자 파괴";
 
         box.SetActive(true);
-    }
 
+        //안죽는거 대비해서 걍 부숨
+        Destroy(gameObject, 3f);
+    }
 }

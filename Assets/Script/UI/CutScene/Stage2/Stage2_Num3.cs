@@ -47,7 +47,12 @@ public class Stage2_Num3 : CutSceneBase
             inputManager.SetActive(false);
 
         GameStateManager.Instance.StartMoveUIUp();
-        
+
+        foreach (Transform child in npc.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
         StartCoroutine(Num3Scene());
     }
 
@@ -117,14 +122,15 @@ public class Stage2_Num3 : CutSceneBase
         npcAnimator.enabled = false;
         npcAnimator.StopPlayback();
 
-        //ø§∏Æ∫£¿Ã≈Õ µø¿€
-        evs[0].enabled= true;
-        trigger.enabled = true;
-
         MoveAndZoomTo((Vector2)cutsceneTarget[2].position, 3.0f, 1.0f);
         yield return ShowDialog(9, 3.0f); //7
 
         playerTarget.rotation = originalRotation;
+
+        //ø§∏Æ∫£¿Ã≈Õ µø¿€
+        evs[0].enabled = true;
+        trigger.enabled = true;
+
         //¡‹æ∆øÙ
         EndCutScene();
     }

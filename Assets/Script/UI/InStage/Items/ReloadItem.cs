@@ -15,9 +15,13 @@ public class ReloadItem :  BaseItem
         amountText.gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other) => TryPickup(other);
+    private void OnCollisionStay2D(Collision2D other) => TryPickup(other);
+
+    private void TryPickup(Collision2D other)
     {
-        if (other.transform.root.CompareTag("Player") && !isCollision) // 충돌한 오브젝트의 Collider 비교
+        if (isCollision) return;
+        if (other.collider.gameObject.layer == feetLayer || other.transform.root.CompareTag("Player")) // 충돌한 오브젝트의 Collider 비교
         {
             isCollision = true;
             Collider2D objCollider = GetComponent<Collider2D>();  // 
@@ -35,6 +39,7 @@ public class ReloadItem :  BaseItem
 
             //Instantiate(AmountText, transform.position, Quaternion.identity);
             Destroy(gameObject, 0.5f); // 1초 후 삭제
+            
         }
     }
 }

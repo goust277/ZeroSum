@@ -92,7 +92,7 @@ public class DefMission : MonoBehaviour
 
             if (damageable != null)
             {
-                damageable.Damage(100);
+                damageable.Damage(10);
             }
         }
 
